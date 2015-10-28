@@ -11,6 +11,7 @@ import user from "./methods/user";
 import photos from "./methods/photos";
 import categories from "./methods/categories";
 import curatedBatches from "./methods/curatedBatches";
+import stats from "./methods/stats";
 
 export default class Unsplash {
   apiUrl: string;
@@ -23,6 +24,7 @@ export default class Unsplash {
   photos: Object;
   categories: Object;
   curatedBatches: Object;
+  stats: Object;
 
   constructor(options: { applicationId: string, secret: string }) {
     this.apiUrl = API_URL;
@@ -35,6 +37,7 @@ export default class Unsplash {
     this.photos = photos.bind(this)();
     this.categories = categories.bind(this)();
     this.curatedBatches = curatedBatches.bind(this)();
+    this.stats = stats.bind(this)();
   }
 
   request(options: { url: string, method: string, query: Object, headers: Object, body: Object }) {
