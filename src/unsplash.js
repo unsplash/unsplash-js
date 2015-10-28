@@ -1,19 +1,23 @@
 /* @flow */
 
 import { API_URL, API_VERSION } from "./constants";
-import { responseJson, requireFetch } from "./utils";
+import { requireFetch } from "./utils";
 
 import URI from "URIjs";
 const fetch = requireFetch();
 
 import photos from "./methods/photos";
 import currentUser from "./methods/currentUser";
+import user from "./methods/user";
 
 export default class Unsplash {
   apiUrl: string;
   apiVersion: string;
   applicationId: string;
   secret: string;
+
+  currentUser: Function;
+  user: Object;
   photos: Object;
 
   constructor(options: { applicationId: string, secret: string }) {
@@ -22,8 +26,9 @@ export default class Unsplash {
     this.applicationId = options.applicationId;
     this.secret = options.secret;
 
-    this.photos = photos.bind(this)();
     this.currentUser = currentUser.bind(this);
+    this.user = user.bind(this)();
+    this.photos = photos.bind(this)();
   }
 
   request(options: { url: string, method: string, query: Object, headers: Object, body: Object }) {
