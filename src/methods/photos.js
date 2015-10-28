@@ -1,4 +1,6 @@
-export default function photos() {
+/* @flow */
+
+export default function photos(): Object {
   return {
     listPhotos: (page, perPage)  => {
       const url = "/photos";
