@@ -7,6 +7,7 @@ import URI from "URIjs";
 const fetch = requireFetch();
 
 import photos from "./methods/photos";
+import currentUser from "./methods/currentUser";
 
 export default class Unsplash {
   apiUrl: string;
@@ -22,6 +23,7 @@ export default class Unsplash {
     this.secret = options.secret;
 
     this.photos = photos.bind(this)();
+    this.currentUser = currentUser.bind(this);
   }
 
   request(options: { url: string, method: string, query: Object, headers: Object, body: Object }) {
@@ -39,10 +41,6 @@ export default class Unsplash {
     return fetch(url.href(), {
       method,
       headers
-    })
-    .then(responseJson)
-    .catch(e => {
-      console.log(e);
     });
   }
 }
