@@ -2,13 +2,14 @@
   "name": "unsplash",
   "version": "0.1.0",
   "description": "A JavaScript client for the Unsplash API.",
-  "main": "lib/unsplash.js",
+  "main": "dist/unsplash.js",
   "scripts": {
     "build": "babel flow src --out-dir dist",
     "build:watch": "babel src --watch --out-dir dist",
     "lint": "eslint src && npm run flow",
     "flow": "flow status",
     "test": "mocha --compilers js:babel/register --recursive",
+    "test:ci": "npm run flow && npm run test",
     "test:watch": "npm test -- --watch"
   },
   "repository": {
