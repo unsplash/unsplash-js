@@ -20,7 +20,7 @@ export default function categories(): Object {
       });
     },
 
-    categoryPhotos: (id, page = 1, perPage = 10) => {
+    categoryPhotos: (id, page, perPage) => {
       const url = `/categories/${id}/photos`;
 
       let query = {

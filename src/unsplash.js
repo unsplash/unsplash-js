@@ -1,10 +1,9 @@
 /* @flow */
 
 import { API_URL, API_VERSION } from "./constants";
-import { requireFetch } from "./utils";
+import { requireFetch, bodyToFormData } from "./utils";
 
 import URI from "URIjs";
-import FormData from "form-data";
 
 const fetch = requireFetch();
 
@@ -78,13 +77,4 @@ export default class Unsplash {
       this._bearerToken = accessToken;
     }
   }
-}
-
-function bodyToFormData(body: Object) {
-  let postBody = new FormData();
-  Object.keys(body).forEach((key) => {
-    postBody.append(key, body[key]);
-  });
-
-  return postBody;
 }

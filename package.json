@@ -8,8 +8,9 @@
     "build:watch": "babel src --watch --out-dir dist",
     "lint": "eslint src && npm run flow",
     "flow": "flow status",
-    "test": "babel-node ./node_modules/.bin/isparta cover _mocha",
-    "test:ci": "npm run flow && npm run test",
+    "test": "mocha --compilers js:babel/register --recursive",
+    "test:ci": "npm run flow && npm run test:coverage",
+    "test:coverage": "babel-node ./node_modules/.bin/isparta cover _mocha",
     "test:watch": "npm test -- --watch"
   },
   "repository": {

@@ -2,7 +2,7 @@
 
 export default function curatedBatches(): Object {
   return {
-    listCuratedBatches: (page = 1, perPage = 10) => {
+    listCuratedBatches: (page, perPage) => {
       const url = "/curated_batches";
 
       let query = {

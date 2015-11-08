@@ -1,5 +1,6 @@
 import Unsplash from "../src/unsplash.js";
 import expect, { spyOn, restoreSpies } from "expect";
+import { bodyToFormData } from "../src/utils";
 
 const applicationId = "applicationId";
 const secret = "secret";
@@ -85,6 +86,17 @@ describe("Unsplash", () => {
           "&redirect_uri=http://foo.com",
           "&response_type=code",
           "&scope=public+read_user"
+        ].join(""));
+      });
+
+      it("should default to public scope when no scope array is passed", () => {
+        expect(unsplash.auth.getAuthenticationUrl())
+        .toBe([
+          "https://unsplash.com/oauth/authorize",
+          `?client_id=${applicationId}`,
+          "&redirect_uri=http://foo.com",
+          "&response_type=code",
+          "&scope=public"
         ].join(""));
       });
     });
@@ -227,6 +239,23 @@ describe("Unsplash", () => {
           query: {
             query: "cats",
             category: "11,4,88",
+            page: 2,
+            per_page: 15
+          }
+        }]);
+      });
+
+      it("should default to empty cateogory when no category array is passed", () => {
+        let spy = spyOn(unsplash, "request");
+        unsplash.photos.searchPhotos("cats", undefined, 2, 15);
+
+        expect(spy.calls.length).toEqual(1);
+        expect(spy.calls[0].arguments).toEqual([{
+          method: "GET",
+          url: "/photos/search",
+          query: {
+            query: "cats",
+            category: "",
             page: 2,
             per_page: 15
           }
@@ -493,6 +522,15 @@ describe("Unsplash", () => {
     it("should set _bearerToken", () => {
       unsplash.setBearerToken("bar");
       expect(unsplash._bearerToken).toBe("bar");
+    });
+  });
+
+  describe("utils", () => {
+    describe("bodyToFormData", () => {
+      it("should return form data", () => {
+        expect(bodyToFormData({ foo: "bar" }))
+        .toBeAn(Object);
+      });
     });
   });
 });
