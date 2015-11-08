@@ -1,6 +1,6 @@
 /* @flow */
 
-export default function user(): Object {
+export default function users(): Object {
   return {
     profile: (username: string) => {
       const url = `/users/${username}`;

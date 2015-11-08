@@ -4,48 +4,60 @@ import { API_URL, API_VERSION } from "./constants";
 import { requireFetch } from "./utils";
 
 import URI from "URIjs";
+import FormData from "form-data";
+
 const fetch = requireFetch();
 
+import auth from "./methods/auth";
 import currentUser from "./methods/currentUser";
-import user from "./methods/user";
+import users from "./methods/users";
 import photos from "./methods/photos";
 import categories from "./methods/categories";
 import curatedBatches from "./methods/curatedBatches";
 import stats from "./methods/stats";
 
 export default class Unsplash {
-  apiUrl: string;
-  apiVersion: string;
-  applicationId: string;
-  secret: string;
+  _apiUrl: string;
+  _apiVersion: string;
+  _applicationId: string;
+  _secret: string;
+  _callbackUrl: string;
+  _bearerToken: string;
 
+  auth: Object;
   currentUser: Function;
-  user: Object;
+  users: Object;
   photos: Object;
   categories: Object;
   curatedBatches: Object;
   stats: Object;
 
-  constructor(options: { applicationId: string, secret: string }) {
-    this.apiUrl = API_URL;
-    this.apiVersion = API_VERSION;
-    this.applicationId = options.applicationId;
-    this.secret = options.secret;
+  constructor(options: { applicationId: string, secret: string, callbackUrl: string }) {
+    this._apiUrl = API_URL;
+    this._apiVersion = API_VERSION;
+    this._applicationId = options.applicationId;
+    this._secret = options.secret;
+    this._callbackUrl = options.callbackUrl;
 
+    this.auth = auth.bind(this)();
     this.currentUser = currentUser.bind(this);
-    this.user = user.bind(this)();
+    this.users = users.bind(this)();
     this.photos = photos.bind(this)();
     this.categories = categories.bind(this)();
     this.curatedBatches = curatedBatches.bind(this)();
     this.stats = stats.bind(this)();
   }
 
-  request(options: { url: string, method: string, query: Object, headers: Object, body: Object }) {
-    let { method, query } = options;
-    let url = URI(`${this.apiUrl}${options.url}`);
+  request(options: { url: string, method: string, query: Object, headers: Object, body: Object, oauth: boolean }) {
+    let { method, query, oauth, body } = options;
+    let url = oauth === true
+      ? URI(options.url)
+      : URI(`${this._apiUrl}${options.url}`);
     let headers = Object.assign({}, options.headers, {
-      "Accept-Version": this.apiVersion,
-      "Authorization": `Client-ID ${this.applicationId}`
+      "Accept-Version": this._apiVersion,
+      "Authorization": this._bearerToken
+        ? `Bearer ${this._bearerToken}`
+        : `Client-ID ${this._applicationId}`
     });
 
     if (query) {
@@ -54,7 +66,25 @@ export default class Unsplash {
 
     return fetch(url.href(), {
       method,
-      headers
+      headers,
+      body: method === "POST" && body
+        ? bodyToFormData(body)
+        : undefined
     });
   }
+
+  setBearerToken(accessToken: string) {
+    if (accessToken) {
+      this._bearerToken = accessToken;
+    }
+  }
+}
+
+function bodyToFormData(body: Object) {
+  let postBody = new FormData();
+  Object.keys(body).forEach((key) => {
+    postBody.append(key, body[key]);
+  });
+
+  return postBody;
 }

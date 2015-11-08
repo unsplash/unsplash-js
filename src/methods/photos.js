@@ -17,12 +17,14 @@ export default function photos(): Object {
       });
     },
 
-    searchPhotos: (q, category, page, perPage) => {
+    searchPhotos: (q, category = [""], page, perPage) => {
       const url = "/photos/search";
 
       let query = {
         query: q,
-        category,
+        category: category.length > 1
+          ? category.join(",")
+          : category.toString(),
         page,
         per_page: perPage
       };
@@ -67,39 +69,48 @@ export default function photos(): Object {
         method: "GET",
         query
       });
+    },
+
+    uploadPhoto: (photo) => {
+      if (!this._bearerToken) {
+        throw new Error("Requires a bearerToken to be set.");
+      }
+
+      const url = "/photos";
+
+      return this.request({
+        url,
+        method: "POST",
+        body: {
+          photo: photo
+        }
+      });
+    },
+
+    likePhoto: (id) => {
+      if (!this._bearerToken) {
+        throw new Error("Requires a bearerToken to be set.");
+      }
+
+      const url = `/photos/${id}/like`;
+
+      return this.request({
+        url,
+        method: "POST"
+      });
+    },
+
+    unlikePhoto: (id) => {
+      if (!this._bearerToken) {
+        throw new Error("Requires a bearerToken to be set.");
+      }
+
+      const url = `/photos/${id}/like`;
+
+      return this.request({
+        url,
+        method: "DELETE"
+      });
     }
-
-    // uploadPhoto: (photo) => {
-    //   return "Method not yet implemented";
-    //   const url = "/photos";
-
-    //   return this.request({
-    //     url,
-    //     method: "POST",
-    //     body: {
-    //       photo: photo
-    //     }
-    //   });
-    // },
-
-//     likePhoto: (id) => {
-//       return "Method not yet implemented";
-//       const url = "/photos/${id}/like";
-
-//       return this.request({
-//         url,
-//         method: "POST"
-//       });
-//     },
-
-    // unlikePhoto: (id) => {
-    //   return "Method not yet implemented";
-    //   const url = "/photos/${id}/like";
-
-    //   return this.request({
-    //     url,
-    //     method: "DELETE"
-    //   });
-    // }
   };
 }
