@@ -1,6 +1,6 @@
 /* @flow */
 
-import URI from "URIjs";
+import URI from "urijs";
 
 import { OAUTH_AUTHORIZE_URL, OAUTH_TOKEN_URL } from "../constants";
 

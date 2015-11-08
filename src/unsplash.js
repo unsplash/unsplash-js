@@ -1,9 +1,10 @@
 /* @flow */
 
 import { API_URL, API_VERSION } from "./constants";
-import { requireFetch, bodyToFormData } from "./utils";
+import { bodyToFormData } from "./utils";
+import { requireFetch } from "./services";
 
-import URI from "URIjs";
+import URI from "urijs";
 
 const fetch = requireFetch();
 
