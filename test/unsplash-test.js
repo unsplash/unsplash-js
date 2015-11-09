@@ -1,12 +1,18 @@
 import Unsplash from "../src/unsplash.js";
+import { bodyToFormData, buildFetchOptions } from "../src/utils";
+import { requireFetch } from "../src/services";
+
 import expect, { spyOn, restoreSpies } from "expect";
-import { bodyToFormData } from "../src/utils";
+import mockery from "mockery";
 
 const applicationId = "applicationId";
 const secret = "secret";
-const callbackUrl = "http://foo.com"
+const callbackUrl = "http://foo.com";
 
 describe("Unsplash", () => {
+  mockery.registerMock("node-fetch", () => {});
+  mockery.registerMock("fetch", () => {});
+
   describe("constructor", () => {
     let unsplash = new Unsplash({
       applicationId,
@@ -29,7 +35,6 @@ describe("Unsplash", () => {
     it("should set the secret argument on the Unsplash instance", () => {
       expect(unsplash._secret).toBe(secret);
     });
-
 
     it("should set the callbackUrl argument on the Unsplash instance", () => {
       expect(unsplash._callbackUrl).toBe(callbackUrl);
@@ -472,7 +477,7 @@ describe("Unsplash", () => {
         expect(spy.calls.length).toEqual(1);
         expect(spy.calls[0].arguments).toEqual([{
           method: "GET",
-          url: "/curated_batches/88",
+          url: "/curated_batches/88"
         }]);
       });
     });
@@ -485,7 +490,7 @@ describe("Unsplash", () => {
         expect(spy.calls.length).toEqual(1);
         expect(spy.calls[0].arguments).toEqual([{
           method: "GET",
-          url: "/curated_batches/88/photos",
+          url: "/curated_batches/88/photos"
         }]);
       });
     });
@@ -506,7 +511,7 @@ describe("Unsplash", () => {
         expect(spy.calls.length).toEqual(1);
         expect(spy.calls[0].arguments).toEqual([{
           method: "GET",
-          url: "/stats",
+          url: "/stats"
         }]);
       });
     });
@@ -519,9 +524,27 @@ describe("Unsplash", () => {
       callbackUrl
     });
 
+    it("should not set _bearerToken when no `accessToken` argument is passed", () => {
+      unsplash.setBearerToken();
+
+      expect(unsplash._bearerToken).toBe(undefined);
+    });
+
     it("should set _bearerToken", () => {
       unsplash.setBearerToken("bar");
       expect(unsplash._bearerToken).toBe("bar");
+    });
+  });
+
+  describe("request", () => {
+    it("should call fetch", () => {
+      let unsplash = new Unsplash({
+        applicationId,
+        secret,
+        callbackUrl
+      });
+
+      unsplash.currentUser();
     });
   });
 
@@ -530,6 +553,91 @@ describe("Unsplash", () => {
       it("should return form data", () => {
         expect(bodyToFormData({ foo: "bar" }))
         .toBeAn(Object);
+      });
+    });
+
+    describe("buildFetchOptions", () => {
+      const classFixture = {
+        _apiUrl: "http://foo.com",
+        _apiVersion: "v1",
+        _applicationId: "bar"
+      };
+
+      const optionsFixture = {
+        url: "/bar",
+        method: "POST",
+        query: undefined,
+        oauth: false,
+        body: undefined
+      };
+
+      it("should return a fetchOptions object with a method key representing the method in the options agument", () => {
+        let method = buildFetchOptions
+        .bind(classFixture)(optionsFixture).options
+          .method;
+
+        expect(method).toBe("POST");
+      });
+
+      it("should return a fetchOptions object with querystrings appended to the url", () => {
+        const options = Object.assign({}, optionsFixture, {
+          query: { foo: "bar" }
+        });
+
+        let url = buildFetchOptions.bind(classFixture)(options).url;
+
+        expect(url).toBe("http://foo.com/bar?foo=bar");
+      });
+
+      it("should return a fetchOptions object with `Client-ID {applicationId}` Authorization header", () => {
+        let authorizationHeader = buildFetchOptions
+          .bind(classFixture)(optionsFixture).options
+          .headers["Authorization"];
+
+        expect(authorizationHeader).toBe("Client-ID bar");
+      });
+
+      it("should return a fetchOptions object with `Bearer {token}` Authorization header", () => {
+        const classBearerFixture = Object.assign({}, classFixture, {
+          _bearerToken: "abc"
+        });
+
+        let authorizationHeader = buildFetchOptions
+          .bind(classBearerFixture)(optionsFixture).options
+          .headers["Authorization"];
+
+        expect(authorizationHeader).toBe("Bearer abc");
+      });
+
+      it("should not append url with apiUrl when oauth is set to true on the options argument", () => {
+        const options = Object.assign({}, optionsFixture, {
+          url: "http://naoufal.com/oauth",
+          oauth: true
+        });
+
+        let url = buildFetchOptions.bind(classFixture)(options).url;
+
+        expect(url).toBe("http://naoufal.com/oauth");
+      });
+
+      it("should return a fetchOptions object with body key", () => {
+        const options = Object.assign({}, optionsFixture, {
+          body: { foo: "bar" }
+        });
+
+        let body = buildFetchOptions.bind(classFixture)(options).options.body;
+
+        expect(body).toBeAn(Object);
+      });
+    });
+  });
+
+  describe("services", () => {
+    describe("requireFetch", () => {
+      it("should require fetch client polyfill when required on the client", () => {
+        process.env.browser = true;
+
+        requireFetch();
       });
     });
   });

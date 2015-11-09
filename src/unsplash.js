@@ -1,10 +1,8 @@
 /* @flow */
 
 import { API_URL, API_VERSION } from "./constants";
-import { bodyToFormData } from "./utils";
+import { buildFetchOptions } from "./utils";
 import { requireFetch } from "./services";
-
-import URI from "urijs";
 
 const fetch = requireFetch();
 
@@ -48,29 +46,19 @@ export default class Unsplash {
     this.stats = stats.bind(this)();
   }
 
-  request(options: { url: string, method: string, query: Object, headers: Object, body: Object, oauth: boolean }) {
-    let { method, query, oauth, body } = options;
-    let url = oauth === true
-      ? URI(options.url)
-      : URI(`${this._apiUrl}${options.url}`);
-    let headers = Object.assign({}, options.headers, {
-      "Accept-Version": this._apiVersion,
-      "Authorization": this._bearerToken
-        ? `Bearer ${this._bearerToken}`
-        : `Client-ID ${this._applicationId}`
-    });
-
-    if (query) {
-      url.query(query);
+  request(
+    requestOptions: {
+      url: string,
+      method: string,
+      query: Object,
+      headers: Object,
+      body: Object,
+      oauth: boolean
     }
+  ) {
+    var { url, options } = buildFetchOptions.bind(this)(requestOptions);
 
-    return fetch(url.href(), {
-      method,
-      headers,
-      body: method === "POST" && body
-        ? bodyToFormData(body)
-        : undefined
-    });
+    return fetch(url, options);
   }
 
   setBearerToken(accessToken: string) {
