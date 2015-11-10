@@ -1,7 +1,10 @@
 /* @flow */
 
-import FormData from "form-data";
 import URI from "urijs";
+
+const FormData = process.browser
+  ? window.FormData
+  : require("form-data");
 
 export function bodyToFormData(body: Object): Object {
   let postBody = new FormData();

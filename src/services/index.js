@@ -1,7 +1,7 @@
 export function requireFetch() {
-  const isClient = process.env.browser || false;
+  const isClient = process.browser || false;
 
   return isClient
-    ? require("fetch")
+    ? window.fetch
     : require("node-fetch");
 }
