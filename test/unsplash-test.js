@@ -1,4 +1,4 @@
-import Unsplash from "../src/unsplash.js";
+import Unsplash, { toJson } from "../src/unsplash.js";
 import { bodyToFormData, buildFetchOptions } from "../src/utils";
 import { requireFetch } from "../src/services";
 
@@ -131,22 +131,47 @@ describe("Unsplash", () => {
   });
 
   describe("currentUser", () => {
+    afterEach(function () {
+      restoreSpies();
+    });
+
     let unsplash = new Unsplash({
       applicationId,
       secret,
       callbackUrl
     });
 
-    it("should make a GET request to /me", () => {
-      let spy = spyOn(unsplash, "request");
-      unsplash.currentUser();
+    describe("profile", () => {
+      it("should make a GET request to /me", () => {
+        let spy = spyOn(unsplash, "request");
+        unsplash.currentUser.profile();
 
-      expect(spy.calls.length).toEqual(1);
-      expect(spy.calls[0].arguments).toEqual([{
-        method: "GET",
-        url: "/me"
-      }]);
+        expect(spy.calls.length).toEqual(1);
+        expect(spy.calls[0].arguments).toEqual([{
+          method: "GET",
+          url: "/me"
+        }]);
+      });
     });
+
+    describe("updateProfile", () => {
+      it("should make a GET request to /me", () => {
+        let spy = spyOn(unsplash, "request");
+        unsplash.currentUser.updateProfile({
+          username: "foo"
+        });
+
+        expect(spy.calls.length).toEqual(1);
+        expect(spy.calls[0].arguments).toEqual([{
+          method: "POST",
+          url: "/me",
+          body: {
+            username: "foo"
+          }
+        }]);
+      });
+    });
+
   });
 
   describe("users", () => {
@@ -544,7 +569,7 @@ describe("Unsplash", () => {
         callbackUrl
       });
 
-      unsplash.currentUser();
+      unsplash.currentUser.profile();
     });
   });
 
@@ -553,6 +578,16 @@ describe("Unsplash", () => {
       it("should return form data", () => {
         expect(bodyToFormData({ foo: "bar" }))
         .toBeAn(Object);
+      });
+    });
+
+    describe("toJson", () => {
+      const res = {
+        json: () => true
+      };
+
+      it("should call the json method on res", () => {
+        expect(toJson(res)).toBe(true);
       });
     });
 

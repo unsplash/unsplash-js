@@ -3,7 +3,7 @@
 import FormData from "form-data";
 import URI from "urijs";
 
-export function bodyToFormData(body: Object) {
+export function bodyToFormData(body: Object): Object {
   let postBody = new FormData();
   Object.keys(body).forEach((key) => {
     postBody.append(key, body[key]);
