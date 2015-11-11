@@ -23,6 +23,7 @@ module.exports = {
         'browser': true
       }
     }),
+    new webpack.IgnorePlugin(/^form-data/),
     new webpack.IgnorePlugin(/^node-fetch/),
   ],
   resolve: {

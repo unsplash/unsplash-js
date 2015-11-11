@@ -4,7 +4,8 @@
   "description": "A JavaScript client for the Unsplash API.",
   "main": "lib/index.js",
   "scripts": {
-    "build": "npm run build:lib && npm run build:umd && npm run build:umd:min",
+    "build": "npm run build:lib && npm run build:umd && npm run build:umd:min && npm run build:examples",
+    "build:examples": "cp dist/unsplash.min.js examples/umd/public/unsplash.min.js",
     "build:lib": "babel src --out-dir lib",
     "build:umd": "webpack src/unsplash.js dist/unsplash.js --config webpack.config.development.js",
     "build:umd:min": "webpack src/unsplash.js dist/unsplash.min.js --config webpack.config.production.js",
@@ -47,7 +48,7 @@
     "isparta": "3.5.3",
     "istanbul": "0.4.0",
     "mocha": "2.3.3",
-    "mockery": "1.4.0",
+    "mockery": "1.4.0"
   },
   "dependencies": {
     "form-data": "0.2.0",

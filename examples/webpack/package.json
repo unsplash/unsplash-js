@@ -1,5 +1,5 @@
 {
-  "name": "unsplash-js-client-example",
+  "name": "unsplash-js-webpack-example",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -25,6 +25,7 @@
     "exports-loader": "0.6.2",
     "imports-loader": "0.6.5",
     "webpack": "1.12.3",
-    "webpack-dev-server": "1.12.1"
+    "webpack-dev-server": "1.12.1",
+    "whatwg-fetch": "0.10.1"
   }
 }

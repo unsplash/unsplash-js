@@ -1,0 +1,22 @@
+{
+  "name": "unsplash-js-umd-example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "NODE_ENV=production node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/naoufal/unsplash.git"
+  },
+  "author": "Naoufal Kadhom",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/naoufal/unsplash/issues"
+  },
+  "homepage": "https://github.com/naoufal/unsplash#readme",
+  "devDependencies": {
+    "express": "4.13.3"
+  }
+}
