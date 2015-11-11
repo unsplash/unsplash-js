@@ -72,4 +72,3 @@ export default class Unsplash {
     return res.json();
   }
 }
-

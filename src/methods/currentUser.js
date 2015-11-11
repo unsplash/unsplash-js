@@ -57,6 +57,6 @@ export default function currentUser(): Object {
         body
       });
     }
-  }
+  };
 
 }

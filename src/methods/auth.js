@@ -19,7 +19,7 @@ export default function auth(): Object {
         .readable();
     },
 
-    userAuthentication: ( code) => {
+    userAuthentication: (code) => {
       const url = OAUTH_TOKEN_URL;
 
       return this.request({
