@@ -1,6 +1,5 @@
 /* @flow */
-
-import URI from "urijs";
+import { stringify as qsStringify } from "querystring";
 
 const FormData = process.browser
   ? window.FormData
@@ -27,8 +26,8 @@ export function buildFetchOptions(
 ): Object {
   let { method, query, oauth, body } = options;
   let url = (oauth === true)
-    ? URI(options.url)
-    : URI(`${this._apiUrl}${options.url}`);
+    ? options.url
+    : `${this._apiUrl}${options.url}`;
   let headers = Object.assign({}, options.headers, {
     "Accept-Version": this._apiVersion,
     "Authorization": this._bearerToken
@@ -37,11 +36,11 @@ export function buildFetchOptions(
   });
 
   if (query) {
-    url.query(query);
+    url = decodeURIComponent(`${url}?${qsStringify(query)}`);
   }
 
   return {
-    url: url.href(),
+    url: url,
     options: {
       method,
       headers,

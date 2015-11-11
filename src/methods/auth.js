@@ -1,22 +1,21 @@
 /* @flow */
 
-import URI from "urijs";
-
+import querystring from "querystring";
 import { OAUTH_AUTHORIZE_URL, OAUTH_TOKEN_URL } from "../constants";
 
 export default function auth(): Object {
   return {
     getAuthenticationUrl: (scope = ["public"]) => {
-      return URI(OAUTH_AUTHORIZE_URL)
-        .query({
-          client_id: this._applicationId,
-          redirect_uri: this._callbackUrl,
-          response_type: "code",
-          scope: scope.length > 1
-            ? scope.join("+")
-            : scope.toString()
-        })
-        .readable();
+      let querystrings = querystring.stringify({
+        client_id: this._applicationId,
+        redirect_uri: this._callbackUrl,
+        response_type: "code",
+        scope: scope.length > 1
+          ? scope.join("+")
+          : scope.toString()
+      });
+
+      return decodeURIComponent(`${OAUTH_AUTHORIZE_URL}?${querystrings}`);
     },
 
     userAuthentication: (code) => {
