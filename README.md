@@ -1,45 +1,61 @@
 # Unsplash
+
 [![npm](https://img.shields.io/npm/v/unsplash-js.svg?style=flat-square)](https://www.npmjs.com/package/unsplash-js)
-[![Travis](https://img.shields.io/travis/naoufal/unsplash.svg?style=flat-square)](https://travis-ci.org/naoufal/unsplash)
-[![Coveralls](https://img.shields.io/coveralls/naoufal/unsplash.svg?style=flat-square)](https://coveralls.io/github/naoufal/unsplash)
+[![Travis](https://img.shields.io/travis/naoufal/unsplash/master.svg?style=flat-square)](https://travis-ci.org/naoufal/unsplash/branches)
+[![Coveralls](https://img.shields.io/coveralls/naoufal/unsplash/master.svg?style=flat-square)](https://coveralls.io/github/naoufal/unsplash?branch=master)
 
-A JavaScript wrapper for the [Unsplash API](https://unsplash.com/developers).
+A [Universal JavaScript](https://medium.com/@mjackson/universal-javascript-4761051b7ae9) wrapper for the [Unsplash API](https://unsplash.com/developers).
 
-## Install
-```
-npm i --save unsplash-js
-```
+## Browser Support
+
+![Chrome](https://raw.github.com/alrra/browser-logos/master/chrome/chrome_48x48.png) | ![Firefox](https://raw.github.com/alrra/browser-logos/master/firefox/firefox_48x48.png) | ![Safari](https://raw.github.com/alrra/browser-logos/master/safari/safari_48x48.png) | ![Opera](https://raw.github.com/alrra/browser-logos/master/opera/opera_48x48.png) | ![IE](https://raw.github.com/alrra/browser-logos/master/internet-explorer/internet-explorer_48x48.png) |
+--- | --- | --- | --- | --- |
+Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | 10+ ✔ |
 
 ## Documentation
+- [Installation](https://github.com/naoufal/unsplash#installation)
+- [Dependencies](https://github.com/naoufal/unsplash#dependencies)
 - [Usage](https://github.com/naoufal/unsplash#usage)
-- [Authorization Workflow](https://github.com/naoufal/unsplash#authorization-workflow)
-- [Authorization](https://github.com/naoufal/unsplash#authorization)
-- [Current User](https://github.com/naoufal/unsplash#current-user)
-- [Users](https://github.com/naoufal/unsplash#users)
-- [Photos](https://github.com/naoufal/unsplash#photos)
-- [Categories](https://github.com/naoufal/unsplash#categories)
-- [Curated Batches](https://github.com/naoufal/unsplash#curated-batches)
-- [Stats](https://github.com/naoufal/unsplash#stats)
-- [Functions](https://github.com/naoufal/unsplash#functions)
+- [Instance Methods](https://github.com/naoufal/unsplash#instance-methods)
+- [Helpers](https://github.com/naoufal/unsplash#helpers)
+- [License](https://github.com/naoufal/unsplash#license)
 
-## Usage
-Start by requiring the Unsplash.
-```js
-import Unsplash, { toJson } from "unsplash-js";
+## Installation
+```bash
+$ npm i --save unsplash-js
 ```
 
-Once you've required the module, you'll want to initialize Unsplash with your developer credentials.
+## Dependencies
+This library depends on [fetch](https://fetch.spec.whatwg.org/) to make requests to the Unsplash API.  __For browsers__ that don't support fetch, you'll need to provide a [poly](https://github.com/github/fetch)[fill](https://cdnjs.com/libraries/fetch).
+
+## Usage
+### Creating an instance
+To create an instance, simply provide an _Object_ with your `applicationId`, `secret` and `callbackUrl`.
+
 ```js
 let unsplash = new Unsplash({
-  applicationId: "{YOUR_APPLICATION_ID}",
-  secret: "{YOUR_SECRET_KEY}",
-  callbackUrl: "{YOUR_CALLBACK_URL}"
+  applicationId: "{APP_ID}",
+  secret: "{APP_SECRET}",
+  callbackUrl: "{CALLBACK_URL}"
 });
 ```
 
-_Credentials can be optained from [Unsplash Developers](https://unsplash.com/developers)._
+If you already have a bearer token, you can also provide it to the constructor.
 
-## Authorization Workflow
+```js
+let unsplash = new Unsplash({
+  applicationId: "{APP_ID}",
+  secret: "{APP_SECRET}",
+  callbackUrl: "{CALLBACK_URL}",
+  bearerToken: "{USER_BEARER_TOKEN}"
+});
+```
+
+_Credentials can be obtained from [Unsplash Developers](https://unsplash.com/developers)._
+
+---
+
+### Authorization workflow
 Generate an authentication url with the scopes your app requires.
 
 ```js
@@ -66,7 +82,7 @@ After the user authorizes your app she'll be redirected to your callback url wit
 unsplash.auth.userAuthentication(query.code)
   .then(toJson)
   .then(json => {
-    unsplash.setBearerToken(json.access_token);
+    unsplash.auth.setBearerToken(json.access_token);
   });
 ```
 
@@ -74,7 +90,27 @@ _For more information on the authroization workflow, consult the [Unsplash Docum
 
 ---
 
-## Authorization
+### Error handling
+```js
+unsplash.users.profile("naoufal")
+  .catch(err => {
+    // Your flawless error handling code
+  });
+```
+
+---
+
+## Instance Methods
+- [Authorization](https://github.com/naoufal/unsplash#authorization)
+- [Current User](https://github.com/naoufal/unsplash#current-user)
+- [Users](https://github.com/naoufal/unsplash#users)
+- [Photos](https://github.com/naoufal/unsplash#photos)
+- [Categories](https://github.com/naoufal/unsplash#categories)
+- [Curated Batches](https://github.com/naoufal/unsplash#curated-batches)
+- [Stats](https://github.com/naoufal/unsplash#stats)
+
+<div id="authorization" />
+
 ### auth.getAuthenticationUrl(scopes)
 Build an OAuth url with requested scopes.
 
@@ -94,6 +130,8 @@ let authenticationUrl = unsplash.auth.getAuthenticationUrl([
   "write_photos"
 ]);
 ```
+---
+
 ### auth.userAuthentication(code)
 Retrieve a user's access token.
 
@@ -108,12 +146,28 @@ __Example__
 unsplash.auth.userAuthentication("{OAUTH_CODE}")
   .then(toJson)
   .then(json => {
-    unsplash.setBearerToken(json.access_token);
+    // Your code
   });
 ```
 ---
 
-## Current User
+### auth.setBearerToken(accessToken)
+Set a bearer token on the instance.
+
+__Arguments__
+
+| Argument | Type | Opt/Required |
+|---|---|---|
+|__`accessToken`__|_string_|Required|
+
+__Example__
+```js
+unsplash.auth.setBearerToken("{BEARER_TOKEN}");
+```
+---
+
+<div id="current-user" />
+
 ### currentUser.profile()
 Get the user’s profile.
 
@@ -129,6 +183,7 @@ unsplash.currentUser.profile()
     // Your code
   });
 ```
+---
 
 ### currentUser.updateProfile(options)
 Update the current user’s profile.
@@ -156,10 +211,10 @@ unsplash.currentUser.updateProfile({
     // Your code
   });
 ```
-
 ---
 
-## Users
+<div id="users" />
+
 ### users.profile(username)
 Retrieve public details on a given user.
 
@@ -177,6 +232,7 @@ unsplash.users.profile("naoufal")
     // Your code
   });
 ```
+---
 
 ### users.photos(username)
 Get a list of photos uploaded by a user.
@@ -195,6 +251,8 @@ unsplash.users.photos("naoufal")
     // Your code
   });
 ```
+---
+
 ### users.likes(username, page, perPage)
 Get a list of photos liked by a user.
 
@@ -216,7 +274,8 @@ unsplash.users.likes("naoufal", 2, 15)
 ```
 ---
 
-## Photos
+<div id="photos" />
+
 ### photos.listPhotos(page, perPage)
 Get a single page from the list of all photos.
 
@@ -235,6 +294,8 @@ unsplash.photos.listPhotos(2, 15)
     // Your code
   });
 ```
+---
+
 ### photos.searchPhotos(query, category, page, perPage)
 Get a single page from a photo search. Optionally limit your search to a set of categories by supplying the category ID’s.
 
@@ -255,6 +316,7 @@ unsplash.photos.searchPhotos("cats", [11, 88], 1, 15)
     // Your code
   });
 ```
+---
 
 ### photos.getPhoto(id, width, height, rectangle)
 Retrieve a single photo.
@@ -276,6 +338,8 @@ unsplash.photos.getPhoto("mtNweauBsMQ", 1920, 1080, [0, 0, 1920, 1080])
     // Your code
   });
 ```
+---
+
 ### photos.getRandomPhoto(category, featured, username, query, width, height)
 Retrieve a single random photo, given optional filters.
 
@@ -298,6 +362,7 @@ unsplash.photos.getRandomPhoto([88], true, "naoufal", "cats", 1920, 1080)
     // Your code
   });
 ```
+---
 
 ### photos.uploadPhoto(photo)
 Upload a photo on behalf of the logged-in user. This requires the `write_photos` scope.
@@ -318,6 +383,8 @@ unsplash.photos.uploadPhoto(createReadStream(__dirname + "path/to/image"))
     // Your code
   });
 ```
+---
+
 ### photos.likePhoto(id)
 Like a photo on behalf of the logged-in user. This requires the `write_likes` scope.
 
@@ -335,6 +402,7 @@ unsplash.photos.likePhoto("mtNweauBsMQ")
     // Your code
   });
 ```
+---
 
 ### photos.unlikePhoto(id)
 Remove a user’s like of a photo.
@@ -355,7 +423,8 @@ unsplash.photos.unlikePhoto("mtNweauBsMQ")
 ```
 ---
 
-## Categories
+<div id="categories" />
+
 ### categories.listCategories()
 Get a list of all photo categories.
 
@@ -371,6 +440,7 @@ unsplash.categories.listCategories()
     // Your code
   });
 ```
+---
 
 ### categories.category(id)
 Retrieve a single category.
@@ -389,6 +459,7 @@ unsplash.categories.category(4)
     // Your code
   });
 ```
+---
 
 ### categories.categoryPhotos(id, page, perPage)
 Retrieve a single category’s photos.
@@ -411,7 +482,8 @@ unsplash.categories.categoryPhotos(4, 3, 15)
 ```
 ---
 
-## Curated Batches
+<div id="curated-batches" />
+
 ### curatedBatches.listCuratedBatches()
 Get a single page from the list of all curated batches.
 
@@ -427,6 +499,7 @@ unsplash.curatedBatches.listCuratedBatches()
     // Your code
   });
 ```
+---
 
 ### curatedBatches.curatedBatch(id)
 Retrieve a single batch.
@@ -445,6 +518,7 @@ unsplash.curatedBatches.curatedBatch(88)
     // Your code
   });
 ```
+---
 
 ### curatedBatches.curatedBatchPhotos(id)
 Retrieve a single batch’s ten photos.
@@ -465,7 +539,8 @@ unsplash.curatedBatches.curatedBatchPhotos(88)
 ```
 ---
 
-## Stats
+<div id="stats" />
+
 ### stats.total()
 Get a list of download counts for all of Unsplash.
 
@@ -483,18 +558,7 @@ unsplash.stats.total()
 ```
 ---
 
-## Functions
-### setBearerToken(accessToken)
-__Arguments__
-
-| Argument | Type | Opt/Required |
-|---|---|---|
-|__`accessToken`__|_string_|Required|
-
-__Example__
-```js
-unsplash.setBearerToken("{BEARER_TOKEN}");
-```
+## Helpers
 
 ### toJson(res)
 __Arguments__
@@ -519,6 +583,7 @@ unsplash.stats.total()
     // Your code
   });
 ```
+---
 
 ## License
 Copyright (c) 2015, [Naoufal Kadhom](http://naoufal.com)
