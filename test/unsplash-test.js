@@ -67,10 +67,6 @@ describe("Unsplash", () => {
     it("should have a stats method", () => {
       expect(unsplash.stats).toExist();
     });
-
-    it("should have a setBearerToken method", () => {
-      expect(unsplash.setBearerToken).toExist();
-    });
   });
 
   describe("auth", () => {
@@ -126,6 +122,25 @@ describe("Unsplash", () => {
         }]);
 
         restoreSpies();
+      });
+    });
+
+    describe("setBearerToken", () => {
+      let unsplash = new Unsplash({
+        applicationId,
+        secret,
+        callbackUrl
+      });
+
+      it("should not set _bearerToken when no `accessToken` argument is passed", () => {
+        unsplash.auth.setBearerToken();
+
+        expect(unsplash._bearerToken).toBe(undefined);
+      });
+
+      it("should set _bearerToken", () => {
+        unsplash.auth.setBearerToken("bar");
+        expect(unsplash._bearerToken).toBe("bar");
       });
     });
   });
@@ -346,7 +361,7 @@ describe("Unsplash", () => {
 
       it("should make a POST request to /photos", () => {
         let spy = spyOn(unsplash, "request");
-        unsplash.setBearerToken("foo");
+        unsplash.auth.setBearerToken("foo");
         unsplash.photos.uploadPhoto("photo.jpg");
 
         expect(spy.calls.length).toEqual(1);
@@ -374,7 +389,7 @@ describe("Unsplash", () => {
 
       it("should make a POST request to /photos/{id}/like", () => {
         let spy = spyOn(unsplash, "request");
-        unsplash.setBearerToken("foo");
+        unsplash.auth.setBearerToken("foo");
         unsplash.photos.likePhoto(88);
 
         expect(spy.calls.length).toEqual(1);
@@ -399,7 +414,7 @@ describe("Unsplash", () => {
 
       it("should make a DELETE request to /photos/{id}/like", () => {
         let spy = spyOn(unsplash, "request");
-        unsplash.setBearerToken("foo");
+        unsplash.auth.setBearerToken("foo");
         unsplash.photos.unlikePhoto(88);
 
         expect(spy.calls.length).toEqual(1);
@@ -539,25 +554,6 @@ describe("Unsplash", () => {
           url: "/stats"
         }]);
       });
-    });
-  });
-
-  describe("setBearerToken", () => {
-    let unsplash = new Unsplash({
-      applicationId,
-      secret,
-      callbackUrl
-    });
-
-    it("should not set _bearerToken when no `accessToken` argument is passed", () => {
-      unsplash.setBearerToken();
-
-      expect(unsplash._bearerToken).toBe(undefined);
-    });
-
-    it("should set _bearerToken", () => {
-      unsplash.setBearerToken("bar");
-      expect(unsplash._bearerToken).toBe("bar");
     });
   });
 

@@ -20,7 +20,7 @@ export default class Unsplash {
   _applicationId: string;
   _secret: string;
   _callbackUrl: string;
-  _bearerToken: string;
+  _bearerToken: ?string;
 
   auth: Object;
   currentUser: Object;
@@ -31,12 +31,13 @@ export default class Unsplash {
   stats: Object;
   toJson: Function;
 
-  constructor(options: { applicationId: string, secret: string, callbackUrl: string }) {
+  constructor(options: { applicationId: string, secret: string, callbackUrl: string, bearerToken?: string }) {
     this._apiUrl = API_URL;
     this._apiVersion = API_VERSION;
     this._applicationId = options.applicationId;
     this._secret = options.secret;
     this._callbackUrl = options.callbackUrl;
+    this._bearerToken = options.bearerToken;
 
     this.auth = auth.bind(this)();
     this.currentUser = currentUser.bind(this)();
@@ -60,12 +61,6 @@ export default class Unsplash {
     var { url, options } = buildFetchOptions.bind(this)(requestOptions);
 
     return fetch(url, options);
-  }
-
-  setBearerToken(accessToken: string) {
-    if (accessToken) {
-      this._bearerToken = accessToken;
-    }
   }
 
   static toJson(res: Object): Object {

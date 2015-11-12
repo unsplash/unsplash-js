@@ -18,7 +18,7 @@ export default function auth(): Object {
       return decodeURIComponent(`${OAUTH_AUTHORIZE_URL}?${querystrings}`);
     },
 
-    userAuthentication: (code) => {
+    userAuthentication: (code: string) => {
       const url = OAUTH_TOKEN_URL;
 
       return this.request({
@@ -33,6 +33,12 @@ export default function auth(): Object {
         },
         oauth: true
       });
+    },
+
+    setBearerToken: (accessToken: string) => {
+      if (accessToken) {
+        this._bearerToken = accessToken;
+      }
     }
   };
 }
