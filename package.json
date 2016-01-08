@@ -19,7 +19,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/naoufal/unsplash.git"
+    "url": "git+https://github.com/naoufal/unsplash-js.git"
   },
   "keywords": [
     "unsplash",
@@ -32,9 +32,9 @@
   "author": "Naoufal Kadhom",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/naoufal/unsplash/issues"
+    "url": "https://github.com/naoufal/unsplash-js/issues"
   },
-  "homepage": "https://github.com/naoufal/unsplash#readme",
+  "homepage": "https://github.com/naoufal/unsplash-js#readme",
   "devDependencies": {
     "babel": "5.8.29",
     "babel-core": "5.8.32",
