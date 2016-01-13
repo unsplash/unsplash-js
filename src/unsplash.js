@@ -57,13 +57,13 @@ export default class Unsplash {
       body: Object,
       oauth: boolean
     }
-  ) {
+  ):Promise {
     var { url, options } = buildFetchOptions.bind(this)(requestOptions);
 
     return fetch(url, options);
   }
+}
 
-  static toJson(res: Object): Object {
-    return res.json();
-  }
+export function toJson(res: Object): Object {
+  return res.json();
 }

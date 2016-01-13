@@ -1,3 +1,4 @@
 {
-  "optional": ["runtime"]
+  "plugins": ["transform-class-properties", "transform-flow-strip-types", "transform-object-assign"],
+  "presets": ["es2015"]
 }
