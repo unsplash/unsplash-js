@@ -1,8 +1,8 @@
 # Unsplash
 
 [![npm](https://img.shields.io/npm/v/unsplash-js.svg?style=flat-square)](https://www.npmjs.com/package/unsplash-js)
-[![Travis](https://img.shields.io/travis/naoufal/unsplash/master.svg?style=flat-square)](https://travis-ci.org/naoufal/unsplash/branches)
-[![Coveralls](https://img.shields.io/coveralls/naoufal/unsplash/master.svg?style=flat-square)](https://coveralls.io/github/naoufal/unsplash?branch=master)
+[![Travis](https://img.shields.io/travis/naoufal/unsplash-js/master.svg?style=flat-square)](https://travis-ci.org/naoufal/unsplash/branches)
+[![Coveralls](https://img.shields.io/coveralls/naoufal/unsplash-js/master.svg?style=flat-square)](https://coveralls.io/github/naoufal/unsplash?branch=master)
 
 A [Universal JavaScript](https://medium.com/@mjackson/universal-javascript-4761051b7ae9) wrapper for the [Unsplash API](https://unsplash.com/developers).
 
@@ -13,12 +13,12 @@ A [Universal JavaScript](https://medium.com/@mjackson/universal-javascript-47610
 Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | 10+ ✔ |
 
 ## Documentation
-- [Installation](https://github.com/naoufal/unsplash#installation)
-- [Dependencies](https://github.com/naoufal/unsplash#dependencies)
-- [Usage](https://github.com/naoufal/unsplash#usage)
-- [Instance Methods](https://github.com/naoufal/unsplash#instance-methods)
-- [Helpers](https://github.com/naoufal/unsplash#helpers)
-- [License](https://github.com/naoufal/unsplash#license)
+- [Installation](https://github.com/naoufal/unsplash-js#installation)
+- [Dependencies](https://github.com/naoufal/unsplash-js#dependencies)
+- [Usage](https://github.com/naoufal/unsplash-js#usage)
+- [Instance Methods](https://github.com/naoufal/unsplash-js#instance-methods)
+- [Helpers](https://github.com/naoufal/unsplash-js#helpers)
+- [License](https://github.com/naoufal/unsplash-js#license)
 
 ## Installation
 ```bash
@@ -101,13 +101,13 @@ unsplash.users.profile("naoufal")
 ---
 
 ## Instance Methods
-- [Authorization](https://github.com/naoufal/unsplash#authorization)
-- [Current User](https://github.com/naoufal/unsplash#current-user)
-- [Users](https://github.com/naoufal/unsplash#users)
-- [Photos](https://github.com/naoufal/unsplash#photos)
-- [Categories](https://github.com/naoufal/unsplash#categories)
-- [Curated Batches](https://github.com/naoufal/unsplash#curated-batches)
-- [Stats](https://github.com/naoufal/unsplash#stats)
+- [Authorization](https://github.com/naoufal/unsplash-js#authorization)
+- [Current User](https://github.com/naoufal/unsplash-js#current-user)
+- [Users](https://github.com/naoufal/unsplash-js#users)
+- [Photos](https://github.com/naoufal/unsplash-js#photos)
+- [Categories](https://github.com/naoufal/unsplash-js#categories)
+- [Curated Batches](https://github.com/naoufal/unsplash-js#curated-batches)
+- [Stats](https://github.com/naoufal/unsplash-js#stats)
 
 <div id="authorization" />
 
