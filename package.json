@@ -49,8 +49,8 @@
     "eslint": "^1.10.2",
     "expect": "1.12.2",
     "flow-bin": "^0.20.1",
-    "isparta": "3.5.3",
-    "istanbul": "0.4.0",
+    "isparta": "^4.0.0",
+    "istanbul": "^0.4.2",
     "mocha": "2.3.3",
     "mockery": "1.4.0"
   },
