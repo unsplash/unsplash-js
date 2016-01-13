@@ -1,8 +1,8 @@
 # Unsplash
 
 [![npm](https://img.shields.io/npm/v/unsplash-js.svg?style=flat-square)](https://www.npmjs.com/package/unsplash-js)
-[![Travis](https://img.shields.io/travis/naoufal/unsplash-js/master.svg?style=flat-square)](https://travis-ci.org/naoufal/unsplash/branches)
-[![Coveralls](https://img.shields.io/coveralls/naoufal/unsplash-js/master.svg?style=flat-square)](https://coveralls.io/github/naoufal/unsplash?branch=master)
+[![Travis](https://img.shields.io/travis/naoufal/unsplash-js/master.svg?style=flat-square)](https://travis-ci.org/naoufal/unsplash-js/branches)
+[![Coveralls](https://img.shields.io/coveralls/naoufal/unsplash-js/master.svg?style=flat-square)](https://coveralls.io/github/naoufal/unsplash-js?branch=master)
 
 A [Universal JavaScript](https://medium.com/@mjackson/universal-javascript-4761051b7ae9) wrapper for the [Unsplash API](https://unsplash.com/developers).
 
