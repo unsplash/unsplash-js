@@ -340,19 +340,19 @@ unsplash.photos.getPhoto("mtNweauBsMQ", 1920, 1080, [0, 0, 1920, 1080])
 ```
 ---
 
-### photos.getRandomPhoto(category, featured, username, query, width, height)
+### photos.getRandomPhoto(width, height, query, username, featured, category)
 Retrieve a single random photo, given optional filters.
 
 __Arguments__
 
 | Argument | Type | Opt/Required |
 |---|---|---|
-|__`category`__|_Array<number>_|Optional|
-|__`featured`__|_boolean_|Optional|
-|__`username`__|_string_|Optional|
-|__`query`__|_string_|Optional|
 |__`width`__|_number_|Optional|
 |__`height`__|_number_|Optional|
+|__`query`__|_string_|Optional|
+|__`username`__|_string_|Optional|
+|__`featured`__|_boolean_|Optional|
+|__`category`__|_Array<number>_|Optional|
 
 __Example__
 ```js

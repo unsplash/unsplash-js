@@ -342,6 +342,7 @@ describe("Unsplash", () => {
             query: undefined,
             w: undefined,
             h: undefined
+            _: undefined
           }
         }]);
       });
