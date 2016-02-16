@@ -39,7 +39,7 @@
     "babel": "^6.3.26",
     "babel-cli": "^6.4.0",
     "babel-core": "^6.4.0",
-    "babel-eslint": "5.0.0-beta6",
+    "babel-eslint": "5.0.0-beta10",
     "babel-loader": "^6.2.1",
     "babel-plugin-transform-class-properties": "^6.4.0",
     "babel-plugin-transform-flow-strip-types": "^6.4.0",
