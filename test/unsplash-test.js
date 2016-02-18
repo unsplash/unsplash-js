@@ -14,7 +14,7 @@ describe("Unsplash", () => {
   mockery.registerMock("fetch", () => {});
 
   describe("constructor", () => {
-    let unsplash = new Unsplash({
+    const unsplash = new Unsplash({
       applicationId,
       secret,
       callbackUrl
@@ -66,6 +66,30 @@ describe("Unsplash", () => {
 
     it("should have a stats method", () => {
       expect(unsplash.stats).toExist();
+    });
+
+    it("should overwrite the api url", () => {
+      const apiUrl = "http://foo.com";
+      const unsplash = new Unsplash({
+        applicationId,
+        secret,
+        apiUrl,
+        callbackUrl
+      });
+
+      expect(unsplash._apiUrl).toBe(apiUrl);
+    });
+
+    it("should overwrite the api version", () => {
+      const apiVersion = "v8";
+      const unsplash = new Unsplash({
+        applicationId,
+        secret,
+        apiVersion,
+        callbackUrl
+      });
+
+      expect(unsplash._apiVersion).toBe(apiVersion);
     });
   });
 

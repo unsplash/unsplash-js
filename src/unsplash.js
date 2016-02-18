@@ -31,9 +31,18 @@ export default class Unsplash {
   stats: Object;
   toJson: Function;
 
-  constructor(options: { applicationId: string, secret: string, callbackUrl: string, bearerToken?: string }) {
-    this._apiUrl = API_URL;
-    this._apiVersion = API_VERSION;
+  constructor(
+    options: {
+      apiUrl: string,
+      apiVersion: string,
+      applicationId: string,
+      secret: string,
+      callbackUrl: string,
+      bearerToken?: string
+    }
+  ) {
+    this._apiUrl = options.apiUrl || API_URL;
+    this._apiVersion = options.apiVersion || API_VERSION;
     this._applicationId = options.applicationId;
     this._secret = options.secret;
     this._callbackUrl = options.callbackUrl;
