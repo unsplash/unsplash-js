@@ -62,7 +62,7 @@ export default function photos(): Object {
         query: q,
         w: width,
         h: height,
-        cacheBuster: cacheBuster // Avoid ajax response caching
+        cacheBuster // Avoid ajax response caching
       };
 
       return this.request({
