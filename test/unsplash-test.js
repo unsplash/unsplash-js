@@ -353,19 +353,20 @@ describe("Unsplash", () => {
     describe("getRandomPhoto", () => {
       it("should make a GET request to /photos/random", () => {
         let spy = spyOn(unsplash, "request");
-        unsplash.photos.getRandomPhoto();
+        unsplash.photos.getRandomPhoto(null, null, null, null, null, null, 123);
 
         expect(spy.calls.length).toEqual(1);
         expect(spy.calls[0].arguments).toEqual([{
           method: "GET",
           url: "/photos/random",
           query: {
-            category: undefined,
-            featured: undefined,
-            username: undefined,
-            query: undefined,
-            w: undefined,
-            h: undefined
+            category: null,
+            featured: null,
+            username: null,
+            query: null,
+            w: null,
+            h: null,
+            cacheBuster: 123
           }
         }]);
       });

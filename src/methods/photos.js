@@ -52,7 +52,7 @@ export default function photos(): Object {
       });
     },
 
-    getRandomPhoto: (width, height, q, username, featured, category) => {
+    getRandomPhoto: (width, height, q, username, featured, category, cacheBuster = new Date().getTime()) => {
       const url = "/photos/random";
 
       let query = {
@@ -61,7 +61,8 @@ export default function photos(): Object {
         username,
         query: q,
         w: width,
-        h: height
+        h: height,
+        cacheBuster // Avoid ajax response caching
       };
 
       return this.request({
