@@ -14,7 +14,7 @@
     "flow": "flow status",
     "test": "npm run lint && npm run flow && npm run test:node && npm run test:browser",
     "test:browser": "karma start",
-    "test:ci": "npm run lint && npm run flow && npm run test:coverage",
+    "test:ci": "npm run lint && npm run flow && npm run browser && npm run test:coverage",
     "test:coverage": "babel-node ./node_modules/.bin/isparta cover _mocha",
     "test:node": "mocha --compilers js:babel-core/register --recursive",
     "test:watch": "npm test -- --watch"
@@ -54,6 +54,7 @@
     "isparta": "^4.0.0",
     "istanbul": "^0.4.2",
     "karma": "^0.13.19",
+    "karma-browserstack-launcher": "^0.1.10",
     "karma-chrome-launcher": "^0.2.2",
     "karma-firefox-launcher": "^0.1.7",
     "karma-mocha": "^0.2.1",
