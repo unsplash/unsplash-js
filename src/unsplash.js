@@ -11,7 +11,7 @@ import currentUser from "./methods/currentUser";
 import users from "./methods/users";
 import photos from "./methods/photos";
 import categories from "./methods/categories";
-import curatedBatches from "./methods/curatedBatches";
+import collections from "./methods/collections";
 import stats from "./methods/stats";
 
 export default class Unsplash {
@@ -27,7 +27,7 @@ export default class Unsplash {
   users: Object;
   photos: Object;
   categories: Object;
-  curatedBatches: Object;
+  collections: Object;
   stats: Object;
   toJson: Function;
 
@@ -53,7 +53,7 @@ export default class Unsplash {
     this.users = users.bind(this)();
     this.photos = photos.bind(this)();
     this.categories = categories.bind(this)();
-    this.curatedBatches = curatedBatches.bind(this)();
+    this.collections = collections.bind(this)();
     this.stats = stats.bind(this)();
   }
 

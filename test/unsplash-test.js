@@ -56,8 +56,8 @@ describe("Unsplash", () => {
       expect(unsplash.categories).toExist();
     });
 
-    it("should have a curatedBatches method", () => {
-      expect(unsplash.curatedBatches).toExist();
+    it("should have a collections method", () => {
+      expect(unsplash.collections).toExist();
     });
 
     it("should have a stats method", () => {
@@ -502,7 +502,7 @@ describe("Unsplash", () => {
     });
   });
 
-  describe("curatedBatches", () => {
+  describe("collections", () => {
     let unsplash = new Unsplash({
       applicationId,
       secret,
@@ -513,15 +513,15 @@ describe("Unsplash", () => {
       restoreSpies();
     });
 
-    describe("listCuratedBatches", () => {
-      it("should make a GET request to /curated_batches", () => {
+    describe("listCollections", () => {
+      it("should make a GET request to /collections", () => {
         let spy = spyOn(unsplash, "request");
-        unsplash.curatedBatches.listCuratedBatches(2, 15);
+        unsplash.collections.listCollections(2, 15);
 
         expect(spy.calls.length).toEqual(1);
         expect(spy.calls[0].arguments).toEqual([{
           method: "GET",
-          url: "/curated_batches",
+          url: "/collections",
           query: {
             page: 2,
             per_page: 15
@@ -530,28 +530,139 @@ describe("Unsplash", () => {
       });
     });
 
-    describe("curatedBatch", () => {
-      it("should make a GET request to /curated_batches/{id}", () => {
+    describe("listCuratedCollections", () => {
+      it("should make a GET request to /collections/curated", () => {
         let spy = spyOn(unsplash, "request");
-        unsplash.curatedBatches.curatedBatch(88);
+        unsplash.collections.listCuratedCollections(2, 15);
 
         expect(spy.calls.length).toEqual(1);
         expect(spy.calls[0].arguments).toEqual([{
           method: "GET",
-          url: "/curated_batches/88"
+          url: "/collections/curated",
+          query: {
+            page: 2,
+            per_page: 15
+          }
         }]);
       });
     });
 
-    describe("curatedBatchPhotos", () => {
-      it("should make a GET request to /curated_batches/{id}/photos", () => {
+    describe("getCollection", () => {
+      it("should make a GET request to /collections/{id}", () => {
         let spy = spyOn(unsplash, "request");
-        unsplash.curatedBatches.curatedBatchPhotos(88);
+        unsplash.collections.getCollection(88);
 
         expect(spy.calls.length).toEqual(1);
         expect(spy.calls[0].arguments).toEqual([{
           method: "GET",
-          url: "/curated_batches/88/photos"
+          url: "/collections/88"
+        }]);
+      });
+    });
+
+    describe("getCollectionPhotos", () => {
+      it("should make a GET request to /collections/{id}/photos", () => {
+        let spy = spyOn(unsplash, "request");
+        unsplash.collections.getCollectionPhotos(88);
+
+        expect(spy.calls.length).toEqual(1);
+        expect(spy.calls[0].arguments).toEqual([{
+          method: "GET",
+          url: "/collections/88/photos"
+        }]);
+      });
+    });
+
+    describe("getCuratedCollectionPhotos", () => {
+      it("should make a GET request to /collections/curated/{id}/photos", () => {
+        let spy = spyOn(unsplash, "request");
+        unsplash.collections.getCuratedCollectionPhotos(88);
+
+        expect(spy.calls.length).toEqual(1);
+        expect(spy.calls[0].arguments).toEqual([{
+          method: "GET",
+          url: "/collections/curated/88/photos"
+        }]);
+      });
+    });
+
+    describe("createCollection", () => {
+      it("should make a GET request to /collections", () => {
+        let spy = spyOn(unsplash, "request");
+        unsplash.collections.createCollection("foo", "bar", true);
+
+        expect(spy.calls.length).toEqual(1);
+        expect(spy.calls[0].arguments).toEqual([{
+          method: "POST",
+          url: "/collections",
+          body: {
+            title: "foo",
+            description: "bar",
+            private: true
+          }
+        }]);
+      });
+    });
+
+    describe("updateCollection", () => {
+      it("should make a GET request to /collections/{id}", () => {
+        let spy = spyOn(unsplash, "request");
+        unsplash.collections.updateCollection(88, "foo", "bar", true);
+
+        expect(spy.calls.length).toEqual(1);
+        expect(spy.calls[0].arguments).toEqual([{
+          method: "PUT",
+          url: "/collections/88",
+          body: {
+            title: "foo",
+            description: "bar",
+            private: true
+          }
+        }]);
+      });
+    });
+
+    describe("deleteCollection", () => {
+      it("should make a GET request to /collections/{id}", () => {
+        let spy = spyOn(unsplash, "request");
+        unsplash.collections.deleteCollection(88);
+
+        expect(spy.calls.length).toEqual(1);
+        expect(spy.calls[0].arguments).toEqual([{
+          method: "DELETE",
+          url: "/collections/88"
+        }]);
+      });
+    });
+
+    describe("addPhotoToCollection", () => {
+      it("should make a GET request to /collections/{id}/add", () => {
+        let spy = spyOn(unsplash, "request");
+        unsplash.collections.addPhotoToCollection(88, "abc123");
+
+        expect(spy.calls.length).toEqual(1);
+        expect(spy.calls[0].arguments).toEqual([{
+          method: "POST",
+          url: "/collections/88/add",
+          body: {
+            photo_id: "abc123"
+          }
+        }]);
+      });
+    });
+
+    describe("removePhotoToCollection", () => {
+      it("should make a GET request to /collections/{id}/remove", () => {
+        let spy = spyOn(unsplash, "request");
+        unsplash.collections.removePhotoFromCollection(88, "abc123");
+
+        expect(spy.calls.length).toEqual(1);
+        expect(spy.calls[0].arguments).toEqual([{
+          method: "DELETE",
+          url: "/collections/88/remove",
+          body: {
+            photo_id: "abc123"
+          }
         }]);
       });
     });
