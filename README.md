@@ -18,6 +18,7 @@ Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | 10+ ✔ |
 - [Usage](https://github.com/naoufal/unsplash-js#usage)
 - [Instance Methods](https://github.com/naoufal/unsplash-js#instance-methods)
 - [Helpers](https://github.com/naoufal/unsplash-js#helpers)
+- [Shoutouts](https://github.com/naoufal/unsplash-js#shoutouts)
 - [License](https://github.com/naoufal/unsplash-js#license)
 
 ## Installation
@@ -584,6 +585,10 @@ unsplash.stats.total()
   });
 ```
 ---
+
+## Shoutouts
+- Shoutout to all the [contributors](https://github.com/naoufal/unsplash-js/graphs/contributors) for lending a helping hand.
+- Shoutout to [BrowserStack](https://www.browserstack.com/) for letting us use their service to run automated browser tests.
 
 ## License
 Copyright (c) 2015, [Naoufal Kadhom](http://naoufal.com)
