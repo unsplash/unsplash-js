@@ -107,7 +107,7 @@ unsplash.users.profile("naoufal")
 - [Users](https://github.com/naoufal/unsplash-js#users)
 - [Photos](https://github.com/naoufal/unsplash-js#photos)
 - [Categories](https://github.com/naoufal/unsplash-js#categories)
-- [Curated Batches](https://github.com/naoufal/unsplash-js#curated-batches)
+- [Collections](https://github.com/naoufal/unsplash-js#collections)
 - [Stats](https://github.com/naoufal/unsplash-js#stats)
 
 <div id="authorization" />
@@ -483,18 +483,21 @@ unsplash.categories.categoryPhotos(4, 3, 15)
 ```
 ---
 
-<div id="curated-batches" />
+<div id="collections" />
 
-### curatedBatches.listCuratedBatches()
-Get a single page from the list of all curated batches.
+### collections.listCollections(page, perPage)
+Get a single page from the list of all collections.
 
 __Arguments__
 
-_N/A_
+| Argument | Type | Opt/Required |
+|---|---|---|
+|__`page`__|_number_|Optional|
+|__`perPage`__|_number_|Optional|
 
 __Example__
 ```js
-unsplash.curatedBatches.listCuratedBatches()
+unsplash.collections.listCollections(1, 10)
   .then(toJson)
   .then(json => {
     // Your code
@@ -502,18 +505,19 @@ unsplash.curatedBatches.listCuratedBatches()
 ```
 ---
 
-### curatedBatches.curatedBatch(id)
-Retrieve a single batch.
+### collections.listCuratedCollections(page, perPage)
+Get a single page from the list of curated collections.
 
 __Arguments__
 
 | Argument | Type | Opt/Required |
 |---|---|---|
-|__`id`__|_string_|Required|
+|__`page`__|_number_|Optional|
+|__`perPage`__|_number_|Optional|
 
 __Example__
 ```js
-unsplash.curatedBatches.curatedBatch(88)
+unsplash.collections.listCuratedCollections(1, 10)
   .then(toJson)
   .then(json => {
     // Your code
@@ -521,18 +525,141 @@ unsplash.curatedBatches.curatedBatch(88)
 ```
 ---
 
-### curatedBatches.curatedBatchPhotos(id)
-Retrieve a single batch’s ten photos.
+### collections.getCollection(id)
+Retrieve a single collection. To view a user’s private collections, the `read_collections` scope is required.
 
 __Arguments__
 
 | Argument | Type | Opt/Required |
 |---|---|---|
-|__`id`__|_string_|Required|
+|__`id`__|_number_|Required|
+
 
 __Example__
 ```js
-unsplash.curatedBatches.curatedBatchPhotos(88)
+unsplash.collections.getCollection(123456)
+  .then(toJson)
+  .then(json => {
+    // Your code
+  });
+```
+---
+
+### collections.getCuratedCollection(id)
+Or, for a curated collection:
+
+__Arguments__
+
+| Argument | Type | Opt/Required |
+|---|---|---|
+|__`id`__|_number_|Required|
+
+
+__Example__
+```js
+unsplash.collections.getCuratedCollection(88)
+  .then(toJson)
+  .then(json => {
+    // Your code
+  });
+```
+---
+
+### collections.getCollectionPhotos(id)
+Retrieve a collection’s photos.
+
+__Arguments__
+
+| Argument | Type | Opt/Required |
+|---|---|---|
+|__`id`__|_number_|Required|
+
+
+__Example__
+```js
+unsplash.collections.getCollectionPhotos(123456)
+  .then(toJson)
+  .then(json => {
+    // Your code
+  });
+```
+---
+
+### collections.getCuratedCollectionPhotos(id)
+Or, for a curated collection:
+
+__Arguments__
+
+| Argument | Type | Opt/Required |
+|---|---|---|
+|__`id`__|_number_|Required|
+
+
+__Example__
+```js
+unsplash.collections.getCuratedCollectionPhotos(88)
+  .then(toJson)
+  .then(json => {
+    // Your code
+  });
+```
+---
+
+### collections.createCollection(title, description, private)
+Create a new collection. This requires the `write_collections` scope.
+
+__Arguments__
+
+| Argument | Type | Opt/Required |
+|---|---|---|
+|__`title`__|_string_|Required|
+|__`description`__|_string_|Optional|
+|__`private`__|_boolean_|Optional|
+
+__Example__
+```js
+unsplash.collections.createCollection("Birds", "Wild birds from 'round the world", true)
+  .then(toJson)
+  .then(json => {
+    // Your code
+  });
+```
+---
+
+### collections.updateCollection(title, description, private)
+Update an existing collection belonging to the logged-in user. This requires the `write_collections` scope.
+
+__Arguments__
+
+| Argument | Type | Opt/Required |
+|---|---|---|
+|__`title`__|_string_|Optional|
+|__`description`__|_string_|Optional|
+|__`private`__|_boolean_|Optional|
+
+__Example__
+```js
+unsplash.collections.updateCollection("Wild Birds", "Wild birds from around the world", false)
+  .then(toJson)
+  .then(json => {
+    // Your code
+  });
+```
+---
+
+### collections.deleteCollection(id)
+Delete a collection belonging to the logged-in user. This requires the `write_collections` scope.
+
+__Arguments__
+
+| Argument | Type | Opt/Required |
+|---|---|---|
+|__`id`__|_number_|Required|
+
+
+__Example__
+```js
+unsplash.collections.deleteCollection(88)
   .then(toJson)
   .then(json => {
     // Your code
