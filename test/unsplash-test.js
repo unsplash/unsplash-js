@@ -198,7 +198,7 @@ describe("Unsplash", () => {
 
         expect(spy.calls.length).toEqual(1);
         expect(spy.calls[0].arguments).toEqual([{
-          method: "POST",
+          method: "PUT",
           url: "/me",
           body: {
             username: "foo"
@@ -256,8 +256,8 @@ describe("Unsplash", () => {
           method: "GET",
           url: "/users/naoufal/likes",
           query: {
-            page: undefined,
-            per_page: undefined
+            page: 1,
+            per_page: 10
           }
         }]);
       });
@@ -349,20 +349,17 @@ describe("Unsplash", () => {
     describe("getRandomPhoto", () => {
       it("should make a GET request to /photos/random", () => {
         let spy = spyOn(unsplash, "request");
-        unsplash.photos.getRandomPhoto(null, null, null, null, null, null, 123);
+        const cacheBuster = + new Date();
+        unsplash.photos.getRandomPhoto({
+          cacheBuster
+        });
 
         expect(spy.calls.length).toEqual(1);
         expect(spy.calls[0].arguments).toEqual([{
           method: "GET",
           url: "/photos/random",
           query: {
-            category: null,
-            featured: null,
-            username: null,
-            query: null,
-            w: null,
-            h: null,
-            cacheBuster: 123
+            c: cacheBuster
           }
         }]);
       });
@@ -672,10 +669,7 @@ describe("Unsplash", () => {
         expect(spy.calls.length).toEqual(1);
         expect(spy.calls[0].arguments).toEqual([{
           method: "DELETE",
-          url: "/collections/88/remove",
-          body: {
-            photo_id: "abc123"
-          }
+          url: "/collections/88/remove?photo_id=abc123"
         }]);
       });
     });
@@ -696,7 +690,7 @@ describe("Unsplash", () => {
         expect(spy.calls.length).toEqual(1);
         expect(spy.calls[0].arguments).toEqual([{
           method: "GET",
-          url: "/stats"
+          url: "/stats/total"
         }]);
       });
     });
