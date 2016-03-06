@@ -65,14 +65,11 @@ export default function collections(): Object {
     },
 
     removePhotoFromCollection: (collectionId, photoId) => {
-      const url = `/collections/${collectionId}/remove`;
+      const url = `/collections/${collectionId}/remove?photo_id=${photoId}`;
 
       return this.request({
         url: url,
-        method: "DELETE",
-        body: {
-          photo_id: photoId
-        }
+        method: "DELETE"
       });
     }
   };

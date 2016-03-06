@@ -2,7 +2,7 @@
 
 export default function photos(): Object {
   return {
-    listPhotos: (page, perPage)  => {
+    listPhotos: (page = 1, perPage = 10)  => {
       const url = "/photos";
 
       let query = {
@@ -17,7 +17,7 @@ export default function photos(): Object {
       });
     },
 
-    searchPhotos: (q, category = [""], page, perPage) => {
+    searchPhotos: (q, category = [""], page = 1, perPage = 10) => {
       const url = "/photos/search";
 
       let query = {
@@ -52,18 +52,24 @@ export default function photos(): Object {
       });
     },
 
-    getRandomPhoto: (width, height, q, username, featured, category, cacheBuster = new Date().getTime()) => {
+    getRandomPhoto: (options = {}) => {
       const url = "/photos/random";
 
-      let query = {
-        category,
-        featured,
-        username,
-        query: q,
-        w: width,
-        h: height,
-        cacheBuster // Avoid ajax response caching
+      const query = {
+        category: options.category,
+        featured: options.featured,
+        username: options.username,
+        q: options.query,
+        w: options.width,
+        h: options.height,
+        c: options.cacheBuster || new Date().getTime() // Avoid ajax response caching
       };
+
+      Object.keys(query).forEach(key => {
+        if (!query[key]) {
+          delete query[key];
+        }
+      });
 
       return this.request({
         url,

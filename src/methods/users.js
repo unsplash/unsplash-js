@@ -20,7 +20,7 @@ export default function users(): Object {
       });
     },
 
-    likes: (username: string, page: number, perPage: number) => {
+    likes: (username: string, page: number = 1, perPage: number = 10) => {
       const url = `/users/${username}/likes`;
 
       let query = {
