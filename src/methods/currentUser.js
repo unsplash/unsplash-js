@@ -53,7 +53,7 @@ export default function currentUser(): Object {
 
       return this.request({
         url: endpointUrl,
-        method: "POST",
+        method: "PUT",
         body
       });
     }
