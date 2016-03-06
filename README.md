@@ -341,10 +341,12 @@ unsplash.photos.getPhoto("mtNweauBsMQ", 1920, 1080, [0, 0, 1920, 1080])
 ```
 ---
 
-### photos.getRandomPhoto(width, height, query, username, featured, category)
+### photos.getRandomPhoto({ width, height, query, username, featured, category })
 Retrieve a single random photo, given optional filters.
 
 __Arguments__
+
+_An Object containing the follow keys:_
 
 | Argument | Type | Opt/Required |
 |---|---|---|
@@ -357,7 +359,7 @@ __Arguments__
 
 __Example__
 ```js
-unsplash.photos.getRandomPhoto([88], true, "naoufal", "cats", 1920, 1080)
+unsplash.photos.getRandomPhoto({ username: "naoufal" })
   .then(toJson)
   .then(json => {
     // Your code
@@ -626,20 +628,21 @@ unsplash.collections.createCollection("Birds", "Wild birds from 'round the world
 ```
 ---
 
-### collections.updateCollection(title, description, private)
+### collections.updateCollection(id, title, description, private)
 Update an existing collection belonging to the logged-in user. This requires the `write_collections` scope.
 
 __Arguments__
 
 | Argument | Type | Opt/Required |
 |---|---|---|
+|__`id`__|_number_|Required|
 |__`title`__|_string_|Optional|
 |__`description`__|_string_|Optional|
 |__`private`__|_boolean_|Optional|
 
 __Example__
 ```js
-unsplash.collections.updateCollection("Wild Birds", "Wild birds from around the world", false)
+unsplash.collections.updateCollection(12345, "Wild Birds", "Wild birds from around the world", false)
   .then(toJson)
   .then(json => {
     // Your code
@@ -660,6 +663,46 @@ __Arguments__
 __Example__
 ```js
 unsplash.collections.deleteCollection(88)
+  .then(toJson)
+  .then(json => {
+    // Your code
+  });
+```
+---
+
+### collections.addPhotoToCollection(collectionId, photoId)
+Add a photo to one of the logged-in user’s collections. Requires the `write_collections` scope.
+
+__Arguments__
+
+| Argument | Type | Opt/Required |
+|---|---|---|
+|__`collectionId`__|_number_|Required|
+|__`photoId`__|_string_|Required|
+
+__Example__
+```js
+unsplash.collections.addPhotoToCollection(88, 'abc1234')
+  .then(toJson)
+  .then(json => {
+    // Your code
+  });
+```
+---
+
+### collections.removePhotoFromCollection(collectionId, photoId)
+Remove a photo from one of the logged-in user’s collections. Requires the `write_collections` scope.
+
+__Arguments__
+
+| Argument | Type | Opt/Required |
+|---|---|---|
+|__`collectionId`__|_number_|Required|
+|__`photoId`__|_string_|Required|
+
+__Example__
+```js
+unsplash.collections.removePhotoFromCollection(88, 'abc1234')
   .then(toJson)
   .then(json => {
     // Your code
