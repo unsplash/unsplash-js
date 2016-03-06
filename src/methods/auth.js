@@ -28,8 +28,8 @@ export default function auth(): Object {
           client_id: this._applicationId,
           client_secret: this._secret,
           redirect_uri: this._callbackUrl,
-          code: code,
-          grant_type: "authorization_code"
+          grant_type: "authorization_code",
+          code
         },
         oauth: true
       });
