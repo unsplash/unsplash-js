@@ -64,6 +64,14 @@ if (process.env.NODE_ENV === 'ci') {
       browser: 'firefox',
       browser_version: '43.0'
     },
+    BS_Opera: {
+      base: 'BrowserStack',
+      os: 'Windows',
+      os_version: '10',
+      browser: 'opera',
+      browser_version: '35.0'
+    },
+
     BS_Safari: {
       base: 'BrowserStack',
       os: 'OS X',
@@ -71,14 +79,14 @@ if (process.env.NODE_ENV === 'ci') {
       browser: 'safari',
       browser_version: '9.0'
     },
-    BS_MobileSafari: {
+    BS_MobileSafari8: {
       base: 'BrowserStack',
       os: 'ios',
       os_version: '8.3',
       browser: 'iphone',
       real_mobile: false
     },
-    BS_MobileSafari: {
+    BS_MobileSafari9: {
       base: 'BrowserStack',
       os: 'ios',
       os_version: '9.1',
