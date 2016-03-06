@@ -1,9 +1,10 @@
 /* @flow */
 
-export default function curatedBatches(): Object {
+export default function collections(): Object {
   return {
-    listCollections: (page, perPage) => {
+    listCollections: (page = 1, perPage = 10) => {
       const url = "/collections";
+
       const query = {
         page,
         per_page: perPage
@@ -16,7 +17,7 @@ export default function curatedBatches(): Object {
       });
     },
 
-    listCuratedCollections: (page, perPage) => {
+    listCuratedCollections: (page = 1, perPage = 10) => {
       const url = "/collections/curated";
       const query = {
         page,
@@ -30,14 +31,9 @@ export default function curatedBatches(): Object {
       });
     },
 
-    getCollection: (id) => {
-      const url = `/collections/${id}`;
+    getCollection: collection.bind(this, false),
 
-      return this.request({
-        url: url,
-        method: "GET"
-      });
-    },
+    getCuratedCollection: collection.bind(this, true),
 
     getCuratedCollectionPhotos: collectionPhotos.bind(this, true),
 
@@ -80,6 +76,17 @@ export default function curatedBatches(): Object {
       });
     }
   };
+}
+
+function collection(isCurated, id) {
+  const url = isCurated
+    ? `/collections/curated/${id}`
+    : `/collections/${id}`;
+
+  return this.request({
+    url: url,
+    method: "GET"
+  });
 }
 
 function collectionPhotos(isCurated, id) {

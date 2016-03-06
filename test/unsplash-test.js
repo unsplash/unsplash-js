@@ -1,5 +1,5 @@
 import Unsplash, { toJson } from "../src/unsplash.js";
-import { bodyToFormData, buildFetchOptions } from "../src/utils";
+import { formUrlEncode, buildFetchOptions } from "../src/utils";
 import { requireFetch } from "../src/services";
 
 import expect, { spyOn, restoreSpies } from "expect";
@@ -560,6 +560,19 @@ describe("Unsplash", () => {
       });
     });
 
+    describe("getCuratedCollection", () => {
+      it("should make a GET request to /collections/curated/{id}", () => {
+        let spy = spyOn(unsplash, "request");
+        unsplash.collections.getCuratedCollection(88);
+
+        expect(spy.calls.length).toEqual(1);
+        expect(spy.calls[0].arguments).toEqual([{
+          method: "GET",
+          url: "/collections/curated/88"
+        }]);
+      });
+    });
+
     describe("getCollectionPhotos", () => {
       it("should make a GET request to /collections/{id}/photos", () => {
         let spy = spyOn(unsplash, "request");
@@ -702,10 +715,10 @@ describe("Unsplash", () => {
   });
 
   describe("utils", () => {
-    describe("bodyToFormData", () => {
+    describe("formUrlEncode", () => {
       it("should return form data", () => {
-        expect(bodyToFormData({ foo: "bar" }))
-        .toBeAn(Object);
+        expect(formUrlEncode({ foo: "bar" }))
+        .toBe("foo=bar");
       });
     });
 
@@ -790,7 +803,7 @@ describe("Unsplash", () => {
 
         let body = buildFetchOptions.bind(classFixture)(options).options.body;
 
-        expect(body).toBeAn(Object);
+        expect(body).toBe("foo=bar");
       });
     });
   });

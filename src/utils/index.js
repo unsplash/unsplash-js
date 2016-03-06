@@ -1,17 +1,9 @@
 /* @flow */
 import { stringify as qsStringify } from "querystring";
+import formurlencoded from "form-urlencoded";
 
-const FormData = process.browser
-  ? window.FormData
-  : require("form-data");
-
-export function bodyToFormData(body: Object): Object {
-  let postBody = new FormData();
-  Object.keys(body).forEach((key) => {
-    postBody.append(key, body[key]);
-  });
-
-  return postBody;
+export function formUrlEncode(body: Object): Object {
+  return formurlencoded(body);
 }
 
 export function buildFetchOptions(
@@ -35,6 +27,10 @@ export function buildFetchOptions(
       : `Client-ID ${this._applicationId}`
   });
 
+  if (body) {
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+  }
+
   if (query) {
     url = decodeURIComponent(`${url}?${qsStringify(query)}`);
   }
@@ -44,8 +40,8 @@ export function buildFetchOptions(
     options: {
       method,
       headers,
-      body: method === "POST" && body
-        ? bodyToFormData(body)
+      body: (method !== "GET") && body
+        ? formUrlEncode(body)
         : undefined
     }
   };
