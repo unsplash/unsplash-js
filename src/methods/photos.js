@@ -54,12 +54,13 @@ export default function photos(): Object {
 
     getRandomPhoto: (options = {}) => {
       const url = "/photos/random";
+      const collections = options.collections || [];
 
       const query = {
         category: options.category,
         featured: options.featured,
         username: options.username,
-        collections: options.collections,
+        collections: collections.join(),
         q: options.query,
         w: options.width,
         h: options.height,
