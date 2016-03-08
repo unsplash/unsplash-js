@@ -59,6 +59,7 @@ export default function photos(): Object {
         category: options.category,
         featured: options.featured,
         username: options.username,
+        collections: options.collections,
         q: options.query,
         w: options.width,
         h: options.height,
