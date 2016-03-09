@@ -59,7 +59,7 @@ export default function photos(): Object {
         category: options.category,
         featured: options.featured,
         username: options.username,
-        q: options.query,
+        query: options.query,
         w: options.width,
         h: options.height,
         c: options.cacheBuster || new Date().getTime() // Avoid ajax response caching
