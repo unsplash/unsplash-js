@@ -2,12 +2,13 @@
 
 export default function photos(): Object {
   return {
-    listPhotos: (page = 1, perPage = 10)  => {
+    listPhotos: (page = 1, perPage = 10, orderBy = "latest")  => {
       const url = "/photos";
 
       let query = {
         page,
-        per_page: perPage
+        per_page: perPage,
+        order_by: orderBy
       };
 
       return this.request({
