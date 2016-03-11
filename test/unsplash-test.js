@@ -241,7 +241,10 @@ describe("Unsplash", () => {
         expect(spy.calls.length).toEqual(1);
         expect(spy.calls[0].arguments).toEqual([{
           method: "GET",
-          url: "/users/naoufal/photos"
+          url: "/users/naoufal/photos",
+          query: {
+            order_by: "latest"
+          }
         }]);
       });
     });
@@ -257,7 +260,8 @@ describe("Unsplash", () => {
           url: "/users/naoufal/likes",
           query: {
             page: 1,
-            per_page: 10
+            per_page: 10,
+            order_by: "latest"
           }
         }]);
       });
@@ -286,7 +290,8 @@ describe("Unsplash", () => {
           url: "/photos",
           query: {
             page: 2,
-            per_page: 15
+            per_page: 15,
+            order_by: "latest"
           }
         }]);
       });
@@ -578,7 +583,10 @@ describe("Unsplash", () => {
         expect(spy.calls.length).toEqual(1);
         expect(spy.calls[0].arguments).toEqual([{
           method: "GET",
-          url: "/collections/88/photos"
+          url: "/collections/88/photos",
+          query: {
+            order_by: "latest"
+          }
         }]);
       });
     });
@@ -591,7 +599,10 @@ describe("Unsplash", () => {
         expect(spy.calls.length).toEqual(1);
         expect(spy.calls[0].arguments).toEqual([{
           method: "GET",
-          url: "/collections/curated/88/photos"
+          url: "/collections/curated/88/photos",
+          query: {
+            order_by: "latest"
+          }
         }]);
       });
     });

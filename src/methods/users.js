@@ -11,21 +11,27 @@ export default function users(): Object {
       });
     },
 
-    photos: (username: string) => {
+    photos: (username: string, orderBy: string = "latest") => {
       const url = `/users/${username}/photos`;
+
+      const query = {
+        order_by: orderBy
+      };
 
       return this.request({
         url,
-        method: "GET"
+        method: "GET",
+        query
       });
     },
 
-    likes: (username: string, page: number = 1, perPage: number = 10) => {
+    likes: (username: string, page: number = 1, perPage: number = 10, orderBy: string = "latest") => {
       const url = `/users/${username}/likes`;
 
-      let query = {
+      const query = {
         page,
-        per_page: perPage
+        per_page: perPage,
+        order_by: orderBy
       };
 
       return this.request({

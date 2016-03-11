@@ -235,18 +235,19 @@ unsplash.users.profile("naoufal")
 ```
 ---
 
-### users.photos(username)
+### users.photos(username, orderBy)
 Get a list of photos uploaded by a user.
 
 __Arguments__
 
-| Argument | Type | Opt/Required |
-|---|---|---|
-|__`username`__|_string_|Required|
+| Argument | Type | Opt/Required | Notes |
+|---|---|---|---|
+|__`username`__|_string_|Required||
+|__`orderBy`__|_string_|Optional|`latest`, `popular` or `oldest`|
 
 __Example__
 ```js
-unsplash.users.photos("naoufal")
+unsplash.users.photos("naoufal", "popular")
   .then(toJson)
   .then(json => {
     // Your code
@@ -254,20 +255,21 @@ unsplash.users.photos("naoufal")
 ```
 ---
 
-### users.likes(username, page, perPage)
+### users.likes(username, page, perPage, orderBy)
 Get a list of photos liked by a user.
 
 __Arguments__
 
-| Argument | Type | Opt/Required |
-|---|---|---|
-|__`username`__|_string_|Required|
-|__`page`__|_number_|Optional|
-|__`perPage`__|_number_|Optional|
+| Argument | Type | Opt/Required | Notes |
+|---|---|---|---|
+|__`username`__|_string_|Required||
+|__`page`__|_number_|Optional||
+|__`perPage`__|_number_|Optional||
+|__`orderBy`__|_string_|Optional|`latest`, `popular` or `oldest`|
 
 __Example__
 ```js
-unsplash.users.likes("naoufal", 2, 15)
+unsplash.users.likes("naoufal", 2, 15, "popular")
   .then(toJson)
   .then(json => {
     // Your code
@@ -487,19 +489,20 @@ unsplash.categories.categoryPhotos(4, 3, 15)
 
 <div id="collections" />
 
-### collections.listCollections(page, perPage)
+### collections.listCollections(page, perPage, orderBy)
 Get a single page from the list of all collections.
 
 __Arguments__
 
-| Argument | Type | Opt/Required |
-|---|---|---|
-|__`page`__|_number_|Optional|
-|__`perPage`__|_number_|Optional|
+| Argument | Type | Opt/Required |Notes|
+|---|---|---|---|
+|__`page`__|_number_|Optional||
+|__`perPage`__|_number_|Optional||
+|__`orderBy`__|_string_|Optional|`latest`, `popular` or `oldest`|
 
 __Example__
 ```js
-unsplash.collections.listCollections(1, 10)
+unsplash.collections.listCollections(1, 10, "popular")
   .then(toJson)
   .then(json => {
     // Your code
@@ -567,19 +570,21 @@ unsplash.collections.getCuratedCollection(88)
 ```
 ---
 
-### collections.getCollectionPhotos(id)
+### collections.getCollectionPhotos(id, orderBy)
 Retrieve a collection’s photos.
 
 __Arguments__
 
-| Argument | Type | Opt/Required |
-|---|---|---|
-|__`id`__|_number_|Required|
+| Argument | Type | Opt/Required | Notes |
+|---|---|---|---|
+|__`id`__|_number_|Required||
+|__`orderBy`__|_string_|Optional|`latest`, `popular` or `oldest`|
+
 
 
 __Example__
 ```js
-unsplash.collections.getCollectionPhotos(123456)
+unsplash.collections.getCollectionPhotos(123456, "popular")
   .then(toJson)
   .then(json => {
     // Your code
@@ -587,19 +592,20 @@ unsplash.collections.getCollectionPhotos(123456)
 ```
 ---
 
-### collections.getCuratedCollectionPhotos(id)
+### collections.getCuratedCollectionPhotos(id, orderBy)
 Or, for a curated collection:
 
 __Arguments__
 
-| Argument | Type | Opt/Required |
-|---|---|---|
-|__`id`__|_number_|Required|
+| Argument | Type | Opt/Required | Notes |
+|---|---|---|---|
+|__`id`__|_number_|Required||
+|__`orderBy`__|_string_|Optional|`latest`, `popular` or `oldest`|
 
 
 __Example__
 ```js
-unsplash.collections.getCuratedCollectionPhotos(88)
+unsplash.collections.getCuratedCollectionPhotos(88, "popular")
   .then(toJson)
   .then(json => {
     // Your code
