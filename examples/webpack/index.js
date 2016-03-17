@@ -1,4 +1,4 @@
-import Unsplash, { toJson } from "unsplash";
+import Unsplash, { toJson } from "unsplash-js";
 
 let unsplash = new Unsplash({
   applicationId: "{YOUR_APPLICATION_ID}",
