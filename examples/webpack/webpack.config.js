@@ -26,22 +26,12 @@ module.exports = {
     new webpack.IgnorePlugin(/^form-data/),
     new webpack.IgnorePlugin(/^node-fetch/),
   ],
-  resolve: {
-    alias: {
-      'unsplash': path.join(__dirname, '..', '..', 'src/unsplash.js')
-    },
-    extensions: ['', '.js']
-  },
   module: {
     loaders: [{
       test: /\.js$/,
       loaders: ['babel-loader'],
       exclude: /node_modules/,
       include: __dirname
-    }, {
-      test: /\.js$/,
-      loaders: ['babel-loader'],
-      include: path.join(__dirname, '..', '..', 'src')
     }]
   }
 };
