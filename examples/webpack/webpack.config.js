@@ -1,35 +1,27 @@
-var path = require('path');
-var webpack = require('webpack');
+var path = require("path");
+var webpack = require("webpack");
 
 module.exports = {
-  devtool: 'eval',
+  devtool: "eval",
   entry: [
-    'webpack-dev-server/client?http://localhost:3000',
-    'webpack/hot/only-dev-server',
-    './index'
+    "webpack-dev-server/client?http://localhost:3000",
+    "webpack/hot/only-dev-server",
+    "./index"
   ],
   output: {
-    path: path.join(__dirname, 'dist'),
-    filename: 'bundle.js',
-    publicPath: '/static/'
+    path: path.join(__dirname, "dist"),
+    filename: "bundle.js",
+    publicPath: "/static/"
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
-    new webpack.DefinePlugin({
-      'Promise': 'es6-promise',
-      'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch',
-      'process': {
-        'browser': true
-      }
-    }),
-    new webpack.IgnorePlugin(/^form-data/),
-    new webpack.IgnorePlugin(/^node-fetch/),
+    new webpack.IgnorePlugin(/node-fetch/)
   ],
   module: {
     loaders: [{
       test: /\.js$/,
-      loaders: ['babel-loader'],
+      loaders: ["babel-loader"],
       exclude: /node_modules/,
       include: __dirname
     }]
