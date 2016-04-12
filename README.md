@@ -12,6 +12,7 @@ A [Universal JavaScript](https://medium.com/@mjackson/universal-javascript-47610
 --- | --- | --- | --- | --- |
 Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | 10+ ✔ |
 
+
 ## Documentation
 - [Installation](https://github.com/unsplash/unsplash-js#installation)
 - [Dependencies](https://github.com/unsplash/unsplash-js#dependencies)
@@ -34,7 +35,9 @@ This library depends on [fetch](https://fetch.spec.whatwg.org/) to make requests
 To create an instance, simply provide an _Object_ with your `applicationId`, `secret` and `callbackUrl`.
 
 ```js
-let unsplash = new Unsplash({
+import Unsplash from 'unsplash-js';
+
+const unsplash = new Unsplash({
   applicationId: "{APP_ID}",
   secret: "{APP_SECRET}",
   callbackUrl: "{CALLBACK_URL}"
@@ -44,7 +47,7 @@ let unsplash = new Unsplash({
 If you already have a bearer token, you can also provide it to the constructor.
 
 ```js
-let unsplash = new Unsplash({
+const unsplash = new Unsplash({
   applicationId: "{APP_ID}",
   secret: "{APP_SECRET}",
   callbackUrl: "{CALLBACK_URL}",
@@ -53,6 +56,13 @@ let unsplash = new Unsplash({
 ```
 
 _Credentials can be obtained from [Unsplash Developers](https://unsplash.com/developers)._
+
+### React Native
+For use with React Native, import from `unsplash-js/native` instead.
+
+```js
+import Unsplash from 'unsplash-js/native';
+```
 
 ---
 
