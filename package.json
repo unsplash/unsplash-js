@@ -16,7 +16,7 @@
     "test:browser": "karma start",
     "test:ci": "npm run lint && npm run flow && npm run test:browser && npm run test:coverage",
     "test:coverage": "babel-node ./node_modules/.bin/isparta cover _mocha",
-    "test:node": "mocha --compilers js:babel-core/register --recursive",
+    "test:node": "mocha --compilers js:babel-core/register --require test/setup --recursive",
     "test:watch": "npm test -- --watch"
   },
   "repository": {
@@ -63,11 +63,11 @@
     "karma-webpack": "1.7.0",
     "mocha": "2.3.3",
     "mockery": "1.4.0",
+    "node-fetch": "1.5.0",
     "webpack": "1.12.14"
   },
   "dependencies": {
     "form-urlencoded": "1.2.0",
-    "node-fetch": "1.3.3",
     "querystring": "0.2.0"
   }
 }

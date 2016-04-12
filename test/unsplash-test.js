@@ -1,6 +1,5 @@
 import Unsplash, { toJson } from "../src/unsplash.js";
 import { formUrlEncode, buildFetchOptions } from "../src/utils";
-import { requireFetch } from "../src/services";
 
 import expect, { spyOn, restoreSpies } from "expect";
 
@@ -809,16 +808,6 @@ describe("Unsplash", () => {
         let body = buildFetchOptions.bind(classFixture)(options).options.body;
 
         expect(body).toBe("foo=bar");
-      });
-    });
-  });
-
-  describe("services", () => {
-    describe("requireFetch", () => {
-      it("should require fetch client polyfill when required on the client", () => {
-        process.env.browser = true;
-
-        requireFetch();
       });
     });
   });
