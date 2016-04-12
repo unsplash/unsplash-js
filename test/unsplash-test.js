@@ -235,13 +235,15 @@ describe("Unsplash", () => {
     describe("photos", () => {
       it("should make a GET request to /users/{username}/photos", () => {
         let spy = spyOn(unsplash, "request");
-        unsplash.users.photos("naoufal");
+        unsplash.users.photos("naoufal", 2, 15);
 
         expect(spy.calls.length).toEqual(1);
         expect(spy.calls[0].arguments).toEqual([{
           method: "GET",
           url: "/users/naoufal/photos",
           query: {
+            page: 2,
+            per_page: 15,
             order_by: "latest"
           }
         }]);

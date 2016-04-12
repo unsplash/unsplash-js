@@ -245,7 +245,7 @@ unsplash.users.profile("naoufal")
 ```
 ---
 
-### users.photos(username, orderBy)
+### users.photos(username, page, perPage, orderBy)
 Get a list of photos uploaded by a user.
 
 __Arguments__
@@ -253,6 +253,8 @@ __Arguments__
 | Argument | Type | Opt/Required | Notes |
 |---|---|---|---|
 |__`username`__|_string_|Required||
+|__`page`__|_number_|Optional||
+|__`perPage`__|_number_|Optional||
 |__`orderBy`__|_string_|Optional|`latest`, `popular` or `oldest`|
 
 __Example__
