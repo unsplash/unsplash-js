@@ -13,7 +13,6 @@ module.exports = {
     ]
   },
   plugins: [
-    new webpack.IgnorePlugin(/node-fetch/),
     new webpack.DefinePlugin({
       "process.browser": true
     })

@@ -1,8 +1,8 @@
 # Unsplash
 
 [![npm](https://img.shields.io/npm/v/unsplash-js.svg?style=flat-square)](https://www.npmjs.com/package/unsplash-js)
-[![Travis](https://img.shields.io/travis/naoufal/unsplash-js/master.svg?style=flat-square)](https://travis-ci.org/naoufal/unsplash-js/branches)
-[![Coveralls](https://img.shields.io/coveralls/naoufal/unsplash-js/master.svg?style=flat-square)](https://coveralls.io/github/naoufal/unsplash-js?branch=master)
+[![Travis](https://img.shields.io/travis/unsplash/unsplash-js/master.svg?style=flat-square)](https://travis-ci.org/naoufal/unsplash-js/branches)
+[![Coveralls](https://img.shields.io/coveralls/unsplash/unsplash-js/master.svg?style=flat-square)](https://coveralls.io/github/naoufal/unsplash-js?branch=master)
 
 A [Universal JavaScript](https://medium.com/@mjackson/universal-javascript-4761051b7ae9) wrapper for the [Unsplash API](https://unsplash.com/developers).
 
@@ -12,14 +12,15 @@ A [Universal JavaScript](https://medium.com/@mjackson/universal-javascript-47610
 --- | --- | --- | --- | --- |
 Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | 10+ ✔ |
 
+
 ## Documentation
-- [Installation](https://github.com/naoufal/unsplash-js#installation)
-- [Dependencies](https://github.com/naoufal/unsplash-js#dependencies)
-- [Usage](https://github.com/naoufal/unsplash-js#usage)
-- [Instance Methods](https://github.com/naoufal/unsplash-js#instance-methods)
-- [Helpers](https://github.com/naoufal/unsplash-js#helpers)
-- [Shoutouts](https://github.com/naoufal/unsplash-js#shoutouts)
-- [License](https://github.com/naoufal/unsplash-js#license)
+- [Installation](https://github.com/unsplash/unsplash-js#installation)
+- [Dependencies](https://github.com/unsplash/unsplash-js#dependencies)
+- [Usage](https://github.com/unsplash/unsplash-js#usage)
+- [Instance Methods](https://github.com/unsplash/unsplash-js#instance-methods)
+- [Helpers](https://github.com/unsplash/unsplash-js#helpers)
+- [Shoutouts](https://github.com/unsplash/unsplash-js#shoutouts)
+- [License](https://github.com/unsplash/unsplash-js#license)
 
 ## Installation
 ```bash
@@ -27,14 +28,16 @@ $ npm i --save unsplash-js
 ```
 
 ## Dependencies
-This library depends on [fetch](https://fetch.spec.whatwg.org/) to make requests to the Unsplash API.  __For browsers__ that don't support fetch, you'll need to provide a [poly](https://github.com/github/fetch)[fill](https://cdnjs.com/libraries/fetch).
+This library depends on [fetch](https://fetch.spec.whatwg.org/) to make requests to the Unsplash API.  For environments that don't support fetch, you'll need to provide a [poly](https://github.com/github/fetch)[fill](https://github.com/bitinn/node-fetch).
 
 ## Usage
 ### Creating an instance
 To create an instance, simply provide an _Object_ with your `applicationId`, `secret` and `callbackUrl`.
 
 ```js
-let unsplash = new Unsplash({
+import Unsplash from 'unsplash-js';
+
+const unsplash = new Unsplash({
   applicationId: "{APP_ID}",
   secret: "{APP_SECRET}",
   callbackUrl: "{CALLBACK_URL}"
@@ -44,7 +47,7 @@ let unsplash = new Unsplash({
 If you already have a bearer token, you can also provide it to the constructor.
 
 ```js
-let unsplash = new Unsplash({
+const unsplash = new Unsplash({
   applicationId: "{APP_ID}",
   secret: "{APP_SECRET}",
   callbackUrl: "{CALLBACK_URL}",
@@ -53,6 +56,13 @@ let unsplash = new Unsplash({
 ```
 
 _Credentials can be obtained from [Unsplash Developers](https://unsplash.com/developers)._
+
+### React Native
+For use with React Native, import from `unsplash-js/native` instead.
+
+```js
+import Unsplash from 'unsplash-js/native';
+```
 
 ---
 
@@ -102,13 +112,13 @@ unsplash.users.profile("naoufal")
 ---
 
 ## Instance Methods
-- [Authorization](https://github.com/naoufal/unsplash-js#authorization)
-- [Current User](https://github.com/naoufal/unsplash-js#current-user)
-- [Users](https://github.com/naoufal/unsplash-js#users)
-- [Photos](https://github.com/naoufal/unsplash-js#photos)
-- [Categories](https://github.com/naoufal/unsplash-js#categories)
-- [Collections](https://github.com/naoufal/unsplash-js#collections)
-- [Stats](https://github.com/naoufal/unsplash-js#stats)
+- [Authorization](https://github.com/unsplash/unsplash-js#authorization)
+- [Current User](https://github.com/unsplash/unsplash-js#current-user)
+- [Users](https://github.com/unsplash/unsplash-js#users)
+- [Photos](https://github.com/unsplash/unsplash-js#photos)
+- [Categories](https://github.com/unsplash/unsplash-js#categories)
+- [Collections](https://github.com/unsplash/unsplash-js#collections)
+- [Stats](https://github.com/unsplash/unsplash-js#stats)
 
 <div id="authorization" />
 
@@ -767,7 +777,7 @@ unsplash.stats.total()
 - Shoutout to [BrowserStack](https://www.browserstack.com/) for letting us use their service to run automated browser tests.
 
 ## License
-Copyright (c) 2015, [Naoufal Kadhom](http://naoufal.com)
+Copyright (c) 2015, [Unsplash](https://unsplash.com)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

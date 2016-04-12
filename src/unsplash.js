@@ -1,10 +1,9 @@
 /* @flow */
 
+declare var fetch: any;
+
 import { API_URL, API_VERSION } from "./constants";
 import { buildFetchOptions } from "./utils";
-import { requireFetch } from "./services";
-
-const fetch = requireFetch();
 
 import auth from "./methods/auth";
 import currentUser from "./methods/currentUser";
