@@ -11,10 +11,11 @@ export default function users(): Object {
       });
     },
 
-    photos: (username: string, orderBy: string = "latest") => {
+    photos: (username: string, page: number = 1, perPage: number = 10, orderBy: string = "latest") => {
       const url = `/users/${username}/photos`;
-
       const query = {
+        page,
+        per_page: perPage,
         order_by: orderBy
       };
 
@@ -27,7 +28,6 @@ export default function users(): Object {
 
     likes: (username: string, page: number = 1, perPage: number = 10, orderBy: string = "latest") => {
       const url = `/users/${username}/likes`;
-
       const query = {
         page,
         per_page: perPage,
