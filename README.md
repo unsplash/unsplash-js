@@ -1,8 +1,8 @@
 # Unsplash
 
 [![npm](https://img.shields.io/npm/v/unsplash-js.svg?style=flat-square)](https://www.npmjs.com/package/unsplash-js)
-[![Travis](https://img.shields.io/travis/unsplash/unsplash-js/master.svg?style=flat-square)](https://travis-ci.org/naoufal/unsplash-js/branches)
-[![Coveralls](https://img.shields.io/coveralls/unsplash/unsplash-js/master.svg?style=flat-square)](https://coveralls.io/github/naoufal/unsplash-js?branch=master)
+[![Travis](https://img.shields.io/travis/unsplash/unsplash-js/master.svg?style=flat-square)](https://travis-ci.org/unsplash/unsplash-js/branches)
+[![Coveralls](https://img.shields.io/coveralls/unsplash/unsplash-js/master.svg?style=flat-square)](https://coveralls.io/github/unsplash/unsplash-js?branch=master)
 
 A [Universal JavaScript](https://medium.com/@mjackson/universal-javascript-4761051b7ae9) wrapper for the [Unsplash API](https://unsplash.com/developers).
 
@@ -775,7 +775,7 @@ unsplash.stats.total()
 ---
 
 ## Shoutouts
-- Shoutout to all the [contributors](https://github.com/naoufal/unsplash-js/graphs/contributors) for lending a helping hand.
+- Shoutout to all the [contributors](https://github.com/unsplash/unsplash-js/graphs/contributors) for lending a helping hand.
 - Shoutout to [BrowserStack](https://www.browserstack.com/) for letting us use their service to run automated browser tests.
 
 ## License
