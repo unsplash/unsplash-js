@@ -15,7 +15,7 @@
     "test": "npm run lint && npm run flow && npm run test:node && npm run test:browser",
     "test:browser": "karma start",
     "test:ci": "npm run lint && npm run flow && npm run test:browser && npm run test:coverage",
-    "test:coverage": "babel-node ./node_modules/.bin/isparta cover _mocha",
+    "test:coverage": "babel-node ./node_modules/.bin/isparta cover _mocha -- --require test/setup",
     "test:node": "mocha --compilers js:babel-core/register --require test/setup --recursive",
     "test:watch": "npm test -- --watch"
   },
