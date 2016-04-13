@@ -39,6 +39,20 @@ export default function users(): Object {
         method: "GET",
         query
       });
+    },
+
+    collections: (username: string, page: number = 1, perPage: number = 10) => {
+      const url = `/users/${username}/collections`;
+      const query = {
+        page,
+        per_page: perPage
+      };
+
+      return this.request({
+        url,
+        method: "GET",
+        query
+      });
     }
   };
 }

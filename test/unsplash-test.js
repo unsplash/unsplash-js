@@ -267,6 +267,23 @@ describe("Unsplash", () => {
         }]);
       });
     });
+
+    describe("collections", () => {
+      it("should make a GET request to /users/{username}/collections", () => {
+        let spy = spyOn(unsplash, "request");
+        unsplash.users.collections("naoufal");
+
+        expect(spy.calls.length).toEqual(1);
+        expect(spy.calls[0].arguments).toEqual([{
+          method: "GET",
+          url: "/users/naoufal/collections",
+          query: {
+            page: 1,
+            per_page: 10
+          }
+        }]);
+      });
+    });
   });
 
   describe("photos", () => {
