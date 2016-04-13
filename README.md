@@ -70,7 +70,7 @@ import Unsplash from 'unsplash-js/native';
 Generate an authentication url with the scopes your app requires.
 
 ```js
-let authenticationUrl = unsplash.auth.getAuthenticationUrl([
+const authenticationUrl = unsplash.auth.getAuthenticationUrl([
   "public",
   "read_user",
   "write_user",
@@ -133,7 +133,7 @@ __Arguments__
 
 __Example__
 ```js
-let authenticationUrl = unsplash.auth.getAuthenticationUrl([
+const authenticationUrl = unsplash.auth.getAuthenticationUrl([
   "public",
   "read_user",
   "write_user",
@@ -282,6 +282,27 @@ __Arguments__
 __Example__
 ```js
 unsplash.users.likes("naoufal", 2, 15, "popular")
+  .then(toJson)
+  .then(json => {
+    // Your code
+  });
+```
+---
+
+### users.collections(username, page, perPage)
+Get a list of collections created by the user.
+
+__Arguments__
+
+| Argument | Type | Opt/Required | Notes |
+|---|---|---|---|
+|__`username`__|_string_|Required||
+|__`page`__|_number_|Optional||
+|__`perPage`__|_number_|Optional||
+
+__Example__
+```js
+unsplash.users.collections("naoufal", 2, 15)
   .then(toJson)
   .then(json => {
     // Your code
@@ -760,7 +781,7 @@ __Example__
 ```js
 import Unsplash, { toJson } from "unsplash-js";
 
-let unsplash = new Unsplash({
+const unsplash = new Unsplash({
   applicationId: "{YOUR_APPLICATION_ID}",
   secret: "{YOUR_SECRET_KEY}",
   callbackUrl: "{YOUR_CALLBACK_URL}"
