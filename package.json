@@ -1,6 +1,6 @@
 {
   "name": "unsplash-js",
-  "version": "3.2.0",
+  "version": "3.2.1",
   "description": "A Universal JavaScript wrapper for the Unsplash API",
   "main": "lib/unsplash.js",
   "scripts": {
@@ -21,7 +21,6 @@
     "publish:major": "npm run build && npm version major",
     "publish:minor": "npm run build && npm version minor",
     "publish:patch": "npm run build && npm version patch"
-
   },
   "repository": {
     "type": "git",
