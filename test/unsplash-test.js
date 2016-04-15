@@ -315,6 +315,24 @@ describe("Unsplash", () => {
       });
     });
 
+    describe("listCuratedPhotos", () => {
+      it("should make a GET request to /photos/curated", () => {
+        let spy = spyOn(unsplash, "request");
+        unsplash.photos.listCuratedPhotos(2, 15);
+
+        expect(spy.calls.length).toEqual(1);
+        expect(spy.calls[0].arguments).toEqual([{
+          method: "GET",
+          url: "/photos/curated",
+          query: {
+            page: 2,
+            per_page: 15,
+            order_by: "latest"
+          }
+        }]);
+      });
+    });
+
     describe("searchPhotos", () => {
       it("should make a GET request to /photos/search", () => {
         let spy = spyOn(unsplash, "request");
