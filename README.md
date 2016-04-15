@@ -312,7 +312,7 @@ unsplash.users.collections("naoufal", 2, 15)
 
 <div id="photos" />
 
-### photos.listPhotos(page, perPage)
+### photos.listPhotos(page, perPage, orderBy)
 Get a single page from the list of all photos.
 
 __Arguments__
@@ -321,10 +321,32 @@ __Arguments__
 |---|---|---|
 |__`page`__|_number_|Optional|
 |__`perPage`__|_number_|Optional|
+|__`orderBy`__|_string_|Optional|`latest`, `popular` or `oldest`|
 
 __Example__
 ```js
-unsplash.photos.listPhotos(2, 15)
+unsplash.photos.listPhotos(2, 15, "latest")
+  .then(toJson)
+  .then(json => {
+    // Your code
+  });
+```
+---
+
+### photos.listCuratedPhotos(page, perPage, orderBy)
+Get a single page from the list of the curated photos.
+
+__Arguments__
+
+| Argument | Type | Opt/Required |
+|---|---|---|
+|__`page`__|_number_|Optional|
+|__`perPage`__|_number_|Optional|
+|__`orderBy`__|_string_|Optional|`latest`, `popular` or `oldest`|
+
+__Example__
+```js
+unsplash.photos.listCuratedPhotos(2, 15, "latest")
   .then(toJson)
   .then(json => {
     // Your code
