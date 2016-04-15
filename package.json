@@ -17,11 +17,15 @@
     "test:ci": "npm run lint && npm run flow && npm run test:browser && npm run test:coverage",
     "test:coverage": "babel-node ./node_modules/.bin/isparta cover _mocha -- --require test/setup",
     "test:node": "mocha --compilers js:babel-core/register --require test/setup --recursive",
-    "test:watch": "npm test -- --watch"
+    "test:watch": "npm test -- --watch",
+    "publish:major": "npm run build && npm version major",
+    "publish:minor": "npm run build && npm version minor",
+    "publish:patch": "npm run build && npm version patch"
+
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/naoufal/unsplash-js.git"
+    "url": "git+https://github.com/unsplash/unsplash-js.git"
   },
   "keywords": [
     "unsplash",
@@ -31,12 +35,12 @@
     "splash",
     "free"
   ],
-  "author": "Naoufal Kadhom",
+  "author": "Unsplash",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/naoufal/unsplash-js/issues"
+    "url": "https://github.com/unsplash/unsplash-js/issues"
   },
-  "homepage": "https://github.com/naoufal/unsplash-js#readme",
+  "homepage": "https://github.com/unsplash/unsplash-js#readme",
   "devDependencies": {
     "babel": "6.3.26",
     "babel-cli": "6.4.0",
