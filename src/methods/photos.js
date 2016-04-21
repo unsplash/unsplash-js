@@ -65,6 +65,15 @@ export default function photos(): Object {
       });
     },
 
+    getPhotoStats: (id) => {
+      const url = `/photos/${id}/stats`;
+
+      return this.request({
+        url,
+        method: "GET"
+      });
+    },
+
     getRandomPhoto: (options = {}) => {
       const url = "/photos/random";
       const query = {
