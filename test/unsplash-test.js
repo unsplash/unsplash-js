@@ -387,6 +387,19 @@ describe("Unsplash", () => {
       });
     });
 
+    describe("getPhotoStats", () => {
+      it("should make a GET request to /photos/{id}/stats", () => {
+        let spy = spyOn(unsplash, "request");
+        unsplash.photos.getPhotoStats(90);
+
+        expect(spy.calls.length).toEqual(1);
+        expect(spy.calls[0].arguments).toEqual([{
+          method: "GET",
+          url: "/photos/90/stats"
+        }]);
+      });
+    });
+
     describe("getRandomPhoto", () => {
       it("should make a GET request to /photos/random", () => {
         let spy = spyOn(unsplash, "request");

@@ -398,6 +398,25 @@ unsplash.photos.getPhoto("mtNweauBsMQ", 1920, 1080, [0, 0, 1920, 1080])
 ```
 ---
 
+### photos.getPhotoStats(id)
+Retrieve a single photo's stats.
+
+__Arguments__
+
+| Argument | Type | Opt/Required |
+|---|---|---|
+|__`id`__|_string_|Required|
+
+__Example__
+```js
+unsplash.photos.getPhotoStats("mtNweauBsMQ")
+  .then(toJson)
+  .then(json => {
+    // Your code
+  });
+```
+---
+
 ### photos.getRandomPhoto({ width, height, query, username, featured, category })
 Retrieve a single random photo, given optional filters.
 
