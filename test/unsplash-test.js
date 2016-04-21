@@ -404,7 +404,10 @@ describe("Unsplash", () => {
       it("should make a GET request to /photos/random", () => {
         let spy = spyOn(unsplash, "request");
         const cacheBuster = + new Date();
+        const collections = [1, 2];
+
         unsplash.photos.getRandomPhoto({
+          collections,
           cacheBuster
         });
 
@@ -413,6 +416,7 @@ describe("Unsplash", () => {
           method: "GET",
           url: "/photos/random",
           query: {
+            collections: "1,2",
             c: cacheBuster
           }
         }]);
