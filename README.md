@@ -652,13 +652,15 @@ __Arguments__
 | Argument | Type | Opt/Required | Notes |
 |---|---|---|---|
 |__`id`__|_number_|Required||
+|__`page`__|_number_|Optional|
+|__`perPage`__|_number_|Optional|
 |__`orderBy`__|_string_|Optional|`latest`, `popular` or `oldest`|
 
 
 
 __Example__
 ```js
-unsplash.collections.getCollectionPhotos(123456, "popular")
+unsplash.collections.getCollectionPhotos(123456, 1, 10, "popular")
   .then(toJson)
   .then(json => {
     // Your code
@@ -674,12 +676,14 @@ __Arguments__
 | Argument | Type | Opt/Required | Notes |
 |---|---|---|---|
 |__`id`__|_number_|Required||
+|__`page`__|_number_|Optional|
+|__`perPage`__|_number_|Optional|
 |__`orderBy`__|_string_|Optional|`latest`, `popular` or `oldest`|
 
 
 __Example__
 ```js
-unsplash.collections.getCuratedCollectionPhotos(88, "popular")
+unsplash.collections.getCuratedCollectionPhotos(88, 1, 10, "popular")
   .then(toJson)
   .then(json => {
     // Your code

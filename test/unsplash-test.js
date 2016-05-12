@@ -631,13 +631,15 @@ describe("Unsplash", () => {
     describe("getCollectionPhotos", () => {
       it("should make a GET request to /collections/{id}/photos", () => {
         let spy = spyOn(unsplash, "request");
-        unsplash.collections.getCollectionPhotos(88);
+        unsplash.collections.getCollectionPhotos(88, 2, 15);
 
         expect(spy.calls.length).toEqual(1);
         expect(spy.calls[0].arguments).toEqual([{
           method: "GET",
           url: "/collections/88/photos",
           query: {
+            page: 2,
+            per_page: 15,
             order_by: "latest"
           }
         }]);
@@ -647,13 +649,15 @@ describe("Unsplash", () => {
     describe("getCuratedCollectionPhotos", () => {
       it("should make a GET request to /collections/curated/{id}/photos", () => {
         let spy = spyOn(unsplash, "request");
-        unsplash.collections.getCuratedCollectionPhotos(88);
+        unsplash.collections.getCuratedCollectionPhotos(88, 2, 15);
 
         expect(spy.calls.length).toEqual(1);
         expect(spy.calls[0].arguments).toEqual([{
           method: "GET",
           url: "/collections/curated/88/photos",
           query: {
+            page: 2,
+            per_page: 15,
             order_by: "latest"
           }
         }]);
