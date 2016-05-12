@@ -89,6 +89,8 @@ function collection(isCurated: bool, id: string) {
 function collectionPhotos(
   isCurated: bool,
   id: string,
+  page: number = 1,
+  perPage: number = 10,
   orderBy: string = "latest"
 ) {
   const url = isCurated
@@ -96,6 +98,8 @@ function collectionPhotos(
     : `/collections/${id}/photos`;
 
   const query = {
+    page,
+    per_page: perPage,
     order_by: orderBy
   };
 
