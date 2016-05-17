@@ -604,6 +604,26 @@ unsplash.collections.listCuratedCollections(1, 10)
 ```
 ---
 
+### collections.listFeaturedCollections(page, perPage)
+Get a single page from the list of featured collections.
+
+__Arguments__
+
+| Argument | Type | Opt/Required |
+|---|---|---|
+|__`page`__|_number_|Optional|
+|__`perPage`__|_number_|Optional|
+
+__Example__
+```js
+unsplash.collections.listFeaturedCollections(1, 10)
+  .then(toJson)
+  .then(json => {
+    // Your code
+  });
+```
+---
+
 ### collections.getCollection(id)
 Retrieve a single collection. To view a user’s private collections, the `read_collections` scope is required.
 
