@@ -794,6 +794,90 @@ unsplash.collections.removePhotoFromCollection(88, 'abc1234')
 ```
 ---
 
+<div id="search" />
+
+### search.all(keyword, page)
+Get a list of photos, collections, and users matching the keyword.
+
+__Arguments__
+
+| Argument | Type | Opt/Required | Notes |
+|---|---|---|---|
+|__`keyword`__|_number_|Required||
+|__`page`__|_number_|Optional|
+
+
+__Example__
+```js
+unsplash.search.all("dogs", 2)
+  .then(toJson)
+  .then(json => {
+    // Your code
+  });
+```
+
+### search.users(keyword, page)
+Get a list of users matching the keyword.
+
+__Arguments__
+
+| Argument | Type | Opt/Required | Notes |
+|---|---|---|---|
+|__`keyword`__|_number_|Required||
+|__`page`__|_number_|Optional|
+
+
+__Example__
+```js
+unsplash.search.users("steve", 1)
+  .then(toJson)
+  .then(json => {
+    // Your code
+  });
+```
+
+### search.photos(keyword, page)
+Get a list of photos matching the keyword.
+
+__Arguments__
+
+| Argument | Type | Opt/Required | Notes |
+|---|---|---|---|
+|__`keyword`__|_number_|Required||
+|__`page`__|_number_|Optional|
+
+
+__Example__
+```js
+unsplash.search.photos("dogs", 1)
+  .then(toJson)
+  .then(json => {
+    // Your code
+  });
+```
+
+### search.collections(keyword, page)
+Get a list of collections matching the keyword.
+
+__Arguments__
+
+| Argument | Type | Opt/Required | Notes |
+|---|---|---|---|
+|__`keyword`__|_number_|Required||
+|__`page`__|_number_|Optional|
+
+
+__Example__
+```js
+unsplash.search.collections("dogs", 1)
+  .then(toJson)
+  .then(json => {
+    // Your code
+  });
+```
+
+---
+
 <div id="stats" />
 
 ### stats.total()
