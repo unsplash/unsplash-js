@@ -790,6 +790,21 @@ describe("Unsplash", () => {
           }
         }]);
       });
+
+      it("should submit an empty query if the keyword is an empty string", () => {
+        let spy = spyOn(unsplash, "request");
+        unsplash.search.all();
+
+        expect(spy.calls.length).toEqual(1);
+        expect(spy.calls[0].arguments).toEqual([{
+          method: "GET",
+          url: "/search",
+          query: {
+            query: "",
+            page: 1
+          }
+        }]);
+      });
     });
 
     describe("photos", () => {
@@ -803,6 +818,21 @@ describe("Unsplash", () => {
           url: "/search/photos",
           query: {
             query: "nature",
+            page: 1
+          }
+        }]);
+      });
+
+      it("should submit an empty query if the keyword is an empty string", () => {
+        let spy = spyOn(unsplash, "request");
+        unsplash.search.photos();
+
+        expect(spy.calls.length).toEqual(1);
+        expect(spy.calls[0].arguments).toEqual([{
+          method: "GET",
+          url: "/search/photos",
+          query: {
+            query: "",
             page: 1
           }
         }]);
@@ -824,6 +854,21 @@ describe("Unsplash", () => {
           }
         }]);
       });
+
+      it("should submit an empty query if the keyword is an empty string", () => {
+        let spy = spyOn(unsplash, "request");
+        unsplash.search.users();
+
+        expect(spy.calls.length).toEqual(1);
+        expect(spy.calls[0].arguments).toEqual([{
+          method: "GET",
+          url: "/search/users",
+          query: {
+            query: "",
+            page: 1
+          }
+        }]);
+      });
     });
 
     describe("collections", () => {
@@ -837,6 +882,21 @@ describe("Unsplash", () => {
           url: "/search/collections",
           query: {
             query: "water",
+            page: 1
+          }
+        }]);
+      });
+
+      it("should submit an empty query if the keyword is an empty string", () => {
+        let spy = spyOn(unsplash, "request");
+        unsplash.search.collections();
+
+        expect(spy.calls.length).toEqual(1);
+        expect(spy.calls[0].arguments).toEqual([{
+          method: "GET",
+          url: "/search/collections",
+          query: {
+            query: "",
             page: 1
           }
         }]);

@@ -2,7 +2,7 @@
 
 export default function search(): Object {
   return {
-    all: (keyword, page = 1)  => {
+    all: (keyword = "", page = 1)  => {
       const url = "/search";
       const query = {
         query: keyword,
@@ -16,7 +16,7 @@ export default function search(): Object {
       });
     },
 
-    photos: (keyword, page = 1)  => {
+    photos: (keyword = "", page = 1)  => {
       const url = "/search/photos";
       const query = {
         query: keyword,
@@ -30,7 +30,7 @@ export default function search(): Object {
       });
     },
 
-    users: (keyword, page = 1)  => {
+    users: (keyword = "", page = 1)  => {
       const url = "/search/users";
       const query = {
         query: keyword,
@@ -44,7 +44,7 @@ export default function search(): Object {
       });
     },
 
-    collections: (keyword, page = 1)  => {
+    collections: (keyword = "", page = 1)  => {
       const url = "/search/collections";
       const query = {
         query: keyword,
