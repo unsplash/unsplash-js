@@ -2,60 +2,25 @@
 
 export default function search(): Object {
   return {
-    all: (keyword = "", page = 1)  => {
-      const url = "/search";
-      const query = {
-        query: keyword,
-        page
-      };
+    all: searcher.bind(this, "/search"),
 
-      return this.request({
-        url,
-        method: "GET",
-        query
-      });
-    },
+    photos: searcher.bind(this, "/search/photos"),
 
-    photos: (keyword = "", page = 1)  => {
-      const url = "/search/photos";
-      const query = {
-        query: keyword,
-        page
-      };
+    users: searcher.bind(this, "/search/users"),
 
-      return this.request({
-        url,
-        method: "GET",
-        query
-      });
-    },
-
-    users: (keyword = "", page = 1)  => {
-      const url = "/search/users";
-      const query = {
-        query: keyword,
-        page
-      };
-
-      return this.request({
-        url,
-        method: "GET",
-        query
-      });
-    },
-
-    collections: (keyword = "", page = 1)  => {
-      const url = "/search/collections";
-      const query = {
-        query: keyword,
-        page
-      };
-
-      return this.request({
-        url,
-        method: "GET",
-        query
-      });
-    }
+    collections: searcher.bind(this, "/search/collections")
   };
+}
+
+function searcher(url, keyword = "", page = 1) {
+  const query = {
+    query: keyword,
+    page
+  };
+
+  return this.request({
+    url,
+    method: "GET",
+    query
+  });
 }
