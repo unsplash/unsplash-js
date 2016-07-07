@@ -602,6 +602,23 @@ describe("Unsplash", () => {
       });
     });
 
+    describe("listFeaturedCollections", () => {
+      it("should make a GET request to /collections/featured", () => {
+        let spy = spyOn(unsplash, "request");
+        unsplash.collections.listFeaturedCollections(2, 15);
+
+        expect(spy.calls.length).toEqual(1);
+        expect(spy.calls[0].arguments).toEqual([{
+          method: "GET",
+          url: "/collections/featured",
+          query: {
+            page: 2,
+            per_page: 15
+          }
+        }]);
+      });
+    });
+
     describe("getCollection", () => {
       it("should make a GET request to /collections/{id}", () => {
         let spy = spyOn(unsplash, "request");
