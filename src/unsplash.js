@@ -1,10 +1,9 @@
 /* @flow */
 
+declare var fetch: any;
+
 import { API_URL, API_VERSION } from "./constants";
 import { buildFetchOptions } from "./utils";
-import { requireFetch } from "./services";
-
-const fetch = requireFetch();
 
 import auth from "./methods/auth";
 import currentUser from "./methods/currentUser";
@@ -12,6 +11,7 @@ import users from "./methods/users";
 import photos from "./methods/photos";
 import categories from "./methods/categories";
 import collections from "./methods/collections";
+import search from "./methods/search";
 import stats from "./methods/stats";
 
 export default class Unsplash {
@@ -28,6 +28,7 @@ export default class Unsplash {
   photos: Object;
   categories: Object;
   collections: Object;
+  search: Object;
   stats: Object;
   toJson: Function;
 
@@ -54,6 +55,7 @@ export default class Unsplash {
     this.photos = photos.bind(this)();
     this.categories = categories.bind(this)();
     this.collections = collections.bind(this)();
+    this.search = search.bind(this)();
     this.stats = stats.bind(this)();
   }
 

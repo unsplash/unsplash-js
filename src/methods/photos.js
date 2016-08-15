@@ -2,12 +2,27 @@
 
 export default function photos(): Object {
   return {
-    listPhotos: (page = 1, perPage = 10)  => {
+    listPhotos: (page = 1, perPage = 10, orderBy = "latest")  => {
       const url = "/photos";
-
-      let query = {
+      const query = {
         page,
-        per_page: perPage
+        per_page: perPage,
+        order_by: orderBy
+      };
+
+      return this.request({
+        url,
+        method: "GET",
+        query
+      });
+    },
+
+    listCuratedPhotos: (page = 1, perPage = 10, orderBy = "latest")  => {
+      const url = "/photos/curated";
+      const query = {
+        page,
+        per_page: perPage,
+        order_by: orderBy
       };
 
       return this.request({
@@ -19,8 +34,7 @@ export default function photos(): Object {
 
     searchPhotos: (q, category = [""], page = 1, perPage = 10) => {
       const url = "/photos/search";
-
-      let query = {
+      const query = {
         query: q,
         category: category.length > 1
           ? category.join(",")
@@ -38,8 +52,7 @@ export default function photos(): Object {
 
     getPhoto: (id, width, height, rectangle) => {
       const url = `/photos/${id}`;
-
-      let query = {
+      const query = {
         w: width,
         h: height,
         rect: rectangle
@@ -52,15 +65,26 @@ export default function photos(): Object {
       });
     },
 
+    getPhotoStats: (id) => {
+      const url = `/photos/${id}/stats`;
+
+      return this.request({
+        url,
+        method: "GET"
+      });
+    },
+
     getRandomPhoto: (options = {}) => {
       const url = "/photos/random";
+      const collections = options.collections || [];
 
       const query = {
         category: options.category,
         featured: options.featured,
         username: options.username,
-        query: options.query,
         orientation: options.orientation,
+        collections: collections.join(),
+        query: options.query,
         w: options.width,
         h: options.height,
         c: options.cacheBuster || new Date().getTime() // Avoid ajax response caching

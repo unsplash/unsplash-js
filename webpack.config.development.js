@@ -9,9 +9,7 @@ config.plugins = [
   new webpack.DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify('development'),
     'process.browser': true
-  }),
-  new webpack.IgnorePlugin(/^form-data/),
-  new webpack.IgnorePlugin(/^node-fetch/)
+  })
 ];
 
 module.exports = config;

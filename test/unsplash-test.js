@@ -1,6 +1,5 @@
 import Unsplash, { toJson } from "../src/unsplash.js";
 import { formUrlEncode, buildFetchOptions } from "../src/utils";
-import { requireFetch } from "../src/services";
 
 import expect, { spyOn, restoreSpies } from "expect";
 
@@ -236,12 +235,17 @@ describe("Unsplash", () => {
     describe("photos", () => {
       it("should make a GET request to /users/{username}/photos", () => {
         let spy = spyOn(unsplash, "request");
-        unsplash.users.photos("naoufal");
+        unsplash.users.photos("naoufal", 2, 15);
 
         expect(spy.calls.length).toEqual(1);
         expect(spy.calls[0].arguments).toEqual([{
           method: "GET",
-          url: "/users/naoufal/photos"
+          url: "/users/naoufal/photos",
+          query: {
+            page: 2,
+            per_page: 15,
+            order_by: "latest"
+          }
         }]);
       });
     });
@@ -255,6 +259,24 @@ describe("Unsplash", () => {
         expect(spy.calls[0].arguments).toEqual([{
           method: "GET",
           url: "/users/naoufal/likes",
+          query: {
+            page: 1,
+            per_page: 10,
+            order_by: "latest"
+          }
+        }]);
+      });
+    });
+
+    describe("collections", () => {
+      it("should make a GET request to /users/{username}/collections", () => {
+        let spy = spyOn(unsplash, "request");
+        unsplash.users.collections("naoufal");
+
+        expect(spy.calls.length).toEqual(1);
+        expect(spy.calls[0].arguments).toEqual([{
+          method: "GET",
+          url: "/users/naoufal/collections",
           query: {
             page: 1,
             per_page: 10
@@ -286,7 +308,26 @@ describe("Unsplash", () => {
           url: "/photos",
           query: {
             page: 2,
-            per_page: 15
+            per_page: 15,
+            order_by: "latest"
+          }
+        }]);
+      });
+    });
+
+    describe("listCuratedPhotos", () => {
+      it("should make a GET request to /photos/curated", () => {
+        let spy = spyOn(unsplash, "request");
+        unsplash.photos.listCuratedPhotos(2, 15);
+
+        expect(spy.calls.length).toEqual(1);
+        expect(spy.calls[0].arguments).toEqual([{
+          method: "GET",
+          url: "/photos/curated",
+          query: {
+            page: 2,
+            per_page: 15,
+            order_by: "latest"
           }
         }]);
       });
@@ -346,11 +387,27 @@ describe("Unsplash", () => {
       });
     });
 
+    describe("getPhotoStats", () => {
+      it("should make a GET request to /photos/{id}/stats", () => {
+        let spy = spyOn(unsplash, "request");
+        unsplash.photos.getPhotoStats(90);
+
+        expect(spy.calls.length).toEqual(1);
+        expect(spy.calls[0].arguments).toEqual([{
+          method: "GET",
+          url: "/photos/90/stats"
+        }]);
+      });
+    });
+
     describe("getRandomPhoto", () => {
       it("should make a GET request to /photos/random", () => {
         let spy = spyOn(unsplash, "request");
         const cacheBuster = + new Date();
+        const collections = [1, 2];
+
         unsplash.photos.getRandomPhoto({
+          collections,
           cacheBuster
         });
 
@@ -359,6 +416,7 @@ describe("Unsplash", () => {
           method: "GET",
           url: "/photos/random",
           query: {
+            collections: "1,2",
             c: cacheBuster
           }
         }]);
@@ -544,6 +602,23 @@ describe("Unsplash", () => {
       });
     });
 
+    describe("listFeaturedCollections", () => {
+      it("should make a GET request to /collections/featured", () => {
+        let spy = spyOn(unsplash, "request");
+        unsplash.collections.listFeaturedCollections(2, 15);
+
+        expect(spy.calls.length).toEqual(1);
+        expect(spy.calls[0].arguments).toEqual([{
+          method: "GET",
+          url: "/collections/featured",
+          query: {
+            page: 2,
+            per_page: 15
+          }
+        }]);
+      });
+    });
+
     describe("getCollection", () => {
       it("should make a GET request to /collections/{id}", () => {
         let spy = spyOn(unsplash, "request");
@@ -573,12 +648,17 @@ describe("Unsplash", () => {
     describe("getCollectionPhotos", () => {
       it("should make a GET request to /collections/{id}/photos", () => {
         let spy = spyOn(unsplash, "request");
-        unsplash.collections.getCollectionPhotos(88);
+        unsplash.collections.getCollectionPhotos(88, 2, 15);
 
         expect(spy.calls.length).toEqual(1);
         expect(spy.calls[0].arguments).toEqual([{
           method: "GET",
-          url: "/collections/88/photos"
+          url: "/collections/88/photos",
+          query: {
+            page: 2,
+            per_page: 15,
+            order_by: "latest"
+          }
         }]);
       });
     });
@@ -586,12 +666,17 @@ describe("Unsplash", () => {
     describe("getCuratedCollectionPhotos", () => {
       it("should make a GET request to /collections/curated/{id}/photos", () => {
         let spy = spyOn(unsplash, "request");
-        unsplash.collections.getCuratedCollectionPhotos(88);
+        unsplash.collections.getCuratedCollectionPhotos(88, 2, 15);
 
         expect(spy.calls.length).toEqual(1);
         expect(spy.calls[0].arguments).toEqual([{
           method: "GET",
-          url: "/collections/curated/88/photos"
+          url: "/collections/curated/88/photos",
+          query: {
+            page: 2,
+            per_page: 15,
+            order_by: "latest"
+          }
         }]);
       });
     });
@@ -691,6 +776,146 @@ describe("Unsplash", () => {
         expect(spy.calls[0].arguments).toEqual([{
           method: "GET",
           url: "/stats/total"
+        }]);
+      });
+    });
+  });
+
+  describe("search", () => {
+    afterEach(function () {
+      restoreSpies();
+    });
+
+    let unsplash = new Unsplash({
+      applicationId,
+      secret,
+      callbackUrl
+    });
+
+    describe("all", () => {
+      it("should make a GET request to /search", () => {
+        let spy = spyOn(unsplash, "request");
+        unsplash.search.all("dog");
+
+        expect(spy.calls.length).toEqual(1);
+        expect(spy.calls[0].arguments).toEqual([{
+          method: "GET",
+          url: "/search",
+          query: {
+            query: "dog",
+            page: 1
+          }
+        }]);
+      });
+
+      it("should submit an empty query if the keyword is an empty string", () => {
+        let spy = spyOn(unsplash, "request");
+        unsplash.search.all();
+
+        expect(spy.calls.length).toEqual(1);
+        expect(spy.calls[0].arguments).toEqual([{
+          method: "GET",
+          url: "/search",
+          query: {
+            query: "",
+            page: 1
+          }
+        }]);
+      });
+    });
+
+    describe("photos", () => {
+      it("should make a GET request to /search/photos", () => {
+        let spy = spyOn(unsplash, "request");
+        unsplash.search.photos("nature");
+
+        expect(spy.calls.length).toEqual(1);
+        expect(spy.calls[0].arguments).toEqual([{
+          method: "GET",
+          url: "/search/photos",
+          query: {
+            query: "nature",
+            page: 1
+          }
+        }]);
+      });
+
+      it("should submit an empty query if the keyword is an empty string", () => {
+        let spy = spyOn(unsplash, "request");
+        unsplash.search.photos();
+
+        expect(spy.calls.length).toEqual(1);
+        expect(spy.calls[0].arguments).toEqual([{
+          method: "GET",
+          url: "/search/photos",
+          query: {
+            query: "",
+            page: 1
+          }
+        }]);
+      });
+    });
+
+    describe("users", () => {
+      it("should make a GET request to /search/users", () => {
+        let spy = spyOn(unsplash, "request");
+        unsplash.search.users("steve");
+
+        expect(spy.calls.length).toEqual(1);
+        expect(spy.calls[0].arguments).toEqual([{
+          method: "GET",
+          url: "/search/users",
+          query: {
+            query: "steve",
+            page: 1
+          }
+        }]);
+      });
+
+      it("should submit an empty query if the keyword is an empty string", () => {
+        let spy = spyOn(unsplash, "request");
+        unsplash.search.users();
+
+        expect(spy.calls.length).toEqual(1);
+        expect(spy.calls[0].arguments).toEqual([{
+          method: "GET",
+          url: "/search/users",
+          query: {
+            query: "",
+            page: 1
+          }
+        }]);
+      });
+    });
+
+    describe("collections", () => {
+      it("should make a GET request to /search/collections", () => {
+        let spy = spyOn(unsplash, "request");
+        unsplash.search.collections("water");
+
+        expect(spy.calls.length).toEqual(1);
+        expect(spy.calls[0].arguments).toEqual([{
+          method: "GET",
+          url: "/search/collections",
+          query: {
+            query: "water",
+            page: 1
+          }
+        }]);
+      });
+
+      it("should submit an empty query if the keyword is an empty string", () => {
+        let spy = spyOn(unsplash, "request");
+        unsplash.search.collections();
+
+        expect(spy.calls.length).toEqual(1);
+        expect(spy.calls[0].arguments).toEqual([{
+          method: "GET",
+          url: "/search/collections",
+          query: {
+            query: "",
+            page: 1
+          }
         }]);
       });
     });
@@ -798,16 +1023,6 @@ describe("Unsplash", () => {
         let body = buildFetchOptions.bind(classFixture)(options).options.body;
 
         expect(body).toBe("foo=bar");
-      });
-    });
-  });
-
-  describe("services", () => {
-    describe("requireFetch", () => {
-      it("should require fetch client polyfill when required on the client", () => {
-        process.env.browser = true;
-
-        requireFetch();
       });
     });
   });

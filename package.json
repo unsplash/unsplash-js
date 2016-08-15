@@ -1,6 +1,6 @@
 {
   "name": "unsplash-js",
-  "version": "2.1.0",
+  "version": "4.2.0",
   "description": "A Universal JavaScript wrapper for the Unsplash API",
   "main": "lib/unsplash.js",
   "scripts": {
@@ -15,13 +15,16 @@
     "test": "npm run lint && npm run flow && npm run test:node && npm run test:browser",
     "test:browser": "karma start",
     "test:ci": "npm run lint && npm run flow && npm run test:browser && npm run test:coverage",
-    "test:coverage": "babel-node ./node_modules/.bin/isparta cover _mocha",
-    "test:node": "mocha --compilers js:babel-core/register --recursive",
-    "test:watch": "npm test -- --watch"
+    "test:coverage": "babel-node ./node_modules/.bin/isparta cover _mocha -- --require test/setup",
+    "test:node": "mocha --compilers js:babel-core/register --require test/setup --recursive",
+    "test:watch": "npm test -- --watch",
+    "publish:major": "npm run build && npm version major",
+    "publish:minor": "npm run build && npm version minor",
+    "publish:patch": "npm run build && npm version patch"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/naoufal/unsplash-js.git"
+    "url": "git+https://github.com/unsplash/unsplash-js.git"
   },
   "keywords": [
     "unsplash",
@@ -31,12 +34,12 @@
     "splash",
     "free"
   ],
-  "author": "Naoufal Kadhom",
+  "author": "Unsplash",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/naoufal/unsplash-js/issues"
+    "url": "https://github.com/unsplash/unsplash-js/issues"
   },
-  "homepage": "https://github.com/naoufal/unsplash-js#readme",
+  "homepage": "https://github.com/unsplash/unsplash-js#readme",
   "devDependencies": {
     "babel": "6.3.26",
     "babel-cli": "6.4.0",
@@ -63,11 +66,11 @@
     "karma-webpack": "1.7.0",
     "mocha": "2.3.3",
     "mockery": "1.4.0",
+    "node-fetch": "1.5.0",
     "webpack": "1.12.14"
   },
   "dependencies": {
     "form-urlencoded": "1.2.0",
-    "node-fetch": "1.3.3",
     "querystring": "0.2.0"
   }
 }

@@ -1,13 +1,4 @@
-import Unsplash, { toJson } from "unsplash";
+require('es6-promise').polyfill();
+require('whatwg-fetch');
 
-let unsplash = new Unsplash({
-  applicationId: "{YOUR_APPLICATION_ID}",
-  secret: "{YOUR_SECRET}",
-  callbackUrl: "{YOUR_CALLBACK_URL}"
-});
-
-unsplash.users.profile("naoufal")
-.then(toJson)
-.then(json => {
-  console.log(json);
-});
+require('./main');
