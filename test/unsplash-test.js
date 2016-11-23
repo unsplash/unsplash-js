@@ -949,6 +949,11 @@ describe("Unsplash", () => {
       it("should call the json method on res", () => {
         expect(toJson(res)).toBe(true);
       });
+
+      it("is idempotent", () => {
+        const json = toJson(res);
+        expect(toJson(json)).toEqual(json);
+      });
     });
 
     describe("buildFetchOptions", () => {
