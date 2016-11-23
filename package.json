@@ -1,6 +1,6 @@
 {
   "name": "unsplash-js",
-  "version": "4.2.0",
+  "version": "4.3.0",
   "description": "A Universal JavaScript wrapper for the Unsplash API",
   "main": "lib/unsplash.js",
   "scripts": {
