@@ -835,7 +835,8 @@ describe("Unsplash", () => {
           url: "/search/photos",
           query: {
             query: "nature",
-            page: 1
+            page: 1,
+            per_page: 10
           }
         }]);
       });
