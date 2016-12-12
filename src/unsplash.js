@@ -76,5 +76,5 @@ export default class Unsplash {
 }
 
 export function toJson(res: Object): Object {
-  return res.json();
+  return typeof res.json === "function" ? res.json() : res;
 }
