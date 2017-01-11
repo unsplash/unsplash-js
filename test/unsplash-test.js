@@ -803,7 +803,8 @@ describe("Unsplash", () => {
           url: "/search",
           query: {
             query: "dog",
-            page: 1
+            page: 1,
+            per_page: 10
           }
         }]);
       });
@@ -818,7 +819,8 @@ describe("Unsplash", () => {
           url: "/search",
           query: {
             query: "",
-            page: 1
+            page: 1,
+            per_page: 10
           }
         }]);
       });
@@ -835,7 +837,8 @@ describe("Unsplash", () => {
           url: "/search/photos",
           query: {
             query: "nature",
-            page: 1
+            page: 1,
+            per_page: 10
           }
         }]);
       });
@@ -850,7 +853,8 @@ describe("Unsplash", () => {
           url: "/search/photos",
           query: {
             query: "",
-            page: 1
+            page: 1,
+            per_page: 10
           }
         }]);
       });
@@ -867,7 +871,8 @@ describe("Unsplash", () => {
           url: "/search/users",
           query: {
             query: "steve",
-            page: 1
+            page: 1,
+            per_page: 10
           }
         }]);
       });
@@ -882,7 +887,8 @@ describe("Unsplash", () => {
           url: "/search/users",
           query: {
             query: "",
-            page: 1
+            page: 1,
+            per_page: 10
           }
         }]);
       });
@@ -899,7 +905,8 @@ describe("Unsplash", () => {
           url: "/search/collections",
           query: {
             query: "water",
-            page: 1
+            page: 1,
+            per_page: 10
           }
         }]);
       });
@@ -914,7 +921,8 @@ describe("Unsplash", () => {
           url: "/search/collections",
           query: {
             query: "",
-            page: 1
+            page: 1,
+            per_page: 10            
           }
         }]);
       });
