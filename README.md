@@ -817,7 +817,7 @@ unsplash.collections.removePhotoFromCollection(88, 'abc1234')
 
 <div id="search" />
 
-### search.all(keyword, page)
+### search.all(keyword, page, per_page)
 Get a list of photos, collections, and users matching the keyword.
 
 __Arguments__
@@ -838,7 +838,7 @@ unsplash.search.all("dogs", 2)
   });
 ```
 
-### search.users(keyword, page)
+### search.users(keyword, page, per_page)
 Get a list of users matching the keyword.
 
 __Arguments__
@@ -859,7 +859,7 @@ unsplash.search.users("steve", 1)
   });
 ```
 
-### search.photos(keyword, page)
+### search.photos(keyword, page, per_page)
 Get a list of photos matching the keyword.
 
 __Arguments__
@@ -880,7 +880,7 @@ unsplash.search.photos("dogs", 1)
   });
 ```
 
-### search.collections(keyword, page)
+### search.collections(keyword, page, per_page)
 Get a list of collections matching the keyword.
 
 __Arguments__
