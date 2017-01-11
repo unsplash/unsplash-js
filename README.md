@@ -118,6 +118,7 @@ unsplash.users.profile("naoufal")
 - [Photos](https://github.com/unsplash/unsplash-js#photos)
 - [Categories](https://github.com/unsplash/unsplash-js#categories)
 - [Collections](https://github.com/unsplash/unsplash-js#collections)
+- [Search](https://github.com/unsplash/unsplash-js#searchallkeyword-page)
 - [Stats](https://github.com/unsplash/unsplash-js#stats)
 
 <div id="authorization" />
@@ -821,10 +822,11 @@ Get a list of photos, collections, and users matching the keyword.
 
 __Arguments__
 
-| Argument | Type | Opt/Required | Notes |
+| Argument | Type | Opt/Required | Default |
 |---|---|---|---|
 |__`keyword`__|_number_|Required||
-|__`page`__|_number_|Optional|
+|__`page`__|_number_|Optional||
+|__`per_page`__|_number_|Optional|10|
 
 
 __Example__
@@ -841,10 +843,11 @@ Get a list of users matching the keyword.
 
 __Arguments__
 
-| Argument | Type | Opt/Required | Notes |
+| Argument | Type | Opt/Required | Default |
 |---|---|---|---|
 |__`keyword`__|_number_|Required||
-|__`page`__|_number_|Optional|
+|__`page`__|_number_|Optional||
+|__`per_page`__|_number_|Optional|10|
 
 
 __Example__
@@ -861,10 +864,11 @@ Get a list of photos matching the keyword.
 
 __Arguments__
 
-| Argument | Type | Opt/Required | Notes |
+| Argument | Type | Opt/Required | Default |
 |---|---|---|---|
 |__`keyword`__|_number_|Required||
-|__`page`__|_number_|Optional|
+|__`page`__|_number_|Optional||
+|__`per_page`__|_number_|Optional|10|
 
 
 __Example__
@@ -881,10 +885,11 @@ Get a list of collections matching the keyword.
 
 __Arguments__
 
-| Argument | Type | Opt/Required | Notes |
+| Argument | Type | Opt/Required | Default |
 |---|---|---|---|
 |__`keyword`__|_number_|Required||
-|__`page`__|_number_|Optional|
+|__`page`__|_number_|Optional||
+|__`per_page`__|_number_|Optional|10|
 
 
 __Example__
