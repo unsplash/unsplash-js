@@ -758,6 +758,19 @@ describe("Unsplash", () => {
         }]);
       });
     });
+
+    describe("listRelatedCollections", () => {
+      it("should make a GET request to /collections/{id}/related", () => {
+        let spy = spyOn(unsplash, "request");
+        unsplash.collections.listRelatedCollections(88);
+
+        expect(spy.calls.length).toEqual(1);
+        expect(spy.calls[0].arguments).toEqual([{
+          method: "GET",
+          url: "/collections/88/related"
+        }]);
+      });
+    });
   });
 
   describe("stats", () => {
@@ -922,7 +935,7 @@ describe("Unsplash", () => {
           query: {
             query: "",
             page: 1,
-            per_page: 10            
+            per_page: 10
           }
         }]);
       });
