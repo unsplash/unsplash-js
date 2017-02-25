@@ -41,11 +41,12 @@ export default function users(): Object {
       });
     },
 
-    collections: (username: string, page: number = 1, perPage: number = 10) => {
+    collections: (username: string, page: number = 1, perPage: number = 10, orderBy: string = "published") => {
       const url = `/users/${username}/collections`;
       const query = {
         page,
-        per_page: perPage
+        per_page: perPage,
+        order_by: orderBy
       };
 
       return this.request({

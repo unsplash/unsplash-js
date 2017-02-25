@@ -279,7 +279,8 @@ describe("Unsplash", () => {
           url: "/users/naoufal/collections",
           query: {
             page: 1,
-            per_page: 10
+            per_page: 10,
+            order_by: "published"
           }
         }]);
       });
@@ -922,7 +923,7 @@ describe("Unsplash", () => {
           query: {
             query: "",
             page: 1,
-            per_page: 10            
+            per_page: 10
           }
         }]);
       });
