@@ -54,7 +54,7 @@
     "coveralls": "2.11.4",
     "eslint": "1.10.2",
     "expect": "1.12.2",
-    "flow-bin": "0.20.1",
+    "flow-bin": "0.40.0",
     "isparta": "4.0.0",
     "istanbul": "0.4.2",
     "karma": "0.13.21",

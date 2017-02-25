@@ -68,7 +68,7 @@ export default class Unsplash {
       body: Object,
       oauth: boolean
     }
-  ):Promise {
+  ):Promise<any> {
     var { url, options } = buildFetchOptions.bind(this)(requestOptions);
 
     return fetch(url, options);
