@@ -87,11 +87,12 @@ export default function photos(): Object {
         query: options.query,
         w: options.width,
         h: options.height,
-        c: options.cacheBuster || new Date().getTime() // Avoid ajax response caching
+        c: options.cacheBuster || new Date().getTime(), // Avoid ajax response caching
+        count: options.count
       };
 
       Object.keys(query).forEach(key => {
-        if (!query[key]) {
+        if (!query[key] || query[key] == "") {
           delete query[key];
         }
       });

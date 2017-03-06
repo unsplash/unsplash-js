@@ -420,6 +420,7 @@ unsplash.photos.getPhotoStats("mtNweauBsMQ")
 
 ### photos.getRandomPhoto({ width, height, query, username, featured, category })
 Retrieve a single random photo, given optional filters.
+The capacity parameter is deprecated.
 
 __Arguments__
 
@@ -432,7 +433,8 @@ _An Object containing the follow keys:_
 |__`query`__|_string_|Optional|
 |__`username`__|_string_|Optional|
 |__`featured`__|_boolean_|Optional|
-|__`category`__|_Array<number>_|Optional|
+|__`collections`__|_Array<number>_|Optional|
+|__`count`__|_string_|Optional|
 
 __Example__
 ```js
