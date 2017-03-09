@@ -420,10 +420,15 @@ unsplash.photos.getPhotoStats("mtNweauBsMQ")
 
 ### photos.getRandomPhoto({ width, height, query, username, featured, category })
 Retrieve a single random photo, given optional filters.
-The capacity parameter is deprecated.
+
+The category parameter is deprecated and should not be used.
+
+When using this function, It is recommended to double check the types of the parameters,
+in particular for the parameters of type Array<number>.
 
 __Arguments__
 
+Argument 1:
 _An Object containing the follow keys:_
 
 | Argument | Type | Opt/Required |
@@ -433,6 +438,7 @@ _An Object containing the follow keys:_
 |__`query`__|_string_|Optional|
 |__`username`__|_string_|Optional|
 |__`featured`__|_boolean_|Optional|
+|__`category`__ *(deprecated)*|_Array<number>_|Optional|
 |__`collections`__|_Array<number>_|Optional|
 |__`count`__|_string_|Optional|
 
@@ -443,7 +449,9 @@ unsplash.photos.getRandomPhoto({ username: "naoufal" })
   .then(json => {
     // Your code
   });
+
 ```
+
 ---
 
 ### photos.uploadPhoto(photo)
