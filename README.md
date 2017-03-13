@@ -290,7 +290,7 @@ unsplash.users.likes("naoufal", 2, 15, "popular")
 ```
 ---
 
-### users.collections(username, page, perPage)
+### users.collections(username, page, perPage, orderBy)
 Get a list of collections created by the user.
 
 __Arguments__
@@ -300,10 +300,11 @@ __Arguments__
 |__`username`__|_string_|Required||
 |__`page`__|_number_|Optional||
 |__`perPage`__|_number_|Optional||
+|__`orderBy`__|_string_|Optional|`published` or `updated`|
 
 __Example__
 ```js
-unsplash.users.collections("naoufal", 2, 15)
+unsplash.users.collections("naoufal", 2, 15, "updated")
   .then(toJson)
   .then(json => {
     // Your code
