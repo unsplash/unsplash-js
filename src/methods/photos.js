@@ -76,18 +76,20 @@ export default function photos(): Object {
 
     getRandomPhoto: (options = {}) => {
       const url = "/photos/random";
+      const category = options.category || [];
       const collections = options.collections || [];
 
       const query = {
-        category: options.category,
         featured: options.featured,
         username: options.username,
         orientation: options.orientation,
+        category: category.join(),
         collections: collections.join(),
         query: options.query,
         w: options.width,
         h: options.height,
-        c: options.cacheBuster || new Date().getTime() // Avoid ajax response caching
+        c: options.cacheBuster || new Date().getTime(), // Avoid ajax response caching
+        count: options.count
       };
 
       Object.keys(query).forEach(key => {
