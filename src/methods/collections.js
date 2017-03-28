@@ -85,7 +85,17 @@ export default function collections(): Object {
         url: url,
         method: "DELETE"
       });
+    },
+
+    listRelatedCollections: (collectionId) => {
+      const url = `/collections/${collectionId}/related`;
+
+      return this.request({
+        url: url,
+        method: "GET"
+      });
     }
+
   };
 }
 

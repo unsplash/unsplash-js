@@ -826,6 +826,25 @@ unsplash.collections.removePhotoFromCollection(88, 'abc1234')
 ```
 ---
 
+### collections.listRelatedCollections(collectionId)
+Lists collections related to the provided one.
+
+__Arguments__
+
+| Argument | Type | Opt/Required |
+|---|---|---|
+|__`collectionId`__|_number_|Required|
+
+__Example__
+```js
+unsplash.collections.listRelatedCollections(88)
+  .then(toJson)
+  .then(json => {
+    // Your code
+  });
+```
+---
+
 <div id="search" />
 
 ### search.all(keyword, page, per_page)
