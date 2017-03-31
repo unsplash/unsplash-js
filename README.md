@@ -246,17 +246,40 @@ unsplash.users.profile("naoufal")
 ```
 ---
 
-### users.photos(username, page, perPage, orderBy)
+### users.statistics(username, resolution, quantity)
+Retrieve statistics for a given user.
+
+__Arguments__
+
+| Argument | Type | Opt/Required | Notes | Default
+|---|---|---|---|---|
+|__`username`__|_string_|Required|
+|__`resolution`__|_string_|Optional|Currently only "days"|"days"|
+|__`quantity`__|_string_|Optional||30|
+
+
+__Example__
+```js
+unsplash.users.statistics("naoufal")
+  .then(toJson)
+  .then(json => {
+    // Your code
+  });
+```
+---
+
+### users.photos(username, page, perPage, orderBy, stats)
 Get a list of photos uploaded by a user.
 
 __Arguments__
 
-| Argument | Type | Opt/Required | Notes |
-|---|---|---|---|
+| Argument | Type | Opt/Required | Notes | Default |
+|---|---|---|---|---|
 |__`username`__|_string_|Required||
 |__`page`__|_number_|Optional||
 |__`perPage`__|_number_|Optional||
 |__`orderBy`__|_string_|Optional|`latest`, `popular` or `oldest`|
+|__`stats`__|_boolean_|Optional||false|
 
 __Example__
 ```js
