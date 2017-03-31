@@ -260,7 +260,7 @@ __Arguments__
 
 __Example__
 ```js
-unsplash.users.statistics("naoufal")
+unsplash.users.statistics("naoufal", "days", 30)
   .then(toJson)
   .then(json => {
     // Your code
@@ -283,7 +283,7 @@ __Arguments__
 
 __Example__
 ```js
-unsplash.users.photos("naoufal", "popular")
+unsplash.users.photos("naoufal", 1, 10, "popular", false)
   .then(toJson)
   .then(json => {
     // Your code
