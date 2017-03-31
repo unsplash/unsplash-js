@@ -254,7 +254,7 @@ __Arguments__
 | Argument | Type | Opt/Required | Notes | Default
 |---|---|---|---|---|
 |__`username`__|_string_|Required|
-|__`resolution`__|_string_|Optional|Currently only "days"|"days"|
+|__`resolution`__|_string_|Optional|Currently only `days`|`days`|
 |__`quantity`__|_string_|Optional||30|
 
 
@@ -275,11 +275,11 @@ __Arguments__
 
 | Argument | Type | Opt/Required | Notes | Default |
 |---|---|---|---|---|
-|__`username`__|_string_|Required||
-|__`page`__|_number_|Optional||
-|__`perPage`__|_number_|Optional||
-|__`orderBy`__|_string_|Optional|`latest`, `popular` or `oldest`|
-|__`stats`__|_boolean_|Optional||false|
+|__`username`__|_string_|Required|||
+|__`page`__|_number_|Optional||1|
+|__`perPage`__|_number_|Optional||10|
+|__`orderBy`__|_string_|Optional|`latest`, `popular` or `oldest`|`latest`|
+|__`stats`__|_boolean_|Optional||`false`|
 
 __Example__
 ```js
