@@ -111,6 +111,12 @@ unsplash.users.profile("naoufal")
 
 ---
 
+### Sidenote
+
+All the instance methods below make use of the `toJson` helper method described [below](https://github.com/unsplash/unsplash-js#tojsonres)
+
+---
+
 ## Instance Methods
 - [Authorization](https://github.com/unsplash/unsplash-js#authorization)
 - [Current User](https://github.com/unsplash/unsplash-js#current-user)
