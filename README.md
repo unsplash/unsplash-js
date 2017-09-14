@@ -385,28 +385,6 @@ unsplash.photos.listCuratedPhotos(2, 15, "latest")
 ```
 ---
 
-### photos.searchPhotos(query, category, page, perPage)
-Get a single page from a photo search. Optionally limit your search to a set of categories by supplying the category ID’s.
-
-__Arguments__
-
-| Argument | Type | Opt/Required |
-|---|---|---|
-|__`query`__|_string_|Optional|
-|__`category`__|_Array<number>_|Optional|
-|__`page`__|_number_|Optional|
-|__`perPage`__|_number_|Optional|
-
-__Example__
-```js
-unsplash.photos.searchPhotos("cats", [11, 88], 1, 15)
-  .then(toJson)
-  .then(json => {
-    // Your code
-  });
-```
----
-
 ### photos.getPhoto(id, width, height, rectangle)
 Retrieve a single photo.
 
@@ -484,27 +462,6 @@ unsplash.photos.getRandomPhoto({ username: "naoufal" })
 
 ---
 
-### photos.uploadPhoto(photo)
-Upload a photo on behalf of the logged-in user. This requires the `write_photos` scope.
-
-__Arguments__
-
-| Argument | Type | Opt/Required |
-|---|---|---|
-|__`photo`__|_Image Binary_|Required|
-
-__Example__
-```js
-import { createReadStream } from "fs";
-
-unsplash.photos.uploadPhoto(createReadStream(__dirname + "path/to/image"))
-  .then(toJson)
-  .then(json => {
-    // Your code
-  });
-```
----
-
 ### photos.likePhoto(id)
 Like a photo on behalf of the logged-in user. This requires the `write_likes` scope.
 
@@ -536,65 +493,6 @@ __Arguments__
 __Example__
 ```js
 unsplash.photos.unlikePhoto("mtNweauBsMQ")
-  .then(toJson)
-  .then(json => {
-    // Your code
-  });
-```
----
-
-<div id="categories" />
-
-### categories.listCategories()
-Get a list of all photo categories.
-
-__Arguments__
-
-_N/A_
-
-__Example__
-```js
-unsplash.categories.listCategories()
-  .then(toJson)
-  .then(json => {
-    // Your code
-  });
-```
----
-
-### categories.category(id)
-Retrieve a single category.
-
-__Arguments__
-
-| Argument | Type | Opt/Required |
-|---|---|---|
-|__`id`__|_string_|Required|
-
-__Example__
-```js
-unsplash.categories.category(4)
-  .then(toJson)
-  .then(json => {
-    // Your code
-  });
-```
----
-
-### categories.categoryPhotos(id, page, perPage)
-Retrieve a single category’s photos.
-
-__Arguments__
-
-| Argument | Type | Opt/Required |
-|---|---|---|
-|__`id`__|_string_|Required|
-|__`page`__|_number_|Optional|
-|__`perPage`__|_number_|Optional|
-
-__Example__
-```js
-unsplash.categories.categoryPhotos(4, 3, 15)
   .then(toJson)
   .then(json => {
     // Your code
