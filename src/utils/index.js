@@ -20,7 +20,7 @@ export function buildFetchOptions(
   let url = (oauth === true)
     ? options.url
     : `${this._apiUrl}${options.url}`;
-  let headers = Object.assign({}, options.headers, {
+  let headers = Object.assign({}, this._headers, options.headers, {
     "Accept-Version": this._apiVersion,
     "Authorization": this._bearerToken
       ? `Bearer ${this._bearerToken}`
