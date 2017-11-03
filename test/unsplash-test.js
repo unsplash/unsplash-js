@@ -6,13 +6,15 @@ import expect, { spyOn, restoreSpies } from "expect";
 const applicationId = "applicationId";
 const secret = "secret";
 const callbackUrl = "http://foo.com";
+const headers = { "X-Custom-Header": "foo" };
 
 describe("Unsplash", () => {
   describe("constructor", () => {
     const unsplash = new Unsplash({
       applicationId,
       secret,
-      callbackUrl
+      callbackUrl,
+      headers
     });
 
     it("should successfully construct an Unsplash instance", () => {
@@ -33,6 +35,10 @@ describe("Unsplash", () => {
 
     it("should set the callbackUrl argument on the Unsplash instance", () => {
       expect(unsplash._callbackUrl).toBe(callbackUrl);
+    });
+
+    it("should set the headers argument on the Unsplash instance", () => {
+      expect(unsplash._headers).toBe(headers);
     });
 
     it("should have an auth method", () => {
@@ -85,6 +91,18 @@ describe("Unsplash", () => {
       });
 
       expect(unsplash._apiVersion).toBe(apiVersion);
+    });
+  });
+
+  describe("headers", () => {
+    it("should store an empty object if nothing is passed", () => {
+      const unsplash = new Unsplash({
+        applicationId,
+        secret,
+        callbackUrl
+      });
+
+      expect(unsplash._headers).toEqual({});
     });
   });
 
@@ -1013,7 +1031,7 @@ describe("Unsplash", () => {
 
       it("should return a fetchOptions object with a method key representing the method in the options agument", () => {
         let method = buildFetchOptions
-        .bind(classFixture)(optionsFixture).options
+          .bind(classFixture)(optionsFixture).options
           .method;
 
         expect(method).toBe("POST");
@@ -1047,6 +1065,18 @@ describe("Unsplash", () => {
           .headers["Authorization"];
 
         expect(authorizationHeader).toBe("Bearer abc");
+      });
+
+      it("should return a fetchOptions object with optional header", () => {
+        const classBearerFixture = Object.assign({}, classFixture, {
+          _headers: headers
+        });
+
+        let optionalHeader = buildFetchOptions
+          .bind(classBearerFixture)(optionsFixture).options
+          .headers["X-Custom-Header"];
+
+        expect(optionalHeader).toBe("foo");
       });
 
       it("should not append url with apiUrl when oauth is set to true on the options argument", () => {

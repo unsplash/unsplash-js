@@ -55,6 +55,19 @@ const unsplash = new Unsplash({
 });
 ```
 
+You can also provide headers that will be set on every request by providing them to the constructor.
+
+```js
+const unsplash = new Unsplash({
+  applicationId: "{APP_ID}",
+  secret: "{APP_SECRET}",
+  callbackUrl: "{CALLBACK_URL}",
+  headers: {
+    "X-Custom-Header": "foo"
+  }
+});
+```
+
 _Credentials can be obtained from [Unsplash Developers](https://unsplash.com/developers)._
 
 ### React Native
