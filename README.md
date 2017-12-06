@@ -6,6 +6,8 @@
 
 A [Universal JavaScript](https://medium.com/@mjackson/universal-javascript-4761051b7ae9) wrapper for the [Unsplash API](https://unsplash.com/developers).
 
+Before using the Unsplash API, you need to [register as a developer](https://unsplash.com/developers) and read the [API Guidelines](https://medium.com/unsplash/unsplash-api-guidelines-28e0216e6daa).
+
 ## Browser Support
 
 ![Chrome](https://raw.github.com/alrra/browser-logos/master/chrome/chrome_48x48.png) | ![Firefox](https://raw.github.com/alrra/browser-logos/master/firefox/firefox_48x48.png) | ![Safari](https://raw.github.com/alrra/browser-logos/master/safari/safari_48x48.png) | ![Opera](https://raw.github.com/alrra/browser-logos/master/opera/opera_48x48.png) | ![IE](https://raw.github.com/alrra/browser-logos/master/internet-explorer/internet-explorer_48x48.png) |
@@ -135,9 +137,8 @@ All the instance methods below make use of the `toJson` helper method described 
 - [Current User](https://github.com/unsplash/unsplash-js#current-user)
 - [Users](https://github.com/unsplash/unsplash-js#users)
 - [Photos](https://github.com/unsplash/unsplash-js#photos)
-- [Categories](https://github.com/unsplash/unsplash-js#categories)
 - [Collections](https://github.com/unsplash/unsplash-js#collections)
-- [Search](https://github.com/unsplash/unsplash-js#searchallkeyword-page)
+- [Search](https://github.com/unsplash/unsplash-js#search)
 - [Stats](https://github.com/unsplash/unsplash-js#stats)
 
 <div id="authorization" />
@@ -439,10 +440,8 @@ unsplash.photos.getPhotoStats("mtNweauBsMQ")
 ```
 ---
 
-### photos.getRandomPhoto({ width, height, query, username, featured, category })
+### photos.getRandomPhoto({ width, height, query, username, featured })
 Retrieve a single random photo, given optional filters.
-
-The category parameter is deprecated and should not be used.
 
 When using this function, It is recommended to double check the types of the parameters,
 in particular for the parameters of type Array<number>.
@@ -459,7 +458,6 @@ _An Object containing the follow keys:_
 |__`query`__|_string_|Optional|
 |__`username`__|_string_|Optional|
 |__`featured`__|_boolean_|Optional|
-|__`category`__ *(deprecated)*|_Array<number>_|Optional|
 |__`collections`__|_Array<number>_|Optional|
 |__`count`__|_string_|Optional|
 
@@ -787,8 +785,8 @@ unsplash.collections.listRelatedCollections(88)
 
 <div id="search" />
 
-### search.all(keyword, page, per_page)
-Get a list of photos, collections, and users matching the keyword.
+### search.photos(keyword, page, per_page)
+Get a list of photos matching the keyword.
 
 __Arguments__
 
@@ -801,7 +799,7 @@ __Arguments__
 
 __Example__
 ```js
-unsplash.search.all("dogs", 2)
+unsplash.search.photos("dogs", 1)
   .then(toJson)
   .then(json => {
     // Your code
@@ -823,27 +821,6 @@ __Arguments__
 __Example__
 ```js
 unsplash.search.users("steve", 1)
-  .then(toJson)
-  .then(json => {
-    // Your code
-  });
-```
-
-### search.photos(keyword, page, per_page)
-Get a list of photos matching the keyword.
-
-__Arguments__
-
-| Argument | Type | Opt/Required | Default |
-|---|---|---|---|
-|__`keyword`__|_number_|Required||
-|__`page`__|_number_|Optional||
-|__`per_page`__|_number_|Optional|10|
-
-
-__Example__
-```js
-unsplash.search.photos("dogs", 1)
   .then(toJson)
   .then(json => {
     // Your code
