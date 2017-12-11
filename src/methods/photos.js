@@ -1,6 +1,6 @@
 /* @flow */
 import { getUrlComponents } from "../utils";
-import get from "lodash/get";
+import get from "lodash.get";
 
 export default function photos(): Object {
   return {

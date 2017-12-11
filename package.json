@@ -72,7 +72,7 @@
   },
   "dependencies": {
     "form-urlencoded": "1.2.0",
-    "lodash": "4.17.4",
+    "lodash.get": "4.4.2",
     "querystring": "0.2.0",
     "url-parse": "1.2.0"
   }
