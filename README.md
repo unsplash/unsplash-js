@@ -511,6 +511,35 @@ unsplash.photos.unlikePhoto("mtNweauBsMQ")
 ```
 ---
 
+### photos.downloadPhoto(photo)
+Trigger a download of a photo as per the [download tracking requirement of API Guidelines](https://medium.com/unsplash/unsplash-api-guidelines-triggering-a-download-c39b24e99e02).
+
+*Note*: this accepts a photo JSON object, not a URL string or photo ID. See the example below for how to pair it with other calls to trigger it.
+
+__Arguments__
+
+| Argument | Type | Opt/Required |
+|---|---|---|
+|__`photo`__|_json_|Required|
+
+__Example__
+```js
+unsplash.photos.getPhoto("mtNweauBsMQ")
+  .then(toJson)
+  .then(json => {
+    unsplash.photos.downloadPhoto(json);
+  });
+
+// or if working with an array of photos
+unsplash.search.photos("dogs", 1)
+  .then(toJson)
+  .then(json => {
+    unsplash.photos.downloadPhoto(json["results"][0]);
+  });
+```
+
+---
+
 <div id="collections" />
 
 ### collections.listCollections(page, perPage, orderBy)

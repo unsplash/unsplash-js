@@ -1,4 +1,5 @@
 /* @flow */
+import { getUrlComponents } from "../utils";
 
 export default function photos(): Object {
   return {
@@ -144,6 +145,16 @@ export default function photos(): Object {
       return this.request({
         url,
         method: "DELETE"
+      });
+    },
+
+    downloadPhoto: (photo) => {
+      const urlComponents = getUrlComponents(photo["links"]["download_location"]);
+
+      return this.request({
+        url: urlComponents.pathname,
+        method: "GET",
+        query: urlComponents.query
       });
     }
   };
