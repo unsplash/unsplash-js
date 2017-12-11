@@ -14,6 +14,16 @@ Before using the Unsplash API, you need to [register as a developer](https://uns
 --- | --- | --- | --- | --- | --- |
 Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | 10+ ✔ |
 
+## Quick start
+
+Quick links to methods you're likely to care about:
+
+- [Get a list of new photos](#photos-all) 🎉
+- [Get a random photo](#photo-random) 🎑
+- [Trigger a photo download](#photo-download) 📡
+- [Search for a photo by keyword](#search-photos) 🕵️‍♂️
+
+**Note:** Every application must abide by the [API Guidelines](https://medium.com/unsplash/unsplash-api-guidelines-28e0216e6daa). Specifically, remember to [hotlink images](https://medium.com/unsplash/unsplash-api-guidelines-hotlinking-images-6c6b51030d2a) and [trigger a download when appropriate](https://medium.com/unsplash/unsplash-api-guidelines-triggering-a-download-c39b24e99e02).
 
 ## Documentation
 - [Installation](https://github.com/unsplash/unsplash-js#installation)
@@ -357,6 +367,8 @@ unsplash.users.collections("naoufal", 2, 15, "updated")
 
 <div id="photos" />
 
+<div id="photos-all" />
+
 ### photos.listPhotos(page, perPage, orderBy)
 Get a single page from the list of all photos.
 
@@ -440,6 +452,8 @@ unsplash.photos.getPhotoStats("mtNweauBsMQ")
 ```
 ---
 
+<div id="photo-random" />
+
 ### photos.getRandomPhoto({ width, height, query, username, featured })
 Retrieve a single random photo, given optional filters.
 
@@ -509,6 +523,37 @@ unsplash.photos.unlikePhoto("mtNweauBsMQ")
     // Your code
   });
 ```
+---
+
+<div id="photo-download" />
+
+### photos.downloadPhoto(photo)
+Trigger a download of a photo as per the [download tracking requirement of API Guidelines](https://medium.com/unsplash/unsplash-api-guidelines-triggering-a-download-c39b24e99e02).
+
+*Note*: this accepts a photo JSON object, not a URL string or photo ID. See the example below for how to pair it with other calls to trigger it.
+
+__Arguments__
+
+| Argument | Type | Opt/Required |
+|---|---|---|
+|__`photo`__|_json_|Required|
+
+__Example__
+```js
+unsplash.photos.getPhoto("mtNweauBsMQ")
+  .then(toJson)
+  .then(json => {
+    unsplash.photos.downloadPhoto(json);
+  });
+
+// or if working with an array of photos
+unsplash.search.photos("dogs", 1)
+  .then(toJson)
+  .then(json => {
+    unsplash.photos.downloadPhoto(json["results"][0]);
+  });
+```
+
 ---
 
 <div id="collections" />
@@ -784,6 +829,8 @@ unsplash.collections.listRelatedCollections(88)
 ---
 
 <div id="search" />
+
+<div id="search-photos" />
 
 ### search.photos(keyword, page, per_page)
 Get a list of photos matching the keyword.

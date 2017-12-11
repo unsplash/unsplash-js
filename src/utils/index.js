@@ -1,9 +1,14 @@
 /* @flow */
 import { stringify as qsStringify } from "querystring";
 import formurlencoded from "form-urlencoded";
+import parse from "url-parse";
 
 export function formUrlEncode(body: Object): Object {
   return formurlencoded(body);
+}
+
+export function getUrlComponents(uri: String): Object {
+  return parse(uri, {}, true);
 }
 
 export function buildFetchOptions(
