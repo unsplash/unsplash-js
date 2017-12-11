@@ -1,5 +1,6 @@
 /* @flow */
 import { getUrlComponents } from "../utils";
+import get from "lodash/get";
 
 export default function photos(): Object {
   return {
@@ -149,7 +150,13 @@ export default function photos(): Object {
     },
 
     downloadPhoto: (photo) => {
-      const urlComponents = getUrlComponents(photo["links"]["download_location"]);
+      const downloadLocation = get(photo, "links.download_location", undefined);
+
+      if (downloadLocation === undefined) {
+        throw new Error(`Object received is not a photo. ${photo}`);
+      }
+
+      const urlComponents = getUrlComponents(downloadLocation);
 
       return this.request({
         url: urlComponents.pathname,

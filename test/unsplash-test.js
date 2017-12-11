@@ -559,6 +559,12 @@ describe("Unsplash", () => {
           }
         }]);
       });
+
+      it("should throw an error if passed a malformed photo object", () => {
+        const mockPhotoResponse = "123123";
+
+        expect(() => unsplash.photos.downloadPhoto(mockPhotoResponse)).toThrow(/Object received is not a photo/);
+      });
     });
   });
 
