@@ -47,7 +47,11 @@ This library depends on [fetch](https://fetch.spec.whatwg.org/) to make requests
 To create an instance, simply provide an _Object_ with your `applicationId`, `secret` and `callbackUrl`.
 
 ```js
+// ES Modules syntax
 import Unsplash from 'unsplash-js';
+
+// require syntax
+const Unsplash = require('unsplash-js').default;
 
 const unsplash = new Unsplash({
   applicationId: "{APP_ID}",
