@@ -843,7 +843,7 @@ __Arguments__
 
 | Argument | Type | Opt/Required | Default |
 |---|---|---|---|
-|__`keyword`__|_number_|Required||
+|__`keyword`__|_string_|Required||
 |__`page`__|_number_|Optional||
 |__`per_page`__|_number_|Optional|10|
 
@@ -864,7 +864,7 @@ __Arguments__
 
 | Argument | Type | Opt/Required | Default |
 |---|---|---|---|
-|__`keyword`__|_number_|Required||
+|__`keyword`__|_string_|Required||
 |__`page`__|_number_|Optional||
 |__`per_page`__|_number_|Optional|10|
 
@@ -885,7 +885,7 @@ __Arguments__
 
 | Argument | Type | Opt/Required | Default |
 |---|---|---|---|
-|__`keyword`__|_number_|Required||
+|__`keyword`__|_string_|Required||
 |__`page`__|_number_|Optional||
 |__`per_page`__|_number_|Optional|10|
 
