@@ -55,6 +55,7 @@ const Unsplash = require('unsplash-js').default;
 
 const unsplash = new Unsplash({
   applicationId: "{APP_ID}",
+  access: "{APP_ACCESS}",
   secret: "{APP_SECRET}",
   callbackUrl: "{CALLBACK_URL}"
 });
@@ -65,6 +66,7 @@ If you already have a bearer token, you can also provide it to the constructor.
 ```js
 const unsplash = new Unsplash({
   applicationId: "{APP_ID}",
+  access: "{APP_ACCESS}",
   secret: "{APP_SECRET}",
   callbackUrl: "{CALLBACK_URL}",
   bearerToken: "{USER_BEARER_TOKEN}"
@@ -76,6 +78,7 @@ You can also provide headers that will be set on every request by providing them
 ```js
 const unsplash = new Unsplash({
   applicationId: "{APP_ID}",
+  access: "{APP_ACCESS}",
   secret: "{APP_SECRET}",
   callbackUrl: "{CALLBACK_URL}",
   headers: {
@@ -96,6 +99,9 @@ import Unsplash from 'unsplash-js/native';
 ---
 
 ### Authorization workflow
+
+_Note: If you are only going to use public methods, you don't need to use oauth._
+
 Generate an authentication url with the scopes your app requires.
 
 ```js
