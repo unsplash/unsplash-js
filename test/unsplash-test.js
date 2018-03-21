@@ -4,6 +4,7 @@ import { formUrlEncode, buildFetchOptions } from "../src/utils";
 import expect, { spyOn, restoreSpies } from "expect";
 
 const applicationId = "applicationId";
+const access = "access";
 const secret = "secret";
 const callbackUrl = "http://foo.com";
 const headers = { "X-Custom-Header": "foo" };
@@ -12,6 +13,7 @@ describe("Unsplash", () => {
   describe("constructor", () => {
     const unsplash = new Unsplash({
       applicationId,
+      access,
       secret,
       callbackUrl,
       headers
@@ -31,6 +33,10 @@ describe("Unsplash", () => {
 
     it("should set the secret argument on the Unsplash instance", () => {
       expect(unsplash._secret).toBe(secret);
+    });
+
+    it("should set the access argument on the Unsplash instance", () => {
+      expect(unsplash._access).toBe(access);
     });
 
     it("should set the callbackUrl argument on the Unsplash instance", () => {
@@ -1047,7 +1053,8 @@ describe("Unsplash", () => {
       const classFixture = {
         _apiUrl: "http://foo.com",
         _apiVersion: "v1",
-        _applicationId: "bar"
+        _applicationId: "bar",
+        _access: "access"
       };
 
       const optionsFixture = {
@@ -1076,12 +1083,12 @@ describe("Unsplash", () => {
         expect(url).toBe("http://foo.com/bar?foo=bar");
       });
 
-      it("should return a fetchOptions object with `Client-ID {applicationId}` Authorization header", () => {
+      it("should return a fetchOptions object with `Client-ID {access}` Authorization header", () => {
         let authorizationHeader = buildFetchOptions
           .bind(classFixture)(optionsFixture).options
           .headers["Authorization"];
 
-        expect(authorizationHeader).toBe("Client-ID bar");
+        expect(authorizationHeader).toBe("Client-ID access");
       });
 
       it("should return a fetchOptions object with `Bearer {token}` Authorization header", () => {

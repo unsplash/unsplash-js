@@ -29,7 +29,7 @@ export function buildFetchOptions(
     "Accept-Version": this._apiVersion,
     "Authorization": this._bearerToken
       ? `Bearer ${this._bearerToken}`
-      : `Client-ID ${this._applicationId}`
+      : `Client-ID ${this._access}`
   });
 
   if (body) {

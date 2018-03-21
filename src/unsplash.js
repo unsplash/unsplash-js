@@ -18,6 +18,7 @@ export default class Unsplash {
   _apiUrl: string;
   _apiVersion: string;
   _applicationId: string;
+  _access: string;
   _secret: string;
   _callbackUrl: string;
   _bearerToken: ?string;
@@ -38,6 +39,7 @@ export default class Unsplash {
       apiUrl: string,
       apiVersion: string,
       applicationId: string,
+      access: string,
       secret: string,
       callbackUrl: string,
       bearerToken?: string,
@@ -48,6 +50,7 @@ export default class Unsplash {
     this._apiVersion = options.apiVersion || API_VERSION;
     this._applicationId = options.applicationId;
     this._secret = options.secret;
+    this._access = options.access;
     this._callbackUrl = options.callbackUrl;
     this._bearerToken = options.bearerToken;
     this._headers = options.headers || {};
