@@ -934,7 +934,7 @@ __Example__
 import Unsplash, { toJson } from "unsplash-js";
 
 const unsplash = new Unsplash({
-  applicationId: "{YOUR_APPLICATION_ID}",
+  applicationId: "{YOUR_ACCESS_KEY}",
   secret: "{YOUR_SECRET_KEY}",
   callbackUrl: "{YOUR_CALLBACK_URL}"
 });
