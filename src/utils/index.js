@@ -18,18 +18,21 @@ export function buildFetchOptions(
     query: Object,
     headers: Object,
     body: Object,
-    oauth: boolean
+    oauth: boolean,
+    reporter: boolean
   }
 ): Object {
-  let { method, query, oauth, body } = options;
+  let { method, query, oauth, body, reporter } = options;
+
+  let hostUrl = reporter ? this._reporterUrl : this._apiUrl;
   let url = (oauth === true)
     ? options.url
-    : `${this._apiUrl}${options.url}`;
+    : `${hostUrl}${options.url}`;
   let headers = Object.assign({}, this._headers, options.headers, {
     "Accept-Version": this._apiVersion,
     "Authorization": this._bearerToken
       ? `Bearer ${this._bearerToken}`
-      : `Client-ID ${this._applicationId}`
+      : `Client-ID ${this._access}`
   });
 
   if (body) {

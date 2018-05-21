@@ -2,7 +2,7 @@
 
 declare var fetch: any;
 
-import { API_URL, API_VERSION } from "./constants";
+import { API_URL, API_VERSION, REPORTER_URL } from "./constants";
 import { buildFetchOptions } from "./utils";
 
 import auth from "./methods/auth";
@@ -17,7 +17,9 @@ import stats from "./methods/stats";
 export default class Unsplash {
   _apiUrl: string;
   _apiVersion: string;
+  _reporterUrl: string;
   _applicationId: string;
+  _access: string;
   _secret: string;
   _callbackUrl: string;
   _bearerToken: ?string;
@@ -37,7 +39,9 @@ export default class Unsplash {
     options: {
       apiUrl: string,
       apiVersion: string,
+      reporterUrl: string,
       applicationId: string,
+      access: string,
       secret: string,
       callbackUrl: string,
       bearerToken?: string,
@@ -46,7 +50,9 @@ export default class Unsplash {
   ) {
     this._apiUrl = options.apiUrl || API_URL;
     this._apiVersion = options.apiVersion || API_VERSION;
+    this._reporterUrl = options.reporterUrl || REPORTER_URL;
     this._applicationId = options.applicationId;
+    this._access = options.access;
     this._secret = options.secret;
     this._callbackUrl = options.callbackUrl;
     this._bearerToken = options.bearerToken;
@@ -69,7 +75,8 @@ export default class Unsplash {
       query: Object,
       headers: Object,
       body: Object,
-      oauth: boolean
+      oauth: boolean,
+      reporter: boolean
     }
   ):Promise<any> {
     var { url, options } = buildFetchOptions.bind(this)(requestOptions);
