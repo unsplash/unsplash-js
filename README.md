@@ -836,7 +836,7 @@ unsplash.collections.listRelatedCollections(88)
 
 <div id="search-photos" />
 
-### search.photos(keyword, page, per_page)
+### search.photos(keyword, page, per_page,collections,orientation)
 Get a list of photos matching the keyword.
 
 __Arguments__
@@ -846,6 +846,8 @@ __Arguments__
 |__`keyword`__|_string_|Required||
 |__`page`__|_number_|Optional||
 |__`per_page`__|_number_|Optional|10|
+|__`collections`__|_Array<number>_|Optional||
+|__`orientation`__|_string_|Optional||
 
 
 __Example__

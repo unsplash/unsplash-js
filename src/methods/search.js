@@ -2,26 +2,49 @@
 
 export default function search(): Object {
   return {
-    all: searcher.bind(this, "/search"),
+    all: universalSearcher.bind(this, "/search"),
 
-    photos: searcher.bind(this, "/search/photos"),
+    photos: photosSearcher.bind(this, "/search/photos"),
 
-    users: searcher.bind(this, "/search/users"),
+    users: universalSearcher.bind(this, "/search/users"),
 
-    collections: searcher.bind(this, "/search/collections")
+    collections: universalSearcher.bind(this, "/search/collections")
   };
 }
 
-function searcher(url, keyword = "", page = 1, per_page = 10) {
+function photosSearcher(url, keyword = "", page = 1, per_page = 10,collections = [""],orientation = undefined) {
+  const query ={
+    query: keyword,
+    page,
+    per_page,
+    collections: collections.length > 1 ? 
+      collections.join(",") : collections.toString()
+  };
+  if (orientation){
+    const defineProperty = Object.defineProperty;
+    defineProperty(query, "orientation",({
+      value:orientation,
+      configurable:true,
+      enumerable:true
+    } : Object));
+  }
+  return this.request({
+    url,
+    method: "GET",
+    query
+  }); 
+}
+
+function universalSearcher(url, keyword = "", page = 1, per_page = 10){
   const query = {
     query: keyword,
     page,
     per_page
   };
-
   return this.request({
     url,
     method: "GET",
     query
   });
 }
+

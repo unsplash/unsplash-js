@@ -909,7 +909,7 @@ describe("Unsplash", () => {
       it("should make a GET request to /search/photos", () => {
         let spy = spyOn(unsplash, "request");
         unsplash.search.photos("nature");
-
+        
         expect(spy.calls.length).toEqual(1);
         expect(spy.calls[0].arguments).toEqual([{
           method: "GET",
@@ -917,11 +917,12 @@ describe("Unsplash", () => {
           query: {
             query: "nature",
             page: 1,
-            per_page: 10
+            per_page: 10,
+            collections: ""
           }
         }]);
       });
-
+      
       it("should submit an empty query if the keyword is an empty string", () => {
         let spy = spyOn(unsplash, "request");
         unsplash.search.photos();
@@ -933,7 +934,8 @@ describe("Unsplash", () => {
           query: {
             query: "",
             page: 1,
-            per_page: 10
+            per_page: 10,
+            collections: ""
           }
         }]);
       });
