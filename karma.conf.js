@@ -7,7 +7,7 @@ let karmaConfig = {};
 const baseConfig = {
   // karma only needs to know about the test bundle
   files: [
-    path.resolve(__dirname, "./webpack_config/tests.webpack.js")
+    path.resolve(__dirname, "./webpack_config/tests.webpack.babel.js")
   ],
   frameworks: ["mocha"],
   plugins: [
@@ -17,7 +17,7 @@ const baseConfig = {
   ],
   // run the bundle through the webpack and sourcemap plugins
   preprocessors: {
-    "./webpack_config/tests.webpack.js": ["webpack", "sourcemap"]
+    "./webpack_config/tests.webpack.babel.js": ["webpack", "sourcemap"]
   },
   reporters: ["dots"],
   singleRun: true,
