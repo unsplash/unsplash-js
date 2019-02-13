@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - "4.2"
+  - "4.8"
 script:
   - npm run test:ci
 after_success:
