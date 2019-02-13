@@ -6,7 +6,7 @@
 
 A [Universal JavaScript](https://medium.com/@mjackson/universal-javascript-4761051b7ae9) wrapper for the [Unsplash API](https://unsplash.com/developers).
 
-Before using the Unsplash API, you need to [register as a developer](https://unsplash.com/developers) and read the [API Guidelines](https://medium.com/unsplash/unsplash-api-guidelines-28e0216e6daa).
+Before using the Unsplash API, you need to [register as a developer](https://unsplash.com/developers) and read the [API Guidelines](https://help.unsplash.com/api-guidelines/unsplash-api-guidelines).
 
 ## Browser Support
 
@@ -23,7 +23,7 @@ Quick links to methods you're likely to care about:
 - [Trigger a photo download](#photo-download) 📡
 - [Search for a photo by keyword](#search-photos) 🕵️‍♂️
 
-**Note:** Every application must abide by the [API Guidelines](https://medium.com/unsplash/unsplash-api-guidelines-28e0216e6daa). Specifically, remember to [hotlink images](https://medium.com/unsplash/unsplash-api-guidelines-hotlinking-images-6c6b51030d2a) and [trigger a download when appropriate](https://medium.com/unsplash/unsplash-api-guidelines-triggering-a-download-c39b24e99e02).
+**Note:** Every application must abide by the [API Guidelines](https://help.unsplash.com/api-guidelines/unsplash-api-guidelines). Specifically, remember to [hotlink images](https://help.unsplash.com/api-guidelines/more-on-each-guideline/guideline-hotlinking-images), [attribute photographers](https://help.unsplash.com/api-guidelines/more-on-each-guideline/guideline-attribution), and [trigger a download when appropriate](https://help.unsplash.com/api-guidelines/more-on-each-guideline/guideline-triggering-a-download).
 
 ## Documentation
 - [Installation](https://github.com/unsplash/unsplash-js#installation)
