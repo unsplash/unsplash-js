@@ -2,6 +2,7 @@
 
 [![npm](https://img.shields.io/npm/v/unsplash-js.svg?style=flat-square)](https://www.npmjs.com/package/unsplash-js)
 [![Travis](https://img.shields.io/travis/unsplash/unsplash-js/master.svg?style=flat-square)](https://travis-ci.org/unsplash/unsplash-js/branches)
+[![BrowserStack Status](https://www.browserstack.com/automate/badge.svg?badge_key=RzJud09PSXV6TCtRWTY3V0czQUxrUVN5eWZJVDYvTmpGRUFCNEpuQ2Mzcz0tLVZaenhaUlM4RTRtdEZxaEhOblZLNWc9PQ==--a90a25acdadf06f74cf787ed47eb08cedd6f3935%)](https://www.browserstack.com/automate/public-build/RzJud09PSXV6TCtRWTY3V0czQUxrUVN5eWZJVDYvTmpGRUFCNEpuQ2Mzcz0tLVZaenhaUlM4RTRtdEZxaEhOblZLNWc9PQ==--a90a25acdadf06f74cf787ed47eb08cedd6f3935%)
 [![Coveralls](https://img.shields.io/coveralls/unsplash/unsplash-js/master.svg?style=flat-square)](https://coveralls.io/github/unsplash/unsplash-js?branch=master)
 
 A [Universal JavaScript](https://medium.com/@mjackson/universal-javascript-4761051b7ae9) wrapper for the [Unsplash API](https://unsplash.com/developers).
