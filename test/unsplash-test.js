@@ -74,8 +74,7 @@ describe("Unsplash", () => {
       const unsplash = new Unsplash({
         applicationId,
         secret,
-        apiUrl,
-        callbackUrl
+        apiUrl
       });
 
       expect(unsplash._apiUrl).toBe(apiUrl);
@@ -86,8 +85,7 @@ describe("Unsplash", () => {
       const unsplash = new Unsplash({
         applicationId,
         secret,
-        apiVersion,
-        callbackUrl
+        apiVersion
       });
 
       expect(unsplash._apiVersion).toBe(apiVersion);
@@ -98,8 +96,7 @@ describe("Unsplash", () => {
     it("should store an empty object if nothing is passed", () => {
       const unsplash = new Unsplash({
         applicationId,
-        secret,
-        callbackUrl
+        secret
       });
 
       expect(unsplash._headers).toEqual({});
@@ -233,8 +230,7 @@ describe("Unsplash", () => {
 
     let unsplash = new Unsplash({
       applicationId,
-      secret,
-      callbackUrl
+      secret
     });
 
     describe("profile", () => {
@@ -326,8 +322,7 @@ describe("Unsplash", () => {
   describe("photos", () => {
     let unsplash = new Unsplash({
       applicationId,
-      secret,
-      callbackUrl
+      secret
     });
 
     afterEach(function () {
@@ -571,8 +566,7 @@ describe("Unsplash", () => {
   describe("categories", () => {
     let unsplash = new Unsplash({
       applicationId,
-      secret,
-      callbackUrl
+      secret
     });
 
     afterEach(function () {
@@ -626,8 +620,7 @@ describe("Unsplash", () => {
   describe("collections", () => {
     let unsplash = new Unsplash({
       applicationId,
-      secret,
-      callbackUrl
+      secret
     });
 
     afterEach(function () {
@@ -842,8 +835,7 @@ describe("Unsplash", () => {
   describe("stats", () => {
     let unsplash = new Unsplash({
       applicationId,
-      secret,
-      callbackUrl
+      secret
     });
 
     describe("total", () => {
@@ -867,8 +859,7 @@ describe("Unsplash", () => {
 
     let unsplash = new Unsplash({
       applicationId,
-      secret,
-      callbackUrl
+      secret
     });
 
     describe("all", () => {
@@ -1006,18 +997,6 @@ describe("Unsplash", () => {
         }]);
       });
     });
-  });
-
-  describe("request", () => {
-    // it("should call fetch", () => {
-    //   let unsplash = new Unsplash({
-    //     applicationId,
-    //     secret,
-    //     callbackUrl
-    //   });
-
-    //   unsplash.currentUser.profile();
-    // });
   });
 
   describe("utils", () => {
