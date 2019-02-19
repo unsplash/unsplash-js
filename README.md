@@ -45,7 +45,7 @@ This library depends on [fetch](https://fetch.spec.whatwg.org/) to make requests
 
 ## Usage
 ### Creating an instance
-To create an instance, simply provide an _Object_ with your `applicationId`, `secret` and `callbackUrl`.
+To create an instance, simply provide an _Object_ with your `access key` and `secret`.
 
 ```js
 // ES Modules syntax
@@ -56,8 +56,7 @@ const Unsplash = require('unsplash-js').default;
 
 const unsplash = new Unsplash({
   applicationId: "{APP_ACCESS_KEY}",
-  secret: "{APP_SECRET}",
-  callbackUrl: "{CALLBACK_URL}"
+  secret: "{APP_SECRET}"
 });
 ```
 
@@ -78,7 +77,6 @@ You can also provide headers that will be set on every request by providing them
 const unsplash = new Unsplash({
   applicationId: "{APP_ACCESS_KEY}",
   secret: "{APP_SECRET}",
-  callbackUrl: "{CALLBACK_URL}",
   headers: {
     "X-Custom-Header": "foo"
   }
@@ -395,27 +393,6 @@ unsplash.photos.listPhotos(2, 15, "latest")
 ```
 ---
 
-### photos.listCuratedPhotos(page, perPage, orderBy)
-Get a single page from the list of the curated photos.
-
-__Arguments__
-
-| Argument | Type | Opt/Required |
-|---|---|---|
-|__`page`__|_number_|Optional|
-|__`perPage`__|_number_|Optional|
-|__`orderBy`__|_string_|Optional|`latest`, `popular` or `oldest`|
-
-__Example__
-```js
-unsplash.photos.listCuratedPhotos(2, 15, "latest")
-  .then(toJson)
-  .then(json => {
-    // Your code
-  });
-```
----
-
 ### photos.getPhoto(id, width, height, rectangle)
 Retrieve a single photo.
 
@@ -584,26 +561,6 @@ unsplash.collections.listCollections(1, 10, "popular")
 ```
 ---
 
-### collections.listCuratedCollections(page, perPage)
-Get a single page from the list of curated collections.
-
-__Arguments__
-
-| Argument | Type | Opt/Required |
-|---|---|---|
-|__`page`__|_number_|Optional|
-|__`perPage`__|_number_|Optional|
-
-__Example__
-```js
-unsplash.collections.listCuratedCollections(1, 10)
-  .then(toJson)
-  .then(json => {
-    // Your code
-  });
-```
----
-
 ### collections.listFeaturedCollections(page, perPage)
 Get a single page from the list of featured collections.
 
@@ -644,26 +601,6 @@ unsplash.collections.getCollection(123456)
 ```
 ---
 
-### collections.getCuratedCollection(id)
-Or, for a curated collection:
-
-__Arguments__
-
-| Argument | Type | Opt/Required |
-|---|---|---|
-|__`id`__|_number_|Required|
-
-
-__Example__
-```js
-unsplash.collections.getCuratedCollection(88)
-  .then(toJson)
-  .then(json => {
-    // Your code
-  });
-```
----
-
 ### collections.getCollectionPhotos(id, orderBy)
 Retrieve a collection’s photos.
 
@@ -681,29 +618,6 @@ __Arguments__
 __Example__
 ```js
 unsplash.collections.getCollectionPhotos(123456, 1, 10, "popular")
-  .then(toJson)
-  .then(json => {
-    // Your code
-  });
-```
----
-
-### collections.getCuratedCollectionPhotos(id, orderBy)
-Or, for a curated collection:
-
-__Arguments__
-
-| Argument | Type | Opt/Required | Notes |
-|---|---|---|---|
-|__`id`__|_number_|Required||
-|__`page`__|_number_|Optional|
-|__`perPage`__|_number_|Optional|
-|__`orderBy`__|_string_|Optional|`latest`, `popular` or `oldest`|
-
-
-__Example__
-```js
-unsplash.collections.getCuratedCollectionPhotos(88, 1, 10, "popular")
   .then(toJson)
   .then(json => {
     // Your code
@@ -936,8 +850,7 @@ import Unsplash, { toJson } from "unsplash-js";
 
 const unsplash = new Unsplash({
   applicationId: "{YOUR_ACCESS_KEY}",
-  secret: "{YOUR_SECRET_KEY}",
-  callbackUrl: "{YOUR_CALLBACK_URL}"
+  secret: "{YOUR_SECRET_KEY}"
 });
 
 unsplash.stats.total()
@@ -953,7 +866,7 @@ unsplash.stats.total()
 - Shoutout to [BrowserStack](https://www.browserstack.com/) for letting us use their service to run automated browser tests.
 
 ## License
-Copyright (c) 2015, [Unsplash](https://unsplash.com)
+Copyright (c) 2019, [Unsplash](https://unsplash.com)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

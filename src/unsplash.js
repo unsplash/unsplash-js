@@ -19,7 +19,7 @@ export default class Unsplash {
   _apiVersion: string;
   _applicationId: string;
   _secret: string;
-  _callbackUrl: string;
+  _callbackUrl: ?string;
   _bearerToken: ?string;
   _headers: ?Object;
 
@@ -39,7 +39,7 @@ export default class Unsplash {
       apiVersion: string,
       applicationId: string,
       secret: string,
-      callbackUrl: string,
+      callbackUrl?: string,
       bearerToken?: string,
       headers?: Object
     }
