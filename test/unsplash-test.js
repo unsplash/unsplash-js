@@ -928,6 +928,24 @@ describe("Unsplash", () => {
           }
         }]);
       });
+
+      it("can specify 'page', 'per_page', 'collections' and 'orientation'", () => {
+        let spy = spyOn(unsplash, "request");
+        unsplash.search.photos("nature", 4, 15, ["id-123", "id-456"], "landscape");
+
+        expect(spy.calls.length).toEqual(1);
+        expect(spy.calls[0].arguments).toEqual([{
+          method: "GET",
+          url: "/search/photos",
+          query: {
+            query: "nature",
+            page: 4,
+            per_page: 15,
+            collections: "id-123,id-456",
+            orientation: "landscape"
+          }
+        }]);
+      });
     });
 
     describe("users", () => {
