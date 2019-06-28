@@ -5,15 +5,9 @@
 [![BrowserStack Status](https://www.browserstack.com/automate/badge.svg?badge_key=RzJud09PSXV6TCtRWTY3V0czQUxrUVN5eWZJVDYvTmpGRUFCNEpuQ2Mzcz0tLVZaenhaUlM4RTRtdEZxaEhOblZLNWc9PQ==--a90a25acdadf06f74cf787ed47eb08cedd6f3935%)](https://www.browserstack.com/automate/public-build/RzJud09PSXV6TCtRWTY3V0czQUxrUVN5eWZJVDYvTmpGRUFCNEpuQ2Mzcz0tLVZaenhaUlM4RTRtdEZxaEhOblZLNWc9PQ==--a90a25acdadf06f74cf787ed47eb08cedd6f3935%)
 [![Coveralls](https://img.shields.io/coveralls/unsplash/unsplash-js/master.svg?style=flat-square)](https://coveralls.io/github/unsplash/unsplash-js?branch=master)
 
-A [Universal JavaScript](https://medium.com/@mjackson/universal-javascript-4761051b7ae9) wrapper for the [Unsplash API](https://unsplash.com/developers).
+A server-side Javascript wrapper for working with the [Unsplash API](https://unsplash.com/developers).
 
 Before using the Unsplash API, you need to [register as a developer](https://unsplash.com/developers) and read the [API Guidelines](https://help.unsplash.com/api-guidelines/unsplash-api-guidelines).
-
-## Browser Support
-
-![Chrome](https://raw.github.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png) | ![Firefox](https://raw.github.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png) | ![Safari](https://raw.github.com/alrra/browser-logos/master/src/safari/safari_48x48.png) | ![Opera](https://raw.github.com/alrra/browser-logos/master/src/opera/opera_48x48.png) | ![Edge](https://raw.github.com/alrra/browser-logos/master/src/edge/edge_48x48.png) | ![IE](https://raw.github.com/alrra/browser-logos/master/src/archive/internet-explorer_9-11/internet-explorer_9-11_48x48.png) |
---- | --- | --- | --- | --- | --- |
-Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | 10+ ✔ |
 
 ## Quick start
 
@@ -44,6 +38,9 @@ $ npm i --save unsplash-js
 This library depends on [fetch](https://fetch.spec.whatwg.org/) to make requests to the Unsplash API.  For environments that don't support fetch, you'll need to provide a [poly](https://github.com/github/fetch)[fill](https://github.com/bitinn/node-fetch).
 
 ## Usage
+
+If you're using `unsplash-js` publicly in the browser, you'll need to proxy your requests through your server to sign the requests with the Access Key and/or Secret Key to abide by the [API Guideline](https://help.unsplash.com/articles/2511245-unsplash-api-guidelines) to keep keys confidential.
+
 ### Creating an instance
 To create an instance, simply provide an _Object_ with your `access key` and `secret`.
 
