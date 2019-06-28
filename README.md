@@ -38,6 +38,9 @@ $ npm i --save unsplash-js
 This library depends on [fetch](https://fetch.spec.whatwg.org/) to make requests to the Unsplash API.  For environments that don't support fetch, you'll need to provide a [poly](https://github.com/github/fetch)[fill](https://github.com/bitinn/node-fetch).
 
 ## Usage
+
+If you're using `unsplash-js` publicly in the browser, you'll need to proxy your requests through your server to sign the requests with the Access Key and/or Secret Key to abide by the [API Guideline](https://help.unsplash.com/articles/2511245-unsplash-api-guidelines) to keep keys confidential.
+
 ### Creating an instance
 To create an instance, simply provide an _Object_ with your `access key` and `secret`.
 
