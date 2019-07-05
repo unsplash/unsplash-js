@@ -52,7 +52,7 @@
     "babel-plugin-transform-object-assign": "6.3.13",
     "babel-preset-es2015": "6.3.13",
     "coveralls": "2.11.4",
-    "eslint": "1.10.2",
+    "eslint": "4.18.2",
     "expect": "1.12.2",
     "flow-bin": "0.40.0",
     "isparta": "4.0.0",
