@@ -91,7 +91,7 @@ describe("Unsplash", () => {
       expect(unsplash._apiVersion).toBe(apiVersion);
     });
 
-    it("should pass timeout to fetch and expect this timeout to be honored", async () => {
+    it("client should respect timeout passed from constructor", async () => {
       const requestTimeout = 1;
 
       const unsplash = new Unsplash({
