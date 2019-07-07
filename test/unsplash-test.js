@@ -90,6 +90,26 @@ describe("Unsplash", () => {
 
       expect(unsplash._apiVersion).toBe(apiVersion);
     });
+
+    it("should pass additional options to fetch", async () => {
+      const requestTimeout = 1;
+
+      const unsplash = new Unsplash({
+        applicationId,
+        secret,
+        requestTimeout,
+      });
+
+      expect(unsplash._requestTimeout).toBe(requestTimeout);
+
+      try {
+        await unsplash.photos.getRandomPhoto();
+      } catch (e) {
+
+        expect(e.name).toEqual("FetchError");
+        expect(e.message).toContain("network timeout");
+      }
+    });
   });
 
   describe("headers", () => {

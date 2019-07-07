@@ -22,6 +22,7 @@ export default class Unsplash {
   _callbackUrl: ?string;
   _bearerToken: ?string;
   _headers: ?Object;
+  _requestTimeout: ?Object;
 
   auth: Object;
   currentUser: Object;
@@ -41,7 +42,8 @@ export default class Unsplash {
       secret: string,
       callbackUrl?: string,
       bearerToken?: string,
-      headers?: Object
+      headers?: Object,
+      requestTimeout?: number
     }
   ) {
     this._apiUrl = options.apiUrl || API_URL;
@@ -51,6 +53,7 @@ export default class Unsplash {
     this._callbackUrl = options.callbackUrl;
     this._bearerToken = options.bearerToken;
     this._headers = options.headers || {};
+    this._requestTimeout = options.requestTimeout;
 
     this.auth = auth.bind(this)();
     this.currentUser = currentUser.bind(this)();
@@ -72,6 +75,7 @@ export default class Unsplash {
       oauth: boolean
     }
   ):Promise<any> {
+    requestOptions.timeout = this._requestTimeout;
     var { url, options } = buildFetchOptions.bind(this)(requestOptions);
 
     return fetch(url, options);

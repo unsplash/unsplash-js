@@ -18,10 +18,11 @@ export function buildFetchOptions(
     query: Object,
     headers: Object,
     body: Object,
-    oauth: boolean
+    oauth: boolean,
+    timeout: number
   }
 ): Object {
-  let { method, query, oauth, body } = options;
+  let { method, query, oauth, body, timeout } = options;
   let url = (oauth === true)
     ? options.url
     : `${this._apiUrl}${options.url}`;
@@ -45,6 +46,7 @@ export function buildFetchOptions(
     options: {
       method,
       headers,
+      timeout,
       body: (method !== "GET") && body
         ? formUrlEncode(body)
         : undefined
