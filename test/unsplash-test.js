@@ -91,7 +91,7 @@ describe("Unsplash", () => {
       expect(unsplash._apiVersion).toBe(apiVersion);
     });
 
-    it("should pass additional options to fetch", async () => {
+    it("should pass timeout to fetch and expect this timeout to be honored", async () => {
       const requestTimeout = 1;
 
       const unsplash = new Unsplash({
