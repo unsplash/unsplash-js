@@ -19,7 +19,7 @@ export function buildFetchOptions(
     headers: Object,
     body: Object,
     oauth: boolean,
-    timeout: number
+    timeout?: number
   }
 ): Object {
   let { method, query, oauth, body, timeout } = options;

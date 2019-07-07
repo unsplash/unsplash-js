@@ -2,8 +2,8 @@
 
 declare var fetch: any;
 
-import { API_URL, API_VERSION } from "./constants";
-import { buildFetchOptions } from "./utils";
+import {API_URL, API_VERSION} from "./constants";
+import {buildFetchOptions} from "./utils";
 
 import auth from "./methods/auth";
 import currentUser from "./methods/currentUser";
@@ -22,7 +22,7 @@ export default class Unsplash {
   _callbackUrl: ?string;
   _bearerToken: ?string;
   _headers: ?Object;
-  _requestTimeout: ?Object;
+  _requestTimeout: ?number;
 
   auth: Object;
   currentUser: Object;
@@ -72,11 +72,12 @@ export default class Unsplash {
       query: Object,
       headers: Object,
       body: Object,
-      oauth: boolean
+      oauth: boolean,
+      timeout?: number,
     }
-  ):Promise<any> {
-    requestOptions.timeout = this._requestTimeout;
-    var { url, options } = buildFetchOptions.bind(this)(requestOptions);
+  ): Promise<any> {
+    requestOptions.timeout = requestOptions.timeout || this._requestTimeout || 0;
+    var {url, options} = buildFetchOptions.bind(this)(requestOptions);
 
     return fetch(url, options);
   }
