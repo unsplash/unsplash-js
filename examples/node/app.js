@@ -78,12 +78,6 @@ function photos() {
       console.log(json);
     });
 
-  unsplash.photos.searchPhotos("bear", undefined, 1, 1)
-    .then(toJson)
-    .then(json => {
-      console.log(json);
-    });
-
   unsplash.photos.getPhoto("kZ8dyUT0h30")
     .then(toJson)
     .then(json => {
@@ -109,38 +103,10 @@ function photos() {
     });
 }
 
-function categories() {
-  console.log("\nCategories");
-
-  unsplash.categories.listCategories()
-    .then(toJson)
-    .then(json => {
-      console.log(json);
-    });
-
-  unsplash.categories.category(4)
-    .then(toJson)
-    .then(json => {
-      console.log(json);
-    });
-
-  unsplash.categories.categoryPhotos(4, 1, 1)
-    .then(toJson)
-    .then(json => {
-      console.log(json);
-    });
-}
-
 function collections() {
   console.log("\nCollections");
 
    unsplash.collections.listCollections(1, 10)
-     .then(toJson)
-     .then(json => {
-       console.log(json);
-     });
-
-   unsplash.collections.listCuratedCollections(1, 10)
      .then(toJson)
      .then(json => {
        console.log(json);
@@ -152,20 +118,7 @@ function collections() {
        console.log(json);
      });
 
-   unsplash.collections.getCuratedCollection(94)
-     .then(toJson)
-     .then(json => {
-       console.log(json);
-     });
-
-
    unsplash.collections.getCollectionPhotos(151165)
-     .then(toJson)
-     .then(json => {
-       console.log(json);
-     });
-
-   unsplash.collections.getCuratedCollectionPhotos(94)
      .then(toJson)
      .then(json => {
        console.log(json);

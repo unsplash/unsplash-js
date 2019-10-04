@@ -19,56 +19,17 @@ export default function photos(): Object {
       });
     },
 
-    listCuratedPhotos: (page = 1, perPage = 10, orderBy = "latest")  => {
-      const url = "/photos/curated";
-      const query = {
-        page,
-        per_page: perPage,
-        order_by: orderBy
-      };
-
-      return this.request({
-        url,
-        method: "GET",
-        query
-      });
-    },
-
-    searchPhotos: (q, category = [""], page = 1, perPage = 10) => {
-      const url = "/photos/search";
-      const query = {
-        query: q,
-        category: category.length > 1
-          ? category.join(",")
-          : category.toString(),
-        page,
-        per_page: perPage
-      };
-
-      return this.request({
-        url,
-        method: "GET",
-        query
-      });
-    },
-
-    getPhoto: (id, width, height, rectangle) => {
+    getPhoto: (id) => {
       const url = `/photos/${id}`;
-      const query = {
-        w: width,
-        h: height,
-        rect: rectangle
-      };
 
       return this.request({
         url,
-        method: "GET",
-        query
+        method: "GET"
       });
     },
 
     getPhotoStats: (id) => {
-      const url = `/photos/${id}/stats`;
+      const url = `/photos/${id}/statistics`;
 
       return this.request({
         url,
@@ -78,18 +39,14 @@ export default function photos(): Object {
 
     getRandomPhoto: (options = {}) => {
       const url = "/photos/random";
-      const category = options.category || [];
       const collections = options.collections || [];
 
       const query = {
         featured: options.featured,
         username: options.username,
         orientation: options.orientation,
-        category: category.join(),
         collections: collections.join(),
         query: options.query,
-        w: options.width,
-        h: options.height,
         c: options.cacheBuster || new Date().getTime(), // Avoid ajax response caching
         count: options.count
       };
@@ -104,22 +61,6 @@ export default function photos(): Object {
         url,
         method: "GET",
         query
-      });
-    },
-
-    uploadPhoto: (photo) => {
-      if (!this._bearerToken) {
-        throw new Error("Requires a bearerToken to be set.");
-      }
-
-      const url = "/photos";
-
-      return this.request({
-        url,
-        method: "POST",
-        body: {
-          photo: photo
-        }
       });
     },
 
