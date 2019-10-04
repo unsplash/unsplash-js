@@ -12,8 +12,6 @@ describe("Unsplash", () => {
   describe("constructor", () => {
     const unsplash = new Unsplash({
       accessKey,
-      secret,
-      callbackUrl,
       headers
     });
 
@@ -27,14 +25,6 @@ describe("Unsplash", () => {
 
     it("should set the accessKey argument on the Unsplash instance", () => {
       expect(unsplash._accessKey).toBe(accessKey);
-    });
-
-    it("should set the secret argument on the Unsplash instance", () => {
-      expect(unsplash._secret).toBe(secret);
-    });
-
-    it("should set the callbackUrl argument on the Unsplash instance", () => {
-      expect(unsplash._callbackUrl).toBe(callbackUrl);
     });
 
     it("should set the headers argument on the Unsplash instance", () => {
@@ -69,7 +59,6 @@ describe("Unsplash", () => {
       const apiUrl = "http://foo.com";
       const unsplash = new Unsplash({
         accessKey,
-        secret,
         apiUrl
       });
 
@@ -80,11 +69,29 @@ describe("Unsplash", () => {
       const apiVersion = "v8";
       const unsplash = new Unsplash({
         accessKey,
-        secret,
         apiVersion
       });
 
       expect(unsplash._apiVersion).toBe(apiVersion);
+    });
+
+    it("should set the secret argument on the Unsplash instance", () => {
+      const unsplash = new Unsplash({
+        accessKey,
+        secret
+      });
+
+      expect(unsplash._secret).toBe(secret);
+    });
+
+    it("should set the callbackUrl argument on the Unsplash instance", () => {
+      const unsplash = new Unsplash({
+        accessKey,
+        secret,
+        callbackUrl
+      });
+
+      expect(unsplash._callbackUrl).toBe(callbackUrl);
     });
   });
 
