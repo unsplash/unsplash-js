@@ -4,5 +4,3 @@ node_js:
   - "4.8"
 script:
   - npm run test:ci
-after_success:
-  - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js

@@ -2,7 +2,6 @@
 
 [![npm](https://img.shields.io/npm/v/unsplash-js.svg?style=flat-square)](https://www.npmjs.com/package/unsplash-js)
 [![Travis](https://img.shields.io/travis/unsplash/unsplash-js/master.svg?style=flat-square)](https://travis-ci.org/unsplash/unsplash-js/branches)
-[![BrowserStack Status](https://www.browserstack.com/automate/badge.svg?badge_key=RzJud09PSXV6TCtRWTY3V0czQUxrUVN5eWZJVDYvTmpGRUFCNEpuQ2Mzcz0tLVZaenhaUlM4RTRtdEZxaEhOblZLNWc9PQ==--a90a25acdadf06f74cf787ed47eb08cedd6f3935%)](https://www.browserstack.com/automate/public-build/RzJud09PSXV6TCtRWTY3V0czQUxrUVN5eWZJVDYvTmpGRUFCNEpuQ2Mzcz0tLVZaenhaUlM4RTRtdEZxaEhOblZLNWc9PQ==--a90a25acdadf06f74cf787ed47eb08cedd6f3935%)
 
 A server-side Javascript wrapper for working with the [Unsplash API](https://unsplash.com/developers).
 
@@ -25,8 +24,6 @@ Quick links to methods you're likely to care about:
 - [Usage](https://github.com/unsplash/unsplash-js#usage)
 - [Instance Methods](https://github.com/unsplash/unsplash-js#instance-methods)
 - [Helpers](https://github.com/unsplash/unsplash-js#helpers)
-- [Shoutouts](https://github.com/unsplash/unsplash-js#shoutouts)
-- [License](https://github.com/unsplash/unsplash-js#license)
 
 ## Installation
 ```bash
@@ -831,28 +828,3 @@ unsplash.stats.total()
   });
 ```
 ---
-
-## Shoutouts
-- Shoutout to all the [contributors](https://github.com/unsplash/unsplash-js/graphs/contributors) for lending a helping hand.
-- Shoutout to [BrowserStack](https://www.browserstack.com/) for letting us use their service to run automated browser tests.
-
-## License
-Copyright (c) 2019, [Unsplash](https://unsplash.com)
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
