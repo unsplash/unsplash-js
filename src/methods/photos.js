@@ -29,7 +29,7 @@ export default function photos(): Object {
     },
 
     getPhotoStats: (id) => {
-      const url = `/photos/${id}/stats`;
+      const url = `/photos/${id}/statistics`;
 
       return this.request({
         url,

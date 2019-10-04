@@ -357,14 +357,14 @@ describe("Unsplash", () => {
     });
 
     describe("getPhotoStats", () => {
-      it("should make a GET request to /photos/{id}/stats", () => {
+      it("should make a GET request to /photos/{id}/statistics", () => {
         let spy = spyOn(unsplash, "request");
         unsplash.photos.getPhotoStats(90);
 
         expect(spy.calls.length).toEqual(1);
         expect(spy.calls[0].arguments).toEqual([{
           method: "GET",
-          url: "/photos/90/stats"
+          url: "/photos/90/statistics"
         }]);
       });
     });
