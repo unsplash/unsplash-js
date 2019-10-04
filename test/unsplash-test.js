@@ -595,7 +595,7 @@ describe("Unsplash", () => {
       });
     });
 
-    describe("removePhotoToCollection", () => {
+    describe("removePhotoFromCollection", () => {
       it("should make a GET request to /collections/{id}/remove", () => {
         let spy = spyOn(unsplash, "request");
         unsplash.collections.removePhotoFromCollection(88, "abc123");
