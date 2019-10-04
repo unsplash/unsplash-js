@@ -3,7 +3,6 @@
 [![npm](https://img.shields.io/npm/v/unsplash-js.svg?style=flat-square)](https://www.npmjs.com/package/unsplash-js)
 [![Travis](https://img.shields.io/travis/unsplash/unsplash-js/master.svg?style=flat-square)](https://travis-ci.org/unsplash/unsplash-js/branches)
 [![BrowserStack Status](https://www.browserstack.com/automate/badge.svg?badge_key=RzJud09PSXV6TCtRWTY3V0czQUxrUVN5eWZJVDYvTmpGRUFCNEpuQ2Mzcz0tLVZaenhaUlM4RTRtdEZxaEhOblZLNWc9PQ==--a90a25acdadf06f74cf787ed47eb08cedd6f3935%)](https://www.browserstack.com/automate/public-build/RzJud09PSXV6TCtRWTY3V0czQUxrUVN5eWZJVDYvTmpGRUFCNEpuQ2Mzcz0tLVZaenhaUlM4RTRtdEZxaEhOblZLNWc9PQ==--a90a25acdadf06f74cf787ed47eb08cedd6f3935%)
-[![Coveralls](https://img.shields.io/coveralls/unsplash/unsplash-js/master.svg?style=flat-square)](https://coveralls.io/github/unsplash/unsplash-js?branch=master)
 
 A server-side Javascript wrapper for working with the [Unsplash API](https://unsplash.com/developers).
 
@@ -551,26 +550,6 @@ __Arguments__
 __Example__
 ```js
 unsplash.collections.listCollections(1, 10, "popular")
-  .then(toJson)
-  .then(json => {
-    // Your code
-  });
-```
----
-
-### collections.listFeaturedCollections(page, perPage)
-Get a single page from the list of featured collections.
-
-__Arguments__
-
-| Argument | Type | Opt/Required |
-|---|---|---|
-|__`page`__|_number_|Optional|
-|__`perPage`__|_number_|Optional|
-
-__Example__
-```js
-unsplash.collections.listFeaturedCollections(1, 10)
   .then(toJson)
   .then(json => {
     // Your code

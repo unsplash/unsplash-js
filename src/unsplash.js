@@ -9,7 +9,6 @@ import auth from "./methods/auth";
 import currentUser from "./methods/currentUser";
 import users from "./methods/users";
 import photos from "./methods/photos";
-import categories from "./methods/categories";
 import collections from "./methods/collections";
 import search from "./methods/search";
 import stats from "./methods/stats";
@@ -27,7 +26,6 @@ export default class Unsplash {
   currentUser: Object;
   users: Object;
   photos: Object;
-  categories: Object;
   collections: Object;
   search: Object;
   stats: Object;
@@ -56,7 +54,6 @@ export default class Unsplash {
     this.currentUser = currentUser.bind(this)();
     this.users = users.bind(this)();
     this.photos = photos.bind(this)();
-    this.categories = categories.bind(this)();
     this.collections = collections.bind(this)();
     this.search = search.bind(this)();
     this.stats = stats.bind(this)();
