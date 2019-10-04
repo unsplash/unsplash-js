@@ -3,4 +3,4 @@ dist: trusty
 node_js:
   - "4.8"
 script:
-  - npm run test:ci
+  - npm run test
