@@ -389,7 +389,7 @@ unsplash.photos.listPhotos(2, 15, "latest")
 ```
 ---
 
-### photos.getPhoto(id, width, height, rectangle)
+### photos.getPhoto(id)
 Retrieve a single photo.
 
 __Arguments__
@@ -397,13 +397,10 @@ __Arguments__
 | Argument | Type | Opt/Required |
 |---|---|---|
 |__`id`__|_string_|Required|
-|__`width`__|_number_|Optional|
-|__`height`__|_number_|Optional|
-|__`rectangle`__|_Array<number>_|Optional|
 
 __Example__
 ```js
-unsplash.photos.getPhoto("mtNweauBsMQ", 1920, 1080, [0, 0, 1920, 1080])
+unsplash.photos.getPhoto("mtNweauBsMQ")
   .then(toJson)
   .then(json => {
     // Your code
@@ -432,7 +429,7 @@ unsplash.photos.getPhotoStats("mtNweauBsMQ")
 
 <div id="photo-random" />
 
-### photos.getRandomPhoto({ width, height, query, username, featured })
+### photos.getRandomPhoto({ query, username, featured })
 Retrieve a single random photo, given optional filters.
 
 When using this function, It is recommended to double check the types of the parameters,
@@ -445,8 +442,6 @@ _An Object containing the follow keys:_
 
 | Argument | Type | Opt/Required |
 |---|---|---|
-|__`width`__|_number_|Optional|
-|__`height`__|_number_|Optional|
 |__`query`__|_string_|Optional|
 |__`username`__|_string_|Optional|
 |__`featured`__|_boolean_|Optional|

@@ -346,17 +346,12 @@ describe("Unsplash", () => {
     describe("getPhoto", () => {
       it("should make a GET request to /photos/{id}", () => {
         let spy = spyOn(unsplash, "request");
-        unsplash.photos.getPhoto(88, 1920, 1080);
+        unsplash.photos.getPhoto(88);
 
         expect(spy.calls.length).toEqual(1);
         expect(spy.calls[0].arguments).toEqual([{
           method: "GET",
-          url: "/photos/88",
-          query: {
-            w: 1920,
-            h: 1080,
-            rect: undefined
-          }
+          url: "/photos/88"
         }]);
       });
     });

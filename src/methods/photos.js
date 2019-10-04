@@ -19,18 +19,12 @@ export default function photos(): Object {
       });
     },
 
-    getPhoto: (id, width, height, rectangle) => {
+    getPhoto: (id) => {
       const url = `/photos/${id}`;
-      const query = {
-        w: width,
-        h: height,
-        rect: rectangle
-      };
 
       return this.request({
         url,
-        method: "GET",
-        query
+        method: "GET"
       });
     },
 
@@ -53,8 +47,6 @@ export default function photos(): Object {
         orientation: options.orientation,
         collections: collections.join(),
         query: options.query,
-        w: options.width,
-        h: options.height,
         c: options.cacheBuster || new Date().getTime(), // Avoid ajax response caching
         count: options.count
       };
