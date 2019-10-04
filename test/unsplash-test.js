@@ -3,7 +3,7 @@ import { formUrlEncode, buildFetchOptions } from "../src/utils";
 
 import expect, { spyOn, restoreSpies } from "expect";
 
-const applicationId = "applicationId";
+const accessKey = "accessKey";
 const secret = "secret";
 const callbackUrl = "http://foo.com";
 const headers = { "X-Custom-Header": "foo" };
@@ -11,7 +11,7 @@ const headers = { "X-Custom-Header": "foo" };
 describe("Unsplash", () => {
   describe("constructor", () => {
     const unsplash = new Unsplash({
-      applicationId,
+      accessKey,
       secret,
       callbackUrl,
       headers
@@ -25,8 +25,8 @@ describe("Unsplash", () => {
       expect(unsplash._apiUrl).toBe("https://api.unsplash.com");
     });
 
-    it("should set the applicationId argument on the Unsplash instance", () => {
-      expect(unsplash._applicationId).toBe(applicationId);
+    it("should set the accessKey argument on the Unsplash instance", () => {
+      expect(unsplash._accessKey).toBe(accessKey);
     });
 
     it("should set the secret argument on the Unsplash instance", () => {
@@ -68,7 +68,7 @@ describe("Unsplash", () => {
     it("should overwrite the api url", () => {
       const apiUrl = "http://foo.com";
       const unsplash = new Unsplash({
-        applicationId,
+        accessKey,
         secret,
         apiUrl
       });
@@ -79,7 +79,7 @@ describe("Unsplash", () => {
     it("should overwrite the api version", () => {
       const apiVersion = "v8";
       const unsplash = new Unsplash({
-        applicationId,
+        accessKey,
         secret,
         apiVersion
       });
@@ -91,7 +91,7 @@ describe("Unsplash", () => {
   describe("headers", () => {
     it("should store an empty object if nothing is passed", () => {
       const unsplash = new Unsplash({
-        applicationId,
+        accessKey,
         secret
       });
 
@@ -101,7 +101,7 @@ describe("Unsplash", () => {
 
   describe("auth", () => {
     let unsplash = new Unsplash({
-      applicationId,
+      accessKey,
       secret,
       callbackUrl
     });
@@ -113,7 +113,7 @@ describe("Unsplash", () => {
         ))
         .toBe([
           "https://unsplash.com/oauth/authorize",
-          `?client_id=${applicationId}`,
+          `?client_id=${accessKey}`,
           "&redirect_uri=http://foo.com",
           "&response_type=code",
           "&scope=public+read_user"
@@ -124,7 +124,7 @@ describe("Unsplash", () => {
         expect(unsplash.auth.getAuthenticationUrl())
         .toBe([
           "https://unsplash.com/oauth/authorize",
-          `?client_id=${applicationId}`,
+          `?client_id=${accessKey}`,
           "&redirect_uri=http://foo.com",
           "&response_type=code",
           "&scope=public"
@@ -142,7 +142,7 @@ describe("Unsplash", () => {
           url: "https://unsplash.com/oauth/token",
           method: "POST",
           body: {
-            client_id: "applicationId",
+            client_id: "accessKey",
             client_secret: "secret",
             redirect_uri: "http://foo.com",
             code: "oauth_code",
@@ -157,7 +157,7 @@ describe("Unsplash", () => {
 
     describe("setBearerToken", () => {
       let unsplash = new Unsplash({
-        applicationId,
+        accessKey,
         secret,
         callbackUrl
       });
@@ -181,7 +181,7 @@ describe("Unsplash", () => {
     });
 
     let unsplash = new Unsplash({
-      applicationId,
+      accessKey,
       secret,
       callbackUrl
     });
@@ -225,7 +225,7 @@ describe("Unsplash", () => {
     });
 
     let unsplash = new Unsplash({
-      applicationId,
+      accessKey,
       secret
     });
 
@@ -317,7 +317,7 @@ describe("Unsplash", () => {
 
   describe("photos", () => {
     let unsplash = new Unsplash({
-      applicationId,
+      accessKey,
       secret
     });
 
@@ -394,7 +394,7 @@ describe("Unsplash", () => {
 
     describe("likePhoto", () => {
       let unsplash = new Unsplash({
-        applicationId,
+        accessKey,
         secret,
         callbackUrl
       });
@@ -419,7 +419,7 @@ describe("Unsplash", () => {
 
     describe("unlikePhoto", () => {
       let unsplash = new Unsplash({
-        applicationId,
+        accessKey,
         secret,
         callbackUrl
       });
@@ -474,7 +474,7 @@ describe("Unsplash", () => {
 
   describe("collections", () => {
     let unsplash = new Unsplash({
-      applicationId,
+      accessKey,
       secret
     });
 
@@ -624,7 +624,7 @@ describe("Unsplash", () => {
 
   describe("stats", () => {
     let unsplash = new Unsplash({
-      applicationId,
+      accessKey,
       secret
     });
 
@@ -648,7 +648,7 @@ describe("Unsplash", () => {
     });
 
     let unsplash = new Unsplash({
-      applicationId,
+      accessKey,
       secret
     });
 
@@ -816,7 +816,7 @@ describe("Unsplash", () => {
       const classFixture = {
         _apiUrl: "http://foo.com",
         _apiVersion: "v1",
-        _applicationId: "bar"
+        _accessKey: "bar"
       };
 
       const optionsFixture = {
@@ -845,7 +845,7 @@ describe("Unsplash", () => {
         expect(url).toBe("http://foo.com/bar?foo=bar");
       });
 
-      it("should return a fetchOptions object with `Client-ID {applicationId}` Authorization header", () => {
+      it("should return a fetchOptions object with `Client-ID {accessKey}` Authorization header", () => {
         let authorizationHeader = buildFetchOptions
           .bind(classFixture)(optionsFixture).options
           .headers["Authorization"];

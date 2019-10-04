@@ -2,6 +2,24 @@
 
 ## 6.0
 
+### Changes
+
+- To better clarify the use of `accessKey` when initializing, `applicationId` has been renamed to `accessKey`:
+  ```js
+  // previously
+  const unsplash = new Unsplash({
+    applicationId: "{APP_ACCESS_KEY}"
+  });
+
+  // now
+  const unsplash = new Unsplash({
+    accessKey: "{APP_ACCESS_KEY}"
+  });
+  ```
+- `unsplash.photos.getPhotoStats` now uses the `/photos/:id/statistics` endpoint ([changelog reference](https://changelog.unsplash.com/deprecations/2017/10/05/existing-deprecations.html))
+
+### Removals
+
 6.0 removes deprecated endpoints and parameters to match the changes from [the Unsplash API Changelog](https://changelog.unsplash.com/). Most of these endpoints have been deprecated on the API and removed from `unsplash-js` documentation for 2+ years.
 
 | Removed Method | Replacement | Reason |

@@ -51,7 +51,7 @@ import Unsplash from 'unsplash-js';
 const Unsplash = require('unsplash-js').default;
 
 const unsplash = new Unsplash({
-  applicationId: "{APP_ACCESS_KEY}",
+  accessKey: "{APP_ACCESS_KEY}",
   secret: "{APP_SECRET}"
 });
 ```
@@ -60,7 +60,7 @@ If you already have a bearer token, you can also provide it to the constructor.
 
 ```js
 const unsplash = new Unsplash({
-  applicationId: "{APP_ACCESS_KEY}",
+  accessKey: "{APP_ACCESS_KEY}",
   secret: "{APP_SECRET}",
   callbackUrl: "{CALLBACK_URL}",
   bearerToken: "{USER_BEARER_TOKEN}"
@@ -71,7 +71,7 @@ You can also provide headers that will be set on every request by providing them
 
 ```js
 const unsplash = new Unsplash({
-  applicationId: "{APP_ACCESS_KEY}",
+  accessKey: "{APP_ACCESS_KEY}",
   secret: "{APP_SECRET}",
   headers: {
     "X-Custom-Header": "foo"
@@ -820,7 +820,7 @@ __Example__
 import Unsplash, { toJson } from "unsplash-js";
 
 const unsplash = new Unsplash({
-  applicationId: "{YOUR_ACCESS_KEY}",
+  accessKey: "{YOUR_ACCESS_KEY}",
   secret: "{YOUR_SECRET_KEY}"
 });
 

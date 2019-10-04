@@ -1,7 +1,7 @@
 import Unsplash, { toJson } from "unsplash-js";
 
 let unsplash = new Unsplash({
-  applicationId: "{YOUR_APPLICATION_ID}",
+  accessKey: "{YOUR_ACCESS_KEY}",
   secret: "{YOUR_SECRET}",
   callbackUrl: "{YOUR_CALLBACK_URL}"
 });
