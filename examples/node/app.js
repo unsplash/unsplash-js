@@ -2,7 +2,7 @@ import config from 'universal-config';
 import Unsplash, { toJson } from 'unsplash-js';
 
 const unsplash = new Unsplash({
-  applicationId: config.get('APPLICATION_ID'),
+  accessKey: config.get('ACCESS_KEY'),
   secret: config.get('SECRET'),
   callbackUrl: config.get('CALLBACK_URL')
 });

@@ -16,7 +16,7 @@ import stats from "./methods/stats";
 export default class Unsplash {
   _apiUrl: string;
   _apiVersion: string;
-  _applicationId: string;
+  _accessKey: string;
   _secret: string;
   _callbackUrl: ?string;
   _bearerToken: ?string;
@@ -35,7 +35,7 @@ export default class Unsplash {
     options: {
       apiUrl: string,
       apiVersion: string,
-      applicationId: string,
+      accessKey: string,
       secret: string,
       callbackUrl?: string,
       bearerToken?: string,
@@ -44,7 +44,7 @@ export default class Unsplash {
   ) {
     this._apiUrl = options.apiUrl || API_URL;
     this._apiVersion = options.apiVersion || API_VERSION;
-    this._applicationId = options.applicationId;
+    this._accessKey = options.accessKey;
     this._secret = options.secret;
     this._callbackUrl = options.callbackUrl;
     this._bearerToken = options.bearerToken;
