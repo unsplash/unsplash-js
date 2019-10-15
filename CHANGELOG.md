@@ -18,12 +18,19 @@
   ```
 - `unsplash.photos.getPhotoStats` now uses the `/photos/:id/statistics` endpoint ([changelog reference](https://changelog.unsplash.com/deprecations/2017/10/05/existing-deprecations.html))
 
+- To support additional filters, the `unsplash.search.photos` method signature has been changed to support an optional `filters` object, which currently supports `collections` and `orientation` keys.
+
+```js
+unsplash.search.photos("nature", 1, 10, { orientation: "landscape", collections: [1,2] })
+```
+
 ### Removals
 
 6.0 removes deprecated endpoints and parameters to match the changes from [the Unsplash API Changelog](https://changelog.unsplash.com/). Most of these endpoints have been deprecated on the API and removed from `unsplash-js` documentation for 2+ years.
 
 | Removed Method | Replacement | Reason |
 |---|---|---|
+| `unsplash.search.all` | None | This endpoint is undocumented publicly and is highly likely to change in the future. Therefore, we don't recommend anyone use this functionality in their applications. |
 | `unsplash.photos.listCuratedPhotos` | None | Curated photos were [deprecated in 2017](https://changelog.unsplash.com/deprecations/2018/09/27/curated-collections-deprecation.html), [removed in 2019](https://changelog.unsplash.com/deprecations/2019/09/23/curated-collections-removal.html) |
 | `unsplash.photos.searchPhotos` | `unsplash.search.photos` | Replaced by [the new search endpoints in 2017](https://changelog.unsplash.com/deprecations/2017/10/05/existing-deprecations.html) |
 | `unsplash.photos.uploadPhoto` | None | Removed for legal compatibility |
