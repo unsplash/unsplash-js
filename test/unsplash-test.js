@@ -699,6 +699,22 @@ describe("Unsplash", () => {
           }
         }]);
       });
+
+      it("should encode non-latin keyword characters", () => {
+        let spy = spyOn(unsplash, "request");
+        unsplash.search.photos("Жжж");
+
+        expect(spy.calls.length).toEqual(1);
+        expect(spy.calls[0].arguments).toEqual([{
+          method: "GET",
+          url: "/search/photos",
+          query: {
+            query: "%D0%96%D0%B6%D0%B6",
+            page: 1,
+            per_page: 10
+          }
+        }]);
+      });
     });
 
     describe("users", () => {
@@ -733,6 +749,22 @@ describe("Unsplash", () => {
           }
         }]);
       });
+
+      it("should encode non-latin keyword characters", () => {
+        let spy = spyOn(unsplash, "request");
+        unsplash.search.users("Жжж");
+
+        expect(spy.calls.length).toEqual(1);
+        expect(spy.calls[0].arguments).toEqual([{
+          method: "GET",
+          url: "/search/users",
+          query: {
+            query: "%D0%96%D0%B6%D0%B6",
+            page: 1,
+            per_page: 10
+          }
+        }]);
+      });
     });
 
     describe("collections", () => {
@@ -762,6 +794,22 @@ describe("Unsplash", () => {
           url: "/search/collections",
           query: {
             query: "",
+            page: 1,
+            per_page: 10
+          }
+        }]);
+      });
+
+      it("should encode non-latin keyword characters", () => {
+        let spy = spyOn(unsplash, "request");
+        unsplash.search.collections("Жжж");
+
+        expect(spy.calls.length).toEqual(1);
+        expect(spy.calls[0].arguments).toEqual([{
+          method: "GET",
+          url: "/search/collections",
+          query: {
+            query: "%D0%96%D0%B6%D0%B6",
             page: 1,
             per_page: 10
           }
