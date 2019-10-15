@@ -31,6 +31,7 @@ export function buildFetchOptions(
       ? `Bearer ${this._bearerToken}`
       : `Client-ID ${this._accessKey}`
   });
+  let timeout = this._timeout;
 
   if (body) {
     headers["Content-Type"] = "application/x-www-form-urlencoded";
@@ -45,6 +46,7 @@ export function buildFetchOptions(
     options: {
       method,
       headers,
+      timeout,
       body: (method !== "GET") && body
         ? formUrlEncode(body)
         : undefined
