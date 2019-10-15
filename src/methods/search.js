@@ -2,12 +2,21 @@
 
 export default function search(): Object {
   return {
-    photos: (keyword = "", page = 1, perPage = 10)  => {
+    photos: (keyword = "", page = 1, perPage = 10, filters = {})  => {
+      const collections = filters.collections || [];
       const query = {
         query: keyword,
         per_page: perPage,
+        orientation: filters.orientation,
+        collections: collections.join(),
         page
       };
+
+      Object.keys(query).forEach(key => {
+        if (!query[key] && key != "query") {
+          delete query[key];
+        }
+      });
 
       return this.request({
         url: "/search/photos",

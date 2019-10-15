@@ -99,7 +99,7 @@ All the instance methods below make use of the `toJson` helper method described 
 
 <div id="search-photos" />
 
-### search.photos(keyword, page, per_page)
+### search.photos(keyword, page, per_page, filters)
 Get a list of photos matching the keyword.
 
 __Arguments__
@@ -109,11 +109,13 @@ __Arguments__
 |__`keyword`__|_string_|Required||
 |__`page`__|_number_|Optional||
 |__`per_page`__|_number_|Optional|10|
-
+|__`filters`__|_object_|Optional||
+|__`filters.orientation`__|_string_|Optional||
+|__`filters.collections`__|_array_|Optional||
 
 __Example__
 ```js
-unsplash.search.photos("dogs", 1)
+unsplash.search.photos("dogs", 1, 10, { orientation: "portrait" })
   .then(toJson)
   .then(json => {
     // Your code

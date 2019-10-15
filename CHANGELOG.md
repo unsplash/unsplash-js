@@ -18,6 +18,12 @@
   ```
 - `unsplash.photos.getPhotoStats` now uses the `/photos/:id/statistics` endpoint ([changelog reference](https://changelog.unsplash.com/deprecations/2017/10/05/existing-deprecations.html))
 
+- To support additional filters, the `unsplash.search.photos` method signature has been changed to support an optional `filters` object, which currently supports `collections` and `orientation` keys.
+
+```js
+unsplash.search.photos("nature", 1, 10, { orientation: "landscape", collections: [1,2] })
+```
+
 ### Removals
 
 6.0 removes deprecated endpoints and parameters to match the changes from [the Unsplash API Changelog](https://changelog.unsplash.com/). Most of these endpoints have been deprecated on the API and removed from `unsplash-js` documentation for 2+ years.
