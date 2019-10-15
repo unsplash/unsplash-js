@@ -7,12 +7,14 @@ const accessKey = "accessKey";
 const secret = "secret";
 const callbackUrl = "http://foo.com";
 const headers = { "X-Custom-Header": "foo" };
+const timeout = 100;
 
 describe("Unsplash", () => {
   describe("constructor", () => {
     const unsplash = new Unsplash({
       accessKey,
-      headers
+      headers,
+      timeout
     });
 
     it("should successfully construct an Unsplash instance", () => {
@@ -29,6 +31,10 @@ describe("Unsplash", () => {
 
     it("should set the headers argument on the Unsplash instance", () => {
       expect(unsplash._headers).toBe(headers);
+    });
+
+    it("should set the timeout argument on the Unsplash instance", () => {
+      expect(unsplash._timeout).toBe(timeout);
     });
 
     it("should have an auth method", () => {

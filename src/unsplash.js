@@ -21,6 +21,7 @@ export default class Unsplash {
   _callbackUrl: ?string;
   _bearerToken: ?string;
   _headers: ?Object;
+  _timeout: ?number;
 
   auth: Object;
   currentUser: Object;
@@ -39,7 +40,8 @@ export default class Unsplash {
       secret?: string,
       callbackUrl?: string,
       bearerToken?: string,
-      headers?: Object
+      headers?: Object,
+      timeout?: number
     }
   ) {
     this._apiUrl = options.apiUrl || API_URL;
@@ -49,6 +51,7 @@ export default class Unsplash {
     this._callbackUrl = options.callbackUrl;
     this._bearerToken = options.bearerToken;
     this._headers = options.headers || {};
+    this._timeout = options.timeout || 0; // 0 defaults to the OS timeout behaviour.
 
     this.auth = auth.bind(this)();
     this.currentUser = currentUser.bind(this)();
