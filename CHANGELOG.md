@@ -24,6 +24,7 @@
 
 | Removed Method | Replacement | Reason |
 |---|---|---|
+| `unsplash.search.all` | None | This endpoint is undocumented publicly and is highly likely to change in the future. Therefore, we don't recommend anyone use this functionality in their applications. |
 | `unsplash.photos.listCuratedPhotos` | None | Curated photos were [deprecated in 2017](https://changelog.unsplash.com/deprecations/2018/09/27/curated-collections-deprecation.html), [removed in 2019](https://changelog.unsplash.com/deprecations/2019/09/23/curated-collections-removal.html) |
 | `unsplash.photos.searchPhotos` | `unsplash.search.photos` | Replaced by [the new search endpoints in 2017](https://changelog.unsplash.com/deprecations/2017/10/05/existing-deprecations.html) |
 | `unsplash.photos.uploadPhoto` | None | Removed for legal compatibility |

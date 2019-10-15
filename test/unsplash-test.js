@@ -659,40 +659,6 @@ describe("Unsplash", () => {
       secret
     });
 
-    describe("all", () => {
-      it("should make a GET request to /search", () => {
-        let spy = spyOn(unsplash, "request");
-        unsplash.search.all("dog");
-
-        expect(spy.calls.length).toEqual(1);
-        expect(spy.calls[0].arguments).toEqual([{
-          method: "GET",
-          url: "/search",
-          query: {
-            query: "dog",
-            page: 1,
-            per_page: 10
-          }
-        }]);
-      });
-
-      it("should submit an empty query if the keyword is an empty string", () => {
-        let spy = spyOn(unsplash, "request");
-        unsplash.search.all();
-
-        expect(spy.calls.length).toEqual(1);
-        expect(spy.calls[0].arguments).toEqual([{
-          method: "GET",
-          url: "/search",
-          query: {
-            query: "",
-            page: 1,
-            per_page: 10
-          }
-        }]);
-      });
-    });
-
     describe("photos", () => {
       it("should make a GET request to /search/photos", () => {
         let spy = spyOn(unsplash, "request");

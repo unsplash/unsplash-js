@@ -2,26 +2,46 @@
 
 export default function search(): Object {
   return {
-    all: searcher.bind(this, "/search"),
+    photos: (keyword = "", page = 1, perPage = 10)  => {
+      const query = {
+        query: keyword,
+        per_page: perPage,
+        page
+      };
 
-    photos: searcher.bind(this, "/search/photos"),
+      return this.request({
+        url: "/search/photos",
+        method: "GET",
+        query
+      });
+    },
 
-    users: searcher.bind(this, "/search/users"),
+    users: (keyword = "", page = 1, perPage = 10)  => {
+      const query = {
+        query: keyword,
+        per_page: perPage,
+        page
+      };
 
-    collections: searcher.bind(this, "/search/collections")
+      return this.request({
+        url: "/search/users",
+        method: "GET",
+        query
+      });
+    },
+
+    collections: (keyword = "", page = 1, perPage = 10)  => {
+      const query = {
+        query: keyword,
+        per_page: perPage,
+        page
+      };
+
+      return this.request({
+        url: "/search/collections",
+        method: "GET",
+        query
+      });
+    }
   };
-}
-
-function searcher(url, keyword = "", page = 1, per_page = 10) {
-  const query = {
-    query: keyword,
-    page,
-    per_page
-  };
-
-  return this.request({
-    url,
-    method: "GET",
-    query
-  });
 }
