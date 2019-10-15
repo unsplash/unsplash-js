@@ -5,7 +5,7 @@ export default function search(): Object {
     photos: (keyword = "", page = 1, perPage = 10, filters = {})  => {
       const collections = filters.collections || [];
       const query = {
-        query: keyword,
+        query: encodeURIComponent(keyword),
         per_page: perPage,
         orientation: filters.orientation,
         collections: collections.join(),
@@ -27,7 +27,7 @@ export default function search(): Object {
 
     users: (keyword = "", page = 1, perPage = 10)  => {
       const query = {
-        query: keyword,
+        query: encodeURIComponent(keyword),
         per_page: perPage,
         page
       };
@@ -41,7 +41,7 @@ export default function search(): Object {
 
     collections: (keyword = "", page = 1, perPage = 10)  => {
       const query = {
-        query: keyword,
+        query: encodeURIComponent(keyword),
         per_page: perPage,
         page
       };
