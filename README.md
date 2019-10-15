@@ -31,7 +31,17 @@ $ npm i --save unsplash-js
 ```
 
 ## Dependencies
-This library depends on [fetch](https://fetch.spec.whatwg.org/) to make requests to the Unsplash API.  For environments that don't support fetch, you'll need to provide a [poly](https://github.com/github/fetch)[fill](https://github.com/bitinn/node-fetch).
+This library depends on [fetch](https://fetch.spec.whatwg.org/) to make requests to the Unsplash API. For environments that don't support fetch, you'll need to provide a [polyfill](https://github.com/bitinn/node-fetch).
+
+```js
+// ES Modules syntax
+import fetch from 'node-fetch';
+global.fetch = fetch;
+
+// require syntax
+const fetch = require('node-fetch');
+global.fetch = fetch;
+```
 
 ## Usage
 
@@ -43,7 +53,6 @@ To create an instance, simply provide an _Object_ with your `accessKey`:
 ```js
 // ES Modules syntax
 import Unsplash from 'unsplash-js';
-
 // require syntax
 const Unsplash = require('unsplash-js').default;
 
