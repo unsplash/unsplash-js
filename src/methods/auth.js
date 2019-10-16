@@ -7,7 +7,7 @@ export default function auth(): Object {
   return {
     getAuthenticationUrl: (scope = ["public"]) => {
       let querystrings = querystring.stringify({
-        client_id: this._applicationId,
+        client_id: this._accessKey,
         redirect_uri: this._callbackUrl,
         response_type: "code",
         scope: scope.length > 1
@@ -25,7 +25,7 @@ export default function auth(): Object {
         url,
         method: "POST",
         body: {
-          client_id: this._applicationId,
+          client_id: this._accessKey,
           client_secret: this._secret,
           redirect_uri: this._callbackUrl,
           grant_type: "authorization_code",

@@ -17,41 +17,9 @@ export default function collections(): Object {
       });
     },
 
-    listCuratedCollections: (page: number = 1, perPage: number = 10) => {
-      const url = "/collections/curated";
-      const query = {
-        page,
-        per_page: perPage
-      };
+    getCollection: collection.bind(this),
 
-      return this.request({
-        url: url,
-        method: "GET",
-        query
-      });
-    },
-
-    listFeaturedCollections: (page: number = 1, perPage: number = 10) => {
-      const url = "/collections/featured";
-      const query = {
-        page,
-        per_page: perPage
-      };
-
-      return this.request({
-        url: url,
-        method: "GET",
-        query
-      });
-    },
-
-    getCollection: collection.bind(this, false),
-
-    getCuratedCollection: collection.bind(this, true),
-
-    getCuratedCollectionPhotos: collectionPhotos.bind(this, true),
-
-    getCollectionPhotos: collectionPhotos.bind(this, false),
+    getCollectionPhotos: collectionPhotos.bind(this),
 
     createCollection: createUpdateCollection.bind(this, null),
 
@@ -95,32 +63,22 @@ export default function collections(): Object {
         method: "GET"
       });
     }
-
   };
 }
 
-function collection(isCurated: bool, id: string) {
-  const url = isCurated
-    ? `/collections/curated/${id}`
-    : `/collections/${id}`;
-
+function collection(id: string) {
   return this.request({
-    url: url,
+    url: `/collections/${id}`,
     method: "GET"
   });
 }
 
 function collectionPhotos(
-  isCurated: bool,
   id: string,
   page: number = 1,
   perPage: number = 10,
   orderBy: string = "latest"
 ) {
-  const url = isCurated
-    ? `/collections/curated/${id}/photos`
-    : `/collections/${id}/photos`;
-
   const query = {
     page,
     per_page: perPage,
@@ -128,7 +86,7 @@ function collectionPhotos(
   };
 
   return this.request({
-    url: url,
+    url: `/collections/${id}/photos`,
     method: "GET",
     query
   });
