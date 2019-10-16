@@ -73,15 +73,6 @@ _Credentials can be obtained from [Unsplash Developers](https://unsplash.com/dev
 
 ---
 
-### React Native
-For use with React Native, import from `unsplash-js/native` instead.
-
-```js
-import Unsplash from 'unsplash-js/native';
-```
-
----
-
 ### Error handling
 ```js
 unsplash.users.profile("naoufal")
