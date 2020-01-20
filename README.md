@@ -822,7 +822,10 @@ __Arguments__
 
 __Example__
 ```js
+// ES Modules syntax
 import Unsplash, { toJson } from "unsplash-js";
+// require syntax
+const toJson = require('unsplash-js').toJson
 
 const unsplash = new Unsplash({
   accessKey: "{YOUR_ACCESS_KEY}",
