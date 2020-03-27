@@ -52,9 +52,10 @@ To create an instance, simply provide an _Object_ with your `accessKey`:
 
 ```js
 // ES Modules syntax
-import Unsplash from 'unsplash-js';
+import Unsplash, { toJson } from 'unsplash-js';
 // require syntax
 const Unsplash = require('unsplash-js').default;
+const toJson = require('unsplash-js').toJson;
 
 const unsplash = new Unsplash({ accessKey: "{APP_ACCESS_KEY}" });
 
