@@ -43,6 +43,8 @@ const fetch = require('node-fetch');
 global.fetch = fetch;
 ```
 
+Note: we recommend using a version of `node-fetch` higher than `2.4.0` to benefit from Brotli compression.
+
 ## Usage
 
 If you're using `unsplash-js` publicly in the browser, you'll need to proxy your requests through your server to sign the requests with the Access Key and/or Secret Key to abide by the [API Guideline](https://help.unsplash.com/articles/2511245-unsplash-api-guidelines) to keep keys confidential.

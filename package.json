@@ -1,7 +1,7 @@
 {
   "name": "unsplash-js",
-  "version": "6.0.0",
-  "description": "A Universal JavaScript wrapper for the Unsplash API",
+  "version": "6.1.0",
+  "description": "A JavaScript wrapper for the Unsplash API",
   "main": "lib/unsplash.js",
   "scripts": {
     "build": "npm run build:lib && npm run build:umd && npm run build:umd:min && npm run build:examples",
@@ -54,7 +54,7 @@
     "istanbul": "0.4.2",
     "mocha": "2.3.3",
     "mockery": "1.4.0",
-    "node-fetch": "1.5.0",
+    "node-fetch": "2.6.0",
     "webpack": "1.12.14"
   },
   "dependencies": {
