@@ -92,7 +92,7 @@ unsplash.users.profile("naoufal")
 - [Users](https://github.com/unsplash/unsplash-js#users)
 - [Collections](https://github.com/unsplash/unsplash-js#collections)
 - [Stats](https://github.com/unsplash/unsplash-js#stats)
-- [Authorization](https://github.com/unsplash/unsplash-js#authorization)
+- [User Authorization](https://github.com/unsplash/unsplash-js#user-authorization)
 - [Current User](https://github.com/unsplash/unsplash-js#current-user)
 
 All the instance methods below make use of the `toJson` helper method described [below](https://github.com/unsplash/unsplash-js#tojsonres)
@@ -654,9 +654,11 @@ unsplash.stats.total()
 
 ---
 
-<div id="authorization" />
+<div id="user-authorization" />
 
-When initializing an instance of Unsplash, you'll need to include your application's `secretKey` and `callbackUrl` as defined in the [API documentation](https://unsplash.com/documentation#authorization-workflow):
+Note: Most endpoints do not need to be authenticated by an individual user to be accessed and can instead be accessed with [public authentication](https://unsplash.com/documentation#public-authentication). Endpoints that require user authentication will be explicitly marked with the required scopes.
+
+When initializing an instance of Unsplash, you'll need to include your application's `secretKey` and `callbackUrl` as defined in the [API documentation](https://unsplash.com/documentation/user-authentication-workflow):
 
 ```js
 const unsplash = new Unsplash({
@@ -707,7 +709,7 @@ unsplash.auth.userAuthentication(query.code)
   });
 ```
 
-_For more information on the authroization workflow, consult the [Unsplash Documentation](https://unsplash.com/documentation#authorization-workflow)._
+_For more information on the authroization workflow, consult the [Unsplash API Documentation](https://unsplash.com/documentation/user-authentication-workflow)._
 
 ---
 
