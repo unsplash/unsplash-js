@@ -124,24 +124,24 @@ describe("Unsplash", () => {
         expect(unsplash.auth.getAuthenticationUrl(
           ["public", "read_user"]
         ))
-        .toBe([
-          "https://unsplash.com/oauth/authorize",
-          `?client_id=${accessKey}`,
-          "&redirect_uri=http://foo.com",
-          "&response_type=code",
-          "&scope=public+read_user"
-        ].join(""));
+          .toBe([
+            "https://unsplash.com/oauth/authorize",
+            `?client_id=${accessKey}`,
+            "&redirect_uri=http://foo.com",
+            "&response_type=code",
+            "&scope=public+read_user"
+          ].join(""));
       });
 
       it("should default to public scope when no scope array is passed", () => {
         expect(unsplash.auth.getAuthenticationUrl())
-        .toBe([
-          "https://unsplash.com/oauth/authorize",
-          `?client_id=${accessKey}`,
-          "&redirect_uri=http://foo.com",
-          "&response_type=code",
-          "&scope=public"
-        ].join(""));
+          .toBe([
+            "https://unsplash.com/oauth/authorize",
+            `?client_id=${accessKey}`,
+            "&redirect_uri=http://foo.com",
+            "&response_type=code",
+            "&scope=public"
+          ].join(""));
       });
     });
 
@@ -512,6 +512,23 @@ describe("Unsplash", () => {
       });
     });
 
+    describe("listFeaturedCollections", () => {
+      it("should make a GET request to /collections/featured", () => {
+        let spy = spyOn(unsplash, "request");
+        unsplash.collections.listFeaturedCollections(2, 15);
+
+        expect(spy.calls.length).toEqual(1);
+        expect(spy.calls[0].arguments).toEqual([{
+          method: "GET",
+          url: "/collections/featured",
+          query: {
+            page: 2,
+            per_page: 15
+          }
+        }]);
+      });
+    });
+
     describe("getCollection", () => {
       it("should make a GET request to /collections/{id}", () => {
         let spy = spyOn(unsplash, "request");
@@ -668,7 +685,7 @@ describe("Unsplash", () => {
     describe("photos", () => {
       it("should make a GET request to /search/photos", () => {
         let spy = spyOn(unsplash, "request");
-        unsplash.search.photos("nature", 1, 10, { collections: [1,2], orientation: "landscape" });
+        unsplash.search.photos("nature", 1, 10, { collections: [1, 2], orientation: "landscape" });
 
         expect(spy.calls.length).toEqual(1);
         expect(spy.calls[0].arguments).toEqual([{
@@ -822,7 +839,7 @@ describe("Unsplash", () => {
     describe("formUrlEncode", () => {
       it("should return form data", () => {
         expect(formUrlEncode({ foo: "bar" }))
-        .toBe("foo=bar");
+          .toBe("foo=bar");
       });
     });
 

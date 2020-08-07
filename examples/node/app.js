@@ -29,7 +29,7 @@ function users() {
     .then(toJson)
     .then(json => {
       console.log(json);
-     });
+    });
 }
 
 function photos() {
@@ -57,29 +57,35 @@ function photos() {
 function collections() {
   console.log("\nCollections");
 
-   unsplash.collections.listCollections(1, 10)
-     .then(toJson)
-     .then(json => {
-       console.log(json);
-     });
+  unsplash.collections.listCollections(1, 10)
+    .then(toJson)
+    .then(json => {
+      console.log(json);
+    });
 
-   unsplash.collections.getCollection(151165)
-     .then(toJson)
-     .then(json => {
-       console.log(json);
-     });
+  unsplash.collections.listFeaturedCollections(1, 10)
+    .then(toJson)
+    .then(json => {
+      console.log(json);
+    });
 
-   unsplash.collections.getCollectionPhotos(151165)
-     .then(toJson)
-     .then(json => {
-       console.log(json);
-     });
+  unsplash.collections.getCollection(151165)
+    .then(toJson)
+    .then(json => {
+      console.log(json);
+    });
+
+  unsplash.collections.getCollectionPhotos(151165)
+    .then(toJson)
+    .then(json => {
+      console.log(json);
+    });
 }
 
 function stats() {
   console.log("\nStats");
 
-   unsplash.stats.total()
+  unsplash.stats.total()
     .then(toJson)
     .then(json => {
       console.log(json);

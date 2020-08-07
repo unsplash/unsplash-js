@@ -16,6 +16,20 @@ export default function collections(): Object {
         query
       });
     },
+    listFeaturedCollections: (page: number = 1, perPage: number = 10) => {
+      const url = "/collections/featured";
+
+      const query = {
+        page,
+        per_page: perPage
+      };
+
+      return this.request({
+        url: url,
+        method: "GET",
+        query
+      });
+    },
 
     getCollection: collection.bind(this),
 
