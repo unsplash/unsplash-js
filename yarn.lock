@@ -3376,10 +3376,10 @@ uid-number@~0.0.6:
   resolved "https://registry.yarnpkg.com/uid-number/-/uid-number-0.0.6.tgz#0ea10e8035e8eb5b8e4449f06da1c730663baa81"
   integrity sha1-DqEOgDXo61uOREnwbaHHMGY7qoE=
 
-url-parse@1.4.4:
-  version "1.4.4"
-  resolved "https://registry.yarnpkg.com/url-parse/-/url-parse-1.4.4.tgz#cac1556e95faa0303691fec5cf9d5a1bc34648f8"
-  integrity sha512-/92DTTorg4JjktLNLe6GPS2/RvAd/RGr6LuktmWSMLEOa6rjnlrFXNgSbSmkNvCoL2T028A0a1JaJLzRMlFoHg==
+url-parse@1.4.5:
+  version "1.4.5"
+  resolved "https://registry.yarnpkg.com/url-parse/-/url-parse-1.4.5.tgz#04cbb6ba2be682a18e4417fa2245aa7e3dfdcc50"
+  integrity sha512-4XDvC5vZRjEpjP0L4znrWeoH8P8F0XGBlfLdABi/6oV4o8xUVbTpyrxWHxkK2bT0pSIpcjdIzSoWUhlUfawCAQ==
   dependencies:
     querystringify "^2.0.0"
     requires-port "^1.0.0"
