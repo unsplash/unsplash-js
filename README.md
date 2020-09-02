@@ -385,7 +385,7 @@ unsplash.users.statistics("naoufal", "days", 30)
 ```
 ---
 
-### users.photos(username, page, perPage, orderBy, stats)
+### users.photos(username, page, perPage, orderBy, options)
 Get a list of photos uploaded by a user.
 
 __Arguments__
@@ -396,11 +396,13 @@ __Arguments__
 |__`page`__|_number_|Optional||1|
 |__`perPage`__|_number_|Optional||10|
 |__`orderBy`__|_string_|Optional|`latest`, `popular` or `oldest`|`latest`|
-|__`stats`__|_boolean_|Optional||`false`|
+|__`options`__|_object_|Optional|
+|__`options.stats`__|_boolean_|Optional||`false`|
+|__`options.orientation`__|_string_|Optional|`landscape`, `portrait`, `squarish`|
 
 __Example__
 ```js
-unsplash.users.photos("naoufal", 1, 10, "popular", false)
+unsplash.users.photos("naoufal", 1, 10, "popular", { orientation: "landscape" })
   .then(toJson)
   .then(json => {
     // Your code
@@ -408,7 +410,7 @@ unsplash.users.photos("naoufal", 1, 10, "popular", false)
 ```
 ---
 
-### users.likes(username, page, perPage, orderBy)
+### users.likes(username, page, perPage, orderBy, options)
 Get a list of photos liked by a user.
 
 __Arguments__
@@ -419,10 +421,12 @@ __Arguments__
 |__`page`__|_number_|Optional||
 |__`perPage`__|_number_|Optional||
 |__`orderBy`__|_string_|Optional|`latest`, `popular` or `oldest`|
+|__`options`__|_object_|Optional|
+|__`options.orientation`__|_string_|Optional|`landscape`, `portrait`, `squarish`|
 
 __Example__
 ```js
-unsplash.users.likes("naoufal", 2, 15, "popular")
+unsplash.users.likes("naoufal", 2, 15, "popular", { orientation: "landscape" })
   .then(toJson)
   .then(json => {
     // Your code
