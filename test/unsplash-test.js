@@ -258,7 +258,7 @@ describe("Unsplash", () => {
     describe("photos", () => {
       it("should make a GET request to /users/{username}/photos", () => {
         let spy = spyOn(unsplash, "request");
-        unsplash.users.photos("naoufal", 2, 15, "latest", true);
+        unsplash.users.photos("naoufal", 2, 15, "latest", { orientation: "landscape", stats: true });
 
         expect(spy.calls.length).toEqual(1);
         expect(spy.calls[0].arguments).toEqual([{
@@ -268,7 +268,8 @@ describe("Unsplash", () => {
             page: 2,
             per_page: 15,
             order_by: "latest",
-            stats: true
+            stats: true,
+            orientation: "landscape"
           }
         }]);
       });
@@ -277,7 +278,7 @@ describe("Unsplash", () => {
     describe("likes", () => {
       it("should make a GET request to /users/{username}/likes", () => {
         let spy = spyOn(unsplash, "request");
-        unsplash.users.likes("naoufal");
+        unsplash.users.likes("naoufal", 1, 10, "latest", { orientation: "landscape" });
 
         expect(spy.calls.length).toEqual(1);
         expect(spy.calls[0].arguments).toEqual([{
@@ -286,7 +287,8 @@ describe("Unsplash", () => {
           query: {
             page: 1,
             per_page: 10,
-            order_by: "latest"
+            order_by: "latest",
+            orientation: "landscape"
           }
         }]);
       });
@@ -528,7 +530,7 @@ describe("Unsplash", () => {
     describe("getCollectionPhotos", () => {
       it("should make a GET request to /collections/{id}/photos", () => {
         let spy = spyOn(unsplash, "request");
-        unsplash.collections.getCollectionPhotos(88, 2, 15);
+        unsplash.collections.getCollectionPhotos(88, 2, 15, "latest", { orientation: "landscape" });
 
         expect(spy.calls.length).toEqual(1);
         expect(spy.calls[0].arguments).toEqual([{
@@ -537,7 +539,8 @@ describe("Unsplash", () => {
           query: {
             page: 2,
             per_page: 15,
-            order_by: "latest"
+            order_by: "latest",
+            orientation: "landscape"
           }
         }]);
       });
@@ -668,7 +671,14 @@ describe("Unsplash", () => {
     describe("photos", () => {
       it("should make a GET request to /search/photos", () => {
         let spy = spyOn(unsplash, "request");
-        unsplash.search.photos("nature", 1, 10, { collections: [1,2], orientation: "landscape" });
+        unsplash.search.photos("nature", 1, 10, {
+          collections: [1,2],
+          orientation: "landscape",
+          contentFilter: "low",
+          lang: "en",
+          color: "brown",
+          orderBy: "relevant"
+        });
 
         expect(spy.calls.length).toEqual(1);
         expect(spy.calls[0].arguments).toEqual([{
@@ -679,7 +689,11 @@ describe("Unsplash", () => {
             page: 1,
             per_page: 10,
             collections: "1,2",
-            orientation: "landscape"
+            orientation: "landscape",
+            lang: "en",
+            content_filter: "low",
+            color: "brown",
+            order_by: "relevant"
           }
         }]);
       });

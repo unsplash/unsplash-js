@@ -74,15 +74,17 @@ function collection(id: string) {
 }
 
 function collectionPhotos(
-  id: string,
-  page: number = 1,
-  perPage: number = 10,
-  orderBy: string = "latest"
+  id,
+  page = 1,
+  perPage = 10,
+  orderBy = "latest",
+  options = {},
 ) {
   const query = {
     page,
     per_page: perPage,
-    order_by: orderBy
+    order_by: orderBy,
+    orientation: options.orientation
   };
 
   return this.request({
