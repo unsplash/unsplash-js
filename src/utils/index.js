@@ -1,26 +1,16 @@
-/* @flow */
 import { stringify as qsStringify } from "querystring";
 import formurlencoded from "form-urlencoded";
 import parse from "url-parse";
 
-export function formUrlEncode(body: Object): Object {
+export function formUrlEncode(body) {
   return formurlencoded(body);
 }
 
-export function getUrlComponents(uri: String): Object {
+export function getUrlComponents(uri) {
   return parse(uri, {}, true);
 }
 
-export function buildFetchOptions(
-  options: {
-    url: string,
-    method: string,
-    query: Object,
-    headers: Object,
-    body: Object,
-    oauth: boolean
-  }
-): Object {
+export function buildFetchOptions(options = {}) {
   let { method, query, oauth, body } = options;
   let url = (oauth === true)
     ? options.url

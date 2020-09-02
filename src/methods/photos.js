@@ -1,8 +1,7 @@
-/* @flow */
 import { getUrlComponents } from "../utils";
 import get from "lodash.get";
 
-export default function photos(): Object {
+export default function photos() {
   return {
     listPhotos: (page = 1, perPage = 10, orderBy = "latest")  => {
       const url = "/photos";

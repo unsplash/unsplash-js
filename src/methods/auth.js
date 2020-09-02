@@ -1,9 +1,7 @@
-/* @flow */
-
 import querystring from "querystring";
 import { OAUTH_AUTHORIZE_URL, OAUTH_TOKEN_URL } from "../constants";
 
-export default function auth(): Object {
+export default function auth() {
   return {
     getAuthenticationUrl: (scope = ["public"]) => {
       let querystrings = querystring.stringify({
@@ -18,7 +16,7 @@ export default function auth(): Object {
       return decodeURIComponent(`${OAUTH_AUTHORIZE_URL}?${querystrings}`);
     },
 
-    userAuthentication: (code: string) => {
+    userAuthentication: (code) => {
       const url = OAUTH_TOKEN_URL;
 
       return this.request({
@@ -35,7 +33,7 @@ export default function auth(): Object {
       });
     },
 
-    setBearerToken: (accessToken: string) => {
+    setBearerToken: (accessToken) => {
       if (accessToken) {
         this._bearerToken = accessToken;
       }

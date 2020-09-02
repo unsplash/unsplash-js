@@ -1,6 +1,4 @@
-/* @flow */
-
-export default function search(): Object {
+export default function search() {
   return {
     photos: (keyword = "", page = 1, perPage = 10, options = {})  => {
       const collections = options.collections || [];

@@ -1,5 +1,3 @@
-/* @flow */
-
 declare var fetch: any;
 
 import { API_URL, API_VERSION } from "./constants";
@@ -14,36 +12,7 @@ import search from "./methods/search";
 import stats from "./methods/stats";
 
 export default class Unsplash {
-  _apiUrl: string;
-  _apiVersion: string;
-  _accessKey: string;
-  _secret: ?string;
-  _callbackUrl: ?string;
-  _bearerToken: ?string;
-  _headers: ?Object;
-  _timeout: ?number;
-
-  auth: Object;
-  currentUser: Object;
-  users: Object;
-  photos: Object;
-  collections: Object;
-  search: Object;
-  stats: Object;
-  toJson: Function;
-
-  constructor(
-    options: {
-      apiUrl: string,
-      apiVersion: string,
-      accessKey: string,
-      secret?: string,
-      callbackUrl?: string,
-      bearerToken?: string,
-      headers?: Object,
-      timeout?: number
-    }
-  ) {
+  constructor(options = {}) {
     this._apiUrl = options.apiUrl || API_URL;
     this._apiVersion = options.apiVersion || API_VERSION;
     this._accessKey = options.accessKey;
@@ -62,22 +31,13 @@ export default class Unsplash {
     this.stats = stats.bind(this)();
   }
 
-  request(
-    requestOptions: {
-      url: string,
-      method: string,
-      query: Object,
-      headers: Object,
-      body: Object,
-      oauth: boolean
-    }
-  ):Promise<any> {
+  request(requestOptions: {}) {
     var { url, options } = buildFetchOptions.bind(this)(requestOptions);
 
     return fetch(url, options);
   }
 }
 
-export function toJson(res: Object): Object {
+export function toJson(res) {
   return typeof res.json === "function" ? res.json() : res;
 }
