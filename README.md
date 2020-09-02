@@ -59,10 +59,10 @@ import Unsplash, { toJson } from 'unsplash-js';
 const Unsplash = require('unsplash-js').default;
 const toJson = require('unsplash-js').toJson;
 
-const unsplash = new Unsplash({ accessKey: "{APP_ACCESS_KEY}" });
+const unsplash = new Unsplash({ accessKey: APP_ACCESS_KEY });
 
 const unsplash = new Unsplash({
-  accessKey: "{APP_ACCESS_KEY}",
+  accessKey: APP_ACCESS_KEY,
   // Optionally you can also configure a custom header to be sent with every request
   headers: {
     "X-Custom-Header": "foo"
