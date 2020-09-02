@@ -495,7 +495,7 @@ unsplash.collections.getCollection(123456)
 ```
 ---
 
-### collections.getCollectionPhotos(id, orderBy)
+### collections.getCollectionPhotos(id, page, perPage, orderBy, options)
 Retrieve a collection’s photos.
 
 __Arguments__
@@ -506,8 +506,8 @@ __Arguments__
 |__`page`__|_number_|Optional|
 |__`perPage`__|_number_|Optional|
 |__`orderBy`__|_string_|Optional|`latest`, `popular` or `oldest`|
-
-
+|__`options`__|_object_|Optional|
+|__`options.orientation`__|_string_|Optional| `landscape`, `portrait`, `squarish`|
 
 __Example__
 ```js

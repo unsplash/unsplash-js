@@ -528,7 +528,7 @@ describe("Unsplash", () => {
     describe("getCollectionPhotos", () => {
       it("should make a GET request to /collections/{id}/photos", () => {
         let spy = spyOn(unsplash, "request");
-        unsplash.collections.getCollectionPhotos(88, 2, 15);
+        unsplash.collections.getCollectionPhotos(88, 2, 15, "latest", { orientation: "landscape" });
 
         expect(spy.calls.length).toEqual(1);
         expect(spy.calls[0].arguments).toEqual([{
@@ -537,7 +537,8 @@ describe("Unsplash", () => {
           query: {
             page: 2,
             per_page: 15,
-            order_by: "latest"
+            order_by: "latest",
+            orientation: "landscape"
           }
         }]);
       });
