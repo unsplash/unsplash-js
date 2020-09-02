@@ -2,12 +2,16 @@
 
 export default function search(): Object {
   return {
-    photos: (keyword = "", page = 1, perPage = 10, filters = {})  => {
-      const collections = filters.collections || [];
+    photos: (keyword = "", page = 1, perPage = 10, options = {})  => {
+      const collections = options.collections || [];
       const query = {
         query: encodeURIComponent(keyword),
         per_page: perPage,
-        orientation: filters.orientation,
+        orientation: options.orientation,
+        content_filter: options.contentFilter,
+        color: options.color,
+        order_by: options.orderBy,
+        lang: options.lang,
         collections: collections.join(),
         page
       };

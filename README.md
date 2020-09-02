@@ -104,23 +104,29 @@ All the instance methods below make use of the `toJson` helper method described 
 
 <div id="search-photos" />
 
-### search.photos(keyword, page, per_page, filters)
+### search.photos(keyword, page, per_page, options)
 Get a list of photos matching the keyword.
 
 __Arguments__
 
-| Argument | Type | Opt/Required | Default |
+| Argument | Type | Optional/Required | Default |
 |---|---|---|---|
 |__`keyword`__|_string_|Required||
 |__`page`__|_number_|Optional||
 |__`per_page`__|_number_|Optional|10|
-|__`filters`__|_object_|Optional||
-|__`filters.orientation`__|_string_|Optional||
-|__`filters.collections`__|_array_|Optional||
+|__`options`__|_object_|Optional||
+|__`options.orientation`__|_string_|Optional||
+|__`options.contentFilter`__|_string_|Optional||
+|__`options.color`__|_string_|Optional||
+|__`options.orderBy`__|_string_|Optional||
+|__`options.collections`__|_array_|Optional||
+|__`options.lang`__|_string_|Optional||
+
+See the [API documentation for the possible option values](https://unsplash.com/documentation#parameters-16).
 
 __Example__
 ```js
-unsplash.search.photos("dogs", 1, 10, { orientation: "portrait" })
+unsplash.search.photos("dogs", 1, 10, { orientation: "portrait", color: "brown" })
   .then(toJson)
   .then(json => {
     // Your code
