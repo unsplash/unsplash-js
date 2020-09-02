@@ -104,7 +104,7 @@ All the instance methods below make use of the `toJson` helper method described 
 <div id="search-photos" />
 
 ### search.photos(keyword, page, per_page, options)
-Get a list of photos matching the keyword.
+Get a list of photos matching the keyword. [Endpoint docs](https://unsplash.com/documentation#search-photos)
 
 __Arguments__
 
@@ -133,7 +133,7 @@ unsplash.search.photos("dogs", 1, 10, { orientation: "portrait", color: "brown" 
 ```
 
 ### search.users(keyword, page, per_page)
-Get a list of users matching the keyword.
+Get a list of users matching the keyword. [Endpoint docs](https://unsplash.com/documentation#search-users)
 
 __Arguments__
 
@@ -154,7 +154,7 @@ unsplash.search.users("steve", 1)
 ```
 
 ### search.collections(keyword, page, per_page)
-Get a list of collections matching the keyword.
+Get a list of collections matching the keyword. [Endpoint docs](https://unsplash.com/documentation#search-collections)
 
 __Arguments__
 
@@ -181,7 +181,7 @@ unsplash.search.collections("dogs", 1)
 <div id="photos-all" />
 
 ### photos.listPhotos(page, perPage, orderBy)
-Get a single page from the list of all photos.
+Get a single page from the list of all photos. [Endpoint docs](https://unsplash.com/documentation#list-photos)
 
 __Arguments__
 
@@ -202,7 +202,7 @@ unsplash.photos.listPhotos(2, 15, "latest")
 ---
 
 ### photos.getPhoto(id)
-Retrieve a single photo.
+Retrieve a single photo. [Endpoint docs](https://unsplash.com/documentation#get-a-photo)
 
 __Arguments__
 
@@ -221,7 +221,7 @@ unsplash.photos.getPhoto("mtNweauBsMQ")
 ---
 
 ### photos.getPhotoStats(id)
-Retrieve a single photo's stats.
+Retrieve a single photo's stats. [Endpoint docs](https://unsplash.com/documentation#get-a-photos-statistics)
 
 __Arguments__
 
@@ -242,7 +242,7 @@ unsplash.photos.getPhotoStats("mtNweauBsMQ")
 <div id="photo-random" />
 
 ### photos.getRandomPhoto({ query, username, featured })
-Retrieve a single random photo, given optional filters.
+Retrieve a single random photo, given optional filters. [Endpoint docs](https://unsplash.com/documentation#get-a-random-photo)
 
 When using this function, It is recommended to double check the types of the parameters,
 in particular for the parameters of type Array<number>.
@@ -273,7 +273,7 @@ unsplash.photos.getRandomPhoto({ username: "naoufal" })
 ---
 
 ### photos.likePhoto(id)
-Like a photo on behalf of the logged-in user. This requires the `write_likes` scope.
+Like a photo on behalf of the logged-in user. This requires the `write_likes` scope. [Endpoint docs](https://unsplash.com/documentation#like-a-photo)
 
 __Arguments__
 
@@ -292,7 +292,7 @@ unsplash.photos.likePhoto("mtNweauBsMQ")
 ---
 
 ### photos.unlikePhoto(id)
-Remove a user’s like of a photo.
+Remove a user’s like of a photo. [Endpoint docs](https://unsplash.com/documentation#unlike-a-photo)
 
 __Arguments__
 
@@ -313,7 +313,7 @@ unsplash.photos.unlikePhoto("mtNweauBsMQ")
 <div id="photo-download" />
 
 ### photos.downloadPhoto(photo)
-Trigger a download of a photo as per the [download tracking requirement of API Guidelines](https://medium.com/unsplash/unsplash-api-guidelines-triggering-a-download-c39b24e99e02).
+Trigger a download of a photo as per the [download tracking requirement of API Guidelines](https://medium.com/unsplash/unsplash-api-guidelines-triggering-a-download-c39b24e99e02). [Endpoint docs](https://unsplash.com/documentation#track-a-photo-download)
 
 *Note*: this accepts a photo JSON object, not a URL string or photo ID. See the example below for how to pair it with other calls to trigger it.
 
@@ -344,7 +344,7 @@ unsplash.search.photos("dogs", 1)
 <div id="users" />
 
 ### users.profile(username)
-Retrieve public details on a given user.
+Retrieve public details on a given user. [Endpoint docs](https://unsplash.com/documentation#get-a-users-public-profile)
 
 __Arguments__
 
@@ -363,7 +363,7 @@ unsplash.users.profile("naoufal")
 ---
 
 ### users.statistics(username, resolution, quantity)
-Retrieve statistics for a given user.
+Retrieve statistics for a given user. [Endpoint docs](https://unsplash.com/documentation#get-a-users-statistics)
 
 __Arguments__
 
@@ -385,7 +385,7 @@ unsplash.users.statistics("naoufal", "days", 30)
 ---
 
 ### users.photos(username, page, perPage, orderBy, options)
-Get a list of photos uploaded by a user.
+Get a list of photos uploaded by a user. [Endpoint docs](https://unsplash.com/documentation#list-a-users-photos)
 
 __Arguments__
 
@@ -410,7 +410,7 @@ unsplash.users.photos("naoufal", 1, 10, "latest", { orientation: "landscape" })
 ---
 
 ### users.likes(username, page, perPage, orderBy, options)
-Get a list of photos liked by a user.
+Get a list of photos liked by a user. [Endpoint docs](https://unsplash.com/documentation#list-a-users-liked-photos)
 
 __Arguments__
 
@@ -434,7 +434,7 @@ unsplash.users.likes("naoufal", 2, 15, "latest", { orientation: "landscape" })
 ---
 
 ### users.collections(username, page, perPage, orderBy)
-Get a list of collections created by the user.
+Get a list of collections created by the user. [Endpoint docs](https://unsplash.com/documentation#list-a-users-collections)
 
 __Arguments__
 
@@ -458,7 +458,7 @@ unsplash.users.collections("naoufal", 2, 15, "updated")
 <div id="collections" />
 
 ### collections.listCollections(page, perPage, orderBy)
-Get a single page from the list of all collections.
+Get a single page from the list of all collections. [Endpoint docs](https://unsplash.com/documentation#list-collections)
 
 __Arguments__
 
@@ -479,7 +479,7 @@ unsplash.collections.listCollections(1, 10, "latest")
 ---
 
 ### collections.getCollection(id)
-Retrieve a single collection. To view a user’s private collections, the `read_collections` scope is required.
+Retrieve a single collection. To view a user’s private collections, the `read_collections` scope is required. [Endpoint docs](https://unsplash.com/documentation#get-a-collection)
 
 __Arguments__
 
@@ -499,7 +499,7 @@ unsplash.collections.getCollection(123456)
 ---
 
 ### collections.getCollectionPhotos(id, page, perPage, orderBy, options)
-Retrieve a collection’s photos.
+Retrieve a collection’s photos. [Endpoint docs](https://unsplash.com/documentation#get-a-collections-photos)
 
 __Arguments__
 
@@ -523,7 +523,7 @@ unsplash.collections.getCollectionPhotos(123456, 1, 10, "latest")
 ---
 
 ### collections.createCollection(title, description, private)
-Create a new collection. This requires the `write_collections` scope.
+Create a new collection. This requires the `write_collections` scope. [Endpoint docs](https://unsplash.com/documentation#create-a-new-collection)
 
 __Arguments__
 
@@ -544,7 +544,7 @@ unsplash.collections.createCollection("Birds", "Wild birds from 'round the world
 ---
 
 ### collections.updateCollection(id, title, description, private)
-Update an existing collection belonging to the logged-in user. This requires the `write_collections` scope.
+Update an existing collection belonging to the logged-in user. This requires the `write_collections` scope. [Endpoint docs](https://unsplash.com/documentation#update-an-existing-collection)
 
 __Arguments__
 
@@ -566,7 +566,7 @@ unsplash.collections.updateCollection(12345, "Wild Birds", "Wild birds from arou
 ---
 
 ### collections.deleteCollection(id)
-Delete a collection belonging to the logged-in user. This requires the `write_collections` scope.
+Delete a collection belonging to the logged-in user. This requires the `write_collections` scope. [Endpoint docs](https://unsplash.com/documentation#delete-a-collection)
 
 __Arguments__
 
@@ -586,7 +586,7 @@ unsplash.collections.deleteCollection(88)
 ---
 
 ### collections.addPhotoToCollection(collectionId, photoId)
-Add a photo to one of the logged-in user’s collections. Requires the `write_collections` scope.
+Add a photo to one of the logged-in user’s collections. Requires the `write_collections` scope. [Endpoint docs](https://unsplash.com/documentation#add-a-photo-to-a-collection)
 
 __Arguments__
 
@@ -606,7 +606,7 @@ unsplash.collections.addPhotoToCollection(88, 'abc1234')
 ---
 
 ### collections.removePhotoFromCollection(collectionId, photoId)
-Remove a photo from one of the logged-in user’s collections. Requires the `write_collections` scope.
+Remove a photo from one of the logged-in user’s collections. Requires the `write_collections` scope. [Endpoint docs](https://unsplash.com/documentation#remove-a-photo-from-a-collection)
 
 __Arguments__
 
@@ -626,7 +626,7 @@ unsplash.collections.removePhotoFromCollection(88, 'abc1234')
 ---
 
 ### collections.listRelatedCollections(collectionId)
-Lists collections related to the provided one.
+Lists collections related to the provided one. [Endpoint docs](https://unsplash.com/documentation#list-a-collections-related-collections)
 
 __Arguments__
 
