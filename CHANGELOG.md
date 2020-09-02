@@ -1,6 +1,6 @@
 # Changelog
 
-## 6.2
+## 6.2.0
 
 ### Changes
 
@@ -28,7 +28,7 @@ unsplash.search.photos("nature", 1, 10, { contentFilter: "high" });
 
 - Removes any references to 'popular' ordering ([due to deprecation](https://changelog.unsplash.com/update/2020/07/09/deprecate-popular.html))
 
-## 6.1
+## 6.1.0
 
 Enables Brotli compression by default.
 
