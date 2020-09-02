@@ -1,6 +1,4 @@
-/* @flow */
-
-export default function currentUser(): Object {
+export default function currentUser() {
   return {
     profile: () => {
       const url = "/me";
@@ -11,19 +9,9 @@ export default function currentUser(): Object {
       });
     },
 
-    updateProfile: (
-      options: {
-        username?: string,
-        firstName?: string,
-        lastName?: string,
-        email?: string,
-        url?: string,
-        location?: string,
-        bio?: string,
-        instagramUsername?: string
-      }
-    ) => {
+    updateProfile: (options = {}) => {
       const endpointUrl = "/me";
+
       let {
         username,
         firstName,
@@ -34,6 +22,7 @@ export default function currentUser(): Object {
         bio,
         instagramUsername
       } = options;
+
       let body = {
         username,
         first_name: firstName,

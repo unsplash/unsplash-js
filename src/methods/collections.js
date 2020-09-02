@@ -1,8 +1,6 @@
-/* @flow */
-
-export default function collections(): Object {
+export default function collections() {
   return {
-    listCollections: (page: number = 1, perPage: number = 10) => {
+    listCollections: (page = 1, perPage = 10) => {
       const url = "/collections";
 
       const query = {
@@ -25,7 +23,7 @@ export default function collections(): Object {
 
     updateCollection: createUpdateCollection.bind(this),
 
-    deleteCollection: (id: string) => {
+    deleteCollection: (id) => {
       const url = `/collections/${id}`;
 
       return this.request({
@@ -34,7 +32,7 @@ export default function collections(): Object {
       });
     },
 
-    addPhotoToCollection: (collectionId: string, photoId: string) => {
+    addPhotoToCollection: (collectionId, photoId) => {
       const url = `/collections/${collectionId}/add`;
 
       return this.request({
@@ -66,7 +64,7 @@ export default function collections(): Object {
   };
 }
 
-function collection(id: string) {
+function collection(id) {
   return this.request({
     url: `/collections/${id}`,
     method: "GET"
@@ -94,12 +92,7 @@ function collectionPhotos(
   });
 }
 
-function createUpdateCollection(
-  id: ?string,
-  title: string,
-  description: string,
-  isPrivate: bool
-) {
+function createUpdateCollection(id, title, description, isPrivate) {
   const url = id
     ? `/collections/${id}`
     : "/collections";

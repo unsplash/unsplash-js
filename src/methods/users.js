@@ -1,8 +1,6 @@
-/* @flow */
-
-export default function users(): Object {
+export default function users() {
   return {
-    profile: (username: string) => {
+    profile: (username) => {
       const url = `/users/${username}`;
 
       return this.request({
@@ -51,7 +49,7 @@ export default function users(): Object {
       });
     },
 
-    collections: (username: string, page: number = 1, perPage: number = 10, orderBy: string = "published") => {
+    collections: (username, page = 1, perPage = 10, orderBy = "published") => {
       const url = `/users/${username}/collections`;
       const query = {
         page,
@@ -66,7 +64,7 @@ export default function users(): Object {
       });
     },
 
-    statistics: (username: string, resolution: string = "days", quantity: number = 30) => {
+    statistics: (username, resolution = "days", quantity = 30) => {
       const url = `/users/${username}/statistics`;
       const query = {
         resolution,
