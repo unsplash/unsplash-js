@@ -1,5 +1,37 @@
 # Changelog
 
+## 6.2.0
+
+### Changes
+
+- Adds support for [the languages beta](https://changelog.unsplash.com/update/2020/08/21/languages-beta.html) on search
+
+```js
+unsplash.search.photos("nature", 1, 10, { lang: "en" });
+```
+
+- Adds support for the [new search filters and ordering](https://changelog.unsplash.com/update/2020/03/04/new-filters.html)
+
+```js
+unsplash.search.photos("nature", 1, 10, {
+  orientation: "landscape",
+  color: "brown", // new
+  orderBy: "relevant" // new
+});
+```
+
+- Adds support for [content filtering on search](https://changelog.unsplash.com/update/2020/03/15/content-filtering.html)
+
+```js
+unsplash.search.photos("nature", 1, 10, { contentFilter: "high" });
+```
+
+- Removes any references to 'popular' ordering ([due to deprecation](https://changelog.unsplash.com/update/2020/07/09/deprecate-popular.html))
+
+## 6.1.0
+
+Enables Brotli compression by default.
+
 ## 6.0
 
 ### Changes
