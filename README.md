@@ -92,7 +92,6 @@ unsplash.users.profile("naoufal")
 - [Photos](https://github.com/unsplash/unsplash-js#photos)
 - [Users](https://github.com/unsplash/unsplash-js#users)
 - [Collections](https://github.com/unsplash/unsplash-js#collections)
-- [Stats](https://github.com/unsplash/unsplash-js#stats)
 - [User Authorization](https://github.com/unsplash/unsplash-js#user-authorization)
 - [Current User](https://github.com/unsplash/unsplash-js#current-user)
 
@@ -638,25 +637,6 @@ __Arguments__
 __Example__
 ```js
 unsplash.collections.listRelatedCollections(88)
-  .then(toJson)
-  .then(json => {
-    // Your code
-  });
-```
----
-
-<div id="stats" />
-
-### stats.total()
-Get a list of download counts for all of Unsplash.
-
-__Arguments__
-
-_N/A_
-
-__Example__
-```js
-unsplash.stats.total()
   .then(toJson)
   .then(json => {
     // Your code

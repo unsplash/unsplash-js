@@ -8,7 +8,6 @@ const unsplash = new Unsplash({
 users();
 photos();
 collections();
-stats();
 
 function users() {
   console.log("\nUsers")
@@ -74,14 +73,4 @@ function collections() {
      .then(json => {
        console.log(json);
      });
-}
-
-function stats() {
-  console.log("\nStats");
-
-   unsplash.stats.total()
-    .then(toJson)
-    .then(json => {
-      console.log(json);
-    });
 }
