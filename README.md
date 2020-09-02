@@ -190,7 +190,7 @@ __Arguments__
 |---|---|---|
 |__`page`__|_number_|Optional|
 |__`perPage`__|_number_|Optional|
-|__`orderBy`__|_string_|Optional|`latest`, `popular` or `oldest`|
+|__`orderBy`__|_string_|Optional|`latest`, `oldest`|
 
 __Example__
 ```js
@@ -395,14 +395,14 @@ __Arguments__
 |__`username`__|_string_|Required|||
 |__`page`__|_number_|Optional||1|
 |__`perPage`__|_number_|Optional||10|
-|__`orderBy`__|_string_|Optional|`latest`, `popular` or `oldest`|`latest`|
+|__`orderBy`__|_string_|Optional|`latest`, `oldest`|`latest`|
 |__`options`__|_object_|Optional|
 |__`options.stats`__|_boolean_|Optional||`false`|
 |__`options.orientation`__|_string_|Optional|`landscape`, `portrait`, `squarish`|
 
 __Example__
 ```js
-unsplash.users.photos("naoufal", 1, 10, "popular", { orientation: "landscape" })
+unsplash.users.photos("naoufal", 1, 10, "latest", { orientation: "landscape" })
   .then(toJson)
   .then(json => {
     // Your code
@@ -420,13 +420,13 @@ __Arguments__
 |__`username`__|_string_|Required||
 |__`page`__|_number_|Optional||
 |__`perPage`__|_number_|Optional||
-|__`orderBy`__|_string_|Optional|`latest`, `popular` or `oldest`|
+|__`orderBy`__|_string_|Optional|`latest`, `oldest`|
 |__`options`__|_object_|Optional|
 |__`options.orientation`__|_string_|Optional|`landscape`, `portrait`, `squarish`|
 
 __Example__
 ```js
-unsplash.users.likes("naoufal", 2, 15, "popular", { orientation: "landscape" })
+unsplash.users.likes("naoufal", 2, 15, "latest", { orientation: "landscape" })
   .then(toJson)
   .then(json => {
     // Your code
@@ -467,11 +467,11 @@ __Arguments__
 |---|---|---|---|
 |__`page`__|_number_|Optional||
 |__`perPage`__|_number_|Optional||
-|__`orderBy`__|_string_|Optional|`latest`, `popular` or `oldest`|
+|__`orderBy`__|_string_|Optional|`latest`, `oldest`|
 
 __Example__
 ```js
-unsplash.collections.listCollections(1, 10, "popular")
+unsplash.collections.listCollections(1, 10, "latest")
   .then(toJson)
   .then(json => {
     // Your code
@@ -509,13 +509,13 @@ __Arguments__
 |__`id`__|_number_|Required||
 |__`page`__|_number_|Optional|
 |__`perPage`__|_number_|Optional|
-|__`orderBy`__|_string_|Optional|`latest`, `popular` or `oldest`|
+|__`orderBy`__|_string_|Optional|`latest`, `oldest`|
 |__`options`__|_object_|Optional|
 |__`options.orientation`__|_string_|Optional| `landscape`, `portrait`, `squarish`|
 
 __Example__
 ```js
-unsplash.collections.getCollectionPhotos(123456, 1, 10, "popular")
+unsplash.collections.getCollectionPhotos(123456, 1, 10, "latest")
   .then(toJson)
   .then(json => {
     // Your code
