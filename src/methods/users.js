@@ -26,6 +26,12 @@ export default function users() {
         stats
       };
 
+      Object.keys(query).forEach(key => {
+        if (!query[key]) {
+          delete query[key];
+        }
+      });
+
       return this.request({
         url,
         method: "GET",
@@ -41,6 +47,12 @@ export default function users() {
         order_by: orderBy,
         orientation: options.orientation
       };
+
+      Object.keys(query).forEach(key => {
+        if (!query[key]) {
+          delete query[key];
+        }
+      });
 
       return this.request({
         url,
