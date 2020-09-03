@@ -1,5 +1,3 @@
-declare var fetch: any;
-
 import { API_URL, API_VERSION } from "./constants";
 import { buildFetchOptions } from "./utils";
 
@@ -31,7 +29,7 @@ export default class Unsplash {
     this.stats = stats.bind(this)();
   }
 
-  request(requestOptions: {}) {
+  request(requestOptions = {}) {
     var { url, options } = buildFetchOptions.bind(this)(requestOptions);
 
     return fetch(url, options);

@@ -15,7 +15,7 @@ unsplash.search.photos("nature", 1, 10, { lang: "en" });
 ```js
 unsplash.search.photos("nature", 1, 10, {
   orientation: "landscape",
-  color: "brown", // new
+  color: "green", // new
   orderBy: "relevant" // new
 });
 ```

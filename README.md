@@ -111,21 +111,21 @@ __Arguments__
 | Argument | Type | Optional/Required | Default |
 |---|---|---|---|
 |__`keyword`__|_string_|Required||
-|__`page`__|_number_|Optional||
+|__`page`__|_number_|Optional|1|
 |__`per_page`__|_number_|Optional|10|
 |__`options`__|_object_|Optional||
 |__`options.orientation`__|_string_|Optional||
-|__`options.contentFilter`__|_string_|Optional||
+|__`options.contentFilter`__|_string_|Optional|"low"|
 |__`options.color`__|_string_|Optional||
-|__`options.orderBy`__|_string_|Optional||
+|__`options.orderBy`__|_string_|Optional|"relevant"|
 |__`options.collections`__|_array_|Optional||
-|__`options.lang`__|_string_|Optional||
+|__`options.lang`__|_string_|Optional|"en"|
 
 See the [API documentation for the possible option values](https://unsplash.com/documentation#parameters-16).
 
 __Example__
 ```js
-unsplash.search.photos("dogs", 1, 10, { orientation: "portrait", color: "brown" })
+unsplash.search.photos("dogs", 1, 10, { orientation: "portrait", color: "green" })
   .then(toJson)
   .then(json => {
     // Your code
@@ -140,7 +140,7 @@ __Arguments__
 | Argument | Type | Opt/Required | Default |
 |---|---|---|---|
 |__`keyword`__|_string_|Required||
-|__`page`__|_number_|Optional||
+|__`page`__|_number_|Optional|1|
 |__`per_page`__|_number_|Optional|10|
 
 
@@ -161,7 +161,7 @@ __Arguments__
 | Argument | Type | Opt/Required | Default |
 |---|---|---|---|
 |__`keyword`__|_string_|Required||
-|__`page`__|_number_|Optional||
+|__`page`__|_number_|Optional|1|
 |__`per_page`__|_number_|Optional|10|
 
 
@@ -185,11 +185,11 @@ Get a single page from the list of all photos. [See endpoint docs 🚀](https://
 
 __Arguments__
 
-| Argument | Type | Opt/Required |
+| Argument | Type | Opt/Required | Default |
 |---|---|---|
-|__`page`__|_number_|Optional|
-|__`perPage`__|_number_|Optional|
-|__`orderBy`__|_string_|Optional|`latest`, `oldest`|
+|__`page`__|_number_|Optional|1|
+|__`perPage`__|_number_|Optional|10|
+|__`orderBy`__|_string_|Optional|`latest`|
 
 __Example__
 ```js
@@ -414,14 +414,14 @@ Get a list of photos liked by a user. [See endpoint docs 🚀](https://unsplash.
 
 __Arguments__
 
-| Argument | Type | Opt/Required | Notes |
+| Argument | Type | Opt/Required | Notes | Default |
 |---|---|---|---|
 |__`username`__|_string_|Required||
-|__`page`__|_number_|Optional||
-|__`perPage`__|_number_|Optional||
-|__`orderBy`__|_string_|Optional|`latest`, `oldest`|
-|__`options`__|_object_|Optional|
-|__`options.orientation`__|_string_|Optional|`landscape`, `portrait`, `squarish`|
+|__`page`__|_number_|Optional||1|
+|__`perPage`__|_number_|Optional||10|
+|__`orderBy`__|_string_|Optional|`latest`, `oldest`|`latest`|
+|__`options`__|_object_|Optional||
+|__`options.orientation`__|_string_|Optional|`landscape`, `portrait`, `squarish`||
 
 __Example__
 ```js
@@ -438,12 +438,12 @@ Get a list of collections created by the user. [See endpoint docs 🚀](https://
 
 __Arguments__
 
-| Argument | Type | Opt/Required | Notes |
+| Argument | Type | Opt/Required | Notes | Default |
 |---|---|---|---|
-|__`username`__|_string_|Required||
-|__`page`__|_number_|Optional||
-|__`perPage`__|_number_|Optional||
-|__`orderBy`__|_string_|Optional|`published` or `updated`|
+|__`username`__|_string_|Required|||
+|__`page`__|_number_|Optional||1|
+|__`perPage`__|_number_|Optional||10|
+|__`orderBy`__|_string_|Optional|`published` or `updated`|`updated`|
 
 __Example__
 ```js
@@ -462,11 +462,11 @@ Get a single page from the list of all collections. [See endpoint docs 🚀](htt
 
 __Arguments__
 
-| Argument | Type | Opt/Required |Notes|
+| Argument | Type | Opt/Required | Notes | Default |
 |---|---|---|---|
-|__`page`__|_number_|Optional||
-|__`perPage`__|_number_|Optional||
-|__`orderBy`__|_string_|Optional|`latest`, `oldest`|
+|__`page`__|_number_|Optional||1|
+|__`perPage`__|_number_|Optional||10|
+|__`orderBy`__|_string_|Optional|`latest`, `oldest`|`latest`|
 
 __Example__
 ```js
@@ -503,12 +503,12 @@ Retrieve a collection’s photos. [See endpoint docs 🚀](https://unsplash.com/
 
 __Arguments__
 
-| Argument | Type | Opt/Required | Notes |
+| Argument | Type | Opt/Required | Notes | Default |
 |---|---|---|---|
-|__`id`__|_number_|Required||
-|__`page`__|_number_|Optional|
-|__`perPage`__|_number_|Optional|
-|__`orderBy`__|_string_|Optional|`latest`, `oldest`|
+|__`id`__|_number_|Required|||
+|__`page`__|_number_|Optional||1|
+|__`perPage`__|_number_|Optional||10|
+|__`orderBy`__|_string_|Optional|`latest`, `oldest`|`latest`|
 |__`options`__|_object_|Optional|
 |__`options.orientation`__|_string_|Optional| `landscape`, `portrait`, `squarish`|
 
@@ -820,8 +820,8 @@ __Example__
 import Unsplash, { toJson } from "unsplash-js";
 
 const unsplash = new Unsplash({
-  accessKey: "{YOUR_ACCESS_KEY}",
-  secret: "{YOUR_SECRET_KEY}"
+  accessKey: YOUR_ACCESS_KEY,
+  secret: YOUR_SECRET_KEY
 });
 
 unsplash.stats.total()

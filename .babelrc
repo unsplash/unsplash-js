@@ -1,4 +1,4 @@
 {
-  "plugins": ["transform-class-properties", "transform-flow-strip-types", "transform-object-assign"],
+  "plugins": ["transform-class-properties", "transform-object-assign"],
   "presets": ["es2015"]
 }

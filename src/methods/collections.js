@@ -4,8 +4,8 @@ export default function collections() {
       const url = "/collections";
 
       const query = {
-        page,
-        per_page: perPage
+        per_page: perPage,
+        page
       };
 
       return this.request({
@@ -79,11 +79,17 @@ function collectionPhotos(
   options = {},
 ) {
   const query = {
-    page,
     per_page: perPage,
     order_by: orderBy,
-    orientation: options.orientation
+    orientation: options.orientation,
+    page
   };
+
+  Object.keys(query).forEach(key => {
+    if (!query[key]) {
+      delete query[key];
+    }
+  });
 
   return this.request({
     url: `/collections/${id}/photos`,
