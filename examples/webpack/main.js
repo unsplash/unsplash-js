@@ -1,7 +1,7 @@
 import Unsplash, { toJson } from "unsplash-js";
 
 let unsplash = new Unsplash({
-  accessKey: "ž",
+  accessKey: "{YOUR_ACCESS_KEY}",
   secret: "{YOUR_SECRET}"
 });
 
