@@ -1,5 +1,11 @@
 # Changelog
 
+## 6.3.0
+
+### Changes
+
+- Deprecate `photos.photoDownload` in favor of `photos.trackDownload` to better clarify method usage. `photoDownload` will continue to be supported until version 7.0.
+
 ## 6.2.0
 
 ### Changes

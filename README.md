@@ -13,7 +13,7 @@ Quick links to methods you're likely to care about:
 
 - [Get a list of new photos](#photos-all) 🎉
 - [Get a random photo](#photo-random) 🎑
-- [Trigger a photo download](#photo-download) 📡
+- [Trigger a photo download](#track-download) 📡
 - [Search for a photo by keyword](#search-photos) 🕵️‍♂️
 
 **Note:** Every application must abide by the [API Guidelines](https://help.unsplash.com/api-guidelines/unsplash-api-guidelines). Specifically, remember to [hotlink images](https://help.unsplash.com/api-guidelines/more-on-each-guideline/guideline-hotlinking-images), [attribute photographers](https://help.unsplash.com/api-guidelines/more-on-each-guideline/guideline-attribution), and [trigger a download when appropriate](https://help.unsplash.com/api-guidelines/more-on-each-guideline/guideline-triggering-a-download).
@@ -310,9 +310,9 @@ unsplash.photos.unlikePhoto("mtNweauBsMQ")
 ```
 ---
 
-<div id="photo-download" />
+<div id="track-download" />
 
-### photos.downloadPhoto(photo)
+### photos.trackDownload(photo)
 Trigger a download of a photo as per the [download tracking requirement of API Guidelines](https://medium.com/unsplash/unsplash-api-guidelines-triggering-a-download-c39b24e99e02). [See endpoint docs 🚀](https://unsplash.com/documentation#track-a-photo-download)
 
 *Note*: this accepts a photo JSON object, not a URL string or photo ID. See the example below for how to pair it with other calls to trigger it.
@@ -328,14 +328,14 @@ __Example__
 unsplash.photos.getPhoto("mtNweauBsMQ")
   .then(toJson)
   .then(json => {
-    unsplash.photos.downloadPhoto(json);
+    unsplash.photos.trackDownload(json);
   });
 
 // or if working with an array of photos
 unsplash.search.photos("dogs", 1)
   .then(toJson)
   .then(json => {
-    unsplash.photos.downloadPhoto(json["results"][0]);
+    unsplash.photos.trackDownload(json["results"][0]);
   });
 ```
 
