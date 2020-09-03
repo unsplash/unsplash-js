@@ -485,6 +485,35 @@ describe("Unsplash", () => {
         expect(() => unsplash.photos.downloadPhoto(mockPhotoResponse)).toThrow(/Object received is not a photo/);
       });
     });
+
+    describe("trackDownload", () => {
+      it("should make a GET request to the photo's download_location", () => {
+        let spy = spyOn(unsplash, "request");
+        const mockPhotoResponse = {
+          "id": "123123",
+          "links": {
+            "download_location": "https://api.unsplash.com/photos/123123/download?ixid=drake"
+          }
+        };
+
+        unsplash.photos.trackDownload(mockPhotoResponse);
+
+        expect(spy.calls.length).toEqual(1);
+        expect(spy.calls[0].arguments).toEqual([{
+          method: "GET",
+          url: "/photos/123123/download",
+          query: {
+            ixid: "drake"
+          }
+        }]);
+      });
+
+      it("should throw an error if passed a malformed photo object", () => {
+        const mockPhotoResponse = "123123";
+
+        expect(() => unsplash.photos.trackDownload(mockPhotoResponse)).toThrow(/Object received is not a photo/);
+      });
+    });
   });
 
   describe("collections", () => {

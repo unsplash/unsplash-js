@@ -89,20 +89,25 @@ export default function photos() {
       });
     },
 
-    downloadPhoto: (photo) => {
-      const downloadLocation = get(photo, "links.download_location", undefined);
+    // Deprecated in 6.2
+    downloadPhoto: track.bind(this),
 
-      if (downloadLocation === undefined) {
-        throw new Error(`Object received is not a photo. ${photo}`);
-      }
-
-      const urlComponents = getUrlComponents(downloadLocation);
-
-      return this.request({
-        url: urlComponents.pathname,
-        method: "GET",
-        query: urlComponents.query
-      });
-    }
+    trackDownload: track.bind(this)
   };
+}
+
+function track(photo) {
+  const downloadLocation = get(photo, "links.download_location", undefined);
+
+  if (downloadLocation === undefined) {
+    throw new Error(`Object received is not a photo. ${photo}`);
+  }
+
+  const urlComponents = getUrlComponents(downloadLocation);
+
+  return this.request({
+    url: urlComponents.pathname,
+    method: "GET",
+    query: urlComponents.query
+  });
 }
