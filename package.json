@@ -3,6 +3,7 @@
   "version": "4.8.0",
   "description": "A Universal JavaScript wrapper for the Unsplash API",
   "main": "lib/unsplash.js",
+  "typings": "index.d.ts",
   "scripts": {
     "build": "npm run build:lib && npm run build:umd && npm run build:umd:min && npm run build:examples",
     "build:examples": "cp dist/unsplash.min.js examples/umd/public/unsplash.min.js",
