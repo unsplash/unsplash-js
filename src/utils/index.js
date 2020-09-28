@@ -1,26 +1,16 @@
-/* @flow */
 import { stringify as qsStringify } from "querystring";
 import formurlencoded from "form-urlencoded";
 import parse from "url-parse";
 
-export function formUrlEncode(body: Object): Object {
+export function formUrlEncode(body) {
   return formurlencoded(body);
 }
 
-export function getUrlComponents(uri: String): Object {
+export function getUrlComponents(uri) {
   return parse(uri, {}, true);
 }
 
-export function buildFetchOptions(
-  options: {
-    url: string,
-    method: string,
-    query: Object,
-    headers: Object,
-    body: Object,
-    oauth: boolean
-  }
-): Object {
+export function buildFetchOptions(options = {}) {
   let { method, query, oauth, body } = options;
   let url = (oauth === true)
     ? options.url
@@ -29,8 +19,9 @@ export function buildFetchOptions(
     "Accept-Version": this._apiVersion,
     "Authorization": this._bearerToken
       ? `Bearer ${this._bearerToken}`
-      : `Client-ID ${this._applicationId}`
+      : `Client-ID ${this._accessKey}`
   });
+  let timeout = this._timeout;
 
   if (body) {
     headers["Content-Type"] = "application/x-www-form-urlencoded";
@@ -45,6 +36,7 @@ export function buildFetchOptions(
     options: {
       method,
       headers,
+      timeout,
       body: (method !== "GET") && body
         ? formUrlEncode(body)
         : undefined

@@ -1,8 +1,6 @@
-/* @flow */
-
-export default function users(): Object {
+export default function users() {
   return {
-    profile: (username: string) => {
+    profile: (username) => {
       const url = `/users/${username}`;
 
       return this.request({
@@ -12,19 +10,27 @@ export default function users(): Object {
     },
 
     photos: (
-      username: string,
-      page: number = 1,
-      perPage: number = 10,
-      orderBy: string = "latest",
-      stats: bool = false,
+      username,
+      page = 1,
+      perPage = 10,
+      orderBy = "latest",
+      options = {}
     ) => {
+      const stats = options.stats || false;
       const url = `/users/${username}/photos`;
       const query = {
         page,
         per_page: perPage,
         order_by: orderBy,
+        orientation: options.orientation,
         stats
       };
+
+      Object.keys(query).forEach(key => {
+        if (!query[key]) {
+          delete query[key];
+        }
+      });
 
       return this.request({
         url,
@@ -33,13 +39,20 @@ export default function users(): Object {
       });
     },
 
-    likes: (username: string, page: number = 1, perPage: number = 10, orderBy: string = "latest") => {
+    likes: (username, page = 1, perPage = 10, orderBy = "latest", options = {}) => {
       const url = `/users/${username}/likes`;
       const query = {
         page,
         per_page: perPage,
-        order_by: orderBy
+        order_by: orderBy,
+        orientation: options.orientation
       };
+
+      Object.keys(query).forEach(key => {
+        if (!query[key]) {
+          delete query[key];
+        }
+      });
 
       return this.request({
         url,
@@ -48,7 +61,7 @@ export default function users(): Object {
       });
     },
 
-    collections: (username: string, page: number = 1, perPage: number = 10, orderBy: string = "published") => {
+    collections: (username, page = 1, perPage = 10, orderBy = "published") => {
       const url = `/users/${username}/collections`;
       const query = {
         page,
@@ -63,7 +76,7 @@ export default function users(): Object {
       });
     },
 
-    statistics: (username: string, resolution: string = "days", quantity: number = 30) => {
+    statistics: (username, resolution = "days", quantity = 30) => {
       const url = `/users/${username}/statistics`;
       const query = {
         resolution,

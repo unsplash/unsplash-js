@@ -1,27 +1,58 @@
-/* @flow */
-
-export default function search(): Object {
+export default function search() {
   return {
-    all: searcher.bind(this, "/search"),
+    photos: (keyword = "", page = 1, perPage = 10, options = {})  => {
+      const collections = options.collections || [];
+      const query = {
+        query: encodeURIComponent(keyword),
+        per_page: perPage,
+        orientation: options.orientation,
+        content_filter: options.contentFilter,
+        color: options.color,
+        order_by: options.orderBy,
+        lang: options.lang,
+        collections: collections.join(),
+        page
+      };
 
-    photos: searcher.bind(this, "/search/photos"),
+      Object.keys(query).forEach(key => {
+        if (!query[key] && key != "query") {
+          delete query[key];
+        }
+      });
 
-    users: searcher.bind(this, "/search/users"),
+      return this.request({
+        url: "/search/photos",
+        method: "GET",
+        query
+      });
+    },
 
-    collections: searcher.bind(this, "/search/collections")
+    users: (keyword = "", page = 1, perPage = 10)  => {
+      const query = {
+        query: encodeURIComponent(keyword),
+        per_page: perPage,
+        page
+      };
+
+      return this.request({
+        url: "/search/users",
+        method: "GET",
+        query
+      });
+    },
+
+    collections: (keyword = "", page = 1, perPage = 10)  => {
+      const query = {
+        query: encodeURIComponent(keyword),
+        per_page: perPage,
+        page
+      };
+
+      return this.request({
+        url: "/search/collections",
+        method: "GET",
+        query
+      });
+    }
   };
-}
-
-function searcher(url, keyword = "", page = 1, per_page = 10) {
-  const query = {
-    query: keyword,
-    page,
-    per_page
-  };
-
-  return this.request({
-    url,
-    method: "GET",
-    query
-  });
 }

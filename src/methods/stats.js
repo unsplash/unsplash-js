@@ -1,6 +1,4 @@
-/* @flow */
-
-export default function stats(): Object {
+export default function stats() {
   return {
     total: () => {
       const url = "/stats/total";

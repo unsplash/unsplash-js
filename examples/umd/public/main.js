@@ -1,7 +1,6 @@
 var unsplash = new Unsplash({
-  applicationId: "{YOUR_APPLICATION_ID}",
-  secret: "{YOUR_SECRET}",
-  callbackUrl: "{YOUR_CALLBACK_URL}"
+  accessKey: "{YOUR_ACCESS_KEY}",
+  secret: "{YOUR_SECRET}"
 });
 
 unsplash.users.profile("naoufal")

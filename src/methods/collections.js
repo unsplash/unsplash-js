@@ -1,13 +1,11 @@
-/* @flow */
-
-export default function collections(): Object {
+export default function collections() {
   return {
-    listCollections: (page: number = 1, perPage: number = 10) => {
+    listCollections: (page = 1, perPage = 10) => {
       const url = "/collections";
 
       const query = {
-        page,
-        per_page: perPage
+        per_page: perPage,
+        page
       };
 
       return this.request({
@@ -17,47 +15,15 @@ export default function collections(): Object {
       });
     },
 
-    listCuratedCollections: (page: number = 1, perPage: number = 10) => {
-      const url = "/collections/curated";
-      const query = {
-        page,
-        per_page: perPage
-      };
+    getCollection: collection.bind(this),
 
-      return this.request({
-        url: url,
-        method: "GET",
-        query
-      });
-    },
-
-    listFeaturedCollections: (page: number = 1, perPage: number = 10) => {
-      const url = "/collections/featured";
-      const query = {
-        page,
-        per_page: perPage
-      };
-
-      return this.request({
-        url: url,
-        method: "GET",
-        query
-      });
-    },
-
-    getCollection: collection.bind(this, false),
-
-    getCuratedCollection: collection.bind(this, true),
-
-    getCuratedCollectionPhotos: collectionPhotos.bind(this, true),
-
-    getCollectionPhotos: collectionPhotos.bind(this, false),
+    getCollectionPhotos: collectionPhotos.bind(this),
 
     createCollection: createUpdateCollection.bind(this, null),
 
     updateCollection: createUpdateCollection.bind(this),
 
-    deleteCollection: (id: string) => {
+    deleteCollection: (id) => {
       const url = `/collections/${id}`;
 
       return this.request({
@@ -66,7 +32,7 @@ export default function collections(): Object {
       });
     },
 
-    addPhotoToCollection: (collectionId: string, photoId: string) => {
+    addPhotoToCollection: (collectionId, photoId) => {
       const url = `/collections/${collectionId}/add`;
 
       return this.request({
@@ -95,51 +61,44 @@ export default function collections(): Object {
         method: "GET"
       });
     }
-
   };
 }
 
-function collection(isCurated: bool, id: string) {
-  const url = isCurated
-    ? `/collections/curated/${id}`
-    : `/collections/${id}`;
-
+function collection(id) {
   return this.request({
-    url: url,
+    url: `/collections/${id}`,
     method: "GET"
   });
 }
 
 function collectionPhotos(
-  isCurated: bool,
-  id: string,
-  page: number = 1,
-  perPage: number = 10,
-  orderBy: string = "latest"
+  id,
+  page = 1,
+  perPage = 10,
+  orderBy = "latest",
+  options = {},
 ) {
-  const url = isCurated
-    ? `/collections/curated/${id}/photos`
-    : `/collections/${id}/photos`;
-
   const query = {
-    page,
     per_page: perPage,
-    order_by: orderBy
+    order_by: orderBy,
+    orientation: options.orientation,
+    page
   };
 
+  Object.keys(query).forEach(key => {
+    if (!query[key]) {
+      delete query[key];
+    }
+  });
+
   return this.request({
-    url: url,
+    url: `/collections/${id}/photos`,
     method: "GET",
     query
   });
 }
 
-function createUpdateCollection(
-  id: ?string,
-  title: string,
-  description: string,
-  isPrivate: bool
-) {
+function createUpdateCollection(id, title, description, isPrivate) {
   const url = id
     ? `/collections/${id}`
     : "/collections";

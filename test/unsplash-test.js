@@ -3,18 +3,18 @@ import { formUrlEncode, buildFetchOptions } from "../src/utils";
 
 import expect, { spyOn, restoreSpies } from "expect";
 
-const applicationId = "applicationId";
+const accessKey = "accessKey";
 const secret = "secret";
 const callbackUrl = "http://foo.com";
 const headers = { "X-Custom-Header": "foo" };
+const timeout = 100;
 
 describe("Unsplash", () => {
   describe("constructor", () => {
     const unsplash = new Unsplash({
-      applicationId,
-      secret,
-      callbackUrl,
-      headers
+      accessKey,
+      headers,
+      timeout
     });
 
     it("should successfully construct an Unsplash instance", () => {
@@ -25,20 +25,16 @@ describe("Unsplash", () => {
       expect(unsplash._apiUrl).toBe("https://api.unsplash.com");
     });
 
-    it("should set the applicationId argument on the Unsplash instance", () => {
-      expect(unsplash._applicationId).toBe(applicationId);
-    });
-
-    it("should set the secret argument on the Unsplash instance", () => {
-      expect(unsplash._secret).toBe(secret);
-    });
-
-    it("should set the callbackUrl argument on the Unsplash instance", () => {
-      expect(unsplash._callbackUrl).toBe(callbackUrl);
+    it("should set the accessKey argument on the Unsplash instance", () => {
+      expect(unsplash._accessKey).toBe(accessKey);
     });
 
     it("should set the headers argument on the Unsplash instance", () => {
       expect(unsplash._headers).toBe(headers);
+    });
+
+    it("should set the timeout argument on the Unsplash instance", () => {
+      expect(unsplash._timeout).toBe(timeout);
     });
 
     it("should have an auth method", () => {
@@ -57,10 +53,6 @@ describe("Unsplash", () => {
       expect(unsplash.photos).toExist();
     });
 
-    it("should have a categories method", () => {
-      expect(unsplash.categories).toExist();
-    });
-
     it("should have a collections method", () => {
       expect(unsplash.collections).toExist();
     });
@@ -72,10 +64,8 @@ describe("Unsplash", () => {
     it("should overwrite the api url", () => {
       const apiUrl = "http://foo.com";
       const unsplash = new Unsplash({
-        applicationId,
-        secret,
-        apiUrl,
-        callbackUrl
+        accessKey,
+        apiUrl
       });
 
       expect(unsplash._apiUrl).toBe(apiUrl);
@@ -84,22 +74,38 @@ describe("Unsplash", () => {
     it("should overwrite the api version", () => {
       const apiVersion = "v8";
       const unsplash = new Unsplash({
-        applicationId,
-        secret,
-        apiVersion,
-        callbackUrl
+        accessKey,
+        apiVersion
       });
 
       expect(unsplash._apiVersion).toBe(apiVersion);
+    });
+
+    it("should set the secret argument on the Unsplash instance", () => {
+      const unsplash = new Unsplash({
+        accessKey,
+        secret
+      });
+
+      expect(unsplash._secret).toBe(secret);
+    });
+
+    it("should set the callbackUrl argument on the Unsplash instance", () => {
+      const unsplash = new Unsplash({
+        accessKey,
+        secret,
+        callbackUrl
+      });
+
+      expect(unsplash._callbackUrl).toBe(callbackUrl);
     });
   });
 
   describe("headers", () => {
     it("should store an empty object if nothing is passed", () => {
       const unsplash = new Unsplash({
-        applicationId,
-        secret,
-        callbackUrl
+        accessKey,
+        secret
       });
 
       expect(unsplash._headers).toEqual({});
@@ -108,7 +114,7 @@ describe("Unsplash", () => {
 
   describe("auth", () => {
     let unsplash = new Unsplash({
-      applicationId,
+      accessKey,
       secret,
       callbackUrl
     });
@@ -120,7 +126,7 @@ describe("Unsplash", () => {
         ))
         .toBe([
           "https://unsplash.com/oauth/authorize",
-          `?client_id=${applicationId}`,
+          `?client_id=${accessKey}`,
           "&redirect_uri=http://foo.com",
           "&response_type=code",
           "&scope=public+read_user"
@@ -131,7 +137,7 @@ describe("Unsplash", () => {
         expect(unsplash.auth.getAuthenticationUrl())
         .toBe([
           "https://unsplash.com/oauth/authorize",
-          `?client_id=${applicationId}`,
+          `?client_id=${accessKey}`,
           "&redirect_uri=http://foo.com",
           "&response_type=code",
           "&scope=public"
@@ -149,7 +155,7 @@ describe("Unsplash", () => {
           url: "https://unsplash.com/oauth/token",
           method: "POST",
           body: {
-            client_id: "applicationId",
+            client_id: "accessKey",
             client_secret: "secret",
             redirect_uri: "http://foo.com",
             code: "oauth_code",
@@ -164,7 +170,7 @@ describe("Unsplash", () => {
 
     describe("setBearerToken", () => {
       let unsplash = new Unsplash({
-        applicationId,
+        accessKey,
         secret,
         callbackUrl
       });
@@ -188,7 +194,7 @@ describe("Unsplash", () => {
     });
 
     let unsplash = new Unsplash({
-      applicationId,
+      accessKey,
       secret,
       callbackUrl
     });
@@ -232,9 +238,8 @@ describe("Unsplash", () => {
     });
 
     let unsplash = new Unsplash({
-      applicationId,
-      secret,
-      callbackUrl
+      accessKey,
+      secret
     });
 
     describe("profile", () => {
@@ -253,7 +258,7 @@ describe("Unsplash", () => {
     describe("photos", () => {
       it("should make a GET request to /users/{username}/photos", () => {
         let spy = spyOn(unsplash, "request");
-        unsplash.users.photos("naoufal", 2, 15, "latest", true);
+        unsplash.users.photos("naoufal", 2, 15, "latest", { orientation: "landscape", stats: true });
 
         expect(spy.calls.length).toEqual(1);
         expect(spy.calls[0].arguments).toEqual([{
@@ -263,7 +268,8 @@ describe("Unsplash", () => {
             page: 2,
             per_page: 15,
             order_by: "latest",
-            stats: true
+            stats: true,
+            orientation: "landscape"
           }
         }]);
       });
@@ -272,7 +278,7 @@ describe("Unsplash", () => {
     describe("likes", () => {
       it("should make a GET request to /users/{username}/likes", () => {
         let spy = spyOn(unsplash, "request");
-        unsplash.users.likes("naoufal");
+        unsplash.users.likes("naoufal", 1, 10, "latest", { orientation: "landscape" });
 
         expect(spy.calls.length).toEqual(1);
         expect(spy.calls[0].arguments).toEqual([{
@@ -281,7 +287,8 @@ describe("Unsplash", () => {
           query: {
             page: 1,
             per_page: 10,
-            order_by: "latest"
+            order_by: "latest",
+            orientation: "landscape"
           }
         }]);
       });
@@ -325,9 +332,8 @@ describe("Unsplash", () => {
 
   describe("photos", () => {
     let unsplash = new Unsplash({
-      applicationId,
-      secret,
-      callbackUrl
+      accessKey,
+      secret
     });
 
     afterEach(function () {
@@ -352,87 +358,28 @@ describe("Unsplash", () => {
       });
     });
 
-    describe("listCuratedPhotos", () => {
-      it("should make a GET request to /photos/curated", () => {
-        let spy = spyOn(unsplash, "request");
-        unsplash.photos.listCuratedPhotos(2, 15);
-
-        expect(spy.calls.length).toEqual(1);
-        expect(spy.calls[0].arguments).toEqual([{
-          method: "GET",
-          url: "/photos/curated",
-          query: {
-            page: 2,
-            per_page: 15,
-            order_by: "latest"
-          }
-        }]);
-      });
-    });
-
-    describe("searchPhotos", () => {
-      it("should make a GET request to /photos/search", () => {
-        let spy = spyOn(unsplash, "request");
-        unsplash.photos.searchPhotos("cats", [11, 4, 88], 2, 15);
-
-        expect(spy.calls.length).toEqual(1);
-        expect(spy.calls[0].arguments).toEqual([{
-          method: "GET",
-          url: "/photos/search",
-          query: {
-            query: "cats",
-            category: "11,4,88",
-            page: 2,
-            per_page: 15
-          }
-        }]);
-      });
-
-      it("should default to empty cateogory when no category array is passed", () => {
-        let spy = spyOn(unsplash, "request");
-        unsplash.photos.searchPhotos("cats", undefined, 2, 15);
-
-        expect(spy.calls.length).toEqual(1);
-        expect(spy.calls[0].arguments).toEqual([{
-          method: "GET",
-          url: "/photos/search",
-          query: {
-            query: "cats",
-            category: "",
-            page: 2,
-            per_page: 15
-          }
-        }]);
-      });
-    });
-
     describe("getPhoto", () => {
       it("should make a GET request to /photos/{id}", () => {
         let spy = spyOn(unsplash, "request");
-        unsplash.photos.getPhoto(88, 1920, 1080);
+        unsplash.photos.getPhoto(88);
 
         expect(spy.calls.length).toEqual(1);
         expect(spy.calls[0].arguments).toEqual([{
           method: "GET",
-          url: "/photos/88",
-          query: {
-            w: 1920,
-            h: 1080,
-            rect: undefined
-          }
+          url: "/photos/88"
         }]);
       });
     });
 
     describe("getPhotoStats", () => {
-      it("should make a GET request to /photos/{id}/stats", () => {
+      it("should make a GET request to /photos/{id}/statistics", () => {
         let spy = spyOn(unsplash, "request");
         unsplash.photos.getPhotoStats(90);
 
         expect(spy.calls.length).toEqual(1);
         expect(spy.calls[0].arguments).toEqual([{
           method: "GET",
-          url: "/photos/90/stats"
+          url: "/photos/90/statistics"
         }]);
       });
     });
@@ -460,37 +407,9 @@ describe("Unsplash", () => {
       });
     });
 
-    describe("uploadPhoto", () => {
-      let unsplash = new Unsplash({
-        applicationId,
-        secret,
-        callbackUrl
-      });
-
-      it("should throw is bearerToken when not set", () => {
-        expect(unsplash.photos.uploadPhoto.bind(null, "photo"))
-          .toThrow(/Requires a bearerToken to be set./);
-      });
-
-      it("should make a POST request to /photos", () => {
-        let spy = spyOn(unsplash, "request");
-        unsplash.auth.setBearerToken("foo");
-        unsplash.photos.uploadPhoto("photo.jpg");
-
-        expect(spy.calls.length).toEqual(1);
-        expect(spy.calls[0].arguments).toEqual([{
-          method: "POST",
-          url: "/photos",
-          body: {
-            photo: "photo.jpg"
-          }
-        }]);
-      });
-    });
-
     describe("likePhoto", () => {
       let unsplash = new Unsplash({
-        applicationId,
+        accessKey,
         secret,
         callbackUrl
       });
@@ -515,7 +434,7 @@ describe("Unsplash", () => {
 
     describe("unlikePhoto", () => {
       let unsplash = new Unsplash({
-        applicationId,
+        accessKey,
         secret,
         callbackUrl
       });
@@ -566,68 +485,41 @@ describe("Unsplash", () => {
         expect(() => unsplash.photos.downloadPhoto(mockPhotoResponse)).toThrow(/Object received is not a photo/);
       });
     });
-  });
 
-  describe("categories", () => {
-    let unsplash = new Unsplash({
-      applicationId,
-      secret,
-      callbackUrl
-    });
-
-    afterEach(function () {
-      restoreSpies();
-    });
-
-    describe("listCategories", () => {
-      it("should make a GET request to /categories", () => {
+    describe("trackDownload", () => {
+      it("should make a GET request to the photo's download_location", () => {
         let spy = spyOn(unsplash, "request");
-        unsplash.categories.listCategories();
+        const mockPhotoResponse = {
+          "id": "123123",
+          "links": {
+            "download_location": "https://api.unsplash.com/photos/123123/download?ixid=drake"
+          }
+        };
+
+        unsplash.photos.trackDownload(mockPhotoResponse);
 
         expect(spy.calls.length).toEqual(1);
         expect(spy.calls[0].arguments).toEqual([{
           method: "GET",
-          url: "/categories"
-        }]);
-      });
-    });
-
-    describe("category", () => {
-      it("should make a GET request to /categories/{id}", () => {
-        let spy = spyOn(unsplash, "request");
-        unsplash.categories.category(88);
-
-        expect(spy.calls.length).toEqual(1);
-        expect(spy.calls[0].arguments).toEqual([{
-          method: "GET",
-          url: "/categories/88"
-        }]);
-      });
-    });
-
-    describe("categoryPhotos", () => {
-      it("should make a GET request to /categories/{id}/photos", () => {
-        let spy = spyOn(unsplash, "request");
-        unsplash.categories.categoryPhotos(88, 2, 15);
-
-        expect(spy.calls.length).toEqual(1);
-        expect(spy.calls[0].arguments).toEqual([{
-          method: "GET",
-          url: "/categories/88/photos",
+          url: "/photos/123123/download",
           query: {
-            page: 2,
-            per_page: 15
+            ixid: "drake"
           }
         }]);
+      });
+
+      it("should throw an error if passed a malformed photo object", () => {
+        const mockPhotoResponse = "123123";
+
+        expect(() => unsplash.photos.trackDownload(mockPhotoResponse)).toThrow(/Object received is not a photo/);
       });
     });
   });
 
   describe("collections", () => {
     let unsplash = new Unsplash({
-      applicationId,
-      secret,
-      callbackUrl
+      accessKey,
+      secret
     });
 
     afterEach(function () {
@@ -651,40 +543,6 @@ describe("Unsplash", () => {
       });
     });
 
-    describe("listCuratedCollections", () => {
-      it("should make a GET request to /collections/curated", () => {
-        let spy = spyOn(unsplash, "request");
-        unsplash.collections.listCuratedCollections(2, 15);
-
-        expect(spy.calls.length).toEqual(1);
-        expect(spy.calls[0].arguments).toEqual([{
-          method: "GET",
-          url: "/collections/curated",
-          query: {
-            page: 2,
-            per_page: 15
-          }
-        }]);
-      });
-    });
-
-    describe("listFeaturedCollections", () => {
-      it("should make a GET request to /collections/featured", () => {
-        let spy = spyOn(unsplash, "request");
-        unsplash.collections.listFeaturedCollections(2, 15);
-
-        expect(spy.calls.length).toEqual(1);
-        expect(spy.calls[0].arguments).toEqual([{
-          method: "GET",
-          url: "/collections/featured",
-          query: {
-            page: 2,
-            per_page: 15
-          }
-        }]);
-      });
-    });
-
     describe("getCollection", () => {
       it("should make a GET request to /collections/{id}", () => {
         let spy = spyOn(unsplash, "request");
@@ -698,23 +556,10 @@ describe("Unsplash", () => {
       });
     });
 
-    describe("getCuratedCollection", () => {
-      it("should make a GET request to /collections/curated/{id}", () => {
-        let spy = spyOn(unsplash, "request");
-        unsplash.collections.getCuratedCollection(88);
-
-        expect(spy.calls.length).toEqual(1);
-        expect(spy.calls[0].arguments).toEqual([{
-          method: "GET",
-          url: "/collections/curated/88"
-        }]);
-      });
-    });
-
     describe("getCollectionPhotos", () => {
       it("should make a GET request to /collections/{id}/photos", () => {
         let spy = spyOn(unsplash, "request");
-        unsplash.collections.getCollectionPhotos(88, 2, 15);
+        unsplash.collections.getCollectionPhotos(88, 2, 15, "latest", { orientation: "landscape" });
 
         expect(spy.calls.length).toEqual(1);
         expect(spy.calls[0].arguments).toEqual([{
@@ -723,25 +568,8 @@ describe("Unsplash", () => {
           query: {
             page: 2,
             per_page: 15,
-            order_by: "latest"
-          }
-        }]);
-      });
-    });
-
-    describe("getCuratedCollectionPhotos", () => {
-      it("should make a GET request to /collections/curated/{id}/photos", () => {
-        let spy = spyOn(unsplash, "request");
-        unsplash.collections.getCuratedCollectionPhotos(88, 2, 15);
-
-        expect(spy.calls.length).toEqual(1);
-        expect(spy.calls[0].arguments).toEqual([{
-          method: "GET",
-          url: "/collections/curated/88/photos",
-          query: {
-            page: 2,
-            per_page: 15,
-            order_by: "latest"
+            order_by: "latest",
+            orientation: "landscape"
           }
         }]);
       });
@@ -812,7 +640,7 @@ describe("Unsplash", () => {
       });
     });
 
-    describe("removePhotoToCollection", () => {
+    describe("removePhotoFromCollection", () => {
       it("should make a GET request to /collections/{id}/remove", () => {
         let spy = spyOn(unsplash, "request");
         unsplash.collections.removePhotoFromCollection(88, "abc123");
@@ -841,9 +669,8 @@ describe("Unsplash", () => {
 
   describe("stats", () => {
     let unsplash = new Unsplash({
-      applicationId,
-      secret,
-      callbackUrl
+      accessKey,
+      secret
     });
 
     describe("total", () => {
@@ -866,49 +693,21 @@ describe("Unsplash", () => {
     });
 
     let unsplash = new Unsplash({
-      applicationId,
-      secret,
-      callbackUrl
-    });
-
-    describe("all", () => {
-      it("should make a GET request to /search", () => {
-        let spy = spyOn(unsplash, "request");
-        unsplash.search.all("dog");
-
-        expect(spy.calls.length).toEqual(1);
-        expect(spy.calls[0].arguments).toEqual([{
-          method: "GET",
-          url: "/search",
-          query: {
-            query: "dog",
-            page: 1,
-            per_page: 10
-          }
-        }]);
-      });
-
-      it("should submit an empty query if the keyword is an empty string", () => {
-        let spy = spyOn(unsplash, "request");
-        unsplash.search.all();
-
-        expect(spy.calls.length).toEqual(1);
-        expect(spy.calls[0].arguments).toEqual([{
-          method: "GET",
-          url: "/search",
-          query: {
-            query: "",
-            page: 1,
-            per_page: 10
-          }
-        }]);
-      });
+      accessKey,
+      secret
     });
 
     describe("photos", () => {
       it("should make a GET request to /search/photos", () => {
         let spy = spyOn(unsplash, "request");
-        unsplash.search.photos("nature");
+        unsplash.search.photos("nature", 1, 10, {
+          collections: [1,2],
+          orientation: "landscape",
+          contentFilter: "low",
+          lang: "en",
+          color: "brown",
+          orderBy: "relevant"
+        });
 
         expect(spy.calls.length).toEqual(1);
         expect(spy.calls[0].arguments).toEqual([{
@@ -917,7 +716,13 @@ describe("Unsplash", () => {
           query: {
             query: "nature",
             page: 1,
-            per_page: 10
+            per_page: 10,
+            collections: "1,2",
+            orientation: "landscape",
+            lang: "en",
+            content_filter: "low",
+            color: "brown",
+            order_by: "relevant"
           }
         }]);
       });
@@ -932,6 +737,22 @@ describe("Unsplash", () => {
           url: "/search/photos",
           query: {
             query: "",
+            page: 1,
+            per_page: 10
+          }
+        }]);
+      });
+
+      it("should encode non-latin keyword characters", () => {
+        let spy = spyOn(unsplash, "request");
+        unsplash.search.photos("Жжж");
+
+        expect(spy.calls.length).toEqual(1);
+        expect(spy.calls[0].arguments).toEqual([{
+          method: "GET",
+          url: "/search/photos",
+          query: {
+            query: "%D0%96%D0%B6%D0%B6",
             page: 1,
             per_page: 10
           }
@@ -971,6 +792,22 @@ describe("Unsplash", () => {
           }
         }]);
       });
+
+      it("should encode non-latin keyword characters", () => {
+        let spy = spyOn(unsplash, "request");
+        unsplash.search.users("Жжж");
+
+        expect(spy.calls.length).toEqual(1);
+        expect(spy.calls[0].arguments).toEqual([{
+          method: "GET",
+          url: "/search/users",
+          query: {
+            query: "%D0%96%D0%B6%D0%B6",
+            page: 1,
+            per_page: 10
+          }
+        }]);
+      });
     });
 
     describe("collections", () => {
@@ -1005,19 +842,23 @@ describe("Unsplash", () => {
           }
         }]);
       });
+
+      it("should encode non-latin keyword characters", () => {
+        let spy = spyOn(unsplash, "request");
+        unsplash.search.collections("Жжж");
+
+        expect(spy.calls.length).toEqual(1);
+        expect(spy.calls[0].arguments).toEqual([{
+          method: "GET",
+          url: "/search/collections",
+          query: {
+            query: "%D0%96%D0%B6%D0%B6",
+            page: 1,
+            per_page: 10
+          }
+        }]);
+      });
     });
-  });
-
-  describe("request", () => {
-    // it("should call fetch", () => {
-    //   let unsplash = new Unsplash({
-    //     applicationId,
-    //     secret,
-    //     callbackUrl
-    //   });
-
-    //   unsplash.currentUser.profile();
-    // });
   });
 
   describe("utils", () => {
@@ -1047,7 +888,7 @@ describe("Unsplash", () => {
       const classFixture = {
         _apiUrl: "http://foo.com",
         _apiVersion: "v1",
-        _applicationId: "bar"
+        _accessKey: "bar"
       };
 
       const optionsFixture = {
@@ -1076,7 +917,7 @@ describe("Unsplash", () => {
         expect(url).toBe("http://foo.com/bar?foo=bar");
       });
 
-      it("should return a fetchOptions object with `Client-ID {applicationId}` Authorization header", () => {
+      it("should return a fetchOptions object with `Client-ID {accessKey}` Authorization header", () => {
         let authorizationHeader = buildFetchOptions
           .bind(classFixture)(optionsFixture).options
           .headers["Authorization"];
