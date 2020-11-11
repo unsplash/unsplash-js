@@ -1,16 +1,32 @@
-import { API_URL, API_VERSION } from "./constants";
-import { buildFetchOptions } from "./utils";
+import { API_URL, API_VERSION } from './constants';
+import { buildFetchOptions } from './utils';
 
-import auth from "./methods/auth";
-import currentUser from "./methods/currentUser";
-import users from "./methods/users";
-import photos from "./methods/photos";
-import collections from "./methods/collections";
-import search from "./methods/search";
-import stats from "./methods/stats";
+import auth from './methods/auth';
+import currentUser from './methods/currentUser';
+import users from './methods/users';
+import photos from './methods/photos';
+import collections from './methods/collections';
+import search from './methods/search';
+import stats from './methods/stats';
 
 export default class Unsplash {
-  constructor(options = {}) {
+  _apiUrl: any;
+  _apiVersion: any;
+  _accessKey: any;
+  _secret: any;
+  _callbackUrl: any;
+  _bearerToken: any;
+  _headers: any;
+  _timeout: any;
+  auth: any;
+  currentUser: any;
+  users: any;
+  photos: any;
+  collections: any;
+  search: any;
+  stats: any;
+
+  constructor(options: any = {}) {
     this._apiUrl = options.apiUrl || API_URL;
     this._apiVersion = options.apiVersion || API_VERSION;
     this._accessKey = options.accessKey;
@@ -36,6 +52,6 @@ export default class Unsplash {
   }
 }
 
-export function toJson(res) {
-  return typeof res.json === "function" ? res.json() : res;
+export function toJson(res: any) {
+  return typeof res.json === 'function' ? res.json() : res;
 }

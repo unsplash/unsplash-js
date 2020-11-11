@@ -1,17 +1,17 @@
 export default function collections() {
   return {
     listCollections: (page = 1, perPage = 10) => {
-      const url = "/collections";
+      const url = '/collections';
 
       const query = {
         per_page: perPage,
-        page
+        page,
       };
 
       return this.request({
         url: url,
-        method: "GET",
-        query
+        method: 'GET',
+        query,
       });
     },
 
@@ -23,12 +23,12 @@ export default function collections() {
 
     updateCollection: createUpdateCollection.bind(this),
 
-    deleteCollection: (id) => {
+    deleteCollection: id => {
       const url = `/collections/${id}`;
 
       return this.request({
         url: url,
-        method: "DELETE"
+        method: 'DELETE',
       });
     },
 
@@ -37,10 +37,10 @@ export default function collections() {
 
       return this.request({
         url: url,
-        method: "POST",
+        method: 'POST',
         body: {
-          photo_id: photoId
-        }
+          photo_id: photoId,
+        },
       });
     },
 
@@ -49,25 +49,25 @@ export default function collections() {
 
       return this.request({
         url: url,
-        method: "DELETE"
+        method: 'DELETE',
       });
     },
 
-    listRelatedCollections: (collectionId) => {
+    listRelatedCollections: collectionId => {
       const url = `/collections/${collectionId}/related`;
 
       return this.request({
         url: url,
-        method: "GET"
+        method: 'GET',
       });
-    }
+    },
   };
 }
 
 function collection(id) {
   return this.request({
     url: `/collections/${id}`,
-    method: "GET"
+    method: 'GET',
   });
 }
 
@@ -75,14 +75,14 @@ function collectionPhotos(
   id,
   page = 1,
   perPage = 10,
-  orderBy = "latest",
-  options = {},
+  orderBy = 'latest',
+  options: any = {}
 ) {
   const query = {
     per_page: perPage,
     order_by: orderBy,
     orientation: options.orientation,
-    page
+    page,
   };
 
   Object.keys(query).forEach(key => {
@@ -93,26 +93,22 @@ function collectionPhotos(
 
   return this.request({
     url: `/collections/${id}/photos`,
-    method: "GET",
-    query
+    method: 'GET',
+    query,
   });
 }
 
 function createUpdateCollection(id, title, description, isPrivate) {
-  const url = id
-    ? `/collections/${id}`
-    : "/collections";
+  const url = id ? `/collections/${id}` : '/collections';
   const body = {
     title,
     description,
-    "private": isPrivate
+    private: isPrivate,
   };
 
   return this.request({
     url: url,
-    method: id
-      ? "PUT"
-      : "POST",
-    body
+    method: id ? 'PUT' : 'POST',
+    body,
   });
 }

@@ -1,43 +1,43 @@
-import { getUrlComponents } from "../utils";
-import get from "lodash.get";
+import { getUrlComponents } from '../utils';
+import get from 'lodash.get';
 
 export default function photos() {
   return {
-    listPhotos: (page = 1, perPage = 10, orderBy = "latest")  => {
-      const url = "/photos";
+    listPhotos: (page = 1, perPage = 10, orderBy = 'latest') => {
+      const url = '/photos';
       const query = {
         page,
         per_page: perPage,
-        order_by: orderBy
+        order_by: orderBy,
       };
 
       return this.request({
         url,
-        method: "GET",
-        query
+        method: 'GET',
+        query,
       });
     },
 
-    getPhoto: (id) => {
+    getPhoto: id => {
       const url = `/photos/${id}`;
 
       return this.request({
         url,
-        method: "GET"
+        method: 'GET',
       });
     },
 
-    getPhotoStats: (id) => {
+    getPhotoStats: id => {
       const url = `/photos/${id}/statistics`;
 
       return this.request({
         url,
-        method: "GET"
+        method: 'GET',
       });
     },
 
-    getRandomPhoto: (options = {}) => {
-      const url = "/photos/random";
+    getRandomPhoto: (options: any = {}) => {
+      const url = '/photos/random';
       const collections = options.collections || [];
 
       const query = {
@@ -47,7 +47,7 @@ export default function photos() {
         collections: collections.join(),
         query: options.query,
         c: options.cacheBuster || new Date().getTime(), // Avoid ajax response caching
-        count: options.count
+        count: options.count,
       };
 
       Object.keys(query).forEach(key => {
@@ -58,46 +58,46 @@ export default function photos() {
 
       return this.request({
         url,
-        method: "GET",
-        query
+        method: 'GET',
+        query,
       });
     },
 
-    likePhoto: (id) => {
+    likePhoto: id => {
       if (!this._bearerToken) {
-        throw new Error("Requires a bearerToken to be set.");
+        throw new Error('Requires a bearerToken to be set.');
       }
 
       const url = `/photos/${id}/like`;
 
       return this.request({
         url,
-        method: "POST"
+        method: 'POST',
       });
     },
 
-    unlikePhoto: (id) => {
+    unlikePhoto: id => {
       if (!this._bearerToken) {
-        throw new Error("Requires a bearerToken to be set.");
+        throw new Error('Requires a bearerToken to be set.');
       }
 
       const url = `/photos/${id}/like`;
 
       return this.request({
         url,
-        method: "DELETE"
+        method: 'DELETE',
       });
     },
 
     // Deprecated in 6.2
     downloadPhoto: track.bind(this),
 
-    trackDownload: track.bind(this)
+    trackDownload: track.bind(this),
   };
 }
 
 function track(photo) {
-  const downloadLocation = get(photo, "links.download_location", undefined);
+  const downloadLocation = get(photo, 'links.download_location', undefined);
 
   if (downloadLocation === undefined) {
     throw new Error(`Object received is not a photo. ${photo}`);
@@ -107,7 +107,7 @@ function track(photo) {
 
   return this.request({
     url: urlComponents.pathname,
-    method: "GET",
-    query: urlComponents.query
+    method: 'GET',
+    query: urlComponents.query,
   });
 }

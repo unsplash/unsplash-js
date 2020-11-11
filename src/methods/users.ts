@@ -1,11 +1,11 @@
 export default function users() {
   return {
-    profile: (username) => {
+    profile: username => {
       const url = `/users/${username}`;
 
       return this.request({
         url,
-        method: "GET"
+        method: 'GET',
       });
     },
 
@@ -13,8 +13,8 @@ export default function users() {
       username,
       page = 1,
       perPage = 10,
-      orderBy = "latest",
-      options = {}
+      orderBy = 'latest',
+      options: any = {}
     ) => {
       const stats = options.stats || false;
       const url = `/users/${username}/photos`;
@@ -23,7 +23,7 @@ export default function users() {
         per_page: perPage,
         order_by: orderBy,
         orientation: options.orientation,
-        stats
+        stats,
       };
 
       Object.keys(query).forEach(key => {
@@ -34,18 +34,24 @@ export default function users() {
 
       return this.request({
         url,
-        method: "GET",
-        query
+        method: 'GET',
+        query,
       });
     },
 
-    likes: (username, page = 1, perPage = 10, orderBy = "latest", options = {}) => {
+    likes: (
+      username,
+      page = 1,
+      perPage = 10,
+      orderBy = 'latest',
+      options: any = {}
+    ) => {
       const url = `/users/${username}/likes`;
       const query = {
         page,
         per_page: perPage,
         order_by: orderBy,
-        orientation: options.orientation
+        orientation: options.orientation,
       };
 
       Object.keys(query).forEach(key => {
@@ -56,38 +62,38 @@ export default function users() {
 
       return this.request({
         url,
-        method: "GET",
-        query
+        method: 'GET',
+        query,
       });
     },
 
-    collections: (username, page = 1, perPage = 10, orderBy = "published") => {
+    collections: (username, page = 1, perPage = 10, orderBy = 'published') => {
       const url = `/users/${username}/collections`;
       const query = {
         page,
         per_page: perPage,
-        order_by: orderBy
+        order_by: orderBy,
       };
 
       return this.request({
         url,
-        method: "GET",
-        query
+        method: 'GET',
+        query,
       });
     },
 
-    statistics: (username, resolution = "days", quantity = 30) => {
+    statistics: (username, resolution = 'days', quantity = 30) => {
       const url = `/users/${username}/statistics`;
       const query = {
         resolution,
-        quantity
+        quantity,
       };
 
       return this.request({
         url,
-        method: "GET",
-        query
+        method: 'GET',
+        query,
       });
-    }
+    },
   };
 }

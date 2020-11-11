@@ -1,16 +1,16 @@
 export default function currentUser() {
   return {
     profile: () => {
-      const url = "/me";
+      const url = '/me';
 
       return this.request({
         url,
-        method: "GET"
+        method: 'GET',
       });
     },
 
-    updateProfile: (options = {}) => {
-      const endpointUrl = "/me";
+    updateProfile: (options: any = {}) => {
+      const endpointUrl = '/me';
 
       let {
         username,
@@ -20,7 +20,7 @@ export default function currentUser() {
         url,
         location,
         bio,
-        instagramUsername
+        instagramUsername,
       } = options;
 
       let body = {
@@ -31,7 +31,7 @@ export default function currentUser() {
         url,
         location,
         bio,
-        instagram_username: instagramUsername
+        instagram_username: instagramUsername,
       };
 
       Object.keys(body).forEach(key => {
@@ -42,10 +42,9 @@ export default function currentUser() {
 
       return this.request({
         url: endpointUrl,
-        method: "PUT",
-        body
+        method: 'PUT',
+        body,
       });
-    }
+    },
   };
-
 }
