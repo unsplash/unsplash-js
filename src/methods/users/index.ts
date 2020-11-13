@@ -1,5 +1,6 @@
-import { compactDefined, OrderBy, Orientation } from '../../helpers/types';
+import { compactDefined } from '../../helpers/fp';
 import { createRequestParams } from '../../helpers/request';
+import { OrderBy, Orientation } from '../../types/request';
 
 export const getProfile = ({ username }: { username: string }) =>
   createRequestParams({

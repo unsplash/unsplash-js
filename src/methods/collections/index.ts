@@ -1,5 +1,6 @@
+import { compactDefined } from '../../helpers/fp';
 import { createRequestParams } from '../../helpers/request';
-import { compactDefined, OrderBy } from '../../helpers/types';
+import { OrderBy } from '../../types/request';
 
 export const getPhotos = ({
   collectionId,

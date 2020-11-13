@@ -1,5 +1,5 @@
+import { compactDefined } from '../../helpers/fp';
 import { createRequestParams } from '../../helpers/request';
-import { compactDefined } from '../../helpers/types';
 import { APISearchFilters, ContentFilter, Language } from './types';
 
 export type SearchParams = {

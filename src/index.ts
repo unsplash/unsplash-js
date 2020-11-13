@@ -1,10 +1,9 @@
-import { flow } from 'fp-ts/lib/function';
-
 import { initMakeRequest } from './helpers/request';
 import * as photos from './methods/photos';
 import * as search from './methods/search';
 import * as users from './methods/users';
 import * as collections from './methods/collections';
+import { flow } from './helpers/fp';
 
 export const Unsplash = flow(initMakeRequest, makeRequest => ({
   photos: {

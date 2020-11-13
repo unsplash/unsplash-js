@@ -1,4 +1,4 @@
-import { AnyJson, checkIsString } from './types';
+import { AnyJson, checkIsString } from './typescript';
 
 type ErrorResponse = {
   errors: string[];

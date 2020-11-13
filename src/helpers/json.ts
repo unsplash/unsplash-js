@@ -1,6 +1,5 @@
 import * as ContentTypeHelpers from 'content-type';
-
-import { AnyJson } from './types';
+import { AnyJson } from './typescript';
 
 const CONTENT_TYPE_RESPONSE_HEADER = 'content-type';
 const CONTENT_TYPE_JSON = 'application/json';

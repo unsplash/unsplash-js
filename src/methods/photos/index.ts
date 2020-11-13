@@ -1,7 +1,8 @@
 import parse from 'url-parse';
+import { compactDefined } from '../../helpers/fp';
 
 import { createRequestParams } from '../../helpers/request';
-import { compactDefined, OrderBy, Orientation } from '../../helpers/types';
+import { OrderBy, Orientation } from '../../types/request';
 
 export const listFeed = ({
   page,

@@ -1,6 +1,6 @@
 import { getErrorBadStatusCode } from './errors';
 import { getJsonResponse } from './json';
-import { AnyJson } from './types';
+import { AnyJson } from './typescript';
 
 type ResponseOrError<T> =
   | { response: T; errors: undefined }

@@ -1,9 +1,8 @@
-import { pipe } from 'fp-ts/lib/function';
 import { ParsedUrlQueryInput } from 'querystring';
 import { addQueryToUrl, appendPathnameToUrl } from 'url-transformers';
-
+import { flow, compactDefined } from './fp';
 import { handleFetchResponse } from './response';
-import { compactDefined, OmitStrict } from './types';
+import { OmitStrict } from './typescript';
 
 type BuildUrlParams = {
   pathname: string;
@@ -14,11 +13,10 @@ const buildUrl = ({ apiUrl }: Required<Pick<InitArguments, 'apiUrl'>>) => ({
   pathname,
   query = {},
 }: BuildUrlParams) =>
-  pipe(
-    apiUrl,
+  flow(
     appendPathnameToUrl(pathname),
     addQueryToUrl(compactDefined(query)),
-  );
+  )(apiUrl);
 
 type FetchParams = Pick<RequestInit, 'method' | 'body' | 'headers'>;
 type RequestParams = BuildUrlParams & FetchParams;
