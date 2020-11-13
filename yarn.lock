@@ -7379,6 +7379,11 @@ ripemd160@^2.0.0, ripemd160@^2.0.1:
     hash-base "^3.0.0"
     inherits "^2.0.1"
 
+rollup-plugin-analyzer@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-analyzer/-/rollup-plugin-analyzer-3.3.0.tgz#52fb30465ae927d9c078b6ec90c578cfb9164fc2"
+  integrity sha512-zUPGitW4usmZcVa0nKecRvw3odtXgnxdCben9Hx1kxVoR3demek8RU9tmRG/R35hnRPQTb7wEsYEe3GUcjxIMA==
+
 rollup-plugin-sourcemaps@^0.6.2:
   version "0.6.3"
   resolved "https://registry.yarnpkg.com/rollup-plugin-sourcemaps/-/rollup-plugin-sourcemaps-0.6.3.tgz#bf93913ffe056e414419607f1d02780d7ece84ed"
