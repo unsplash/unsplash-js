@@ -23,6 +23,11 @@ export function flow<A extends Array<unknown>, B, C>(
   ab: (...a: A) => B,
   bc: (b: B) => C,
 ): (...a: A) => C;
+export function flow<A extends Array<unknown>, B, C, D>(
+  ab: (...a: A) => B,
+  bc: (b: B) => C,
+  cd: (b: C) => D,
+): (...a: A) => D;
 export function flow(...fns: Array<Function>): Function {
   const len = fns.length - 1;
   return function(this: any, ...x: Array<any>) {
@@ -33,3 +38,7 @@ export function flow(...fns: Array<Function>): Function {
     return y;
   };
 }
+
+export const compose = <B, C>(fn: (b: B) => C) => <A>(fn2: (b: A) => B) => (
+  x: A,
+) => fn(fn2(x));

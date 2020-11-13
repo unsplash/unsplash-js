@@ -3,31 +3,31 @@ import * as photos from './methods/photos';
 import * as search from './methods/search';
 import * as users from './methods/users';
 import * as collections from './methods/collections';
-import { flow } from './helpers/fp';
+import { compose, flow } from './helpers/fp';
 
-export const Unsplash = flow(initMakeRequest, makeRequest => ({
+export const Unsplash = flow(initMakeRequest, compose, makeRequest => ({
   photos: {
-    get: flow(photos.get, makeRequest),
-    listFeed: flow(photos.listFeed, makeRequest),
-    getStats: flow(photos.getStats, makeRequest),
-    getRandom: flow(photos.getRandom, makeRequest),
-    track: flow(photos.track, makeRequest),
+    get: makeRequest(photos.get),
+    listFeed: makeRequest(photos.listFeed),
+    getStats: makeRequest(photos.getStats),
+    getRandom: makeRequest(photos.getRandom),
+    track: makeRequest(photos.track),
   },
   users: {
-    getPhotos: flow(users.getPhotos, makeRequest),
-    getCollections: flow(users.getCollections, makeRequest),
-    getLikes: flow(users.getLikes, makeRequest),
-    get: flow(users.get, makeRequest),
+    getPhotos: makeRequest(users.getPhotos),
+    getCollections: makeRequest(users.getCollections),
+    getLikes: makeRequest(users.getLikes),
+    get: makeRequest(users.get),
   },
   search: {
-    getCollections: flow(search.getCollections, makeRequest),
-    getPhotos: flow(search.getPhotos, makeRequest),
-    getUsers: flow(search.getUsers, makeRequest),
+    getCollections: makeRequest(search.getCollections),
+    getPhotos: makeRequest(search.getPhotos),
+    getUsers: makeRequest(search.getUsers),
   },
   collections: {
-    getPhotos: flow(collections.getPhotos, makeRequest),
-    get: flow(collections.get, makeRequest),
-    list: flow(collections.list, makeRequest),
-    getRelated: flow(collections.getRelated, makeRequest),
+    getPhotos: makeRequest(collections.getPhotos),
+    get: makeRequest(collections.get),
+    list: makeRequest(collections.list),
+    getRelated: makeRequest(collections.getRelated),
   },
 }));
