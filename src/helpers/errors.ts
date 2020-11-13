@@ -1,4 +1,4 @@
-import { AnyJson, checkIsString } from './typescript';
+import { AnyJson, checkIsString, isDefined } from './typescript';
 
 type ErrorResponse = {
   errors: string[];
@@ -6,7 +6,7 @@ type ErrorResponse = {
 
 // https://stackoverflow.com/a/8511332
 const checkHasErrors = (response: AnyJson): response is { errors: AnyJson } =>
-  typeof response === 'object' && response !== null && 'errors' in response;
+  isDefined(response) && typeof response === 'object' && 'errors' in response;
 
 const checkIsApiError = (response: AnyJson): response is ErrorResponse =>
   checkHasErrors(response) &&
