@@ -1,8 +1,8 @@
 import { ParsedUrlQueryInput } from 'querystring';
 import { addQueryToUrl, appendPathnameToUrl } from 'url-transformers';
-import { flow, compactDefined } from './fp';
-import { handleFetchResponse } from './response';
-import { OmitStrict } from './typescript';
+import { compactDefined, flow } from './fp';
+import { ABORTED, ApiResponse, handleFetchResponse } from './response';
+import { AnyJson, OmitStrict } from './typescript';
 
 type BuildUrlParams = {
   pathname: string;
@@ -32,6 +32,10 @@ type InitArguments = {
   apiUrl?: string;
 } & OmitStrict<RequestInit, 'method' | 'body'>;
 
+type PromiseWithAbort<T> = Promise<T> & {
+  abort: AbortController['abort'];
+};
+
 export const initMakeRequest = ({
   accessKey,
   apiVersion = 'v1',
@@ -44,7 +48,7 @@ export const initMakeRequest = ({
   method = 'GET',
   headers: endpointHeaders,
   body,
-}: RequestParams) => {
+}: RequestParams): PromiseWithAbort<ApiResponse<AnyJson>> => {
   const url = buildUrl({ apiUrl })({ pathname, query });
 
   const headers = {
@@ -54,12 +58,29 @@ export const initMakeRequest = ({
     Authorization: `Client-ID ${accessKey}`,
   };
 
+  const controller = new AbortController();
+  const signal = controller.signal;
+
   const fetchOptions: RequestInit = {
     method,
     headers,
     body,
+    signal,
     ...generalFetchOptions,
   };
 
-  return fetch(url, fetchOptions).then(handleFetchResponse);
+  const promise = fetch(url, fetchOptions)
+    .catch(err => {
+      if (err.name === 'AbortError') {
+        return ABORTED;
+      } else {
+        throw err;
+      }
+    })
+    .then(handleFetchResponse);
+
+  return {
+    ...promise,
+    abort: controller.abort,
+  };
 };
