@@ -1,7 +1,8 @@
-import parse from 'url-parse';
+import urlHelpers from 'url';
 import * as Query from '../../helpers/query';
 
 import { createRequestParams } from '../../helpers/request';
+import { isDefined } from '../../helpers/typescript';
 import { Orientation, PaginationParams } from '../../types/request';
 
 export const listFeed = (feedParams: PaginationParams) =>
@@ -42,15 +43,14 @@ export const getRandom = ({
     },
   });
 
-const getUrlComponents = (uri: string) => parse(uri, {}, true);
-
 export const track = (photo: { links: { download_location: string } }) => {
   const downloadLocation = photo.links.download_location;
 
-  const urlComponents = getUrlComponents(downloadLocation);
+  const { pathname, query } = urlHelpers.parse(downloadLocation, true);
 
-  return createRequestParams({
-    pathname: urlComponents.pathname,
-    query: urlComponents.query,
-  });
+  if (!isDefined(pathname)) {
+    throw new Error('Could not parse pathname from url.');
+  }
+
+  return createRequestParams({ pathname, query });
 };

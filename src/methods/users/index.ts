@@ -45,7 +45,5 @@ export const getCollections = ({
 }: { username: string } & PaginationParams) =>
   createRequestParams({
     pathname: `/users/${username}/collections`,
-    query: {
-      ...Query.getFeedParams(feedParams),
-    },
+    query: Query.getFeedParams(feedParams),
   });

@@ -77,7 +77,6 @@
     "lodash.get": "4.4.2",
     "querystring": "^0.2.0",
     "url": "^0.11.0",
-    "url-parse": "^1.4.7",
     "url-transformers": "^0.0.9"
   }
 }
