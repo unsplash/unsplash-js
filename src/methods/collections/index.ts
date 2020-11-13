@@ -1,24 +1,14 @@
-import { compactDefined } from '../../helpers/fp';
 import { createRequestParams } from '../../helpers/request';
-import { OrderBy, PaginationParams } from '../../types/request';
+import { PaginationParams } from '../../types/request';
 import * as Query from '../../helpers/query';
 
 export const getPhotos = ({
   collectionId,
-  page,
-  perPage,
-  orderBy,
-}: {
-  collectionId: string;
-  orderBy?: OrderBy;
-} & PaginationParams) =>
+  ...feedParams
+}: { collectionId: string } & PaginationParams) =>
   createRequestParams({
     pathname: `/collections/${collectionId}/photos`,
-    query: compactDefined({
-      page,
-      ...Query.getPerPage(perPage),
-      ...Query.getOrderBy(orderBy),
-    }),
+    query: Query.getFeedParams(feedParams),
   });
 
 export const get = ({ collectionId }: { collectionId: string }) =>
@@ -26,13 +16,10 @@ export const get = ({ collectionId }: { collectionId: string }) =>
     pathname: `/collections/${collectionId}`,
   });
 
-export const list = ({ page, perPage }: PaginationParams) =>
+export const list = (feedParams: Pick<PaginationParams, 'page' | 'perPage'>) =>
   createRequestParams({
     pathname: '/collections',
-    query: {
-      page,
-      ...Query.getPerPage(perPage),
-    },
+    query: Query.getFeedParams(feedParams),
   });
 
 export const getRelated = ({ collectionId }: { collectionId: string }) =>

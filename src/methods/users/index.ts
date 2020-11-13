@@ -1,6 +1,6 @@
 import { compactDefined } from '../../helpers/fp';
 import { createRequestParams } from '../../helpers/request';
-import { OrderBy, Orientation } from '../../types/request';
+import { Orientation, PaginationParams } from '../../types/request';
 import * as Query from '../../helpers/query';
 
 export const getProfile = ({ username }: { username: string }) =>
@@ -10,25 +10,18 @@ export const getProfile = ({ username }: { username: string }) =>
 
 export const getPhotos = ({
   username,
-  page,
-  perPage,
-  orderBy,
   stats,
   orientation,
+  ...feedParams
 }: {
   username: string;
-  page: number;
-  perPage: number;
-  orderBy?: OrderBy;
   stats?: boolean;
   orientation: Orientation;
-}) =>
+} & PaginationParams) =>
   createRequestParams({
     pathname: `/users/${username}/photos`,
     query: compactDefined({
-      page,
-      ...Query.getPerPage(perPage),
-      ...Query.getOrderBy(orderBy),
+      ...Query.getFeedParams(feedParams),
       orientation,
       stats,
     }),
@@ -36,43 +29,24 @@ export const getPhotos = ({
 
 export const getLikes = ({
   username,
-  page,
-  perPage,
-  orderBy,
   orientation,
-}: {
-  username: string;
-  page: number;
-  perPage: number;
-  orderBy?: OrderBy;
-  orientation: Orientation;
-}) =>
+  ...feedParams
+}: { username: string; orientation: Orientation } & PaginationParams) =>
   createRequestParams({
     pathname: `/users/${username}/likes`,
     query: compactDefined({
-      page,
-      ...Query.getPerPage(perPage),
-      ...Query.getOrderBy(orderBy),
+      ...Query.getFeedParams(feedParams),
       orientation,
     }),
   });
 
 export const getCollections = ({
   username,
-  page,
-  perPage,
-  orderBy,
-}: {
-  username: string;
-  page: number;
-  perPage: number;
-  orderBy?: OrderBy;
-}) =>
+  ...feedParams
+}: { username: string } & PaginationParams) =>
   createRequestParams({
     pathname: `/users/${username}/collections`,
     query: {
-      page,
-      ...Query.getPerPage(perPage),
-      ...Query.getOrderBy(orderBy),
+      ...Query.getFeedParams(feedParams),
     },
   });

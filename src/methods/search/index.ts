@@ -28,23 +28,22 @@ export const getPhotos = ({
     pathname: '/search/photos',
     query: compactDefined({
       query,
-      page,
       content_filter: contentFilter,
       lang,
+      ...Query.getFeedParams({ page, perPage }),
       ...Query.getCollections(collectionIds),
-      ...Query.getPerPage(perPage),
       ...filters,
     }),
   });
 
-export const getCollections = ({ query, page, perPage }: SearchParams) =>
+export const getCollections = ({ query, ...feedParams }: SearchParams) =>
   createRequestParams({
     pathname: '/search/collections',
-    query: { query, ...Query.getPerPage(perPage), page },
+    query: { query, ...Query.getFeedParams(feedParams) },
   });
 
-export const getUsers = ({ query, page, perPage }: SearchParams) =>
+export const getUsers = ({ query, ...feedParams }: SearchParams) =>
   createRequestParams({
     pathname: '/search/users',
-    query: { query, ...Query.getPerPage(perPage), page },
+    query: { query, ...Query.getFeedParams(feedParams) },
   });

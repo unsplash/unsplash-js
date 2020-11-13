@@ -8,4 +8,5 @@ export type Orientation = 'landscape' | 'portrait' | 'squarish';
 export type PaginationParams = {
   perPage?: number;
   page?: number;
+  orderBy?: OrderBy;
 };

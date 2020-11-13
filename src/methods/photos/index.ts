@@ -3,20 +3,12 @@ import { compactDefined } from '../../helpers/fp';
 import * as Query from '../../helpers/query';
 
 import { createRequestParams } from '../../helpers/request';
-import { OrderBy, Orientation, PaginationParams } from '../../types/request';
+import { Orientation, PaginationParams } from '../../types/request';
 
-export const listFeed = ({
-  page,
-  perPage,
-  orderBy,
-}: PaginationParams & { orderBy?: OrderBy }) =>
+export const listFeed = (feedParams: PaginationParams) =>
   createRequestParams({
     pathname: `/photos`,
-    query: {
-      page,
-      ...Query.getPerPage(perPage),
-      ...Query.getOrderBy(orderBy),
-    },
+    query: Query.getFeedParams(feedParams),
   });
 
 export const get = ({ photoId }: { photoId: string }) =>
@@ -32,11 +24,7 @@ export const getStats = (id: string) =>
 export const getRandom = ({
   cacheBuster,
   collectionIds,
-  count,
-  featured,
-  orientation,
-  query,
-  username,
+  ...queryParams
 }: {
   collectionIds?: string[];
   featured?: boolean;
@@ -49,11 +37,7 @@ export const getRandom = ({
   createRequestParams({
     pathname: '/photos/random',
     query: compactDefined({
-      featured,
-      username,
-      orientation,
-      query,
-      count,
+      ...queryParams,
       c: cacheBuster || new Date().getTime(), // Avoid ajax response caching
       ...Query.getCollections(collectionIds),
     }),
