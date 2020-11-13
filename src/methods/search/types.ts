@@ -1,4 +1,4 @@
-import { Orientation } from '../../helpers/types';
+import { Orientation } from '../../types/request';
 
 export type APISearchFilters = {
   order_by?: Order;
