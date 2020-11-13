@@ -1,6 +1,7 @@
 import { compactDefined } from '../../helpers/fp';
 import { createRequestParams } from '../../helpers/request';
 import { OrderBy, Orientation } from '../../types/request';
+import * as Query from '../../helpers/query';
 
 export const getProfile = ({ username }: { username: string }) =>
   createRequestParams({
@@ -26,8 +27,8 @@ export const getPhotos = ({
     pathname: `/users/${username}/photos`,
     query: compactDefined({
       page,
-      per_page: perPage,
-      order_by: orderBy,
+      ...Query.getPerPage(perPage),
+      ...Query.getOrderBy(orderBy),
       orientation,
       stats,
     }),
@@ -50,8 +51,8 @@ export const getLikes = ({
     pathname: `/users/${username}/likes`,
     query: compactDefined({
       page,
-      per_page: perPage,
-      order_by: orderBy,
+      ...Query.getPerPage(perPage),
+      ...Query.getOrderBy(orderBy),
       orientation,
     }),
   });
@@ -71,7 +72,7 @@ export const getCollections = ({
     pathname: `/users/${username}/collections`,
     query: {
       page,
-      per_page: perPage,
-      order_by: orderBy,
+      ...Query.getPerPage(perPage),
+      ...Query.getOrderBy(orderBy),
     },
   });

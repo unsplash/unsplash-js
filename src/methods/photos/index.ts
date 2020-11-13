@@ -1,24 +1,21 @@
 import parse from 'url-parse';
 import { compactDefined } from '../../helpers/fp';
+import * as Query from '../../helpers/query';
 
 import { createRequestParams } from '../../helpers/request';
-import { OrderBy, Orientation } from '../../types/request';
+import { OrderBy, Orientation, PaginationParams } from '../../types/request';
 
 export const listFeed = ({
   page,
   perPage,
   orderBy,
-}: {
-  page: number;
-  perPage: number;
-  orderBy: OrderBy;
-}) =>
+}: PaginationParams & { orderBy?: OrderBy }) =>
   createRequestParams({
     pathname: `/photos`,
     query: {
       page,
-      per_page: perPage,
-      order_by: orderBy,
+      ...Query.getPerPage(perPage),
+      ...Query.getOrderBy(orderBy),
     },
   });
 
@@ -57,8 +54,8 @@ export const getRandom = ({
       orientation,
       query,
       count,
-      collections: collectionIds ? collectionIds.join() : undefined,
       c: cacheBuster || new Date().getTime(), // Avoid ajax response caching
+      ...Query.getCollections(collectionIds),
     }),
   });
 

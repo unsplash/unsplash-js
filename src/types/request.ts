@@ -4,3 +4,8 @@ export enum OrderBy {
   OLDEST = 'oldest',
 }
 export type Orientation = 'landscape' | 'portrait' | 'squarish';
+
+export type PaginationParams = {
+  perPage?: number;
+  page?: number;
+};

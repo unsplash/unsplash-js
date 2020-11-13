@@ -1,6 +1,7 @@
 import { compactDefined } from '../../helpers/fp';
 import { createRequestParams } from '../../helpers/request';
-import { OrderBy } from '../../types/request';
+import { OrderBy, PaginationParams } from '../../types/request';
+import * as Query from '../../helpers/query';
 
 export const getPhotos = ({
   collectionId,
@@ -9,16 +10,14 @@ export const getPhotos = ({
   orderBy,
 }: {
   collectionId: string;
-  page?: number;
-  perPage?: number;
   orderBy?: OrderBy;
-}) =>
+} & PaginationParams) =>
   createRequestParams({
     pathname: `/collections/${collectionId}/photos`,
     query: compactDefined({
       page,
-      per_page: perPage,
-      order_by: orderBy,
+      ...Query.getPerPage(perPage),
+      ...Query.getOrderBy(orderBy),
     }),
   });
 
@@ -27,12 +26,12 @@ export const get = ({ collectionId }: { collectionId: string }) =>
     pathname: `/collections/${collectionId}`,
   });
 
-export const list = ({ page, perPage }: { page: number; perPage: number }) =>
+export const list = ({ page, perPage }: PaginationParams) =>
   createRequestParams({
     pathname: '/collections',
     query: {
       page,
-      per_page: perPage,
+      ...Query.getPerPage(perPage),
     },
   });
 

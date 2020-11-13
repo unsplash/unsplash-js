@@ -1,18 +1,18 @@
 import { compactDefined } from '../../helpers/fp';
 import { createRequestParams } from '../../helpers/request';
 import { APISearchFilters, ContentFilter, Language } from './types';
+import * as Query from '../../helpers/query';
+import { PaginationParams } from '../../types/request';
 
 export type SearchParams = {
   query: string;
-  page: number;
-  perPage: number;
-};
+} & PaginationParams;
 
 export type SearchParamsWithFilters = SearchParams &
   APISearchFilters & {
-    lang: Language;
-    contentFilter: ContentFilter;
-    collectionIds: string[];
+    lang?: Language;
+    contentFilter?: ContentFilter;
+    collectionIds?: string[];
   };
 
 export const getPhotos = ({
@@ -29,10 +29,10 @@ export const getPhotos = ({
     query: compactDefined({
       query,
       page,
-      per_page: perPage,
       content_filter: contentFilter,
-      collections: collectionIds ? collectionIds.join() : undefined,
       lang,
+      ...Query.getCollections(collectionIds),
+      ...Query.getPerPage(perPage),
       ...filters,
     }),
   });
@@ -40,11 +40,11 @@ export const getPhotos = ({
 export const getCollections = ({ query, page, perPage }: SearchParams) =>
   createRequestParams({
     pathname: '/search/collections',
-    query: { query, per_page: perPage, page },
+    query: { query, ...Query.getPerPage(perPage), page },
   });
 
 export const getUsers = ({ query, page, perPage }: SearchParams) =>
   createRequestParams({
     pathname: '/search/users',
-    query: { query, per_page: perPage, page },
+    query: { query, ...Query.getPerPage(perPage), page },
   });
