@@ -2,7 +2,7 @@ import { createRequestParams } from '../../helpers/request';
 import { Orientation, PaginationParams } from '../../types/request';
 import * as Query from '../../helpers/query';
 
-export const getProfile = ({ username }: { username: string }) =>
+export const get = ({ username }: { username: string }) =>
   createRequestParams({
     pathname: `/users/${username}`,
   });

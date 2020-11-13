@@ -17,7 +17,7 @@ export const Unsplash = flow(initMakeRequest, makeRequest => ({
     getPhotos: flow(users.getPhotos, makeRequest),
     getCollections: flow(users.getCollections, makeRequest),
     getLikes: flow(users.getLikes, makeRequest),
-    getProfile: flow(users.getProfile, makeRequest),
+    get: flow(users.get, makeRequest),
   },
   search: {
     getCollections: flow(search.getCollections, makeRequest),

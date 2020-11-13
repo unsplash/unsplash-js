@@ -16,9 +16,9 @@ export const get = ({ photoId }: { photoId: string }) =>
     pathname: `/photos/${photoId}`,
   });
 
-export const getStats = (id: string) =>
+export const getStats = ({ photoId }: { photoId: string }) =>
   createRequestParams({
-    pathname: `/photos/${id}/statistics`,
+    pathname: `/photos/${photoId}/statistics`,
   });
 
 export const getRandom = ({
