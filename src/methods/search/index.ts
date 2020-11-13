@@ -1,4 +1,3 @@
-import { compactDefined } from '../../helpers/fp';
 import { createRequestParams } from '../../helpers/request';
 import { APISearchFilters, ContentFilter, Language } from './types';
 import * as Query from '../../helpers/query';
@@ -26,14 +25,14 @@ export const getPhotos = ({
 }: SearchParamsWithFilters) =>
   createRequestParams({
     pathname: '/search/photos',
-    query: compactDefined({
+    query: {
       query,
       content_filter: contentFilter,
       lang,
       ...Query.getFeedParams({ page, perPage }),
       ...Query.getCollections(collectionIds),
       ...filters,
-    }),
+    },
   });
 
 export const getCollections = ({ query, ...feedParams }: SearchParams) =>

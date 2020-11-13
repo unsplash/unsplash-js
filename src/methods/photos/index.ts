@@ -1,5 +1,4 @@
 import parse from 'url-parse';
-import { compactDefined } from '../../helpers/fp';
 import * as Query from '../../helpers/query';
 
 import { createRequestParams } from '../../helpers/request';
@@ -36,11 +35,11 @@ export const getRandom = ({
 }) =>
   createRequestParams({
     pathname: '/photos/random',
-    query: compactDefined({
+    query: {
       ...queryParams,
       c: cacheBuster || new Date().getTime(), // Avoid ajax response caching
       ...Query.getCollections(collectionIds),
-    }),
+    },
   });
 
 const getUrlComponents = (uri: string) => parse(uri, {}, true);

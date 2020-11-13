@@ -1,4 +1,3 @@
-import { compactDefined } from '../../helpers/fp';
 import { createRequestParams } from '../../helpers/request';
 import { Orientation, PaginationParams } from '../../types/request';
 import * as Query from '../../helpers/query';
@@ -20,11 +19,11 @@ export const getPhotos = ({
 } & PaginationParams) =>
   createRequestParams({
     pathname: `/users/${username}/photos`,
-    query: compactDefined({
+    query: {
       ...Query.getFeedParams(feedParams),
       orientation,
       stats,
-    }),
+    },
   });
 
 export const getLikes = ({
@@ -34,10 +33,10 @@ export const getLikes = ({
 }: { username: string; orientation: Orientation } & PaginationParams) =>
   createRequestParams({
     pathname: `/users/${username}/likes`,
-    query: compactDefined({
+    query: {
       ...Query.getFeedParams(feedParams),
       orientation,
-    }),
+    },
   });
 
 export const getCollections = ({
