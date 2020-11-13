@@ -45,7 +45,7 @@ export const getRandom = ({
 
 const getUrlComponents = (uri: string) => parse(uri, {}, true);
 
-export const track = (photo: any) => {
+export const track = (photo: { links: { download_location: string } }) => {
   const downloadLocation = photo.links.download_location;
 
   const urlComponents = getUrlComponents(downloadLocation);
