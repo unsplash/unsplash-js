@@ -30,7 +30,7 @@
     "printWidth": 80,
     "semi": true,
     "singleQuote": true,
-    "trailingComma": "es5"
+    "trailingComma": "all"
   },
   "module": "dist/unsplash-js.esm.js",
   "size-limit": [
@@ -71,8 +71,10 @@
   "homepage": "https://github.com/unsplash/unsplash-js#readme",
   "dependencies": {
     "form-urlencoded": "^4.2.1",
+    "fp-ts": "^2.8.5",
     "lodash.get": "4.4.2",
     "querystring": "^0.2.0",
-    "url-parse": "^1.4.7"
+    "url-parse": "^1.4.7",
+    "url-transformers": "^0.0.9"
   }
 }

@@ -1,57 +1,34 @@
-import { API_URL, API_VERSION } from './constants';
-import { buildFetchOptions } from './utils';
+import { flow } from 'fp-ts/lib/function';
 
-import auth from './methods/auth';
-import currentUser from './methods/currentUser';
-import users from './methods/users';
-import photos from './methods/photos';
-import collections from './methods/collections';
-import search from './methods/search';
-import stats from './methods/stats';
+import { initMakeRequest } from './helpers/request';
+import * as photos from './methods/photos';
+import * as search from './methods/search';
+import * as users from './methods/users';
+import * as collections from './methods/collections';
 
-export default class Unsplash {
-  _apiUrl: any;
-  _apiVersion: any;
-  _accessKey: any;
-  _secret: any;
-  _callbackUrl: any;
-  _bearerToken: any;
-  _headers: any;
-  _timeout: any;
-  auth: any;
-  currentUser: any;
-  users: any;
-  photos: any;
-  collections: any;
-  search: any;
-  stats: any;
-
-  constructor(options: any = {}) {
-    this._apiUrl = options.apiUrl || API_URL;
-    this._apiVersion = options.apiVersion || API_VERSION;
-    this._accessKey = options.accessKey;
-    this._secret = options.secret;
-    this._callbackUrl = options.callbackUrl;
-    this._bearerToken = options.bearerToken;
-    this._headers = options.headers || {};
-    this._timeout = options.timeout || 0; // 0 defaults to the OS timeout behaviour.
-
-    this.auth = auth.bind(this)();
-    this.currentUser = currentUser.bind(this)();
-    this.users = users.bind(this)();
-    this.photos = photos.bind(this)();
-    this.collections = collections.bind(this)();
-    this.search = search.bind(this)();
-    this.stats = stats.bind(this)();
-  }
-
-  request(requestOptions = {}) {
-    var { url, options } = buildFetchOptions.bind(this)(requestOptions);
-
-    return fetch(url, options);
-  }
-}
-
-export function toJson(res: any) {
-  return typeof res.json === 'function' ? res.json() : res;
-}
+export const Unsplash = flow(initMakeRequest, makeRequest => ({
+  photos: {
+    get: flow(photos.get, makeRequest),
+    listFeed: flow(photos.listFeed, makeRequest),
+    getStats: flow(photos.getStats, makeRequest),
+    getRandom: flow(photos.getRandom, makeRequest),
+    track: flow(photos.track, makeRequest),
+  },
+  users: {
+    getPhotos: flow(users.getPhotos, makeRequest),
+    getCollections: flow(users.getCollections, makeRequest),
+    getLikes: flow(users.getLikes, makeRequest),
+    getProfile: flow(users.getProfile, makeRequest),
+  },
+  search: {
+    getCollections: flow(search.getCollections, makeRequest),
+    getPhotos: flow(search.getPhotos, makeRequest),
+    getUsers: flow(search.getUsers, makeRequest),
+  },
+  collections: {
+    getPhotos: flow(collections.getPhotos, makeRequest),
+    get: flow(collections.get, makeRequest),
+    list: flow(collections.list, makeRequest),
+    getRelated: flow(collections.getRelated, makeRequest),
+  },
+}));
