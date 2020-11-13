@@ -2,30 +2,44 @@ import { getErrorBadStatusCode } from './errors';
 import { getJsonResponse } from './json';
 import { AnyJson } from './typescript';
 
-type CommonProps = { status: number };
+export const ABORTED = 'aborted' as const;
 
-type ResponseOrError<T> = CommonProps &
-  (
-    | { type: 'response'; response: T; errors: undefined }
-    | { type: 'error'; response: undefined; errors: string[] }
-  );
+export type ApiResponse<T> =
+  | {
+      type: 'response';
+      response: T;
+      errors: undefined;
+      status: number;
+    }
+  | {
+      type: 'error';
+      response: undefined;
+      errors: string[];
+      status: number;
+    }
+  | { type: 'aborted'; response: undefined; errors: undefined };
 
 export const handleFetchResponse = (
-  response: Response,
-): Promise<ResponseOrError<AnyJson>> =>
-  getJsonResponse(response).then(
-    (jsonResponse): ResponseOrError<AnyJson> =>
-      response.ok
-        ? {
-            type: 'response',
-            status: response.status,
-            response: jsonResponse,
-            errors: undefined,
-          }
-        : {
-            type: 'error',
-            status: response.status,
-            errors: getErrorBadStatusCode(jsonResponse),
-            response: undefined,
-          },
-  );
+  responseOrAbort: Response | typeof ABORTED,
+): Promise<ApiResponse<AnyJson>> =>
+  responseOrAbort === ABORTED
+    ? Promise.resolve({
+        type: 'aborted',
+        response: undefined,
+        errors: undefined,
+      })
+    : getJsonResponse(responseOrAbort).then(jsonResponse =>
+        responseOrAbort.ok
+          ? {
+              type: 'response',
+              status: responseOrAbort.status,
+              response: jsonResponse,
+              errors: undefined,
+            }
+          : {
+              type: 'error',
+              status: responseOrAbort.status,
+              errors: getErrorBadStatusCode(jsonResponse),
+              response: undefined,
+            },
+      );
