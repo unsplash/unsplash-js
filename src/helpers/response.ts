@@ -2,9 +2,13 @@ import { getErrorBadStatusCode } from './errors';
 import { getJsonResponse } from './json';
 import { AnyJson } from './typescript';
 
-type ResponseOrError<T> =
-  | { response: T; errors: undefined }
-  | { response: undefined; errors: string[] };
+type CommonProps = { status: number };
+
+type ResponseOrError<T> = CommonProps &
+  (
+    | { type: 'response'; response: T; errors: undefined }
+    | { type: 'error'; response: undefined; errors: string[] }
+  );
 
 export const handleFetchResponse = (
   response: Response,
@@ -13,11 +17,15 @@ export const handleFetchResponse = (
     (jsonResponse): ResponseOrError<AnyJson> =>
       response.ok
         ? {
+            type: 'response',
+            status: response.status,
             response: jsonResponse,
             errors: undefined,
           }
         : {
-            response: undefined,
+            type: 'error',
+            status: response.status,
             errors: getErrorBadStatusCode(jsonResponse),
+            response: undefined,
           },
   );
