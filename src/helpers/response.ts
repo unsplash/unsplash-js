@@ -24,9 +24,6 @@ export type HandleResponse<T> = (args: {
   jsonResponse: AnyJson;
 }) => T;
 
-export const castResponse = <T>(): HandleResponse<T> => ({ jsonResponse }) =>
-  (jsonResponse as unknown) as T;
-
 export const handleFetchResponse = <ResponseType>(
   handleResponse: HandleResponse<ResponseType>,
 ) => (
@@ -50,3 +47,6 @@ export const handleFetchResponse = <ResponseType>(
               errors: getErrorBadStatusCode(jsonResponse),
             },
       );
+
+export const castResponse = <T>(): HandleResponse<T> => ({ jsonResponse }) =>
+  (jsonResponse as unknown) as T;
