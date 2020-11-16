@@ -6,7 +6,7 @@ export const ABORTED = 'aborted' as const;
 
 export type ApiResponse<T> =
   | {
-      type: 'response';
+      type: 'success';
       response: T;
       errors?: never;
       status: number;
@@ -29,7 +29,7 @@ export const handleFetchResponse = (
     : getJsonResponse(responseOrAbort).then(jsonResponse =>
         responseOrAbort.ok
           ? {
-              type: 'response',
+              type: 'success',
               status: responseOrAbort.status,
               response: jsonResponse,
             }
