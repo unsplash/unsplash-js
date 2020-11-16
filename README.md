@@ -3,7 +3,7 @@
 [![npm](https://img.shields.io/npm/v/unsplash-js.svg?style=flat-square)](https://www.npmjs.com/package/unsplash-js)
 [![Travis](https://img.shields.io/travis/unsplash/unsplash-js/master.svg?style=flat-square)](https://travis-ci.org/unsplash/unsplash-js/branches)
 
-A server-side Javascript wrapper for working with the [Unsplash API](https://unsplash.com/developers).
+Official Javascript wrapper for the [Unsplash API](https://unsplash.com/developers).
 
 Before using the Unsplash API, you need to [register as a developer](https://unsplash.com/developers) and read the [API Guidelines](https://help.unsplash.com/api-guidelines/unsplash-api-guidelines).
 
@@ -19,6 +19,7 @@ Quick links to methods you're likely to care about:
 **Note:** Every application must abide by the [API Guidelines](https://help.unsplash.com/api-guidelines/unsplash-api-guidelines). Specifically, remember to [hotlink images](https://help.unsplash.com/api-guidelines/more-on-each-guideline/guideline-hotlinking-images), [attribute photographers](https://help.unsplash.com/api-guidelines/more-on-each-guideline/guideline-attribution), and [trigger a download when appropriate](https://help.unsplash.com/api-guidelines/more-on-each-guideline/guideline-triggering-a-download).
 
 ## Documentation
+
 - [Installation](https://github.com/unsplash/unsplash-js#installation)
 - [Dependencies](https://github.com/unsplash/unsplash-js#dependencies)
 - [Usage](https://github.com/unsplash/unsplash-js#usage)
@@ -26,11 +27,15 @@ Quick links to methods you're likely to care about:
 - [Helpers](https://github.com/unsplash/unsplash-js#helpers)
 
 ## Installation
+
 ```bash
 $ npm i --save unsplash-js
+# or
+$ yarn add unsplash-js
 ```
 
 ## Dependencies
+
 This library depends on [fetch](https://fetch.spec.whatwg.org/) to make requests to the Unsplash API. For environments that don't support fetch, you'll need to provide a [polyfill](https://github.com/bitinn/node-fetch).
 
 ```js
@@ -50,6 +55,7 @@ Note: we recommend using a version of `node-fetch` higher than `2.4.0` to benefi
 If you're using `unsplash-js` publicly in the browser, you'll need to proxy your requests through your server to sign the requests with the Access Key and/or Secret Key to abide by the [API Guideline](https://help.unsplash.com/articles/2511245-unsplash-api-guidelines) to keep keys confidential.
 
 ### Creating an instance
+
 To create an instance, simply provide an _Object_ with your `accessKey`:
 
 ```js
@@ -65,10 +71,10 @@ const unsplash = new Unsplash({
   accessKey: APP_ACCESS_KEY,
   // Optionally you can also configure a custom header to be sent with every request
   headers: {
-    "X-Custom-Header": "foo"
+    'X-Custom-Header': 'foo',
   },
   // Optionally if using a node-fetch polyfill or a version of fetch which supports the timeout option, you can configure the request timeout for all requests
-  timeout: 500 // values set in ms
+  timeout: 500, // values set in ms
 });
 ```
 
@@ -77,11 +83,11 @@ _Credentials can be obtained from [Unsplash Developers](https://unsplash.com/dev
 ---
 
 ### Error handling
+
 ```js
-unsplash.users.profile("naoufal")
-  .catch(err => {
-    // Your flawless error handling code
-  });
+unsplash.users.profile('naoufal').catch(err => {
+  // Your flawless error handling code
+});
 ```
 
 ---
@@ -104,28 +110,31 @@ All the instance methods below make use of the `toJson` helper method described 
 <div id="search-photos" />
 
 ### search.photos(keyword, page, per_page, options)
+
 Get a list of photos matching the keyword. [See endpoint docs 🚀](https://unsplash.com/documentation#search-photos)
 
-__Arguments__
+**Arguments**
 
-| Argument | Type | Optional/Required | Default |
-|---|---|---|---|
-|__`keyword`__|_string_|Required||
-|__`page`__|_number_|Optional|1|
-|__`per_page`__|_number_|Optional|10|
-|__`options`__|_object_|Optional||
-|__`options.orientation`__|_string_|Optional||
-|__`options.contentFilter`__|_string_|Optional|"low"|
-|__`options.color`__|_string_|Optional||
-|__`options.orderBy`__|_string_|Optional|"relevant"|
-|__`options.collections`__|_array_|Optional||
-|__`options.lang`__|_string_|Optional|"en"|
+| Argument                    | Type     | Optional/Required | Default    |
+| --------------------------- | -------- | ----------------- | ---------- |
+| **`keyword`**               | _string_ | Required          |            |
+| **`page`**                  | _number_ | Optional          | 1          |
+| **`per_page`**              | _number_ | Optional          | 10         |
+| **`options`**               | _object_ | Optional          |            |
+| **`options.orientation`**   | _string_ | Optional          |            |
+| **`options.contentFilter`** | _string_ | Optional          | "low"      |
+| **`options.color`**         | _string_ | Optional          |            |
+| **`options.orderBy`**       | _string_ | Optional          | "relevant" |
+| **`options.collections`**   | _array_  | Optional          |            |
+| **`options.lang`**          | _string_ | Optional          | "en"       |
 
 See the [API documentation for the possible option values](https://unsplash.com/documentation#parameters-16).
 
-__Example__
+**Example**
+
 ```js
-unsplash.search.photos("dogs", 1, 10, { orientation: "portrait", color: "green" })
+unsplash.search
+  .photos('dogs', 1, 10, { orientation: 'portrait', color: 'green' })
   .then(toJson)
   .then(json => {
     // Your code
@@ -133,20 +142,22 @@ unsplash.search.photos("dogs", 1, 10, { orientation: "portrait", color: "green" 
 ```
 
 ### search.users(keyword, page, per_page)
+
 Get a list of users matching the keyword. [See endpoint docs 🚀](https://unsplash.com/documentation#search-users)
 
-__Arguments__
+**Arguments**
 
-| Argument | Type | Opt/Required | Default |
-|---|---|---|---|
-|__`keyword`__|_string_|Required||
-|__`page`__|_number_|Optional|1|
-|__`per_page`__|_number_|Optional|10|
+| Argument       | Type     | Opt/Required | Default |
+| -------------- | -------- | ------------ | ------- |
+| **`keyword`**  | _string_ | Required     |         |
+| **`page`**     | _number_ | Optional     | 1       |
+| **`per_page`** | _number_ | Optional     | 10      |
 
+**Example**
 
-__Example__
 ```js
-unsplash.search.users("steve", 1)
+unsplash.search
+  .users('steve', 1)
   .then(toJson)
   .then(json => {
     // Your code
@@ -154,20 +165,22 @@ unsplash.search.users("steve", 1)
 ```
 
 ### search.collections(keyword, page, per_page)
+
 Get a list of collections matching the keyword. [See endpoint docs 🚀](https://unsplash.com/documentation#search-collections)
 
-__Arguments__
+**Arguments**
 
-| Argument | Type | Opt/Required | Default |
-|---|---|---|---|
-|__`keyword`__|_string_|Required||
-|__`page`__|_number_|Optional|1|
-|__`per_page`__|_number_|Optional|10|
+| Argument       | Type     | Opt/Required | Default |
+| -------------- | -------- | ------------ | ------- |
+| **`keyword`**  | _string_ | Required     |         |
+| **`page`**     | _number_ | Optional     | 1       |
+| **`per_page`** | _number_ | Optional     | 10      |
 
+**Example**
 
-__Example__
 ```js
-unsplash.search.collections("dogs", 1)
+unsplash.search
+  .collections('dogs', 1)
   .then(toJson)
   .then(json => {
     // Your code
@@ -181,161 +194,187 @@ unsplash.search.collections("dogs", 1)
 <div id="photos-all" />
 
 ### photos.listPhotos(page, perPage, orderBy)
+
 Get a single page from the list of all photos. [See endpoint docs 🚀](https://unsplash.com/documentation#list-photos)
 
-__Arguments__
+**Arguments**
 
-| Argument | Type | Opt/Required | Default |
-|---|---|---|
-|__`page`__|_number_|Optional|1|
-|__`perPage`__|_number_|Optional|10|
-|__`orderBy`__|_string_|Optional|`latest`|
+| Argument      | Type     | Opt/Required | Default  |
+| ------------- | -------- | ------------ | -------- |
+| **`page`**    | _number_ | Optional     | 1        |
+| **`perPage`** | _number_ | Optional     | 10       |
+| **`orderBy`** | _string_ | Optional     | `latest` |
 
-__Example__
+**Example**
+
 ```js
-unsplash.photos.listPhotos(2, 15, "latest")
+unsplash.photos
+  .listPhotos(2, 15, 'latest')
   .then(toJson)
   .then(json => {
     // Your code
   });
 ```
+
 ---
 
 ### photos.getPhoto(id)
+
 Retrieve a single photo. [See endpoint docs 🚀](https://unsplash.com/documentation#get-a-photo)
 
-__Arguments__
+**Arguments**
 
-| Argument | Type | Opt/Required |
-|---|---|---|
-|__`id`__|_string_|Required|
+| Argument | Type     | Opt/Required |
+| -------- | -------- | ------------ |
+| **`id`** | _string_ | Required     |
 
-__Example__
+**Example**
+
 ```js
-unsplash.photos.getPhoto("mtNweauBsMQ")
+unsplash.photos
+  .getPhoto('mtNweauBsMQ')
   .then(toJson)
   .then(json => {
     // Your code
   });
 ```
+
 ---
 
 ### photos.getPhotoStats(id)
+
 Retrieve a single photo's stats. [See endpoint docs 🚀](https://unsplash.com/documentation#get-a-photos-statistics)
 
-__Arguments__
+**Arguments**
 
-| Argument | Type | Opt/Required |
-|---|---|---|
-|__`id`__|_string_|Required|
+| Argument | Type     | Opt/Required |
+| -------- | -------- | ------------ |
+| **`id`** | _string_ | Required     |
 
-__Example__
+**Example**
+
 ```js
-unsplash.photos.getPhotoStats("mtNweauBsMQ")
+unsplash.photos
+  .getPhotoStats('mtNweauBsMQ')
   .then(toJson)
   .then(json => {
     // Your code
   });
 ```
+
 ---
 
 <div id="photo-random" />
 
 ### photos.getRandomPhoto({ query, username, featured })
+
 Retrieve a single random photo, given optional filters. [See endpoint docs 🚀](https://unsplash.com/documentation#get-a-random-photo)
 
 When using this function, It is recommended to double check the types of the parameters,
 in particular for the parameters of type Array<number>.
 
-__Arguments__
+**Arguments**
 
 Argument 1:
 _An Object containing the follow keys:_
 
-| Argument | Type | Opt/Required |
-|---|---|---|
-|__`query`__|_string_|Optional|
-|__`username`__|_string_|Optional|
-|__`featured`__|_boolean_|Optional|
-|__`collections`__|_Array<number>_|Optional|
-|__`count`__|_string_|Optional|
+| Argument          | Type            | Opt/Required |
+| ----------------- | --------------- | ------------ |
+| **`query`**       | _string_        | Optional     |
+| **`username`**    | _string_        | Optional     |
+| **`featured`**    | _boolean_       | Optional     |
+| **`collections`** | _Array<number>_ | Optional     |
+| **`count`**       | _string_        | Optional     |
 
-__Example__
+**Example**
+
 ```js
-unsplash.photos.getRandomPhoto({ username: "naoufal" })
+unsplash.photos
+  .getRandomPhoto({ username: 'naoufal' })
   .then(toJson)
   .then(json => {
     // Your code
   });
-
 ```
 
 ---
 
 ### photos.likePhoto(id)
+
 Like a photo on behalf of the logged-in user. This requires the `write_likes` scope. [See endpoint docs 🚀](https://unsplash.com/documentation#like-a-photo)
 
-__Arguments__
+**Arguments**
 
-| Argument | Type | Opt/Required |
-|---|---|---|
-|__`id`__|_string_|Required|
+| Argument | Type     | Opt/Required |
+| -------- | -------- | ------------ |
+| **`id`** | _string_ | Required     |
 
-__Example__
+**Example**
+
 ```js
-unsplash.photos.likePhoto("mtNweauBsMQ")
+unsplash.photos
+  .likePhoto('mtNweauBsMQ')
   .then(toJson)
   .then(json => {
     // Your code
   });
 ```
+
 ---
 
 ### photos.unlikePhoto(id)
+
 Remove a user’s like of a photo. [See endpoint docs 🚀](https://unsplash.com/documentation#unlike-a-photo)
 
-__Arguments__
+**Arguments**
 
-| Argument | Type | Opt/Required |
-|---|---|---|
-|__`id`__|_string_|Required|
+| Argument | Type     | Opt/Required |
+| -------- | -------- | ------------ |
+| **`id`** | _string_ | Required     |
 
-__Example__
+**Example**
+
 ```js
-unsplash.photos.unlikePhoto("mtNweauBsMQ")
+unsplash.photos
+  .unlikePhoto('mtNweauBsMQ')
   .then(toJson)
   .then(json => {
     // Your code
   });
 ```
+
 ---
 
 <div id="track-download" />
 
 ### photos.trackDownload(photo)
+
 Trigger a download of a photo as per the [download tracking requirement of API Guidelines](https://medium.com/unsplash/unsplash-api-guidelines-triggering-a-download-c39b24e99e02). [See endpoint docs 🚀](https://unsplash.com/documentation#track-a-photo-download)
 
-*Note*: this accepts a photo JSON object, not a URL string or photo ID. See the example below for how to pair it with other calls to trigger it.
+_Note_: this accepts a photo JSON object, not a URL string or photo ID. See the example below for how to pair it with other calls to trigger it.
 
-__Arguments__
+**Arguments**
 
-| Argument | Type | Opt/Required |
-|---|---|---|
-|__`photo`__|_json_|Required|
+| Argument    | Type   | Opt/Required |
+| ----------- | ------ | ------------ |
+| **`photo`** | _json_ | Required     |
 
-__Example__
+**Example**
+
 ```js
-unsplash.photos.getPhoto("mtNweauBsMQ")
+unsplash.photos
+  .getPhoto('mtNweauBsMQ')
   .then(toJson)
   .then(json => {
     unsplash.photos.trackDownload(json);
   });
 
 // or if working with an array of photos
-unsplash.search.photos("dogs", 1)
+unsplash.search
+  .photos('dogs', 1)
   .then(toJson)
   .then(json => {
-    unsplash.photos.trackDownload(json["results"][0]);
+    unsplash.photos.trackDownload(json['results'][0]);
   });
 ```
 
@@ -344,299 +383,356 @@ unsplash.search.photos("dogs", 1)
 <div id="users" />
 
 ### users.profile(username)
+
 Retrieve public details on a given user. [See endpoint docs 🚀](https://unsplash.com/documentation#get-a-users-public-profile)
 
-__Arguments__
+**Arguments**
 
-| Argument | Type | Opt/Required |
-|---|---|---|
-|__`username`__|_string_|Required|
+| Argument       | Type     | Opt/Required |
+| -------------- | -------- | ------------ |
+| **`username`** | _string_ | Required     |
 
-__Example__
+**Example**
+
 ```js
-unsplash.users.profile("naoufal")
+unsplash.users
+  .profile('naoufal')
   .then(toJson)
   .then(json => {
     // Your code
   });
 ```
+
 ---
 
 ### users.statistics(username, resolution, quantity)
+
 Retrieve statistics for a given user. [See endpoint docs 🚀](https://unsplash.com/documentation#get-a-users-statistics)
 
-__Arguments__
+**Arguments**
 
-| Argument | Type | Opt/Required | Notes | Default
-|---|---|---|---|---|
-|__`username`__|_string_|Required|
-|__`resolution`__|_string_|Optional|Currently only `days`|`days`|
-|__`quantity`__|_string_|Optional||30|
+| Argument         | Type     | Opt/Required | Notes                 | Default |
+| ---------------- | -------- | ------------ | --------------------- | ------- |
+| **`username`**   | _string_ | Required     |
+| **`resolution`** | _string_ | Optional     | Currently only `days` | `days`  |
+| **`quantity`**   | _string_ | Optional     |                       | 30      |
 
+**Example**
 
-__Example__
 ```js
-unsplash.users.statistics("naoufal", "days", 30)
+unsplash.users
+  .statistics('naoufal', 'days', 30)
   .then(toJson)
   .then(json => {
     // Your code
   });
 ```
+
 ---
 
 ### users.photos(username, page, perPage, orderBy, options)
+
 Get a list of photos uploaded by a user. [See endpoint docs 🚀](https://unsplash.com/documentation#list-a-users-photos)
 
-__Arguments__
+**Arguments**
 
-| Argument | Type | Opt/Required | Notes | Default |
-|---|---|---|---|---|
-|__`username`__|_string_|Required|||
-|__`page`__|_number_|Optional||1|
-|__`perPage`__|_number_|Optional||10|
-|__`orderBy`__|_string_|Optional|`latest`, `oldest`|`latest`|
-|__`options`__|_object_|Optional|
-|__`options.stats`__|_boolean_|Optional||`false`|
-|__`options.orientation`__|_string_|Optional|`landscape`, `portrait`, `squarish`|
+| Argument                  | Type      | Opt/Required | Notes                               | Default  |
+| ------------------------- | --------- | ------------ | ----------------------------------- | -------- |
+| **`username`**            | _string_  | Required     |                                     |          |
+| **`page`**                | _number_  | Optional     |                                     | 1        |
+| **`perPage`**             | _number_  | Optional     |                                     | 10       |
+| **`orderBy`**             | _string_  | Optional     | `latest`, `oldest`                  | `latest` |
+| **`options`**             | _object_  | Optional     |
+| **`options.stats`**       | _boolean_ | Optional     |                                     | `false`  |
+| **`options.orientation`** | _string_  | Optional     | `landscape`, `portrait`, `squarish` |
 
-__Example__
+**Example**
+
 ```js
-unsplash.users.photos("naoufal", 1, 10, "latest", { orientation: "landscape" })
+unsplash.users
+  .photos('naoufal', 1, 10, 'latest', { orientation: 'landscape' })
   .then(toJson)
   .then(json => {
     // Your code
   });
 ```
+
 ---
 
 ### users.likes(username, page, perPage, orderBy, options)
+
 Get a list of photos liked by a user. [See endpoint docs 🚀](https://unsplash.com/documentation#list-a-users-liked-photos)
 
-__Arguments__
+**Arguments**
 
-| Argument | Type | Opt/Required | Notes | Default |
-|---|---|---|---|
-|__`username`__|_string_|Required||
-|__`page`__|_number_|Optional||1|
-|__`perPage`__|_number_|Optional||10|
-|__`orderBy`__|_string_|Optional|`latest`, `oldest`|`latest`|
-|__`options`__|_object_|Optional||
-|__`options.orientation`__|_string_|Optional|`landscape`, `portrait`, `squarish`||
+| Argument                  | Type     | Opt/Required | Notes                               | Default  |
+| ------------------------- | -------- | ------------ | ----------------------------------- | -------- |
+| **`username`**            | _string_ | Required     |                                     |
+| **`page`**                | _number_ | Optional     |                                     | 1        |
+| **`perPage`**             | _number_ | Optional     |                                     | 10       |
+| **`orderBy`**             | _string_ | Optional     | `latest`, `oldest`                  | `latest` |
+| **`options`**             | _object_ | Optional     |                                     |
+| **`options.orientation`** | _string_ | Optional     | `landscape`, `portrait`, `squarish` |          |
 
-__Example__
+**Example**
+
 ```js
-unsplash.users.likes("naoufal", 2, 15, "latest", { orientation: "landscape" })
+unsplash.users
+  .likes('naoufal', 2, 15, 'latest', { orientation: 'landscape' })
   .then(toJson)
   .then(json => {
     // Your code
   });
 ```
+
 ---
 
 ### users.collections(username, page, perPage, orderBy)
+
 Get a list of collections created by the user. [See endpoint docs 🚀](https://unsplash.com/documentation#list-a-users-collections)
 
-__Arguments__
+**Arguments**
 
-| Argument | Type | Opt/Required | Notes | Default |
-|---|---|---|---|
-|__`username`__|_string_|Required|||
-|__`page`__|_number_|Optional||1|
-|__`perPage`__|_number_|Optional||10|
-|__`orderBy`__|_string_|Optional|`published` or `updated`|`updated`|
+| Argument       | Type     | Opt/Required | Notes                    | Default   |
+| -------------- | -------- | ------------ | ------------------------ | --------- |
+| **`username`** | _string_ | Required     |                          |           |
+| **`page`**     | _number_ | Optional     |                          | 1         |
+| **`perPage`**  | _number_ | Optional     |                          | 10        |
+| **`orderBy`**  | _string_ | Optional     | `published` or `updated` | `updated` |
 
-__Example__
+**Example**
+
 ```js
-unsplash.users.collections("naoufal", 2, 15, "updated")
+unsplash.users
+  .collections('naoufal', 2, 15, 'updated')
   .then(toJson)
   .then(json => {
     // Your code
   });
 ```
+
 ---
 
 <div id="collections" />
 
 ### collections.listCollections(page, perPage, orderBy)
+
 Get a single page from the list of all collections. [See endpoint docs 🚀](https://unsplash.com/documentation#list-collections)
 
-__Arguments__
+**Arguments**
 
-| Argument | Type | Opt/Required | Notes | Default |
-|---|---|---|---|
-|__`page`__|_number_|Optional||1|
-|__`perPage`__|_number_|Optional||10|
-|__`orderBy`__|_string_|Optional|`latest`, `oldest`|`latest`|
+| Argument      | Type     | Opt/Required | Notes              | Default  |
+| ------------- | -------- | ------------ | ------------------ | -------- |
+| **`page`**    | _number_ | Optional     |                    | 1        |
+| **`perPage`** | _number_ | Optional     |                    | 10       |
+| **`orderBy`** | _string_ | Optional     | `latest`, `oldest` | `latest` |
 
-__Example__
+**Example**
+
 ```js
-unsplash.collections.listCollections(1, 10, "latest")
+unsplash.collections
+  .listCollections(1, 10, 'latest')
   .then(toJson)
   .then(json => {
     // Your code
   });
 ```
+
 ---
 
 ### collections.getCollection(id)
+
 Retrieve a single collection. To view a user’s private collections, the `read_collections` scope is required. [See endpoint docs 🚀](https://unsplash.com/documentation#get-a-collection)
 
-__Arguments__
+**Arguments**
 
-| Argument | Type | Opt/Required |
-|---|---|---|
-|__`id`__|_number_|Required|
+| Argument | Type     | Opt/Required |
+| -------- | -------- | ------------ |
+| **`id`** | _number_ | Required     |
 
+**Example**
 
-__Example__
 ```js
-unsplash.collections.getCollection(123456)
+unsplash.collections
+  .getCollection(123456)
   .then(toJson)
   .then(json => {
     // Your code
   });
 ```
+
 ---
 
 ### collections.getCollectionPhotos(id, page, perPage, orderBy, options)
+
 Retrieve a collection’s photos. [See endpoint docs 🚀](https://unsplash.com/documentation#get-a-collections-photos)
 
-__Arguments__
+**Arguments**
 
-| Argument | Type | Opt/Required | Notes | Default |
-|---|---|---|---|
-|__`id`__|_number_|Required|||
-|__`page`__|_number_|Optional||1|
-|__`perPage`__|_number_|Optional||10|
-|__`orderBy`__|_string_|Optional|`latest`, `oldest`|`latest`|
-|__`options`__|_object_|Optional|
-|__`options.orientation`__|_string_|Optional| `landscape`, `portrait`, `squarish`|
+| Argument                  | Type     | Opt/Required | Notes                               | Default  |
+| ------------------------- | -------- | ------------ | ----------------------------------- | -------- |
+| **`id`**                  | _number_ | Required     |                                     |          |
+| **`page`**                | _number_ | Optional     |                                     | 1        |
+| **`perPage`**             | _number_ | Optional     |                                     | 10       |
+| **`orderBy`**             | _string_ | Optional     | `latest`, `oldest`                  | `latest` |
+| **`options`**             | _object_ | Optional     |
+| **`options.orientation`** | _string_ | Optional     | `landscape`, `portrait`, `squarish` |
 
-__Example__
+**Example**
+
 ```js
-unsplash.collections.getCollectionPhotos(123456, 1, 10, "latest")
+unsplash.collections
+  .getCollectionPhotos(123456, 1, 10, 'latest')
   .then(toJson)
   .then(json => {
     // Your code
   });
 ```
+
 ---
 
 ### collections.createCollection(title, description, private)
+
 Create a new collection. This requires the `write_collections` scope. [See endpoint docs 🚀](https://unsplash.com/documentation#create-a-new-collection)
 
-__Arguments__
+**Arguments**
 
-| Argument | Type | Opt/Required |
-|---|---|---|
-|__`title`__|_string_|Required|
-|__`description`__|_string_|Optional|
-|__`private`__|_boolean_|Optional|
+| Argument          | Type      | Opt/Required |
+| ----------------- | --------- | ------------ |
+| **`title`**       | _string_  | Required     |
+| **`description`** | _string_  | Optional     |
+| **`private`**     | _boolean_ | Optional     |
 
-__Example__
+**Example**
+
 ```js
-unsplash.collections.createCollection("Birds", "Wild birds from 'round the world", true)
+unsplash.collections
+  .createCollection('Birds', "Wild birds from 'round the world", true)
   .then(toJson)
   .then(json => {
     // Your code
   });
 ```
+
 ---
 
 ### collections.updateCollection(id, title, description, private)
+
 Update an existing collection belonging to the logged-in user. This requires the `write_collections` scope. [See endpoint docs 🚀](https://unsplash.com/documentation#update-an-existing-collection)
 
-__Arguments__
+**Arguments**
 
-| Argument | Type | Opt/Required |
-|---|---|---|
-|__`id`__|_number_|Required|
-|__`title`__|_string_|Optional|
-|__`description`__|_string_|Optional|
-|__`private`__|_boolean_|Optional|
+| Argument          | Type      | Opt/Required |
+| ----------------- | --------- | ------------ |
+| **`id`**          | _number_  | Required     |
+| **`title`**       | _string_  | Optional     |
+| **`description`** | _string_  | Optional     |
+| **`private`**     | _boolean_ | Optional     |
 
-__Example__
+**Example**
+
 ```js
-unsplash.collections.updateCollection(12345, "Wild Birds", "Wild birds from around the world", false)
+unsplash.collections
+  .updateCollection(
+    12345,
+    'Wild Birds',
+    'Wild birds from around the world',
+    false,
+  )
   .then(toJson)
   .then(json => {
     // Your code
   });
 ```
+
 ---
 
 ### collections.deleteCollection(id)
+
 Delete a collection belonging to the logged-in user. This requires the `write_collections` scope. [See endpoint docs 🚀](https://unsplash.com/documentation#delete-a-collection)
 
-__Arguments__
+**Arguments**
 
-| Argument | Type | Opt/Required |
-|---|---|---|
-|__`id`__|_number_|Required|
+| Argument | Type     | Opt/Required |
+| -------- | -------- | ------------ |
+| **`id`** | _number_ | Required     |
 
+**Example**
 
-__Example__
 ```js
-unsplash.collections.deleteCollection(88)
+unsplash.collections
+  .deleteCollection(88)
   .then(toJson)
   .then(json => {
     // Your code
   });
 ```
+
 ---
 
 ### collections.addPhotoToCollection(collectionId, photoId)
+
 Add a photo to one of the logged-in user’s collections. Requires the `write_collections` scope. [See endpoint docs 🚀](https://unsplash.com/documentation#add-a-photo-to-a-collection)
 
-__Arguments__
+**Arguments**
 
-| Argument | Type | Opt/Required |
-|---|---|---|
-|__`collectionId`__|_number_|Required|
-|__`photoId`__|_string_|Required|
+| Argument           | Type     | Opt/Required |
+| ------------------ | -------- | ------------ |
+| **`collectionId`** | _number_ | Required     |
+| **`photoId`**      | _string_ | Required     |
 
-__Example__
+**Example**
+
 ```js
-unsplash.collections.addPhotoToCollection(88, 'abc1234')
+unsplash.collections
+  .addPhotoToCollection(88, 'abc1234')
   .then(toJson)
   .then(json => {
     // Your code
   });
 ```
+
 ---
 
 ### collections.removePhotoFromCollection(collectionId, photoId)
+
 Remove a photo from one of the logged-in user’s collections. Requires the `write_collections` scope. [See endpoint docs 🚀](https://unsplash.com/documentation#remove-a-photo-from-a-collection)
 
-__Arguments__
+**Arguments**
 
-| Argument | Type | Opt/Required |
-|---|---|---|
-|__`collectionId`__|_number_|Required|
-|__`photoId`__|_string_|Required|
+| Argument           | Type     | Opt/Required |
+| ------------------ | -------- | ------------ |
+| **`collectionId`** | _number_ | Required     |
+| **`photoId`**      | _string_ | Required     |
 
-__Example__
+**Example**
+
 ```js
-unsplash.collections.removePhotoFromCollection(88, 'abc1234')
+unsplash.collections
+  .removePhotoFromCollection(88, 'abc1234')
   .then(toJson)
   .then(json => {
     // Your code
   });
 ```
+
 ---
 
 ### collections.listRelatedCollections(collectionId)
+
 Lists collections related to the provided one. [See endpoint docs 🚀](https://unsplash.com/documentation#list-a-collections-related-collections)
 
-__Arguments__
+**Arguments**
 
-| Argument | Type | Opt/Required |
-|---|---|---|
-|__`collectionId`__|_number_|Required|
+| Argument           | Type     | Opt/Required |
+| ------------------ | -------- | ------------ |
+| **`collectionId`** | _number_ | Required     |
 
-__Example__
+**Example**
+
 ```js
-unsplash.collections.listRelatedCollections(88)
+unsplash.collections
+  .listRelatedCollections(88)
   .then(toJson)
   .then(json => {
     // Your code
@@ -653,9 +749,9 @@ When initializing an instance of Unsplash, you'll need to include your applicati
 
 ```js
 const unsplash = new Unsplash({
-  accessKey: "{APP_ACCESS_KEY}",
-  secret: "{APP_SECRET}",
-  callbackUrl: "{CALLBACK_URL}"
+  accessKey: '{APP_ACCESS_KEY}',
+  secret: '{APP_SECRET}',
+  callbackUrl: '{CALLBACK_URL}',
 });
 ```
 
@@ -663,10 +759,10 @@ If you already have a bearer token, you can also provide it to the constructor:
 
 ```js
 const unsplash = new Unsplash({
-  accessKey: "{APP_ACCESS_KEY}",
-  secret: "{APP_SECRET}",
-  callbackUrl: "{CALLBACK_URL}",
-  bearerToken: "{USER_BEARER_TOKEN}"
+  accessKey: '{APP_ACCESS_KEY}',
+  secret: '{APP_SECRET}',
+  callbackUrl: '{CALLBACK_URL}',
+  bearerToken: '{USER_BEARER_TOKEN}',
 });
 ```
 
@@ -674,11 +770,11 @@ Generate an authentication url with the scopes your app requires.
 
 ```js
 const authenticationUrl = unsplash.auth.getAuthenticationUrl([
-  "public",
-  "read_user",
-  "write_user",
-  "read_photos",
-  "write_photos"
+  'public',
+  'read_user',
+  'write_user',
+  'read_photos',
+  'write_photos',
 ]);
 ```
 
@@ -688,12 +784,13 @@ Now that you have an authentication url, you'll want to redirect the user to it.
 location.assign(authenticationUrl);
 ```
 
-After the user authorizes your app she'll be redirected to your callback url with a `code` querystring present.  Request an access token using that code.
+After the user authorizes your app she'll be redirected to your callback url with a `code` querystring present. Request an access token using that code.
 
 ```js
 // The OAuth code will be passed to your callback url as a querystring
 
-unsplash.auth.userAuthentication(query.code)
+unsplash.auth
+  .userAuthentication(query.code)
   .then(toJson)
   .then(json => {
     unsplash.auth.setBearerToken(json.access_token);
@@ -705,126 +802,147 @@ _For more information on the authroization workflow, consult the [Unsplash API D
 ---
 
 ### auth.getAuthenticationUrl(scopes)
+
 Build an OAuth url with requested scopes.
 
-__Arguments__
+**Arguments**
 
-| Argument | Type | Opt/Required | Default |
-|---|---|---|---|
-|__`scopes`__|_Array<string>_|Optional| `["public"]` |
+| Argument     | Type            | Opt/Required | Default      |
+| ------------ | --------------- | ------------ | ------------ |
+| **`scopes`** | _Array<string>_ | Optional     | `["public"]` |
 
-__Example__
+**Example**
+
 ```js
 const authenticationUrl = unsplash.auth.getAuthenticationUrl([
-  "public",
-  "read_user",
-  "write_user",
-  "read_photos",
-  "write_photos"
+  'public',
+  'read_user',
+  'write_user',
+  'read_photos',
+  'write_photos',
 ]);
 ```
+
 ---
 
 ### auth.userAuthentication(code)
+
 Retrieve a user's access token.
 
-__Arguments__
+**Arguments**
 
-| Argument | Type | Opt/Required |
-|---|---|---|
-|__`code`__|_string_|Required|
+| Argument   | Type     | Opt/Required |
+| ---------- | -------- | ------------ |
+| **`code`** | _string_ | Required     |
 
-__Example__
+**Example**
+
 ```js
-unsplash.auth.userAuthentication("{OAUTH_CODE}")
+unsplash.auth
+  .userAuthentication('{OAUTH_CODE}')
   .then(toJson)
   .then(json => {
     // Your code
   });
 ```
+
 ---
 
 ### auth.setBearerToken(accessToken)
+
 Set a bearer token on the instance.
 
-__Arguments__
+**Arguments**
 
-| Argument | Type | Opt/Required |
-|---|---|---|
-|__`accessToken`__|_string_|Required|
+| Argument          | Type     | Opt/Required |
+| ----------------- | -------- | ------------ |
+| **`accessToken`** | _string_ | Required     |
 
-__Example__
+**Example**
+
 ```js
-unsplash.auth.setBearerToken("{BEARER_TOKEN}");
+unsplash.auth.setBearerToken('{BEARER_TOKEN}');
 ```
+
 ---
 
 <div id="current-user" />
 
 ### currentUser.profile()
+
 Get the user’s profile.
 
-__Arguments__
+**Arguments**
 
 _N/A_
 
-__Example__
+**Example**
+
 ```js
-unsplash.currentUser.profile()
+unsplash.currentUser
+  .profile()
   .then(toJson)
   .then(json => {
     // Your code
   });
 ```
+
 ---
 
 ### currentUser.updateProfile(options)
+
 Update the current user’s profile.
 
-__Arguments__
+**Arguments**
 
-| Argument | Type | Opt/Required |Notes|
-|---|---|---|---|
-|__`options`__|_Object_|Required|Object with the following optional keys: `username`, `firstName`, `lastName`, `email`, `url`, `location`, `bio`, `instagramUsername`|
+| Argument      | Type     | Opt/Required | Notes                                                                                                                                |
+| ------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------ |
+| **`options`** | _Object_ | Required     | Object with the following optional keys: `username`, `firstName`, `lastName`, `email`, `url`, `location`, `bio`, `instagramUsername` |
 
-__Example__
+**Example**
+
 ```js
-unsplash.currentUser.updateProfile({
-  username: "drizzy",
-  firstName: "Aubrey",
-  lastName: "Graham",
-  email: "drizzy@octobersveryown.com",
-  url: "http://octobersveryown.com",
-  location: "Toronto, Ontario, Canada",
-  bio: "Views from the 6",
-  instagramUsername: "champagnepapi"
-})
+unsplash.currentUser
+  .updateProfile({
+    username: 'drizzy',
+    firstName: 'Aubrey',
+    lastName: 'Graham',
+    email: 'drizzy@octobersveryown.com',
+    url: 'http://octobersveryown.com',
+    location: 'Toronto, Ontario, Canada',
+    bio: 'Views from the 6',
+    instagramUsername: 'champagnepapi',
+  })
   .then(toJson)
   .then(json => {
     // Your code
   });
 ```
+
 ---
 
 ## Helpers
 
 ### toJson(res)
-__Arguments__
 
-| Argument | Type | Opt/Required |
-|---|---|---|
-|__`res`__|_Object_|Required|
+**Arguments**
 
-__Example__
+| Argument  | Type     | Opt/Required |
+| --------- | -------- | ------------ |
+| **`res`** | _Object_ | Required     |
+
+**Example**
+
 ```js
-import Unsplash, { toJson } from "unsplash-js";
+import Unsplash, { toJson } from 'unsplash-js';
 
 const unsplash = new Unsplash({
   accessKey: YOUR_ACCESS_KEY,
-  secret: YOUR_SECRET_KEY
+  secret: YOUR_SECRET_KEY,
 });
 
-unsplash.stats.total()
+unsplash.stats
+  .total()
   .then(toJson)
   .then(json => {
     // Your code
