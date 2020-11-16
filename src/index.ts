@@ -6,7 +6,7 @@ import * as photos from './methods/photos';
 import * as search from './methods/search';
 import * as users from './methods/users';
 
-export const Unsplash = flow(initMakeRequest, makeRequest => {
+export const createApi = flow(initMakeRequest, makeRequest => {
   const generateMethod = <A extends unknown[], B>({
     handleRequest,
     handleResponse,
