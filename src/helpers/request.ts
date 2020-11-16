@@ -1,8 +1,13 @@
 import { ParsedUrlQueryInput } from 'querystring';
 import { addQueryToUrl, appendPathnameToUrl } from 'url-transformers';
 import { compactDefined, flow } from './fp';
-import { ABORTED, ApiResponse, handleFetchResponse } from './response';
-import { AnyJson, OmitStrict } from './typescript';
+import {
+  ABORTED,
+  ApiResponse,
+  handleFetchResponse,
+  HandleResponse,
+} from './response';
+import { OmitStrict } from './typescript';
 
 type BuildUrlParams = {
   pathname: string;
@@ -13,7 +18,7 @@ const buildUrl = ({ pathname, query = {} }: BuildUrlParams) =>
   flow(appendPathnameToUrl(pathname), addQueryToUrl(compactDefined(query)));
 
 type FetchParams = Pick<RequestInit, 'method' | 'body' | 'headers'>;
-type RequestParams = BuildUrlParams & FetchParams;
+export type RequestParams = BuildUrlParams & FetchParams;
 
 /**
  * No-op helper used to type-check the arguments.
@@ -36,13 +41,13 @@ export const initMakeRequest = ({
   apiUrl = 'https://api.unsplash.com',
   headers: generalHeaders,
   ...generalFetchOptions
-}: InitArguments) => ({
+}: InitArguments) => <T>(handleResponse: HandleResponse<T>) => ({
   pathname,
   query,
   method = 'GET',
   headers: endpointHeaders,
   body,
-}: RequestParams): PromiseWithAbort<ApiResponse<AnyJson>> => {
+}: RequestParams): PromiseWithAbort<ApiResponse<T>> => {
   const url = buildUrl({ pathname, query })(apiUrl);
 
   const headers = {
@@ -71,7 +76,7 @@ export const initMakeRequest = ({
         throw err;
       }
     })
-    .then(handleFetchResponse);
+    .then(handleFetchResponse(handleResponse));
 
   return {
     ...promise,

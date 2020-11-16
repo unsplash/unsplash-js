@@ -19,9 +19,19 @@ export type ApiResponse<T> =
     }
   | { type: 'aborted'; response?: never; errors?: never };
 
-export const handleFetchResponse = (
+export type HandleResponse<T> = (args: {
+  response: Response;
+  jsonResponse: AnyJson;
+}) => T;
+
+export const castResponse = <T>(): HandleResponse<T> => ({ jsonResponse }) =>
+  (jsonResponse as unknown) as T;
+
+export const handleFetchResponse = <ResponseType>(
+  handleResponse: HandleResponse<ResponseType>,
+) => (
   responseOrAbort: Response | typeof ABORTED,
-): Promise<ApiResponse<AnyJson>> =>
+): Promise<ApiResponse<ResponseType>> =>
   responseOrAbort === ABORTED
     ? Promise.resolve({ type: 'aborted' })
     : getJsonResponse(responseOrAbort).then(jsonResponse =>
@@ -29,7 +39,10 @@ export const handleFetchResponse = (
           ? {
               type: 'success',
               status: responseOrAbort.status,
-              response: jsonResponse,
+              response: handleResponse({
+                response: responseOrAbort,
+                jsonResponse,
+              }),
             }
           : {
               type: 'error',
