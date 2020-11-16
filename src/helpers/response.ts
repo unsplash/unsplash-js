@@ -23,9 +23,7 @@ export const handleFetchResponse = (
   responseOrAbort: Response | typeof ABORTED,
 ): Promise<ApiResponse<AnyJson>> =>
   responseOrAbort === ABORTED
-    ? Promise.resolve({
-        type: 'aborted',
-      })
+    ? Promise.resolve({ type: 'aborted' })
     : getJsonResponse(responseOrAbort).then(jsonResponse =>
         responseOrAbort.ok
           ? {
