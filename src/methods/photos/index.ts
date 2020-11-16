@@ -22,7 +22,7 @@ export const getStats = ({ photoId }: { photoId: string }) =>
   });
 
 export const getRandom = ({
-  cacheBuster,
+  cacheBuster = new Date().getTime().toString(),
   collectionIds,
   ...queryParams
 }: {
@@ -38,7 +38,7 @@ export const getRandom = ({
     pathname: '/photos/random',
     query: {
       ...queryParams,
-      c: cacheBuster || new Date().getTime(), // Avoid ajax response caching
+      c: cacheBuster, // Avoid ajax response caching
       ...Query.getCollections(collectionIds),
     },
   });
