@@ -42,3 +42,11 @@ export const Unsplash = flow(initMakeRequest, makeRequest => {
     },
   };
 });
+
+export const trackNonHotLinkedPhotoView = ({
+  appId,
+  photoId,
+}: {
+  photoId: string;
+  appId: string;
+}) => fetch(`views.unsplash.com/v?photo_id=${photoId}&app_id=${appId}`);
