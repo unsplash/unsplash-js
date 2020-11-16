@@ -43,9 +43,7 @@ export const getRandom = ({
     },
   });
 
-export const track = (photo: { links: { download_location: string } }) => {
-  const downloadLocation = photo.links.download_location;
-
+export const track = ({ downloadLocation }: { downloadLocation: string }) => {
   const { pathname, query } = urlHelpers.parse(downloadLocation, true);
 
   if (!isDefined(pathname)) {
