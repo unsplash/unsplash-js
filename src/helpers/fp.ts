@@ -38,7 +38,3 @@ export function flow(...fns: Array<Function>): Function {
     return y;
   };
 }
-
-export const compose = <B, C>(fn: (b: B) => C) => <A>(fn2: (b: A) => B) => (
-  x: A,
-) => fn(fn2(x));
