@@ -30,22 +30,23 @@ export const handleFetchResponse = <ResponseType>(
   responseOrAbort: Response | typeof ABORTED,
 ): Promise<ApiResponse<ResponseType>> =>
   responseOrAbort === ABORTED
-    ? Promise.resolve({ type: 'aborted' })
-    : getJsonResponse(responseOrAbort).then(jsonResponse =>
-        responseOrAbort.ok
-          ? {
-              type: 'success',
-              status: responseOrAbort.status,
-              response: handleResponse({
-                response: responseOrAbort,
-                jsonResponse,
-              }),
-            }
-          : {
-              type: 'error',
-              status: responseOrAbort.status,
-              errors: getErrorBadStatusCode(jsonResponse),
-            },
+    ? Promise.resolve<ApiResponse<ResponseType>>({ type: 'aborted' })
+    : getJsonResponse(responseOrAbort).then(
+        (jsonResponse): ApiResponse<ResponseType> =>
+          responseOrAbort.ok
+            ? {
+                type: 'success',
+                status: responseOrAbort.status,
+                response: handleResponse({
+                  response: responseOrAbort,
+                  jsonResponse,
+                }),
+              }
+            : {
+                type: 'error',
+                status: responseOrAbort.status,
+                errors: getErrorBadStatusCode(jsonResponse),
+              },
       );
 
 export const castResponse = <T>(): HandleResponse<T> => ({ jsonResponse }) =>
