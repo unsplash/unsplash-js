@@ -31,6 +31,9 @@ export const getRandom = ({
   username?: string;
   orientation?: Orientation;
   query?: string;
+  /**
+   * Avoid response caching
+   */
   cacheBuster?: string;
   count?: number;
 }) =>
@@ -38,7 +41,7 @@ export const getRandom = ({
     pathname: '/photos/random',
     query: {
       ...queryParams,
-      c: cacheBuster, // Avoid ajax response caching
+      c: cacheBuster,
       ...Query.getCollections(collectionIds),
     },
   });
