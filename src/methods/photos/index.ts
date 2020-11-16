@@ -5,7 +5,7 @@ import { createRequestParams } from '../../helpers/request';
 import { isDefined } from '../../helpers/typescript';
 import { Orientation, PaginationParams } from '../../types/request';
 
-export const listFeed = (feedParams: PaginationParams) =>
+export const list = (feedParams: PaginationParams) =>
   createRequestParams({
     pathname: `/photos`,
     query: Query.getFeedParams(feedParams),

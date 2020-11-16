@@ -8,7 +8,7 @@ import { compose, flow } from './helpers/fp';
 export const Unsplash = flow(initMakeRequest, compose, makeRequest => ({
   photos: {
     get: makeRequest(photos.get),
-    listFeed: makeRequest(photos.listFeed),
+    list: makeRequest(photos.list),
     getStats: makeRequest(photos.getStats),
     getRandom: makeRequest(photos.getRandom),
     track: makeRequest(photos.track),
