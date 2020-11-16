@@ -8,16 +8,16 @@ export type ApiResponse<T> =
   | {
       type: 'response';
       response: T;
-      errors: undefined;
+      errors?: never;
       status: number;
     }
   | {
       type: 'error';
-      response: undefined;
+      response?: never;
       errors: string[];
       status: number;
     }
-  | { type: 'aborted'; response: undefined; errors: undefined };
+  | { type: 'aborted'; response?: never; errors?: never };
 
 export const handleFetchResponse = (
   responseOrAbort: Response | typeof ABORTED,
@@ -25,8 +25,6 @@ export const handleFetchResponse = (
   responseOrAbort === ABORTED
     ? Promise.resolve({
         type: 'aborted',
-        response: undefined,
-        errors: undefined,
       })
     : getJsonResponse(responseOrAbort).then(jsonResponse =>
         responseOrAbort.ok
@@ -34,12 +32,10 @@ export const handleFetchResponse = (
               type: 'response',
               status: responseOrAbort.status,
               response: jsonResponse,
-              errors: undefined,
             }
           : {
               type: 'error',
               status: responseOrAbort.status,
               errors: getErrorBadStatusCode(jsonResponse),
-              response: undefined,
             },
       );
