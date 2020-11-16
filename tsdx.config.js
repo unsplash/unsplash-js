@@ -4,7 +4,7 @@ const analyzer = require('rollup-plugin-analyzer');
 module.exports = {
   // This function will run for each entry/format/env combination
   rollup(config, options) {
-    config.plugins.push(analyzer());
+    config.plugins.push(analyzer({ summaryOnly: true, hideDeps: true }));
     return config; // always return a config.
   },
 };
