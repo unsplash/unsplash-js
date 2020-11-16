@@ -9,14 +9,8 @@ type BuildUrlParams = {
   query?: ParsedUrlQueryInput;
 };
 
-const buildUrl = ({ apiUrl }: Required<Pick<InitArguments, 'apiUrl'>>) => ({
-  pathname,
-  query = {},
-}: BuildUrlParams) =>
-  flow(
-    appendPathnameToUrl(pathname),
-    addQueryToUrl(compactDefined(query)),
-  )(apiUrl);
+const buildUrl = ({ pathname, query = {} }: BuildUrlParams) =>
+  flow(appendPathnameToUrl(pathname), addQueryToUrl(compactDefined(query)));
 
 type FetchParams = Pick<RequestInit, 'method' | 'body' | 'headers'>;
 type RequestParams = BuildUrlParams & FetchParams;
@@ -49,7 +43,7 @@ export const initMakeRequest = ({
   headers: endpointHeaders,
   body,
 }: RequestParams): PromiseWithAbort<ApiResponse<AnyJson>> => {
-  const url = buildUrl({ apiUrl })({ pathname, query });
+  const url = buildUrl({ pathname, query })(apiUrl);
 
   const headers = {
     ...generalHeaders,
