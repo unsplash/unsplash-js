@@ -51,7 +51,7 @@ export const initMakeRequest: InitMakeRequest = ({
     ({ pathname, query, method = 'GET', headers: endpointHeaders, body }) => {
       const url = buildUrl({ pathname, query })(apiUrl);
 
-      return fetch(url, {
+      const fetchOptions: RequestInit = {
         method,
         headers: {
           ...generalHeaders,
@@ -61,6 +61,8 @@ export const initMakeRequest: InitMakeRequest = ({
         },
         body,
         ...generalFetchOptions,
-      }).then(handleFetchResponse(handleResponse));
+      };
+
+      return fetch(url, fetchOptions).then(handleFetchResponse(handleResponse));
     },
   );
