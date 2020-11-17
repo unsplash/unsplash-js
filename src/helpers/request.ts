@@ -31,25 +31,24 @@ type RequestGenerator<RequestArgs extends unknown[], ResponseType> = {
   handleResponse: HandleResponse<ResponseType>;
 };
 
-export const initMakeRequest = ({
+type InitMakeRequest = (
+  args: InitArguments,
+) => <RequestArgs extends unknown[], ResponseType>(
+  handlers: RequestGenerator<RequestArgs, ResponseType>,
+) => (
+  ...a: Parameters<typeof handlers['handleRequest']>
+) => Promise<ApiResponse<ResponseType>>;
+
+export const initMakeRequest: InitMakeRequest = ({
   accessKey,
   apiVersion = 'v1',
   apiUrl = 'https://api.unsplash.com',
   headers: generalHeaders,
   ...generalFetchOptions
-}: InitArguments) => <RequestArgs extends unknown[], ResponseType>({
-  handleResponse,
-  handleRequest,
-}: RequestGenerator<RequestArgs, ResponseType>) =>
+}) => ({ handleResponse, handleRequest }) =>
   flow(
     handleRequest,
-    ({
-      pathname,
-      query,
-      method = 'GET',
-      headers: endpointHeaders,
-      body,
-    }): Promise<ApiResponse<ResponseType>> => {
+    ({ pathname, query, method = 'GET', headers: endpointHeaders, body }) => {
       const url = buildUrl({ pathname, query })(apiUrl);
 
       return fetch(url, {
