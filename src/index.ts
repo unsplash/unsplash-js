@@ -1,46 +1,39 @@
 import { flow } from './helpers/fp';
-import { initMakeRequest, RequestParams } from './helpers/request';
-import { HandleResponse } from './helpers/response';
+import { initMakeRequest } from './helpers/request';
 import * as collections from './methods/collections';
 import * as photos from './methods/photos';
 import * as search from './methods/search';
 import * as users from './methods/users';
 
 export const createApi = flow(initMakeRequest, makeRequest => {
-  const generateMethod = <A extends unknown[], B>({
-    handleRequest,
-    handleResponse,
-  }: {
-    handleRequest: (...a: A) => RequestParams;
-    handleResponse: HandleResponse<B>;
-  }) => flow(handleRequest, makeRequest(handleResponse));
-
-  return {
+  const api = {
     photos: {
-      get: generateMethod(photos.get),
-      list: generateMethod(photos.list),
-      getStats: generateMethod(photos.getStats),
-      getRandom: generateMethod(photos.getRandom),
-      track: generateMethod(photos.track),
+      get: makeRequest(photos.get),
+      list: makeRequest(photos.list),
+      getStats: makeRequest(photos.getStats),
+      getRandom: makeRequest(photos.getRandom),
+      track: makeRequest(photos.track),
     },
     users: {
-      getPhotos: generateMethod(users.getPhotos),
-      getCollections: generateMethod(users.getCollections),
-      getLikes: generateMethod(users.getLikes),
-      get: generateMethod(users.get),
+      getPhotos: makeRequest(users.getPhotos),
+      getCollections: makeRequest(users.getCollections),
+      getLikes: makeRequest(users.getLikes),
+      get: makeRequest(users.get),
     },
     search: {
-      getCollections: generateMethod(search.getCollections),
-      getPhotos: generateMethod(search.getPhotos),
-      getUsers: generateMethod(search.getUsers),
+      getCollections: makeRequest(search.getCollections),
+      getPhotos: makeRequest(search.getPhotos),
+      getUsers: makeRequest(search.getUsers),
     },
     collections: {
-      getPhotos: generateMethod(collections.getPhotos),
-      get: generateMethod(collections.get),
-      list: generateMethod(collections.list),
-      getRelated: generateMethod(collections.getRelated),
+      getPhotos: makeRequest(collections.getPhotos),
+      get: makeRequest(collections.get),
+      list: makeRequest(collections.list),
+      getRelated: makeRequest(collections.getRelated),
     },
   };
+
+  return api;
 });
 
 export const trackNonHotLinkedPhotoView = ({ appId }: { appId: string }) => ({

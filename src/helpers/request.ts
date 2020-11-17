@@ -35,51 +35,55 @@ type PromiseWithAbort<T> = Promise<T> & {
   abort: AbortController['abort'];
 };
 
+type RequestGenerator<A extends unknown[], B> = {
+  handleRequest: (...a: A) => RequestParams;
+  handleResponse: HandleResponse<B>;
+};
+
 export const initMakeRequest = ({
   accessKey,
   apiVersion = 'v1',
   apiUrl = 'https://api.unsplash.com',
   headers: generalHeaders,
   ...generalFetchOptions
-}: InitArguments) => <T>(handleResponse: HandleResponse<T>) => ({
-  pathname,
-  query,
-  method = 'GET',
-  headers: endpointHeaders,
-  body,
-}: RequestParams): PromiseWithAbort<ApiResponse<T>> => {
-  const url = buildUrl({ pathname, query })(apiUrl);
+}: InitArguments) => <A extends unknown[], B>({
+  handleResponse,
+  handleRequest,
+}: RequestGenerator<A, B>) =>
+  flow(
+    handleRequest,
+    ({ pathname, query, method = 'GET', headers: endpointHeaders, body }) => {
+      const url = buildUrl({ pathname, query })(apiUrl);
 
-  const headers = {
-    ...generalHeaders,
-    ...endpointHeaders,
-    'Accept-Version': apiVersion,
-    Authorization: `Client-ID ${accessKey}`,
-  };
+      const controller = new AbortController();
+      const signal = controller.signal;
 
-  const controller = new AbortController();
-  const signal = controller.signal;
+      const promise = fetch(url, {
+        method,
+        headers: {
+          ...generalHeaders,
+          ...endpointHeaders,
+          'Accept-Version': apiVersion,
+          Authorization: `Client-ID ${accessKey}`,
+        },
+        body,
+        signal,
+        ...generalFetchOptions,
+      })
+        .catch(err => {
+          if (err.name === 'AbortError') {
+            return ABORTED;
+          } else {
+            throw err;
+          }
+        })
+        .then(handleFetchResponse(handleResponse));
 
-  const fetchOptions: RequestInit = {
-    method,
-    headers,
-    body,
-    signal,
-    ...generalFetchOptions,
-  };
+      const promiseWithAbort: PromiseWithAbort<ApiResponse<B>> = {
+        ...promise,
+        abort: controller.abort,
+      };
 
-  const promise = fetch(url, fetchOptions)
-    .catch(err => {
-      if (err.name === 'AbortError') {
-        return ABORTED;
-      } else {
-        throw err;
-      }
-    })
-    .then(handleFetchResponse(handleResponse));
-
-  return {
-    ...promise,
-    abort: controller.abort,
-  };
-};
+      return promiseWithAbort;
+    },
+  );
