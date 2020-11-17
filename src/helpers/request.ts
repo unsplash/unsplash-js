@@ -35,9 +35,9 @@ type PromiseWithAbort<T> = Promise<T> & {
   abort: AbortController['abort'];
 };
 
-type RequestGenerator<A extends unknown[], B> = {
-  handleRequest: (...a: A) => RequestParams;
-  handleResponse: HandleResponse<B>;
+type RequestGenerator<RequestArgs extends unknown[], ResponseType> = {
+  handleRequest: (...a: RequestArgs) => RequestParams;
+  handleResponse: HandleResponse<ResponseType>;
 };
 
 export const initMakeRequest = ({
@@ -46,10 +46,10 @@ export const initMakeRequest = ({
   apiUrl = 'https://api.unsplash.com',
   headers: generalHeaders,
   ...generalFetchOptions
-}: InitArguments) => <A extends unknown[], B>({
+}: InitArguments) => <RequestArgs extends unknown[], ResponseType>({
   handleResponse,
   handleRequest,
-}: RequestGenerator<A, B>) =>
+}: RequestGenerator<RequestArgs, ResponseType>) =>
   flow(
     handleRequest,
     ({ pathname, query, method = 'GET', headers: endpointHeaders, body }) => {
@@ -79,7 +79,7 @@ export const initMakeRequest = ({
         })
         .then(handleFetchResponse(handleResponse));
 
-      const promiseWithAbort: PromiseWithAbort<ApiResponse<B>> = {
+      const promiseWithAbort: PromiseWithAbort<ApiResponse<ResponseType>> = {
         ...promise,
         abort: controller.abort,
       };
