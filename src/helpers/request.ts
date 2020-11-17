@@ -15,10 +15,20 @@ const buildUrl = ({ pathname, query = {} }: BuildUrlParams) =>
 type FetchParams = Pick<RequestInit, 'method' | 'body' | 'headers'>;
 export type RequestParams = BuildUrlParams & FetchParams;
 
+type AdditionalFetchOptions = Omit<RequestInit, keyof FetchParams>;
+type CompleteRequestParams = RequestParams & AdditionalFetchOptions;
 /**
- * No-op helper used to type-check the arguments.
+ * helper used to type-check the arguments, and add default params for all requests
  */
-export const createRequestParams = (args: RequestParams) => args;
+export const createRequestParams = <Args extends {}>(
+  fn: (a: Args) => RequestParams,
+) => (
+  a: Args,
+  additionalFetchOptions: AdditionalFetchOptions = {},
+): CompleteRequestParams => ({
+  ...fn(a),
+  ...additionalFetchOptions,
+});
 
 type InitArguments = {
   accessKey: string;
@@ -27,7 +37,7 @@ type InitArguments = {
 } & OmitStrict<RequestInit, 'method' | 'body'>;
 
 type RequestGenerator<RequestArgs extends unknown[], ResponseType> = {
-  handleRequest: (...a: RequestArgs) => RequestParams;
+  handleRequest: (...a: RequestArgs) => CompleteRequestParams;
   handleResponse: HandleResponse<ResponseType>;
 };
 
@@ -48,7 +58,14 @@ export const initMakeRequest: InitMakeRequest = ({
 }) => ({ handleResponse, handleRequest }) =>
   flow(
     handleRequest,
-    ({ pathname, query, method = 'GET', headers: endpointHeaders, body }) => {
+    ({
+      pathname,
+      query,
+      method = 'GET',
+      headers: endpointHeaders,
+      body,
+      signal,
+    }) => {
       const url = buildUrl({ pathname, query })(apiUrl);
 
       const fetchOptions: RequestInit = {
@@ -60,6 +77,7 @@ export const initMakeRequest: InitMakeRequest = ({
           Authorization: `Client-ID ${accessKey}`,
         },
         body,
+        signal,
         ...generalFetchOptions,
       };
 

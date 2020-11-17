@@ -21,17 +21,17 @@ type SearchPhotosParams = SearchParams &
   };
 
 export const getPhotos = {
-  handleRequest: ({
-    query,
-    page,
-    perPage,
-    orderBy,
-    collectionIds,
-    lang,
-    contentFilter,
-    ...filters
-  }: SearchPhotosParams) =>
-    createRequestParams({
+  handleRequest: createRequestParams(
+    ({
+      query,
+      page,
+      perPage,
+      orderBy,
+      collectionIds,
+      lang,
+      contentFilter,
+      ...filters
+    }: SearchPhotosParams) => ({
       pathname: '/search/photos',
       query: {
         query,
@@ -43,23 +43,26 @@ export const getPhotos = {
         ...filters,
       },
     }),
+  ),
   handleResponse: castResponse<any>(),
 };
 
 export const getCollections = {
-  handleRequest: ({ query, ...paginationParams }: SearchParams) =>
-    createRequestParams({
+  handleRequest: createRequestParams(
+    ({ query, ...paginationParams }: SearchParams) => ({
       pathname: '/search/collections',
       query: { query, ...Query.getFeedParams(paginationParams) },
     }),
+  ),
   handleResponse: castResponse<any>(),
 };
 
 export const getUsers = {
-  handleRequest: ({ query, ...paginationParams }: SearchParams) =>
-    createRequestParams({
+  handleRequest: createRequestParams(
+    ({ query, ...paginationParams }: SearchParams) => ({
       pathname: '/search/users',
       query: { query, ...Query.getFeedParams(paginationParams) },
     }),
+  ),
   handleResponse: castResponse<any>(),
 };
