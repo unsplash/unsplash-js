@@ -10,6 +10,9 @@ export type SearchParams = {
 
 type SearchPhotosParams = SearchParams &
   OrientationParam & {
+    /**
+     * API defaults to `relevant` if no value is provided
+     */
     orderBy?: SearchOrderBy;
     color?: ColorId;
     lang?: Language;
