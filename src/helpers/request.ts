@@ -1,12 +1,7 @@
 import { ParsedUrlQueryInput } from 'querystring';
 import { addQueryToUrl, appendPathnameToUrl } from 'url-transformers';
 import { compactDefined, flow } from './fp';
-import {
-  ABORTED,
-  ApiResponse,
-  handleFetchResponse,
-  HandleResponse,
-} from './response';
+import { ApiResponse, handleFetchResponse, HandleResponse } from './response';
 import { OmitStrict } from './typescript';
 
 type BuildUrlParams = {
@@ -31,10 +26,6 @@ type InitArguments = {
   apiUrl?: string;
 } & OmitStrict<RequestInit, 'method' | 'body'>;
 
-type PromiseWithAbort<T> = Promise<T> & {
-  abort: AbortController['abort'];
-};
-
 type RequestGenerator<RequestArgs extends unknown[], ResponseType> = {
   handleRequest: (...a: RequestArgs) => RequestParams;
   handleResponse: HandleResponse<ResponseType>;
@@ -52,13 +43,16 @@ export const initMakeRequest = ({
 }: RequestGenerator<RequestArgs, ResponseType>) =>
   flow(
     handleRequest,
-    ({ pathname, query, method = 'GET', headers: endpointHeaders, body }) => {
+    ({
+      pathname,
+      query,
+      method = 'GET',
+      headers: endpointHeaders,
+      body,
+    }): Promise<ApiResponse<ResponseType>> => {
       const url = buildUrl({ pathname, query })(apiUrl);
 
-      const controller = new AbortController();
-      const signal = controller.signal;
-
-      const promise = fetch(url, {
+      return fetch(url, {
         method,
         headers: {
           ...generalHeaders,
@@ -67,23 +61,7 @@ export const initMakeRequest = ({
           Authorization: `Client-ID ${accessKey}`,
         },
         body,
-        signal,
         ...generalFetchOptions,
-      })
-        .catch(err => {
-          if (err.name === 'AbortError') {
-            return ABORTED;
-          } else {
-            throw err;
-          }
-        })
-        .then(handleFetchResponse(handleResponse));
-
-      const promiseWithAbort: PromiseWithAbort<ApiResponse<ResponseType>> = {
-        ...promise,
-        abort: controller.abort,
-      };
-
-      return promiseWithAbort;
+      }).then(handleFetchResponse(handleResponse));
     },
   );

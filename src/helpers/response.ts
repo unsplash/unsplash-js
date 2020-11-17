@@ -2,8 +2,6 @@ import { getErrorBadStatusCode } from './errors';
 import { getJsonResponse } from './json';
 import { AnyJson } from './typescript';
 
-export const ABORTED = 'aborted' as const;
-
 export type ApiResponse<T> =
   | {
       type: 'success';
@@ -16,8 +14,7 @@ export type ApiResponse<T> =
       response?: never;
       errors: string[];
       status: number;
-    }
-  | { type: 'aborted'; response?: never; errors?: never };
+    };
 
 export type HandleResponse<T> = (args: {
   response: Response;
@@ -26,28 +23,21 @@ export type HandleResponse<T> = (args: {
 
 export const handleFetchResponse = <ResponseType>(
   handleResponse: HandleResponse<ResponseType>,
-) => (
-  responseOrAbort: Response | typeof ABORTED,
-): Promise<ApiResponse<ResponseType>> =>
-  responseOrAbort === ABORTED
-    ? Promise.resolve<ApiResponse<ResponseType>>({ type: 'aborted' })
-    : getJsonResponse(responseOrAbort).then(
-        (jsonResponse): ApiResponse<ResponseType> =>
-          responseOrAbort.ok
-            ? {
-                type: 'success',
-                status: responseOrAbort.status,
-                response: handleResponse({
-                  response: responseOrAbort,
-                  jsonResponse,
-                }),
-              }
-            : {
-                type: 'error',
-                status: responseOrAbort.status,
-                errors: getErrorBadStatusCode(jsonResponse),
-              },
-      );
+) => (response: Response): Promise<ApiResponse<ResponseType>> =>
+  getJsonResponse(response).then(
+    (jsonResponse): ApiResponse<ResponseType> =>
+      response.ok
+        ? {
+            type: 'success',
+            status: response.status,
+            response: handleResponse({ response, jsonResponse }),
+          }
+        : {
+            type: 'error',
+            status: response.status,
+            errors: getErrorBadStatusCode(jsonResponse),
+          },
+  );
 
 export const castResponse = <T>(): HandleResponse<T> => ({ jsonResponse }) =>
   (jsonResponse as unknown) as T;

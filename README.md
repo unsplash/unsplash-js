@@ -25,26 +25,18 @@ $ yarn add unsplash-js
 
 ## Dependencies
 
-This library depends on [fetch](https://fetch.spec.whatwg.org/) to make requests to the Unsplash API, and the [AbortController](https://developer.mozilla.org/en-US/docs/Web/API/AbortController) to allow you to abort the requests. For environments that don't support fetch, you'll need to provide polyfills of your choosing. Here are the ones we recommend:
+This library depends on [fetch](https://fetch.spec.whatwg.org/) to make requests to the Unsplash API. For environments that don't support fetch, you'll need to provide polyfills of your choosing. Here are the ones we recommend:
 
-- fetch:
-  - server: [node-fetch](https://github.com/bitinn/node-fetch)
-  - browser: [whatwg-fetch](https://github.com/github/fetch)
-- AbortController (same package ):
-  - server: [abort-controller](https://github.com/mysticatea/abort-controller#basic)
-  - browser: [abort-controller](https://github.com/mysticatea/abort-controller#polyfilling)
+- node implementation: [node-fetch](https://github.com/bitinn/node-fetch)
+- browser polyfill: [whatwg-fetch](https://github.com/github/fetch)
 
 ```ts
 // server
 import fetch from 'node-fetch';
-import AbortController from 'abort-controller';
-
 global.fetch = fetch;
-global.AbortController = AbortController;
 
 // browser
 import 'whatwg-fetch';
-import 'abort-controller/polyfill';
 ```
 
 Note: we recommend using a version of `node-fetch` higher than `2.4.0` to benefit from Brotli compression.
@@ -76,7 +68,7 @@ const unsplash = createApi({
 
 ### Making a request
 
-There are 3 outcomes to a request: error, aborted or success. You can inspect which one you have by reading the `result.type` value:
+There are 2 outcomes to a request: error or success. You can inspect which one you have by reading the `result.type` value:
 
 ```ts
 const unsplash = createApi({ accessKey: 'MY_ACCESS_KEY' });
@@ -84,9 +76,7 @@ const unsplash = createApi({ accessKey: 'MY_ACCESS_KEY' });
 unsplash.photos.get({ photoId: 'foo' }).then(result => {
   if (result.type === 'error') {
     console.log('error occurred: ', result.errors[0]);
-  } else if (result.type === 'aborted') {
-    console.log('fetch request aborted');
-  } else if (request.type === 'success') {
+  } else {
     const photo = result.response;
     console.log(photo);
   }
