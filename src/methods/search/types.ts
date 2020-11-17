@@ -1,14 +1,4 @@
-import { OrientationParam } from '../../types/request';
-
-export type SearchFilters = {
-  order_by?: Order;
-  color?: ColorId;
-} & OrientationParam;
-
-/**
- * When no `order_by` is provided, the API will use `relevant` by default.
- */
-export type Order = 'relevant' | 'latest';
+export type SearchOrderBy = 'relevant' | 'latest';
 
 export type ColorId =
   | 'white'

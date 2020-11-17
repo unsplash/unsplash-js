@@ -1,34 +1,40 @@
-import { createRequestParams } from '../../helpers/request';
-import { SearchFilters, ContentFilter, Language } from './types';
 import * as Query from '../../helpers/query';
-import { PaginationParams } from '../../types/request';
+import { createRequestParams } from '../../helpers/request';
 import { castResponse } from '../../helpers/response';
+import { OrientationParam, PaginationParams } from '../../types/request';
+import { ColorId, ContentFilter, Language, SearchOrderBy } from './types';
 
 export type SearchParams = {
   query: string;
-} & PaginationParams;
+} & Pick<PaginationParams, 'page' | 'perPage'>;
+
+type SearchPhotosParams = SearchParams &
+  OrientationParam & {
+    orderBy?: SearchOrderBy;
+    color?: ColorId;
+    lang?: Language;
+    contentFilter?: ContentFilter;
+    collectionIds?: string[];
+  };
 
 export const getPhotos = {
   handleRequest: ({
     query,
     page,
     perPage,
+    orderBy,
     collectionIds,
     lang,
     contentFilter,
     ...filters
-  }: SearchParams &
-    SearchFilters & {
-      lang?: Language;
-      contentFilter?: ContentFilter;
-      collectionIds?: string[];
-    }) =>
+  }: SearchPhotosParams) =>
     createRequestParams({
       pathname: '/search/photos',
       query: {
         query,
         content_filter: contentFilter,
         lang,
+        order_by: orderBy,
         ...Query.getFeedParams({ page, perPage }),
         ...Query.getCollections(collectionIds),
         ...filters,
