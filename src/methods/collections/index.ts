@@ -4,20 +4,24 @@ import * as Query from '../../helpers/query';
 import { castResponse } from '../../helpers/response';
 import { handleFeedResponse } from '../../helpers/feed';
 
+type CollectionId = {
+  collectionId: string;
+};
+
 export const getPhotos = {
   handleRequest: ({
     collectionId,
-    ...feedParams
-  }: { collectionId: string } & PaginationParams) =>
+    ...paginationParams
+  }: CollectionId & PaginationParams) =>
     createRequestParams({
       pathname: `/collections/${collectionId}/photos`,
-      query: Query.getFeedParams(feedParams),
+      query: Query.getFeedParams(paginationParams),
     }),
   handleResponse: handleFeedResponse<any>(),
 };
 
 export const get = {
-  handleRequest: ({ collectionId }: { collectionId: string }) =>
+  handleRequest: ({ collectionId }: CollectionId) =>
     createRequestParams({
       pathname: `/collections/${collectionId}`,
     }),
@@ -25,16 +29,18 @@ export const get = {
 };
 
 export const list = {
-  handleRequest: (feedParams: Pick<PaginationParams, 'page' | 'perPage'>) =>
+  handleRequest: (
+    paginationParams: Pick<PaginationParams, 'page' | 'perPage'>,
+  ) =>
     createRequestParams({
       pathname: '/collections',
-      query: Query.getFeedParams(feedParams),
+      query: Query.getFeedParams(paginationParams),
     }),
   handleResponse: handleFeedResponse<any>(),
 };
 
 export const getRelated = {
-  handleRequest: ({ collectionId }: { collectionId: string }) =>
+  handleRequest: ({ collectionId }: CollectionId) =>
     createRequestParams({
       pathname: `/collections/${collectionId}/related`,
     }),

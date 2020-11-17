@@ -3,7 +3,10 @@ export enum OrderBy {
   POPULAR = 'popular',
   OLDEST = 'oldest',
 }
-export type Orientation = 'landscape' | 'portrait' | 'squarish';
+type Orientation = 'landscape' | 'portrait' | 'squarish';
+export type OrientationParam = {
+  orientation?: Orientation;
+};
 
 export type PaginationParams = {
   perPage?: number;

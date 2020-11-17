@@ -2,10 +2,14 @@ import { handleFeedResponse } from '../../helpers/feed';
 import * as Query from '../../helpers/query';
 import { createRequestParams } from '../../helpers/request';
 import { castResponse } from '../../helpers/response';
-import { Orientation, PaginationParams } from '../../types/request';
+import { OrientationParam, PaginationParams } from '../../types/request';
+
+type UserName = {
+  username: string;
+};
 
 export const get = {
-  handleRequest: ({ username }: { username: string }) =>
+  handleRequest: ({ username }: UserName) =>
     createRequestParams({
       pathname: `/users/${username}`,
     }),
@@ -17,16 +21,16 @@ export const getPhotos = {
     username,
     stats,
     orientation,
-    ...feedParams
+    ...paginationParams
   }: {
-    username: string;
     stats?: boolean;
-    orientation: Orientation;
-  } & PaginationParams) =>
+  } & OrientationParam &
+    UserName &
+    PaginationParams) =>
     createRequestParams({
       pathname: `/users/${username}/photos`,
       query: {
-        ...Query.getFeedParams(feedParams),
+        ...Query.getFeedParams(paginationParams),
         orientation,
         stats,
       },
@@ -38,12 +42,12 @@ export const getLikes = {
   handleRequest: ({
     username,
     orientation,
-    ...feedParams
-  }: { username: string; orientation: Orientation } & PaginationParams) =>
+    ...paginationParams
+  }: OrientationParam & UserName & PaginationParams) =>
     createRequestParams({
       pathname: `/users/${username}/likes`,
       query: {
-        ...Query.getFeedParams(feedParams),
+        ...Query.getFeedParams(paginationParams),
         orientation,
       },
     }),
@@ -52,11 +56,11 @@ export const getLikes = {
 export const getCollections = {
   handleRequest: ({
     username,
-    ...feedParams
-  }: { username: string } & PaginationParams) =>
+    ...paginationParams
+  }: UserName & PaginationParams) =>
     createRequestParams({
       pathname: `/users/${username}/collections`,
-      query: Query.getFeedParams(feedParams),
+      query: Query.getFeedParams(paginationParams),
     }),
   handleResponse: handleFeedResponse<any>(),
 };

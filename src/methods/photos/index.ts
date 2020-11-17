@@ -1,14 +1,17 @@
 import urlHelpers from 'url';
 import { handleFeedResponse } from '../../helpers/feed';
 import * as Query from '../../helpers/query';
-
 import { createRequestParams } from '../../helpers/request';
 import { castResponse } from '../../helpers/response';
 import { isDefined } from '../../helpers/typescript';
-import { Orientation, PaginationParams } from '../../types/request';
+import { OrientationParam, PaginationParams } from '../../types/request';
+
+type PhotoId = {
+  photoId: string;
+};
 
 export const list = {
-  handleRequest: (feedParams: PaginationParams) =>
+  handleRequest: (feedParams: PaginationParams = {}) =>
     createRequestParams({
       pathname: `/photos`,
       query: Query.getFeedParams(feedParams),
@@ -17,7 +20,7 @@ export const list = {
 };
 
 export const get = {
-  handleRequest: ({ photoId }: { photoId: string }) =>
+  handleRequest: ({ photoId }: PhotoId) =>
     createRequestParams({
       pathname: `/photos/${photoId}`,
     }),
@@ -25,30 +28,31 @@ export const get = {
 };
 
 export const getStats = {
-  handleRequest: ({ photoId }: { photoId: string }) =>
+  handleRequest: ({ photoId }: PhotoId) =>
     createRequestParams({
       pathname: `/photos/${photoId}/statistics`,
     }),
   handleResponse: castResponse<any>(),
 };
 
+const generateCacheBuster = () => new Date().getTime().toString();
+
 export const getRandom = {
   handleRequest: ({
-    cacheBuster = new Date().getTime().toString(),
+    cacheBuster = generateCacheBuster(),
     collectionIds,
     ...queryParams
   }: {
     collectionIds?: string[];
     featured?: boolean;
     username?: string;
-    orientation?: Orientation;
     query?: string;
     /**
      * Avoid response caching
      */
     cacheBuster?: string;
     count?: number;
-  }) =>
+  } & OrientationParam = {}) =>
     createRequestParams({
       pathname: '/photos/random',
       query: {

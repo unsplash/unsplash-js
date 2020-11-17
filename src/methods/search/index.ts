@@ -1,5 +1,5 @@
 import { createRequestParams } from '../../helpers/request';
-import { APISearchFilters, ContentFilter, Language } from './types';
+import { SearchFilters, ContentFilter, Language } from './types';
 import * as Query from '../../helpers/query';
 import { PaginationParams } from '../../types/request';
 import { castResponse } from '../../helpers/response';
@@ -7,13 +7,6 @@ import { castResponse } from '../../helpers/response';
 export type SearchParams = {
   query: string;
 } & PaginationParams;
-
-export type SearchParamsWithFilters = SearchParams &
-  APISearchFilters & {
-    lang?: Language;
-    contentFilter?: ContentFilter;
-    collectionIds?: string[];
-  };
 
 export const getPhotos = {
   handleRequest: ({
@@ -24,7 +17,12 @@ export const getPhotos = {
     lang,
     contentFilter,
     ...filters
-  }: SearchParamsWithFilters) =>
+  }: SearchParams &
+    SearchFilters & {
+      lang?: Language;
+      contentFilter?: ContentFilter;
+      collectionIds?: string[];
+    }) =>
     createRequestParams({
       pathname: '/search/photos',
       query: {
@@ -40,19 +38,19 @@ export const getPhotos = {
 };
 
 export const getCollections = {
-  handleRequest: ({ query, ...feedParams }: SearchParams) =>
+  handleRequest: ({ query, ...paginationParams }: SearchParams) =>
     createRequestParams({
       pathname: '/search/collections',
-      query: { query, ...Query.getFeedParams(feedParams) },
+      query: { query, ...Query.getFeedParams(paginationParams) },
     }),
   handleResponse: castResponse<any>(),
 };
 
 export const getUsers = {
-  handleRequest: ({ query, ...feedParams }: SearchParams) =>
+  handleRequest: ({ query, ...paginationParams }: SearchParams) =>
     createRequestParams({
       pathname: '/search/users',
-      query: { query, ...Query.getFeedParams(feedParams) },
+      query: { query, ...Query.getFeedParams(paginationParams) },
     }),
   handleResponse: castResponse<any>(),
 };
