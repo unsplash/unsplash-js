@@ -54,17 +54,16 @@ NOTE: If you're using `unsplash-js` publicly in the browser, you'll need to prox
 ```ts
 import { createApi } from 'unsplash-js';
 
-// server
-const unsplash = createApi({
+// on your node server
+const serverApi = createApi({
   accessKey: 'MY_ACCESS_KEY',
-  // add any additional fetch options here that you want to apply on every request
+  //...extra fetch options
 });
 
-// browser
-const unsplash = createApi({
-  accessKey: 'MY_ACCESS_KEY',
+// in the browser
+const browserApi = createApi({
   apiUrl: 'https://mywebsite.com/unsplash-proxy',
-  // add any additional fetch options here that you want to apply on every request
+  //...extra fetch options
 });
 ```
 

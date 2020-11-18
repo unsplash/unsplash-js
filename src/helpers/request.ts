@@ -2,7 +2,7 @@ import { ParsedUrlQueryInput } from 'querystring';
 import { addQueryToUrl, appendPathnameToUrl } from 'url-transformers';
 import { compactDefined, flow } from './fp';
 import { ApiResponse, handleFetchResponse, HandleResponse } from './response';
-import { OmitStrict } from './typescript';
+import { isDefined, OmitStrict } from './typescript';
 
 type BuildUrlParams = {
   pathname: string;
@@ -39,7 +39,7 @@ export const createRequestParams = <Args extends {}>(fn: (a: Args) => BaseReques
  * Initial parameters that apply to all calls
  */
 type InitParams = {
-  accessKey: string;
+  accessKey?: string;
   apiVersion?: string;
   apiUrl?: string;
 } & OmitStrict<RequestInit, 'method' | 'body'>;
@@ -73,7 +73,7 @@ export const initMakeRequest: InitMakeRequest = ({
           ...generalHeaders,
           ...endpointHeaders,
           'Accept-Version': apiVersion,
-          Authorization: `Client-ID ${accessKey}`,
+          ...(isDefined(accessKey) ? { Authorization: `Client-ID ${accessKey}` } : {}),
         },
         body,
         signal,
