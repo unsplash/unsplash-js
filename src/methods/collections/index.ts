@@ -8,13 +8,15 @@ type CollectionId = {
   collectionId: string;
 };
 
+const COLLECTIONS_PATH_PREFIX = '/collections';
+
 export const getPhotos = {
   handleRequest: createRequestParams(
     ({
       collectionId,
       ...paginationParams
     }: CollectionId & PaginationParams) => ({
-      pathname: `/collections/${collectionId}/photos`,
+      pathname: `${COLLECTIONS_PATH_PREFIX}/${collectionId}/photos`,
       query: Query.getFeedParams(paginationParams),
     }),
   ),
@@ -23,7 +25,7 @@ export const getPhotos = {
 
 export const get = {
   handleRequest: createRequestParams(({ collectionId }: CollectionId) => ({
-    pathname: `/collections/${collectionId}`,
+    pathname: `${COLLECTIONS_PATH_PREFIX}/${collectionId}`,
   })),
   handleResponse: castResponse<any>(),
 };
@@ -31,7 +33,7 @@ export const get = {
 export const list = {
   handleRequest: createRequestParams(
     (paginationParams: Pick<PaginationParams, 'page' | 'perPage'>) => ({
-      pathname: '/collections',
+      pathname: COLLECTIONS_PATH_PREFIX,
       query: Query.getFeedParams(paginationParams),
     }),
   ),
@@ -40,7 +42,7 @@ export const list = {
 
 export const getRelated = {
   handleRequest: createRequestParams(({ collectionId }: CollectionId) => ({
-    pathname: `/collections/${collectionId}/related`,
+    pathname: `${COLLECTIONS_PATH_PREFIX}/${collectionId}/related`,
   })),
   handleResponse: castResponse<any>(),
 };

@@ -8,9 +8,11 @@ type UserName = {
   username: string;
 };
 
+const USERS_PATH_PREFIX = '/users';
+
 export const get = {
   handleRequest: createRequestParams(({ username }: UserName) => ({
-    pathname: `/users/${username}`,
+    pathname: `${USERS_PATH_PREFIX}/${username}`,
   })),
   handleResponse: castResponse<any>(),
 };
@@ -27,7 +29,7 @@ export const getPhotos = {
     } & OrientationParam &
       UserName &
       PaginationParams) => ({
-      pathname: `/users/${username}/photos`,
+      pathname: `${USERS_PATH_PREFIX}/${username}/photos`,
       query: {
         ...Query.getFeedParams(paginationParams),
         orientation,
@@ -45,7 +47,7 @@ export const getLikes = {
       orientation,
       ...paginationParams
     }: OrientationParam & UserName & PaginationParams) => ({
-      pathname: `/users/${username}/likes`,
+      pathname: `${USERS_PATH_PREFIX}/${username}/likes`,
       query: {
         ...Query.getFeedParams(paginationParams),
         orientation,
@@ -57,7 +59,7 @@ export const getLikes = {
 export const getCollections = {
   handleRequest: createRequestParams(
     ({ username, ...paginationParams }: UserName & PaginationParams) => ({
-      pathname: `/users/${username}/collections`,
+      pathname: `${USERS_PATH_PREFIX}/${username}/collections`,
       query: Query.getFeedParams(paginationParams),
     }),
   ),

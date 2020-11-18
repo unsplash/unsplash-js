@@ -10,9 +10,11 @@ type PhotoId = {
   photoId: string;
 };
 
+const PHOTOS_PATH_PREFIX = '/photos';
+
 export const list = {
   handleRequest: createRequestParams((feedParams: PaginationParams = {}) => ({
-    pathname: `/photos`,
+    pathname: PHOTOS_PATH_PREFIX,
     query: Query.getFeedParams(feedParams),
   })),
   handleResponse: handleFeedResponse<any>(),
@@ -20,14 +22,14 @@ export const list = {
 
 export const get = {
   handleRequest: createRequestParams(({ photoId }: PhotoId) => ({
-    pathname: `/photos/${photoId}`,
+    pathname: `${PHOTOS_PATH_PREFIX}/${photoId}`,
   })),
   handleResponse: castResponse<any>(),
 };
 
 export const getStats = {
   handleRequest: createRequestParams(({ photoId }: PhotoId) => ({
-    pathname: `/photos/${photoId}/statistics`,
+    pathname: `${PHOTOS_PATH_PREFIX}/${photoId}/statistics`,
   })),
   handleResponse: castResponse<any>(),
 };
@@ -51,7 +53,7 @@ export const getRandom = {
       cacheBuster?: string;
       count?: number;
     } & OrientationParam = {}) => ({
-      pathname: '/photos/random',
+      pathname: `${PHOTOS_PATH_PREFIX}/random`,
       query: {
         ...queryParams,
         c: cacheBuster,

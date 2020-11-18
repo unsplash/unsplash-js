@@ -8,6 +8,8 @@ export type SearchParams = {
   query: string;
 } & Pick<PaginationParams, 'page' | 'perPage'>;
 
+const SEARCH_PATH_PREFIX = `/search`;
+
 type SearchPhotosParams = SearchParams &
   OrientationParam & {
     /**
@@ -32,7 +34,7 @@ export const getPhotos = {
       contentFilter,
       ...filters
     }: SearchPhotosParams) => ({
-      pathname: '/search/photos',
+      pathname: `${SEARCH_PATH_PREFIX}/photos`,
       query: {
         query,
         content_filter: contentFilter,
@@ -50,7 +52,7 @@ export const getPhotos = {
 export const getCollections = {
   handleRequest: createRequestParams(
     ({ query, ...paginationParams }: SearchParams) => ({
-      pathname: '/search/collections',
+      pathname: `${SEARCH_PATH_PREFIX}/collections`,
       query: { query, ...Query.getFeedParams(paginationParams) },
     }),
   ),
@@ -60,7 +62,7 @@ export const getCollections = {
 export const getUsers = {
   handleRequest: createRequestParams(
     ({ query, ...paginationParams }: SearchParams) => ({
-      pathname: '/search/users',
+      pathname: `${SEARCH_PATH_PREFIX}/users`,
       query: { query, ...Query.getFeedParams(paginationParams) },
     }),
   ),
