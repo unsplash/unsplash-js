@@ -16,9 +16,7 @@ export const compactDefined = <A>(obj: Record<string, A>) =>
  * copied from `fp-ts`
  * https://github.com/gcanti/fp-ts/blob/70190b5a03ddc2d31b4708c75c6dfad81d0bfa21/perf/function/flow.t¡s
  */
-export function flow<A extends Array<unknown>, B>(
-  ab: (...a: A) => B,
-): (...a: A) => B;
+export function flow<A extends Array<unknown>, B>(ab: (...a: A) => B): (...a: A) => B;
 export function flow<A extends Array<unknown>, B, C>(
   ab: (...a: A) => B,
   bc: (b: B) => C,

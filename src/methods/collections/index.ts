@@ -12,10 +12,7 @@ const COLLECTIONS_PATH_PREFIX = '/collections';
 
 export const getPhotos = {
   handleRequest: createRequestParams(
-    ({
-      collectionId,
-      ...paginationParams
-    }: CollectionId & PaginationParams) => ({
+    ({ collectionId, ...paginationParams }: CollectionId & PaginationParams) => ({
       pathname: `${COLLECTIONS_PATH_PREFIX}/${collectionId}/photos`,
       query: Query.getFeedParams(paginationParams),
     }),

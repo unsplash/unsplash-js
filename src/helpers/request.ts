@@ -27,9 +27,7 @@ type CompleteRequestParams = BaseRequestParams & AdditionalPerFetchParams;
 /**
  * helper used to type-check the arguments, and add default params for all requests
  */
-export const createRequestParams = <Args extends {}>(
-  fn: (a: Args) => BaseRequestParams,
-) => (
+export const createRequestParams = <Args extends {}>(fn: (a: Args) => BaseRequestParams) => (
   a: Args,
   additionalFetchOptions: AdditionalPerFetchParams = {},
 ): CompleteRequestParams => ({
@@ -55,9 +53,7 @@ type InitMakeRequest = (
   args: InitParams,
 ) => <RequestArgs extends unknown[], ResponseType>(
   handlers: RequestGenerator<RequestArgs, ResponseType>,
-) => (
-  ...a: Parameters<typeof handlers['handleRequest']>
-) => Promise<ApiResponse<ResponseType>>;
+) => (...a: Parameters<typeof handlers['handleRequest']>) => Promise<ApiResponse<ResponseType>>;
 
 export const initMakeRequest: InitMakeRequest = ({
   accessKey,
@@ -68,14 +64,7 @@ export const initMakeRequest: InitMakeRequest = ({
 }) => ({ handleResponse, handleRequest }) =>
   flow(
     handleRequest,
-    ({
-      pathname,
-      query,
-      method = 'GET',
-      headers: endpointHeaders,
-      body,
-      signal,
-    }) => {
+    ({ pathname, query, method = 'GET', headers: endpointHeaders, body, signal }) => {
       const url = buildUrl({ pathname, query })(apiUrl);
 
       const fetchOptions: RequestInit = {

@@ -16,14 +16,11 @@ export type ApiResponse<T> =
       status: number;
     };
 
-export type HandleResponse<T> = (args: {
-  response: Response;
-  jsonResponse: AnyJson;
-}) => T;
+export type HandleResponse<T> = (args: { response: Response; jsonResponse: AnyJson }) => T;
 
-export const handleFetchResponse = <ResponseType>(
-  handleResponse: HandleResponse<ResponseType>,
-) => (response: Response): Promise<ApiResponse<ResponseType>> =>
+export const handleFetchResponse = <ResponseType>(handleResponse: HandleResponse<ResponseType>) => (
+  response: Response,
+): Promise<ApiResponse<ResponseType>> =>
   getJsonResponse(response).then(
     (jsonResponse): ApiResponse<ResponseType> =>
       response.ok

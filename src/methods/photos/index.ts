@@ -65,15 +65,13 @@ export const getRandom = {
 };
 
 export const track = {
-  handleRequest: createRequestParams(
-    ({ downloadLocation }: { downloadLocation: string }) => {
-      const { pathname, query } = urlHelpers.parse(downloadLocation, true);
+  handleRequest: createRequestParams(({ downloadLocation }: { downloadLocation: string }) => {
+    const { pathname, query } = urlHelpers.parse(downloadLocation, true);
 
-      if (!isDefined(pathname)) {
-        throw new Error('Could not parse pathname from url.');
-      }
-      return { pathname, query };
-    },
-  ),
+    if (!isDefined(pathname)) {
+      throw new Error('Could not parse pathname from url.');
+    }
+    return { pathname, query };
+  }),
   handleResponse: castResponse<any>(),
 };

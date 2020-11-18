@@ -50,21 +50,17 @@ export const getPhotos = {
 };
 
 export const getCollections = {
-  handleRequest: createRequestParams(
-    ({ query, ...paginationParams }: SearchParams) => ({
-      pathname: `${SEARCH_PATH_PREFIX}/collections`,
-      query: { query, ...Query.getFeedParams(paginationParams) },
-    }),
-  ),
+  handleRequest: createRequestParams(({ query, ...paginationParams }: SearchParams) => ({
+    pathname: `${SEARCH_PATH_PREFIX}/collections`,
+    query: { query, ...Query.getFeedParams(paginationParams) },
+  })),
   handleResponse: castResponse<any>(),
 };
 
 export const getUsers = {
-  handleRequest: createRequestParams(
-    ({ query, ...paginationParams }: SearchParams) => ({
-      pathname: `${SEARCH_PATH_PREFIX}/users`,
-      query: { query, ...Query.getFeedParams(paginationParams) },
-    }),
-  ),
+  handleRequest: createRequestParams(({ query, ...paginationParams }: SearchParams) => ({
+    pathname: `${SEARCH_PATH_PREFIX}/users`,
+    query: { query, ...Query.getFeedParams(paginationParams) },
+  })),
   handleResponse: castResponse<any>(),
 };
