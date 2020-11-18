@@ -1,5 +1,5 @@
 import * as ContentTypeHelpers from 'content-type';
-import { AnyJson } from './typescript';
+import { AnyJson, isDefined } from './typescript';
 
 const CONTENT_TYPE_RESPONSE_HEADER = 'content-type';
 const CONTENT_TYPE_JSON = 'application/json';
@@ -7,7 +7,7 @@ const checkIsJsonResponse = (response: Response) => {
   const contentTypeHeader = response.headers.get(CONTENT_TYPE_RESPONSE_HEADER);
 
   return (
-    contentTypeHeader !== null &&
+    isDefined(contentTypeHeader) &&
     ContentTypeHelpers.parse(contentTypeHeader).type === CONTENT_TYPE_JSON
   );
 };
