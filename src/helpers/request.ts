@@ -23,14 +23,17 @@ type BaseRequestParams = BuildUrlParams & FetchParams;
  */
 type AdditionalPerFetchParams = Omit<RequestInit, keyof FetchParams>;
 type CompleteRequestParams = BaseRequestParams & AdditionalPerFetchParams;
+type HandleRequest<Args> = (
+  a: Args,
+  additionalFetchOptions: AdditionalPerFetchParams,
+) => CompleteRequestParams;
 
 /**
  * helper used to type-check the arguments, and add default params for all requests
  */
-export const createRequestHandler = <Args extends {}>(fn: (a: Args) => BaseRequestParams) => (
-  a: Args,
-  additionalFetchOptions: AdditionalPerFetchParams = {},
-): CompleteRequestParams => ({
+export const createRequestHandler = <Args extends {}>(
+  fn: (a: Args) => BaseRequestParams,
+): HandleRequest<Args> => (a, additionalFetchOptions = {}) => ({
   ...fn(a),
   ...additionalFetchOptions,
 });
@@ -44,15 +47,15 @@ type InitParams = {
   apiUrl?: string;
 } & OmitStrict<RequestInit, 'method' | 'body'>;
 
-type RequestGenerator<RequestArgs extends unknown[], ResponseType> = {
-  handleRequest: (...a: RequestArgs) => CompleteRequestParams;
+type RequestGenerator<Args, ResponseType> = {
+  handleRequest: HandleRequest<Args>;
   handleResponse: HandleResponse<ResponseType>;
 };
 
 type InitMakeRequest = (
   args: InitParams,
-) => <RequestArgs extends unknown[], ResponseType>(
-  handlers: RequestGenerator<RequestArgs, ResponseType>,
+) => <Args, ResponseType>(
+  handlers: RequestGenerator<Args, ResponseType>,
 ) => (...a: Parameters<typeof handlers['handleRequest']>) => Promise<ApiResponse<ResponseType>>;
 
 export const initMakeRequest: InitMakeRequest = ({
