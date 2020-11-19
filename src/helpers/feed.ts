@@ -21,10 +21,8 @@ type FeedResponse<T> = {
   total: number;
 };
 
-export const handleFeedResponse = <T>(): HandleResponse<FeedResponse<T>> => ({
-  response,
-  jsonResponse,
-}) => ({
-  results: castResponse<T[]>()({ jsonResponse, response }),
-  total: getTotalFromApiFeedResponse(response),
-});
+export const handleFeedResponse = <T>(): HandleResponse<FeedResponse<T>> => ({ response }) =>
+  castResponse<T[]>()({ response }).then(results => ({
+    results,
+    total: getTotalFromApiFeedResponse(response),
+  }));

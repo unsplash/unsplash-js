@@ -1,6 +1,5 @@
 import { getErrorBadStatusCode } from './errors';
 import { getJsonResponse } from './json';
-import { AnyJson } from './typescript';
 
 export type ApiResponse<T> =
   | {
@@ -16,25 +15,26 @@ export type ApiResponse<T> =
       status: number;
     };
 
-export type HandleResponse<T> = (args: { response: Response; jsonResponse: AnyJson }) => T;
+export type HandleResponse<T> = (args: { response: Response }) => Promise<T>;
 
 export const handleFetchResponse = <ResponseType>(handleResponse: HandleResponse<ResponseType>) => (
   response: Response,
 ): Promise<ApiResponse<ResponseType>> =>
-  getJsonResponse(response).then(
-    (jsonResponse): ApiResponse<ResponseType> =>
-      response.ok
-        ? {
-            type: 'success',
-            status: response.status,
-            response: handleResponse({ response, jsonResponse }),
-          }
-        : {
-            type: 'error',
-            status: response.status,
-            errors: getErrorBadStatusCode(jsonResponse),
-          },
-  );
+  response.ok
+    ? handleResponse({ response }).then(
+        (handledResponse): ApiResponse<ResponseType> => ({
+          type: 'success',
+          status: response.status,
+          response: handledResponse,
+        }),
+      )
+    : getJsonResponse(response).then(
+        (jsonResponse): ApiResponse<ResponseType> => ({
+          type: 'error',
+          status: response.status,
+          errors: getErrorBadStatusCode(jsonResponse),
+        }),
+      );
 
-export const castResponse = <T>(): HandleResponse<T> => ({ jsonResponse }) =>
-  (jsonResponse as unknown) as T;
+export const castResponse = <T>(): HandleResponse<T> => ({ response }) =>
+  (getJsonResponse(response) as unknown) as Promise<T>;

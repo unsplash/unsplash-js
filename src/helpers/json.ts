@@ -19,7 +19,6 @@ export const getJsonResponse = (response: Response): Promise<AnyJson> => {
   if (checkIsJsonResponse(response)) {
     return response.json();
   } else {
-    // TO-DO: should we handle this more gracefully? Do we ever not get JSON from ther server?
     throw new Error('expected JSON response from server');
   }
 };
