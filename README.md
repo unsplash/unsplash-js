@@ -1,7 +1,6 @@
 # Unsplash
 
 [![npm](https://img.shields.io/npm/v/unsplash-js.svg?style=flat-square)](https://www.npmjs.com/package/unsplash-js)
-[![Travis](https://img.shields.io/travis/unsplash/unsplash-js/master.svg?style=flat-square)](https://travis-ci.org/unsplash/unsplash-js/branches)
 
 Official Javascript wrapper for the [Unsplash API](https://unsplash.com/developers).
 
