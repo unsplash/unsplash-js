@@ -75,8 +75,8 @@ const browserApi = createApi({
 All methods have 2 arguments: the first one includes all of the options for that particular endpoint, while the second includes any additional options that you want to provide to `fetch`. In particular, the latter comes in handy if you want to allow for [request abortion](https://developer.mozilla.org/en-US/docs/Web/API/AbortController), although it can be used to pass anything else (headers, )
 
 ```ts
-var controller = new AbortController();
-var signal = controller.signal;
+const controller = new AbortController();
+const signal = controller.signal;
 
 api.photos.get({ photoId: '123' }, { signal }).catch(err => {
   if (err.name === 'AbortError') {
@@ -91,7 +91,7 @@ controller.abort();
 
 There are 2 possible outcomes to a request: error or success.
 
-- In the case of an error, we return an `result.errors` object containing an array of strings (each one repersenting one error). Typically, you will only have on item in this array.
+- In the case of an error, we return an `result.errors` object containing an array of strings (each one representing one error). Typically, you will only have on item in this array.
 - In the case of a success, we return a `result.response` object containing the data.
 
 You can inspect which one you have by reading the `result.type` value or checking the contents of `result.errors`/`result.success`
