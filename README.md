@@ -186,7 +186,7 @@ Get a single page from the list of all photos. [See endpoint docs 🚀](https://
 __Arguments__
 
 | Argument | Type | Opt/Required | Default |
-|---|---|---|
+|---|---|---|---|
 |__`page`__|_number_|Optional|1|
 |__`perPage`__|_number_|Optional|10|
 |__`orderBy`__|_string_|Optional|`latest`|
@@ -415,7 +415,7 @@ Get a list of photos liked by a user. [See endpoint docs 🚀](https://unsplash.
 __Arguments__
 
 | Argument | Type | Opt/Required | Notes | Default |
-|---|---|---|---|
+|---|---|---|---|---|
 |__`username`__|_string_|Required||
 |__`page`__|_number_|Optional||1|
 |__`perPage`__|_number_|Optional||10|
@@ -439,7 +439,7 @@ Get a list of collections created by the user. [See endpoint docs 🚀](https://
 __Arguments__
 
 | Argument | Type | Opt/Required | Notes | Default |
-|---|---|---|---|
+|---|---|---|---|---|
 |__`username`__|_string_|Required|||
 |__`page`__|_number_|Optional||1|
 |__`perPage`__|_number_|Optional||10|
@@ -463,7 +463,7 @@ Get a single page from the list of all collections. [See endpoint docs 🚀](htt
 __Arguments__
 
 | Argument | Type | Opt/Required | Notes | Default |
-|---|---|---|---|
+|---|---|---|---|---|
 |__`page`__|_number_|Optional||1|
 |__`perPage`__|_number_|Optional||10|
 |__`orderBy`__|_string_|Optional|`latest`, `oldest`|`latest`|
@@ -504,7 +504,7 @@ Retrieve a collection’s photos. [See endpoint docs 🚀](https://unsplash.com/
 __Arguments__
 
 | Argument | Type | Opt/Required | Notes | Default |
-|---|---|---|---|
+|---|---|---|---|---|
 |__`id`__|_number_|Required|||
 |__`page`__|_number_|Optional||1|
 |__`perPage`__|_number_|Optional||10|
