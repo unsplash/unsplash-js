@@ -3,10 +3,9 @@ export type AnyJson = boolean | number | string | null | JsonArray | JsonMap;
 export type JsonMap = { [key: string]: AnyJson };
 export type JsonArray = Array<AnyJson>;
 
-/**
- * https://stackoverflow.com/a/9436948
- */
-export const checkIsString = (value: unknown): value is string => typeof value === 'string';
+export const checkIsString = getRefinement(
+  (value: unknown): Nullable<string> => (typeof value === 'string' ? value : null),
+);
 
 /**
  * https://github.com/Microsoft/TypeScript/issues/12215#issuecomment-377567046
@@ -30,3 +29,11 @@ export type ValidateShape<T, Shape> = T extends Shape
   : never;
 
 export type NonEmptyArray<T> = [T, ...T[]];
+
+type Refinement<A, B extends A> = (a: A) => a is B;
+
+export function getRefinement<A, B extends A>(getB: (a: A) => Nullable<B>): Refinement<A, B> {
+  return (a: A): a is B => isDefined(getB(a));
+}
+
+export const checkIsNonEmptyArray = <T>(a: T[]): a is NonEmptyArray<T> => a.length > 0;

@@ -1,19 +1,39 @@
-import { AnyJson, checkIsString, isDefined, NonEmptyArray } from './typescript';
+import {
+  AnyJson,
+  checkIsString,
+  getRefinement,
+  isDefined,
+  checkIsNonEmptyArray,
+  JsonMap,
+  NonEmptyArray,
+  Nullable,
+} from './typescript';
 
 export type Errors = NonEmptyArray<string>;
 type ErrorResponse = {
   errors: Errors;
 };
 
-// https://stackoverflow.com/a/8511332
-const checkHasErrors = (response: AnyJson): response is { errors: AnyJson } =>
-  isDefined(response) && typeof response === 'object' && 'errors' in response;
+const checkIsObject = getRefinement(
+  (response: AnyJson): Nullable<JsonMap> =>
+    isDefined(response) && typeof response === 'object' && !Array.isArray(response)
+      ? response
+      : null,
+);
 
-const checkIsApiError = (response: AnyJson): response is ErrorResponse =>
-  checkHasErrors(response) &&
-  Array.isArray(response.errors) &&
-  response.errors.length > 0 &&
-  response.errors.every(checkIsString);
+const checkIsErrors = getRefinement(
+  (errors: AnyJson): Nullable<Errors> =>
+    Array.isArray(errors) && errors.every(checkIsString) && checkIsNonEmptyArray(errors)
+      ? errors
+      : null,
+);
+
+const checkIsApiError = getRefinement(
+  (response: AnyJson): Nullable<ErrorResponse> =>
+    checkIsObject(response) && 'errors' in response && checkIsErrors(response.errors)
+      ? { errors: response.errors }
+      : null,
+);
 
 export const getErrorBadStatusCode = (jsonResponse: AnyJson): Errors => {
   if (checkIsApiError(jsonResponse)) {
