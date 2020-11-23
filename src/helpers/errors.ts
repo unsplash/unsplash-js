@@ -1,7 +1,8 @@
-import { AnyJson, checkIsString, isDefined } from './typescript';
+import { AnyJson, checkIsString, isDefined, NonEmptyArray } from './typescript';
 
+export type Errors = NonEmptyArray<string>;
 type ErrorResponse = {
-  errors: string[];
+  errors: Errors;
 };
 
 // https://stackoverflow.com/a/8511332
@@ -11,9 +12,10 @@ const checkHasErrors = (response: AnyJson): response is { errors: AnyJson } =>
 const checkIsApiError = (response: AnyJson): response is ErrorResponse =>
   checkHasErrors(response) &&
   Array.isArray(response.errors) &&
+  response.errors.length > 0 &&
   response.errors.every(checkIsString);
 
-export const getErrorBadStatusCode = (jsonResponse: AnyJson) => {
+export const getErrorBadStatusCode = (jsonResponse: AnyJson): Errors => {
   if (checkIsApiError(jsonResponse)) {
     return jsonResponse.errors;
   } else {

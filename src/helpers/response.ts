@@ -1,4 +1,4 @@
-import { getErrorBadStatusCode } from './errors';
+import { Errors, getErrorBadStatusCode } from './errors';
 import { getJsonResponse } from './json';
 
 export type ApiResponse<T> =
@@ -11,7 +11,7 @@ export type ApiResponse<T> =
   | {
       type: 'error';
       response?: never;
-      errors: string[];
+      errors: Errors;
       status: number;
     };
 

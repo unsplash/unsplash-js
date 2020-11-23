@@ -28,3 +28,5 @@ export type ValidateShape<T, Shape> = T extends Shape
     ? T
     : never
   : never;
+
+export type NonEmptyArray<T> = [T, ...T[]];
