@@ -27,7 +27,7 @@ type CompleteRequestParams = BaseRequestParams & AdditionalPerFetchParams;
 /**
  * helper used to type-check the arguments, and add default params for all requests
  */
-export const createRequestParams = <Args extends {}>(fn: (a: Args) => BaseRequestParams) => (
+export const createRequestHandler = <Args extends {}>(fn: (a: Args) => BaseRequestParams) => (
   a: Args,
   additionalFetchOptions: AdditionalPerFetchParams = {},
 ): CompleteRequestParams => ({

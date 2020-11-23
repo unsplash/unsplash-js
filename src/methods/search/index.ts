@@ -1,5 +1,5 @@
 import * as Query from '../../helpers/query';
-import { createRequestParams } from '../../helpers/request';
+import { createRequestHandler } from '../../helpers/request';
 import { castResponse } from '../../helpers/response';
 import { OrientationParam, PaginationParams } from '../../types/request';
 import { ColorId, ContentFilter, Language, SearchOrderBy } from './types';
@@ -23,7 +23,7 @@ type SearchPhotosParams = SearchParams &
   };
 
 export const getPhotos = {
-  handleRequest: createRequestParams(
+  handleRequest: createRequestHandler(
     ({
       query,
       page,
@@ -50,7 +50,7 @@ export const getPhotos = {
 };
 
 export const getCollections = {
-  handleRequest: createRequestParams(({ query, ...paginationParams }: SearchParams) => ({
+  handleRequest: createRequestHandler(({ query, ...paginationParams }: SearchParams) => ({
     pathname: `${SEARCH_PATH_PREFIX}/collections`,
     query: { query, ...Query.getFeedParams(paginationParams) },
   })),
@@ -58,7 +58,7 @@ export const getCollections = {
 };
 
 export const getUsers = {
-  handleRequest: createRequestParams(({ query, ...paginationParams }: SearchParams) => ({
+  handleRequest: createRequestHandler(({ query, ...paginationParams }: SearchParams) => ({
     pathname: `${SEARCH_PATH_PREFIX}/users`,
     query: { query, ...Query.getFeedParams(paginationParams) },
   })),

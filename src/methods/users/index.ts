@@ -1,6 +1,6 @@
 import { handleFeedResponse } from '../../helpers/feed';
 import * as Query from '../../helpers/query';
-import { createRequestParams } from '../../helpers/request';
+import { createRequestHandler } from '../../helpers/request';
 import { castResponse } from '../../helpers/response';
 import { OrientationParam, PaginationParams } from '../../types/request';
 
@@ -11,14 +11,14 @@ type UserName = {
 const USERS_PATH_PREFIX = '/users';
 
 export const get = {
-  handleRequest: createRequestParams(({ username }: UserName) => ({
+  handleRequest: createRequestHandler(({ username }: UserName) => ({
     pathname: `${USERS_PATH_PREFIX}/${username}`,
   })),
   handleResponse: castResponse<any>(),
 };
 
 export const getPhotos = {
-  handleRequest: createRequestParams(
+  handleRequest: createRequestHandler(
     ({
       username,
       stats,
@@ -41,7 +41,7 @@ export const getPhotos = {
 };
 
 export const getLikes = {
-  handleRequest: createRequestParams(
+  handleRequest: createRequestHandler(
     ({
       username,
       orientation,
@@ -57,7 +57,7 @@ export const getLikes = {
   handleResponse: handleFeedResponse<any>(),
 };
 export const getCollections = {
-  handleRequest: createRequestParams(
+  handleRequest: createRequestHandler(
     ({ username, ...paginationParams }: UserName & PaginationParams) => ({
       pathname: `${USERS_PATH_PREFIX}/${username}/collections`,
       query: Query.getFeedParams(paginationParams),
