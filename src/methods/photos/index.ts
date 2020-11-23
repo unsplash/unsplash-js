@@ -34,12 +34,9 @@ export const getStats = {
   handleResponse: castResponse<any>(),
 };
 
-const generateCacheBuster = () => new Date().getTime().toString();
-
 export const getRandom = {
   handleRequest: createRequestHandler(
     ({
-      cacheBuster = generateCacheBuster(),
       collectionIds,
       ...queryParams
     }: {
@@ -47,17 +44,18 @@ export const getRandom = {
       featured?: boolean;
       username?: string;
       query?: string;
-      /**
-       * Avoid response caching
-       */
-      cacheBuster?: string;
       count?: number;
     } & OrientationParam = {}) => ({
       pathname: `${PHOTOS_PATH_PREFIX}/random`,
       query: {
         ...queryParams,
-        c: cacheBuster,
         ...Query.getCollections(collectionIds),
+      },
+      headers: {
+        /**
+         * Avoid response caching
+         */
+        'cache-control': 'no-cache',
       },
     }),
   ),
