@@ -74,8 +74,8 @@ const browserApi = createApi({
 All methods have 2 arguments: the first one includes all of the options for that particular endpoint, while the second includes any additional options that you want to provide to `fetch`. In particular, the latter comes in handy if you want to allow for [request abortion](https://developer.mozilla.org/en-US/docs/Web/API/AbortController), although it can be used to pass anything else (headers, )
 
 ```ts
-var controller = new AbortController();
-var signal = controller.signal;
+const controller = new AbortController();
+const signal = controller.signal;
 
 api.photos.get({ photoId: '123' }, { signal }).catch(err => {
   if (err.name === 'AbortError') {
