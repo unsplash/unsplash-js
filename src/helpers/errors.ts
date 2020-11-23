@@ -35,7 +35,7 @@ const checkIsApiError = getRefinement(
       : null,
 );
 
-export const getErrorBadStatusCode = (jsonResponse: AnyJson): Errors => {
+export const getErrorForBadStatusCode = (jsonResponse: AnyJson): Errors => {
   if (checkIsApiError(jsonResponse)) {
     return jsonResponse.errors;
   } else {

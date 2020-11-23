@@ -17,8 +17,10 @@ const checkIsJsonResponse = (response: Response) => {
  */
 export const getJsonResponse = (response: Response): Promise<AnyJson> => {
   if (checkIsJsonResponse(response)) {
-    return response.json();
+    return response.json().catch(_err => {
+      throw new Error('unable to parse JSON response.');
+    });
   } else {
-    throw new Error('expected JSON response from server');
+    throw new Error('expected JSON response from server.');
   }
 };

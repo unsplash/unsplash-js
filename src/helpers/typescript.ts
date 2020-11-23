@@ -31,7 +31,6 @@ export type ValidateShape<T, Shape> = T extends Shape
 export type NonEmptyArray<T> = [T, ...T[]];
 
 type Refinement<A, B extends A> = (a: A) => a is B;
-
 export function getRefinement<A, B extends A>(getB: (a: A) => Nullable<B>): Refinement<A, B> {
   return (a: A): a is B => isDefined(getB(a));
 }
