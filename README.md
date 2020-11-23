@@ -21,7 +21,9 @@ Before using the Unsplash API, you need to [register as a developer](https://uns
 
 ```bash
 $ npm i --save unsplash-js
-# or
+
+# OR
+
 $ yarn add unsplash-js
 ```
 
@@ -139,7 +141,7 @@ This library is written in TypeScript. This means that even if you are writing p
 
 <div id="search-photos" />
 
-### search.getPhotos(options)
+### search.getPhotos(arguments, additionalFetchOptions)
 
 Get a list of photos matching the query. [See endpoint docs 🚀](https://unsplash.com/documentation#search-photos)
 
@@ -169,7 +171,7 @@ unsplash.search.getPhotos({
 });
 ```
 
-### search.getUsers(options)
+### search.getUsers(arguments, additionalFetchOptions)
 
 Get a list of users matching the query. [See endpoint docs 🚀](https://unsplash.com/documentation#search-users)
 
@@ -191,7 +193,7 @@ api.search.getUsers({
 });
 ```
 
-### search.getCollections(options)
+### search.getCollections(arguments, additionalFetchOptions)
 
 Get a list of collections matching the query. [See endpoint docs 🚀](https://unsplash.com/documentation#search-collections)
 
@@ -219,7 +221,7 @@ api.search.getCollections({
 
 <div id="photos-all" />
 
-### photos.list(options)
+### photos.list(arguments, additionalFetchOptions)
 
 Get a single page from the list of all photos. [See endpoint docs 🚀](https://unsplash.com/documentation#list-photos)
 
@@ -239,7 +241,7 @@ unsplash.photos.listPhotos(2, 15, 'latest');
 
 ---
 
-### photos.get(options)
+### photos.get(arguments, additionalFetchOptions)
 
 Retrieve a single photo. [See endpoint docs 🚀](https://unsplash.com/documentation#get-a-photo)
 
@@ -257,7 +259,7 @@ unsplash.photos.get({ photoId: 'mtNweauBsMQ' });
 
 ---
 
-### photos.getStats(options)
+### photos.getStats(arguments, additionalFetchOptions)
 
 Retrieve a single photo's stats. [See endpoint docs 🚀](https://unsplash.com/documentation#get-a-photos-statistics)
 
@@ -277,7 +279,7 @@ unsplash.photos.getStats({ photoId: 'mtNweauBsMQ' });
 
 <div id="photo-random" />
 
-### photos.getRandomPhoto(options)
+### photos.getRandomPhoto(arguments, additionalFetchOptions)
 
 Retrieve a single random photo, given optional filters. [See endpoint docs 🚀](https://unsplash.com/documentation#get-a-random-photo)
 
@@ -300,7 +302,7 @@ unsplash.photos.getRandom({ username: 'naoufal' });
 
 <div id="track-download" />
 
-### photos.trackDownload(options)
+### photos.trackDownload(arguments, additionalFetchOptions)
 
 Trigger a download of a photo as per the [download tracking requirement of API Guidelines](https://medium.com/unsplash/unsplash-api-guidelines-triggering-a-download-c39b24e99e02). [See endpoint docs 🚀](https://unsplash.com/documentation#track-a-photo-download)
 
@@ -355,7 +357,7 @@ unsplash.users.get({ username: 'naoufal' });
 
 ---
 
-### users.getPhotos(options)
+### users.getPhotos(arguments, additionalFetchOptions)
 
 Get a list of photos uploaded by a user. [See endpoint docs 🚀](https://unsplash.com/documentation#list-a-users-photos)
 
@@ -384,7 +386,7 @@ unsplash.users.getPhotos({
 
 ---
 
-### users.getLikes(options)
+### users.getLikes(arguments, additionalFetchOptions)
 
 Get a list of photos liked by a user. [See endpoint docs 🚀](https://unsplash.com/documentation#list-a-users-liked-photos)
 
@@ -412,7 +414,7 @@ unsplash.users.getLikes({
 
 ---
 
-### users.getCollections(options)
+### users.getCollections(arguments, additionalFetchOptions)
 
 Get a list of collections created by the user. [See endpoint docs 🚀](https://unsplash.com/documentation#list-a-users-collections)
 
@@ -438,7 +440,7 @@ unsplash.users.getCollections({
 
 <div id="collections" />
 
-### collections.list(options)
+### collections.list(arguments, additionalFetchOptions)
 
 Get a single page from the list of all collections. [See endpoint docs 🚀](https://unsplash.com/documentation#list-collections)
 
@@ -458,7 +460,7 @@ unsplash.collections.list({ page: 1, perPage: 10 });
 
 ---
 
-### collections.get(options)
+### collections.get(arguments, additionalFetchOptions)
 
 Retrieve a single collection. To view a user’s private collections, the `read_collections` scope is required. [See endpoint docs 🚀](https://unsplash.com/documentation#get-a-collection)
 
@@ -476,7 +478,7 @@ unsplash.collections.get({ collectionId: 'abc123' });
 
 ---
 
-### collections.getPhotos(options)
+### collections.getPhotos(arguments, additionalFetchOptions)
 
 Retrieve a collection’s photos. [See endpoint docs 🚀](https://unsplash.com/documentation#get-a-collections-photos)
 
@@ -498,7 +500,7 @@ unsplash.collections.getPhotos({ collectionId: 'abc123' });
 
 ---
 
-### collections.getRelated(options)
+### collections.getRelated(arguments, additionalFetchOptions)
 
 Lists collections related to the provided one. [See endpoint docs 🚀](https://unsplash.com/documentation#list-a-collections-related-collections)
 
