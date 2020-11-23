@@ -54,8 +54,7 @@
     "rollup-plugin-analyzer": "^3.3.0",
     "size-limit": "^4.7.0",
     "tsdx": "^0.14.1",
-    "tslib": "^2.0.3",
-    "typescript": "^4.0.5"
+    "tslib": "^2.0.3"
   },
   "repository": {
     "type": "git",
