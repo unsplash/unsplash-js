@@ -20,6 +20,9 @@
     "size": "size-limit",
     "analyze": "size-limit --why"
   },
+  "resolutions": {
+    "@typescript-eslint/parser": "4.8.2"
+  },
   "peerDependencies": {},
   "husky": {
     "hooks": {
