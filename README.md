@@ -50,7 +50,7 @@ Note: we recommend using a version of `node-fetch` higher than `2.4.0` to benefi
 
 To create an instance, simply provide an _Object_ with your `accessKey`.
 
-NOTE: If you're using `unsplash-js` publicly in the browser, you'll need to proxy your requests through your server to sign the requests with the Access Key to abide by the [API Guideline](https://help.unsplash.com/articles/2511245-unsplash-api-guidelines) to keep keys confidential. We provide an `apiUrl` property that lets you do so:
+NOTE: If you're using `unsplash-js` publicly in the browser, you'll need to proxy your requests through your server to sign the requests with the Access Key to abide by the [API Guideline](https://help.unsplash.com/articles/2511245-unsplash-api-guidelines) to keep keys confidential. We provide an `apiUrl` property that lets you do so. Note that if you're providing one of those two values, it makes no sense to provide the other.
 
 ```ts
 import { createApi } from 'unsplash-js';
