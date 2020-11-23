@@ -42,10 +42,9 @@ export const createRequestHandler = <Args>(
  * Initial parameters that apply to all calls
  */
 type InitParams = {
-  accessKey?: string;
   apiVersion?: string;
-  apiUrl?: string;
-} & OmitStrict<RequestInit, 'method' | 'body'>;
+} & OmitStrict<RequestInit, 'method' | 'body'> &
+  ({ accessKey: string; apiUrl?: never } | { apiUrl: string; accessKey?: never });
 
 type RequestGenerator<Args, ResponseType> = {
   handleRequest: HandleRequest<Args>;
