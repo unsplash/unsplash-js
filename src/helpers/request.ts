@@ -65,7 +65,7 @@ type RequestGenerator<Args, ResponseType> = {
 };
 
 type GeneratedRequestFunction<Args, ResponseType> = (
-  ...args: Parameters<RequestGenerator<Args, ResponseType>['handleRequest']>
+  ...args: Parameters<HandleRequest<Args>>
 ) => Promise<ApiResponse<ResponseType>>;
 
 type InitMakeRequest = (
