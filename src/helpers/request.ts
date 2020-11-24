@@ -9,7 +9,7 @@ type BuildUrlParams = {
   query?: ParsedUrlQueryInput;
 };
 
-const buildUrl = ({ pathname, query = {} }: BuildUrlParams) =>
+export const buildUrl = ({ pathname, query = {} }: BuildUrlParams) =>
   flow(appendPathnameToUrl(pathname), addQueryToUrl(compactDefined(query)));
 
 type FetchParams = Pick<RequestInit, 'method'>;
@@ -25,7 +25,7 @@ type BaseRequestParams = BuildUrlParams &
  * Additional fetch options provided by the user on a per-call basis
  */
 type AdditionalPerFetchParams = Omit<RequestInit, keyof FetchParams>;
-type CompleteRequestParams = BaseRequestParams & AdditionalPerFetchParams;
+export type CompleteRequestParams = BaseRequestParams & AdditionalPerFetchParams;
 type HandleRequest<Args> = (
   a: Args,
   additionalFetchOptions?: AdditionalPerFetchParams,
@@ -37,10 +37,13 @@ type HandleRequest<Args> = (
 export const createRequestHandler = <Args>(
   fn: (a: Args) => BaseRequestParams,
 ): HandleRequest<Args> => (a, additionalFetchOptions = {}) => {
-  const { headers, ...baseReqParams } = fn(a);
+  const { headers, query = {}, ...baseReqParams } = fn(a);
+  const queryToUse = compactDefined(query);
+
   return {
     ...baseReqParams,
     ...additionalFetchOptions,
+    queryToUse,
     headers: {
       ...headers,
       ...additionalFetchOptions.headers,
