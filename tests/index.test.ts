@@ -113,4 +113,18 @@ describe('requestParams', () => {
       });
     });
   });
+  describe('additional arguments', () => {
+    it('Correctly passes down additional args', () => {
+      const abortcontroller = new AbortController();
+      const signal = abortcontroller.signal;
+      const output = photos.getRandom.handleRequest({}, { signal });
+
+      expect(output).toMatchSnapshot();
+    });
+    it('Correctly merges headers', () => {
+      const output = photos.getRandom.handleRequest({}, { headers: { 'test-headers': 'foo' } });
+
+      expect(output).toMatchSnapshot();
+    });
+  });
 });

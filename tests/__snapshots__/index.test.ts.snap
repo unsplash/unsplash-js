@@ -1,5 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`requestParams additional arguments Correctly merges headers 1`] = `
+Object {
+  "headers": Object {
+    "cache-control": "no-cache",
+    "test-headers": "foo",
+  },
+  "pathname": "/photos/random",
+  "query": Object {},
+}
+`;
+
+exports[`requestParams additional arguments Correctly passes down additional args 1`] = `
+Object {
+  "headers": Object {
+    "cache-control": "no-cache",
+  },
+  "pathname": "/photos/random",
+  "query": Object {},
+  "signal": AbortSignal {},
+}
+`;
+
 exports[`requestParams collections get:  Correcty builds request arguments 1`] = `
 Object {
   "headers": Object {},
