@@ -19,15 +19,6 @@ export type Nullable<T> = T | null;
 
 export const isDefined = <T>(x: T | null | undefined): x is T => x !== null && x !== undefined;
 
-/**
- * https://fettblog.eu/typescript-match-the-exact-object-shape/
- */
-export type ValidateShape<T, Shape> = T extends Shape
-  ? Exclude<keyof T, keyof Shape> extends never
-    ? T
-    : never
-  : never;
-
 export type NonEmptyArray<T> = [T, ...T[]];
 
 type Refinement<A, B extends A> = (a: A) => a is B;
