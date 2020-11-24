@@ -50,7 +50,7 @@ Note: we recommend using a version of `node-fetch` higher than `2.4.0` to benefi
 
 To create an instance, simply provide an _Object_ with your `accessKey`.
 
-NOTE: If you're using `unsplash-js` publicly in the browser, you'll need to proxy your requests through your server to sign the requests with the Access Key to abide by the [API Guideline](https://help.unsplash.com/articles/2511245-unsplash-api-guidelines) to keep keys confidential. We provide an `apiUrl` property that lets you do so. Note that if you're providing one of those two values, it makes no sense to provide the other.
+NOTE: If you're using `unsplash-js` publicly in the browser, you'll need to proxy your requests through your server to sign the requests with the Access Key to abide by the [API Guideline](https://help.unsplash.com/articles/2511245-unsplash-api-guidelines) to keep keys confidential. We provide an `apiUrl` property that lets you do so. You should only need to provide _one_ of those two values in any given scenario.
 
 ```ts
 import { createApi } from 'unsplash-js';
@@ -72,13 +72,17 @@ const browserApi = createApi({
 
 #### Arguments
 
-All methods have 2 arguments: the first one includes all of the options for that particular endpoint, while the second includes any additional options that you want to provide to `fetch`. In particular, the latter comes in handy if you want to allow for [request abortion](https://developer.mozilla.org/en-US/docs/Web/API/AbortController), although it can be used to pass anything else (headers, )
+All methods have 2 arguments: the first one includes all of the options for that particular endpoint, while the second includes any additional options that you want to provide to `fetch`. In particular, the latter comes in handy if you want to allow for [request abortion](https://developer.mozilla.org/en-US/docs/Web/API/AbortController), although it can be used to pass anything else (headers, etc.)
 
 ```ts
+const unsplash = createApi({
+  accessKey: 'MY_ACCESS_KEY',
+});
+
 const controller = new AbortController();
 const signal = controller.signal;
 
-api.photos.get({ photoId: '123' }, { signal }).catch(err => {
+unsplash.photos.get({ photoId: '123' }, { signal }).catch(err => {
   if (err.name === 'AbortError') {
     console.log('Fetch aborted');
   }
@@ -97,9 +101,9 @@ There are 2 possible outcomes to a request: error or success.
 You can inspect which one you have by reading the `result.type` value or checking the contents of `result.errors`/`result.success`
 
 ```ts
-const api = createApi({ accessKey: 'MY_ACCESS_KEY' });
+const unsplash = createApi({ accessKey: 'MY_ACCESS_KEY' });
 
-api.photos.get({ photoId: 'foo' }).then(result => {
+unsplash.photos.get({ photoId: 'foo' }).then(result => {
   if (result.type === 'error') {
     console.log('error occurred: ', result.errors[0]);
   } else {
@@ -108,7 +112,7 @@ api.photos.get({ photoId: 'foo' }).then(result => {
   }
 });
 
-api.users.getPhotos({ username: 'foo' }).then(result => {
+unsplash.users.getPhotos({ username: 'foo' }).then(result => {
   if (result.errors) {
     console.log('error occurred: ', result.errors[0]);
   } else {
@@ -128,6 +132,8 @@ This library is written in TypeScript. This means that even if you are writing p
 ![](./vscode-screenshot.png)
 
 ## Instance Methods
+
+NOTE: All of the method arguments described here are in the first parameter. See the [arguments](#Arguments) section for more information.
 
 - [Search](https://github.com/unsplash/unsplash-js#search)
 - [Photos](https://github.com/unsplash/unsplash-js#photos)
@@ -185,7 +191,7 @@ Get a list of users matching the query. [See endpoint docs 🚀](https://unsplas
 **Example**
 
 ```js
-api.search.getUsers({
+unsplash.search.getUsers({
   query: 'cat',
   page: 1,
   perPage: 10,
@@ -207,7 +213,7 @@ Get a list of collections matching the query. [See endpoint docs 🚀](https://u
 **Example**
 
 ```js
-api.search.getCollections({
+unsplash.search.getCollections({
   query: 'cat',
   page: 1,
   perPage: 10,
@@ -235,7 +241,8 @@ Get a single page from the list of all photos. [See endpoint docs 🚀](https://
 **Example**
 
 ```js
-unsplash.photos.listPhotos(2, 15, 'latest');
+unsplash.photos.list();
+unsplash.photos.list({ page: 2, page: 15 });
 ```
 
 ---
@@ -278,25 +285,34 @@ unsplash.photos.getStats({ photoId: 'mtNweauBsMQ' });
 
 <div id="photo-random" />
 
-### photos.getRandomPhoto(arguments, additionalFetchOptions)
+### photos.getRandom(arguments, additionalFetchOptions)
 
-Retrieve a single random photo, given optional filters. [See endpoint docs 🚀](https://unsplash.com/documentation#get-a-random-photo)
+Retrieve a single random photo, given optional filters. [See endpoint docs 🚀](https://unsplash.com/documentation#get-a-random-photo). Note: if you provide a value for `count` greater than `1`, you will receive an array of photos. Otherwise, you will receive a single photo object.
 
 **Arguments**
 
-| Argument          | Type            | Opt/Required |
-| ----------------- | --------------- | ------------ |
-| **`query`**       | _string_        | Optional     |
-| **`username`**    | _string_        | Optional     |
-| **`featured`**    | _boolean_       | Optional     |
-| **`collections`** | _Array<number>_ | Optional     |
-| **`count`**       | _string_        | Optional     |
+| Argument            | Type            | Opt/Required |
+| ------------------- | --------------- | ------------ |
+| **`query`**         | _string_        | Optional     |
+| **`username`**      | _string_        | Optional     |
+| **`featured`**      | _boolean_       | Optional     |
+| **`collectionIds`** | _Array<number>_ | Optional     |
+| **`count`**         | _string_        | Optional     |
 
 **Example**
 
 ```js
 unsplash.photos.getRandom();
-unsplash.photos.getRandom({ username: 'naoufal' });
+unsplash.photos.getRandom({
+  count: 10,
+});
+unsplash.photos.getRandom({
+  collectionIds: ['abc123'],
+  featured: true,
+  username: 'naoufal',
+  query: 'dog',
+  count: 1,
+});
 ```
 
 <div id="track-download" />
@@ -324,7 +340,7 @@ unsplash.photos.get({ photoId: 'mtNweauBsMQ' }).then(result => {
 });
 
 // or if working with an array of photos
-unsplash.search.photos('dogs', 1).then(result => {
+unsplash.search.photos({ query: 'dogs' }).then(result => {
   if (result.type === 'success') {
     const firstPhoto = result.response[0];
     unsplash.photos.trackDownload({
@@ -445,11 +461,10 @@ Get a single page from the list of all collections. [See endpoint docs 🚀](htt
 
 **Arguments**
 
-| Argument      | Type     | Opt/Required | Notes              | Default  |
-| ------------- | -------- | ------------ | ------------------ | -------- |
-| **`page`**    | _number_ | Optional     |                    | 1        |
-| **`perPage`** | _number_ | Optional     |                    | 10       |
-| **`orderBy`** | _string_ | Optional     | `latest`, `oldest` | `latest` |
+| Argument      | Type     | Opt/Required | Notes | Default |
+| ------------- | -------- | ------------ | ----- | ------- |
+| **`page`**    | _number_ | Optional     |       | 1       |
+| **`perPage`** | _number_ | Optional     |       | 10      |
 
 **Example**
 
@@ -461,7 +476,7 @@ unsplash.collections.list({ page: 1, perPage: 10 });
 
 ### collections.get(arguments, additionalFetchOptions)
 
-Retrieve a single collection. To view a user’s private collections, the `read_collections` scope is required. [See endpoint docs 🚀](https://unsplash.com/documentation#get-a-collection)
+Retrieve a single collection. [See endpoint docs 🚀](https://unsplash.com/documentation#get-a-collection)
 
 **Arguments**
 

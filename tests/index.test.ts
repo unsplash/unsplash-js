@@ -60,8 +60,8 @@ const paramsTests: Record<Section, { [index: string]: CompleteRequestParams[] }>
         count: 1,
       }),
     ],
-    track: [
-      photos.track.handleRequest({
+    trackDownload: [
+      photos.trackDownload.handleRequest({
         downloadLocation: 'https://api.unsplash.com/photos/foo123/download',
       }),
     ],
@@ -94,7 +94,13 @@ const paramsTests: Record<Section, { [index: string]: CompleteRequestParams[] }>
     getUsers: [search.getUsers.handleRequest({ query: SEARCH_QUERY })],
   },
   collections: {
-    getPhotos: [collections.getPhotos.handleRequest({ collectionId: COLLECTION_ID })],
+    getPhotos: [
+      collections.getPhotos.handleRequest({ collectionId: COLLECTION_ID }),
+      collections.getPhotos.handleRequest({
+        collectionId: COLLECTION_ID,
+        orientation: 'landscape',
+      }),
+    ],
     get: [collections.get.handleRequest({ collectionId: COLLECTION_ID })],
     list: [collections.list.handleRequest({})],
     getRelated: [collections.getRelated.handleRequest({ collectionId: COLLECTION_ID })],

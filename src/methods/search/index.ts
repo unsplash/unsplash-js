@@ -13,11 +13,17 @@ const SEARCH_PATH_PREFIX = `/search`;
 type SearchPhotosParams = SearchParams &
   OrientationParam & {
     /**
-     * API defaults to `relevant` if no value is provided
+     * API defaults to `"relevant"` if no value is provided
      */
     orderBy?: SearchOrderBy;
     color?: ColorId;
+    /**
+     * API defaults to `en` (English) if no value is provided
+     */
     lang?: Language;
+    /**
+     * API defaults to `"low"` if no value is provided
+     */
     contentFilter?: ContentFilter;
     collectionIds?: string[];
   };

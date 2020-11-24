@@ -2,7 +2,7 @@ import { handleFeedResponse } from '../../helpers/feed';
 import * as Query from '../../helpers/query';
 import { createRequestHandler } from '../../helpers/request';
 import { castResponse } from '../../helpers/response';
-import { PaginationParams } from '../../types/request';
+import { OrientationParam, PaginationParams } from '../../types/request';
 
 type CollectionId = {
   collectionId: string;
@@ -12,9 +12,13 @@ const COLLECTIONS_PATH_PREFIX = '/collections';
 
 export const getPhotos = {
   handleRequest: createRequestHandler(
-    ({ collectionId, ...paginationParams }: CollectionId & PaginationParams) => ({
+    ({
+      collectionId,
+      orientation,
+      ...paginationParams
+    }: CollectionId & PaginationParams & OrientationParam) => ({
       pathname: `${COLLECTIONS_PATH_PREFIX}/${collectionId}/photos`,
-      query: Query.getFeedParams(paginationParams),
+      query: { ...Query.getFeedParams(paginationParams), orientation },
     }),
   ),
   handleResponse: handleFeedResponse<any>(),

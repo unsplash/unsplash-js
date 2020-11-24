@@ -62,7 +62,7 @@ export const getRandom = {
   handleResponse: castResponse<any>(),
 };
 
-export const track = {
+export const trackDownload = {
   handleRequest: createRequestHandler(({ downloadLocation }: { downloadLocation: string }) => {
     const { pathname, query } = urlHelpers.parse(downloadLocation, true);
 

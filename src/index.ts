@@ -11,7 +11,7 @@ export const createApi = flow(initMakeRequest, makeRequest => ({
     list: makeRequest(photos.list),
     getStats: makeRequest(photos.getStats),
     getRandom: makeRequest(photos.getRandom),
-    track: makeRequest(photos.track),
+    trackDownload: makeRequest(photos.trackDownload),
   },
   users: {
     getPhotos: makeRequest(users.getPhotos),
