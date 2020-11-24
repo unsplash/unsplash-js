@@ -43,7 +43,7 @@ export const createRequestHandler = <Args>(
   return {
     ...baseReqParams,
     ...additionalFetchOptions,
-    queryToUse,
+    query: queryToUse,
     headers: {
       ...headers,
       ...additionalFetchOptions.headers,

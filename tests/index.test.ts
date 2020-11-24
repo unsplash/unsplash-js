@@ -5,6 +5,7 @@ import * as search from '../src/methods/search';
 import * as users from '../src/methods/users';
 import { createApi } from '../src';
 import { OrderBy } from '../src/types/request';
+import { Language } from '../src/methods/search/types';
 
 describe('buildUrl', () => {
   it('combines pathname, query and domain correctly', () => {
@@ -44,9 +45,21 @@ const paramsTests: Record<Section, { [index: string]: CompleteRequestParams[] }>
     list: [
       photos.list.handleRequest({ orderBy: OrderBy.LATEST, page: 4, perPage: 10 }),
       photos.list.handleRequest({ orderBy: OrderBy.LATEST }),
+      // TO-DO: figure out type arthimetic to allow for no object to be provided
+      photos.list.handleRequest({}),
     ],
     getStats: [photos.getStats.handleRequest({ photoId: PHOTO_ID })],
-    getRandom: [photos.getRandom.handleRequest({})],
+    getRandom: [
+      photos.getRandom.handleRequest({}),
+      photos.getRandom.handleRequest({
+        collectionIds: ['a', 'bcd'],
+        featured: true,
+        orientation: 'landscape',
+        username: USERNAME,
+        query: SEARCH_QUERY,
+        count: 1,
+      }),
+    ],
     track: [
       photos.track.handleRequest({
         downloadLocation: 'https://api.unsplash.com/photos/foo123/download',
@@ -54,14 +67,30 @@ const paramsTests: Record<Section, { [index: string]: CompleteRequestParams[] }>
     ],
   },
   users: {
-    getPhotos: [users.getPhotos.handleRequest({ username: USERNAME })],
+    getPhotos: [
+      users.getPhotos.handleRequest({ username: USERNAME }),
+      users.getPhotos.handleRequest({ username: USERNAME, stats: true, page: 4, perPage: 10 }),
+    ],
     getCollections: [users.getCollections.handleRequest({ username: USERNAME })],
     getLikes: [users.getLikes.handleRequest({ username: USERNAME })],
     get: [users.get.handleRequest({ username: USERNAME })],
   },
   search: {
     getCollections: [search.getCollections.handleRequest({ query: SEARCH_QUERY })],
-    getPhotos: [search.getPhotos.handleRequest({ query: SEARCH_QUERY })],
+    getPhotos: [
+      search.getPhotos.handleRequest({ query: SEARCH_QUERY }),
+      search.getPhotos.handleRequest({
+        query: SEARCH_QUERY,
+        collectionIds: ['a', 'b', 'c'],
+        color: 'blue',
+        contentFilter: 'high',
+        lang: Language.Esperanto,
+        orientation: 'portrait',
+        orderBy: 'latest',
+        page: 123,
+        perPage: 4,
+      }),
+    ],
     getUsers: [search.getUsers.handleRequest({ query: SEARCH_QUERY })],
   },
   collections: {
