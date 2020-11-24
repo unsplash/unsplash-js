@@ -13,6 +13,7 @@ const USERS_PATH_PREFIX = '/users';
 export const get = {
   handleRequest: createRequestHandler(({ username }: UserName) => ({
     pathname: `${USERS_PATH_PREFIX}/${username}`,
+    query: {},
   })),
   handleResponse: castResponse<any>(),
 };
