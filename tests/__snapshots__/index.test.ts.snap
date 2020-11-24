@@ -1,0 +1,151 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`requestParams collections get:  Correcty builds request arguments 1`] = `
+Object {
+  "headers": Object {},
+  "pathname": "/collections/collection123",
+  "queryToUse": Object {},
+}
+`;
+
+exports[`requestParams collections getPhotos:  Correcty builds request arguments 1`] = `
+Object {
+  "headers": Object {},
+  "pathname": "/collections/collection123/photos",
+  "queryToUse": Object {},
+}
+`;
+
+exports[`requestParams collections getRelated:  Correcty builds request arguments 1`] = `
+Object {
+  "headers": Object {},
+  "pathname": "/collections/collection123/related",
+  "queryToUse": Object {},
+}
+`;
+
+exports[`requestParams collections list:  Correcty builds request arguments 1`] = `
+Object {
+  "headers": Object {},
+  "pathname": "/collections",
+  "queryToUse": Object {},
+}
+`;
+
+exports[`requestParams photos get:  Correcty builds request arguments 1`] = `
+Object {
+  "headers": Object {},
+  "pathname": "/photos/abc123",
+  "queryToUse": Object {},
+}
+`;
+
+exports[`requestParams photos getRandom:  Correcty builds request arguments 1`] = `
+Object {
+  "headers": Object {
+    "cache-control": "no-cache",
+  },
+  "pathname": "/photos/random",
+  "queryToUse": Object {},
+}
+`;
+
+exports[`requestParams photos getStats:  Correcty builds request arguments 1`] = `
+Object {
+  "headers": Object {},
+  "pathname": "/photos/abc123/statistics",
+  "queryToUse": Object {},
+}
+`;
+
+exports[`requestParams photos list:  Correcty builds request arguments 1`] = `
+Object {
+  "headers": Object {},
+  "pathname": "/photos",
+  "queryToUse": Object {
+    "order_by": "latest",
+    "page": 4,
+    "per_page": 10,
+  },
+}
+`;
+
+exports[`requestParams photos list:  Correcty builds request arguments 2`] = `
+Object {
+  "headers": Object {},
+  "pathname": "/photos",
+  "queryToUse": Object {
+    "order_by": "latest",
+  },
+}
+`;
+
+exports[`requestParams photos track:  Correcty builds request arguments 1`] = `
+Object {
+  "headers": Object {},
+  "pathname": "/photos/foo123/download",
+  "queryToUse": Object {},
+}
+`;
+
+exports[`requestParams search getCollections:  Correcty builds request arguments 1`] = `
+Object {
+  "headers": Object {},
+  "pathname": "/search/collections",
+  "queryToUse": Object {
+    "query": "cat",
+  },
+}
+`;
+
+exports[`requestParams search getPhotos:  Correcty builds request arguments 1`] = `
+Object {
+  "headers": Object {},
+  "pathname": "/search/photos",
+  "queryToUse": Object {
+    "query": "cat",
+  },
+}
+`;
+
+exports[`requestParams search getUsers:  Correcty builds request arguments 1`] = `
+Object {
+  "headers": Object {},
+  "pathname": "/search/users",
+  "queryToUse": Object {
+    "query": "cat",
+  },
+}
+`;
+
+exports[`requestParams users get:  Correcty builds request arguments 1`] = `
+Object {
+  "headers": Object {},
+  "pathname": "/users/usernametest",
+  "queryToUse": Object {},
+}
+`;
+
+exports[`requestParams users getCollections:  Correcty builds request arguments 1`] = `
+Object {
+  "headers": Object {},
+  "pathname": "/users/usernametest/collections",
+  "queryToUse": Object {},
+}
+`;
+
+exports[`requestParams users getLikes:  Correcty builds request arguments 1`] = `
+Object {
+  "headers": Object {},
+  "pathname": "/users/usernametest/likes",
+  "queryToUse": Object {},
+}
+`;
+
+exports[`requestParams users getPhotos:  Correcty builds request arguments 1`] = `
+Object {
+  "headers": Object {},
+  "pathname": "/users/usernametest/photos",
+  "queryToUse": Object {},
+}
+`;
