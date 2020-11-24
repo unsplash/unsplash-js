@@ -38,6 +38,16 @@ Object {
 }
 `;
 
+exports[`requestParams collections getPhotos:  Correcty builds request arguments 2`] = `
+Object {
+  "headers": Object {},
+  "pathname": "/collections/collection123/photos",
+  "query": Object {
+    "orientation": "landscape",
+  },
+}
+`;
+
 exports[`requestParams collections getRelated:  Correcty builds request arguments 1`] = `
 Object {
   "headers": Object {},
@@ -127,7 +137,7 @@ Object {
 }
 `;
 
-exports[`requestParams photos track:  Correcty builds request arguments 1`] = `
+exports[`requestParams photos trackDownload:  Correcty builds request arguments 1`] = `
 Object {
   "headers": Object {},
   "pathname": "/photos/foo123/download",
