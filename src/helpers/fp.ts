@@ -8,7 +8,7 @@ export const compactDefined = <A>(obj: Record<string, A>) =>
     const value = obj[key];
     return {
       ...acc,
-      ...(isDefined(value) ? { key: value } : {}),
+      ...(isDefined(value) ? { [key]: value } : {}),
     };
   }, {});
 
