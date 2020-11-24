@@ -1,3 +1,4 @@
+import { ResponseHandlingError } from './errors';
 import { HandleResponse, castResponse } from './response';
 import { isDefined } from './typescript';
 
@@ -9,10 +10,10 @@ const getTotalFromApiFeedResponse = (response: Response) => {
     if (Number.isInteger(total)) {
       return total;
     } else {
-      throw new Error('Expected x-total header to be valid integer.');
+      throw new ResponseHandlingError('expected x-total header to be valid integer.');
     }
   } else {
-    throw new Error('Expected x-total header to exist.');
+    throw new ResponseHandlingError('expected x-total header to exist.');
   }
 };
 

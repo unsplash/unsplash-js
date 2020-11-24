@@ -1,4 +1,4 @@
-import { Errors, getErrorForBadStatusCode } from './errors';
+import { Errors, getErrorForBadStatusCode, ResponseHandlingError } from './errors';
 import { getJsonResponse } from './json';
 
 export type ApiResponse<T> =
@@ -10,6 +10,7 @@ export type ApiResponse<T> =
     }
   | {
       type: 'error';
+      source: 'api' | 'decoding';
       response?: never;
       errors: Errors;
       status: number;
@@ -31,15 +32,23 @@ export const handleFetchResponse = <ResponseType>(handleResponse: HandleResponse
     : getJsonResponse(response).then(
         (jsonResponse): ApiResponse<ResponseType> => ({
           type: 'error',
+          source: 'api',
           status: response.status,
           errors: getErrorForBadStatusCode(jsonResponse),
         }),
       )
-  ).catch(error => ({
-    type: 'error',
-    status: response.status,
-    errors: [`Error handling the response: ${error.message}`],
-  }));
+  ).catch(error => {
+    if (error instanceof ResponseHandlingError) {
+      return {
+        type: 'error',
+        source: 'decoding',
+        status: response.status,
+        errors: [error.message],
+      };
+    } else {
+      throw error;
+    }
+  });
 
 export const castResponse = <T>(): HandleResponse<T> => ({ response }) =>
   (getJsonResponse(response) as unknown) as Promise<T>;

@@ -44,3 +44,7 @@ export const getErrorForBadStatusCode = (jsonResponse: AnyJson): Errors => {
     ];
   }
 };
+
+export class ResponseHandlingError {
+  constructor(readonly message: string) {}
+}
