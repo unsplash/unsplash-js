@@ -28,7 +28,7 @@ type AdditionalPerFetchParams = Omit<RequestInit, keyof FetchParams>;
 type CompleteRequestParams = BaseRequestParams & AdditionalPerFetchParams;
 type HandleRequest<Args> = (
   a: Args,
-  additionalFetchOptions: AdditionalPerFetchParams,
+  additionalFetchOptions?: AdditionalPerFetchParams,
 ) => CompleteRequestParams;
 
 /**
