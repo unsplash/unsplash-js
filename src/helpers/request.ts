@@ -64,11 +64,15 @@ type RequestGenerator<Args, ResponseType> = {
   handleResponse: HandleResponse<ResponseType>;
 };
 
+type GeneratedRequestFunction<Args, ResponseType> = (
+  ...a: Parameters<RequestGenerator<Args, ResponseType>['handleRequest']>
+) => Promise<ApiResponse<ResponseType>>;
+
 type InitMakeRequest = (
   args: InitParams,
 ) => <Args, ResponseType>(
   handlers: RequestGenerator<Args, ResponseType>,
-) => (...a: Parameters<typeof handlers['handleRequest']>) => Promise<ApiResponse<ResponseType>>;
+) => GeneratedRequestFunction<Args, ResponseType>;
 
 export const initMakeRequest: InitMakeRequest = ({
   accessKey,
