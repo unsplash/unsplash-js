@@ -14,7 +14,7 @@ describe('buildUrl', () => {
   });
 
   it('handles empty query correctly', () => {
-    const output = buildUrl({ pathname: '/foo/bar' })('https://example.com');
+    const output = buildUrl({ pathname: '/foo/bar', query: {} })('https://example.com');
     expect(output).toEqual('https://example.com/foo/bar');
   });
 

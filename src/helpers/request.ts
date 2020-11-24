@@ -6,10 +6,10 @@ import { isDefined, OmitStrict } from './typescript';
 
 type BuildUrlParams = {
   pathname: string;
-  query?: ParsedUrlQueryInput;
+  query: ParsedUrlQueryInput;
 };
 
-export const buildUrl = ({ pathname, query = {} }: BuildUrlParams) =>
+export const buildUrl = ({ pathname, query }: BuildUrlParams) =>
   flow(appendPathnameToUrl(pathname), addQueryToUrl(compactDefined(query)));
 
 type FetchParams = Pick<RequestInit, 'method'>;
@@ -37,7 +37,7 @@ type HandleRequest<Args> = (
 export const createHandleRequest = <Args>(
   fn: (a: Args) => BaseRequestParams,
 ): HandleRequest<Args> => (a, additionalFetchOptions = {}) => {
-  const { headers, query = {}, ...baseReqParams } = fn(a);
+  const { headers, query, ...baseReqParams } = fn(a);
   const queryToUse = compactDefined(query);
 
   return {

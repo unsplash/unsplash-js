@@ -23,6 +23,7 @@ export const list = {
 export const get = {
   handleRequest: createHandleRequest(({ photoId }: PhotoId) => ({
     pathname: `${PHOTOS_PATH_PREFIX}/${photoId}`,
+    query: {},
   })),
   handleResponse: castResponse<any>(),
 };
@@ -30,6 +31,7 @@ export const get = {
 export const getStats = {
   handleRequest: createHandleRequest(({ photoId }: PhotoId) => ({
     pathname: `${PHOTOS_PATH_PREFIX}/${photoId}/statistics`,
+    query: {},
   })),
   handleResponse: castResponse<any>(),
 };

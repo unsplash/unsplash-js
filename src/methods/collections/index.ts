@@ -27,6 +27,7 @@ export const getPhotos = {
 export const get = {
   handleRequest: createHandleRequest(({ collectionId }: CollectionId) => ({
     pathname: `${COLLECTIONS_PATH_PREFIX}/${collectionId}`,
+    query: {},
   })),
   handleResponse: castResponse<any>(),
 };
@@ -44,6 +45,7 @@ export const list = {
 export const getRelated = {
   handleRequest: createHandleRequest(({ collectionId }: CollectionId) => ({
     pathname: `${COLLECTIONS_PATH_PREFIX}/${collectionId}/related`,
+    query: {},
   })),
   handleResponse: castResponse<any>(),
 };
