@@ -1,7 +1,7 @@
 import urlHelpers from 'url';
 import { handleFeedResponse } from '../../helpers/feed';
 import * as Query from '../../helpers/query';
-import { createRequestHandler } from '../../helpers/request';
+import { createHandleRequest } from '../../helpers/request';
 import { castResponse } from '../../helpers/response';
 import { isDefined } from '../../helpers/typescript';
 import { OrientationParam, PaginationParams } from '../../types/request';
@@ -13,7 +13,7 @@ type PhotoId = {
 const PHOTOS_PATH_PREFIX = '/photos';
 
 export const list = {
-  handleRequest: createRequestHandler((feedParams: PaginationParams = {}) => ({
+  handleRequest: createHandleRequest((feedParams: PaginationParams = {}) => ({
     pathname: PHOTOS_PATH_PREFIX,
     query: Query.getFeedParams(feedParams),
   })),
@@ -21,21 +21,21 @@ export const list = {
 };
 
 export const get = {
-  handleRequest: createRequestHandler(({ photoId }: PhotoId) => ({
+  handleRequest: createHandleRequest(({ photoId }: PhotoId) => ({
     pathname: `${PHOTOS_PATH_PREFIX}/${photoId}`,
   })),
   handleResponse: castResponse<any>(),
 };
 
 export const getStats = {
-  handleRequest: createRequestHandler(({ photoId }: PhotoId) => ({
+  handleRequest: createHandleRequest(({ photoId }: PhotoId) => ({
     pathname: `${PHOTOS_PATH_PREFIX}/${photoId}/statistics`,
   })),
   handleResponse: castResponse<any>(),
 };
 
 export const getRandom = {
-  handleRequest: createRequestHandler(
+  handleRequest: createHandleRequest(
     ({
       collectionIds,
       ...queryParams
@@ -63,7 +63,7 @@ export const getRandom = {
 };
 
 export const trackDownload = {
-  handleRequest: createRequestHandler(({ downloadLocation }: { downloadLocation: string }) => {
+  handleRequest: createHandleRequest(({ downloadLocation }: { downloadLocation: string }) => {
     const { pathname, query } = urlHelpers.parse(downloadLocation, true);
 
     if (!isDefined(pathname)) {

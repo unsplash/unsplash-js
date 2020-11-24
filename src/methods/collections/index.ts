@@ -1,6 +1,6 @@
 import { handleFeedResponse } from '../../helpers/feed';
 import * as Query from '../../helpers/query';
-import { createRequestHandler } from '../../helpers/request';
+import { createHandleRequest } from '../../helpers/request';
 import { castResponse } from '../../helpers/response';
 import { OrientationParam, PaginationParams } from '../../types/request';
 
@@ -11,7 +11,7 @@ type CollectionId = {
 const COLLECTIONS_PATH_PREFIX = '/collections';
 
 export const getPhotos = {
-  handleRequest: createRequestHandler(
+  handleRequest: createHandleRequest(
     ({
       collectionId,
       orientation,
@@ -25,14 +25,14 @@ export const getPhotos = {
 };
 
 export const get = {
-  handleRequest: createRequestHandler(({ collectionId }: CollectionId) => ({
+  handleRequest: createHandleRequest(({ collectionId }: CollectionId) => ({
     pathname: `${COLLECTIONS_PATH_PREFIX}/${collectionId}`,
   })),
   handleResponse: castResponse<any>(),
 };
 
 export const list = {
-  handleRequest: createRequestHandler(
+  handleRequest: createHandleRequest(
     (paginationParams: Pick<PaginationParams, 'page' | 'perPage'>) => ({
       pathname: COLLECTIONS_PATH_PREFIX,
       query: Query.getFeedParams(paginationParams),
@@ -42,7 +42,7 @@ export const list = {
 };
 
 export const getRelated = {
-  handleRequest: createRequestHandler(({ collectionId }: CollectionId) => ({
+  handleRequest: createHandleRequest(({ collectionId }: CollectionId) => ({
     pathname: `${COLLECTIONS_PATH_PREFIX}/${collectionId}/related`,
   })),
   handleResponse: castResponse<any>(),

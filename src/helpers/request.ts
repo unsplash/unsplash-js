@@ -34,7 +34,7 @@ type HandleRequest<Args> = (
 /**
  * helper used to type-check the arguments, and add default params for all requests
  */
-export const createRequestHandler = <Args>(
+export const createHandleRequest = <Args>(
   fn: (a: Args) => BaseRequestParams,
 ): HandleRequest<Args> => (a, additionalFetchOptions = {}) => {
   const { headers, query = {}, ...baseReqParams } = fn(a);
