@@ -1,4 +1,4 @@
-import { Errors, getErrorForBadStatusCode, ResponseHandlingError } from './errors';
+import { Errors, ErrorSource, getErrorForBadStatusCode, ResponseHandlingError } from './errors';
 import { getJsonResponse } from './json';
 
 export type ApiResponse<T> =
@@ -10,7 +10,7 @@ export type ApiResponse<T> =
     }
   | {
       type: 'error';
-      source: 'api' | 'decoding';
+      source: ErrorSource;
       response?: never;
       errors: Errors;
       status: number;
@@ -32,9 +32,8 @@ export const handleFetchResponse = <ResponseType>(handleResponse: HandleResponse
     : getJsonResponse(response).then(
         (jsonResponse): ApiResponse<ResponseType> => ({
           type: 'error',
-          source: 'api',
           status: response.status,
-          errors: getErrorForBadStatusCode(jsonResponse),
+          ...getErrorForBadStatusCode(jsonResponse),
         }),
       )
   ).catch(error => {

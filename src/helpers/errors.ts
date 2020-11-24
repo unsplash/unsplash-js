@@ -10,9 +10,7 @@ import {
 } from './typescript';
 
 export type Errors = NonEmptyArray<string>;
-type ErrorResponse = {
-  errors: Errors;
-};
+export type ErrorSource = 'api' | 'decoding';
 
 const checkIsObject = getRefinement(
   (response: AnyJson): Nullable<JsonMap> =>
@@ -29,19 +27,24 @@ const checkIsErrors = getRefinement(
 );
 
 const checkIsApiError = getRefinement(
-  (response: AnyJson): Nullable<ErrorResponse> =>
+  (response: AnyJson): Nullable<{ errors: Errors }> =>
     checkIsObject(response) && 'errors' in response && checkIsErrors(response.errors)
       ? { errors: response.errors }
       : null,
 );
 
-export const getErrorForBadStatusCode = (jsonResponse: AnyJson): Errors => {
+export const getErrorForBadStatusCode = (
+  jsonResponse: AnyJson,
+): { errors: Errors; source: ErrorSource } => {
   if (checkIsApiError(jsonResponse)) {
-    return jsonResponse.errors;
+    return { errors: jsonResponse.errors, source: 'api' };
   } else {
-    return [
-      'Responded with a status code outside the 2xx range, and the response body is not recognisable.',
-    ];
+    return {
+      errors: [
+        'Responded with a status code outside the 2xx range, and the response body is not recognisable.',
+      ],
+      source: 'decoding',
+    };
   }
 };
 
