@@ -68,8 +68,8 @@ const unsplash = Unsplash.createApi({ accessKey: 'MY_ACCESS_KEY' });
     - ⚠️ `getCollectionPhotos` --> `getPhotos`
     - ⚠️ `listRelatedCollections` --> `listRelated`
 
-- Changes the format of the parameters for **all** API methods. Check the TypeScript types and the [Arguments](./README.md#Arguments) section for the new parameters.
-- Changes the format of the responses for **all** API methods. Check the TypeScript types and the [Response](./README.md#Response) section for the response format.
+- Changes the format of the parameters for **all** API methods. They are now all named parameters within the first argument, instead of multiple arguments. Check the TypeScript types and the [Arguments](./README.md#Arguments) section of the docs for the new parameters format.
+- Changes the format of the responses for **all** API methods. The JSON is now parsed and returned, removing the need for the `toJson` helper. Feeds have the "x-total" header added to the response. The library now also performs error-handling: expected errors are returned instead of thrown, along with a description of their source. Check the TypeScript types and the [Response](./README.md#Response) section of the docs for the new response format.
 
 ### Changes
 
