@@ -2,7 +2,7 @@
 
 ## 7.0.0
 
-This version includes a total TypeScript rewrite of the library, with many breaking changes. If upgrading from a previous version, read carefully.
+This version includes a total TypeScript rewrite of the library, with many breaking changes. If upgrading from a previous version, read carefully. You will not be able to upgrade to v7 without making the necessary adjustments.
 
 ### Breaking Changes
 
@@ -28,6 +28,7 @@ const unsplash = Unsplash.createApi({ accessKey: 'MY_ACCESS_KEY' });
   - `photos`:
     - ❌ `likePhoto`
     - ❌ `unlikePhoto`
+    - ❌ `downloadPhoto` (deprecated in 6.3, replaced with `trackDownload`)
   - `users`:
     - ❌ `statistics`
   - `collections`:
@@ -56,7 +57,6 @@ const unsplash = Unsplash.createApi({ accessKey: 'MY_ACCESS_KEY' });
     - ⚠️ `getPhoto` --> `get`
     - ⚠️ `getRandomPhoto` --> `getRandom`
     - ⚠️ `getPhotoStats` --> `getStats`
-    - ⚠️ `trackDownload` --> `trackDownload`
   - `users`:
     - ⚠️ `profile` --> `get`
     - ⚠️ `photos` --> `getPhotos`
@@ -68,8 +68,8 @@ const unsplash = Unsplash.createApi({ accessKey: 'MY_ACCESS_KEY' });
     - ⚠️ `getCollectionPhotos` --> `getPhotos`
     - ⚠️ `listRelatedCollections` --> `listRelated`
 
-- Changes the expected arguments for all API methods. Check the TypeScript types and the [Arguments](./README.md#Arguments) section for the new parameters.
-- Changes the return type of all API methods. Check the TypeScript types and the [Response](./README.md#Response) section for the response format.
+- Changes the format of the parameters for **all** API methods. Check the TypeScript types and the [Arguments](./README.md#Arguments) section for the new parameters.
+- Changes the format of the responses for **all** API methods. Check the TypeScript types and the [Response](./README.md#Response) section for the response format.
 
 ### Changes
 
@@ -80,7 +80,7 @@ const unsplash = Unsplash.createApi({ accessKey: 'MY_ACCESS_KEY' });
 
 ### Changes
 
-- Deprecate `photos.photoDownload` in favor of `photos.trackDownload` to better clarify method usage. `photoDownload` will continue to be supported until version 7.0.
+- Deprecate `photos.downloadPhoto` in favor of `photos.trackDownload` to better clarify method usage. `downloadPhoto` will continue to be supported until version 7.0.
 
 ## 6.2.0
 
