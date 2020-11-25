@@ -37,6 +37,15 @@ export const handleFetchResponse = <ResponseType>(handleResponse: HandleResponse
         }),
       )
   ).catch(error => {
+    /**
+     * We want to separate expected decoding errors from unknown ones. We do so by throwing a custom
+     * `DecodingError` whenever we encounter one within `handleFetchResponse` and catch them all
+     * here. This allows us to easily handle all of these errors at once. Unexpected errors are not
+     * caught, so that they bubble up and fail loudly.
+     *
+     * Note: Ideally we'd use an Either type, but this does the job without introducing dependencies
+     * like `fp-ts`.
+     */
     if (error instanceof DecodingError) {
       return {
         type: 'error',
