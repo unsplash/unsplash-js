@@ -11,5 +11,5 @@ export const trackNonHotLinkedPhotoView = ({ appId }: { appId: string }) => ({
     );
   }
 
-  return fetch(`views.unsplash.com/v?photo_id=${photoId}&app_id=${appId}`);
+  return fetch(`views.unsplash.com/v?photo_id=${ids.join()}&app_id=${appId}`);
 };
