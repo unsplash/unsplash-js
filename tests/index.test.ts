@@ -38,8 +38,9 @@ const USERNAME = 'usernametest';
 const SEARCH_QUERY = 'cat';
 const COLLECTION_ID = 'collection123';
 
-type Section = keyof ReturnType<typeof createApi>;
-const paramsTests: Record<Section, { [index: string]: CompleteRequestParams[] }> = {
+type Api = ReturnType<typeof createApi>;
+type Section = keyof Api;
+const paramsTests: { [S in Section]: Record<keyof Api[S], CompleteRequestParams[]> } = {
   photos: {
     get: [photos.get.handleRequest({ photoId: PHOTO_ID })],
     list: [
