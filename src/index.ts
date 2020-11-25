@@ -31,9 +31,3 @@ export const createApi = flow(initMakeRequest, makeRequest => ({
     getRelated: makeRequest(collections.getRelated),
   },
 }));
-
-export const trackNonHotLinkedPhotoView = ({ appId }: { appId: string }) => ({
-  photoId,
-}: {
-  photoId: string;
-}) => fetch(`views.unsplash.com/v?photo_id=${photoId}&app_id=${appId}`);
