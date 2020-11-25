@@ -46,6 +46,12 @@ import 'whatwg-fetch';
 
 Note: we recommend using a version of `node-fetch` higher than `2.4.0` to benefit from Brotli compression.
 
+### url
+
+This library also depends on the NodeJS built-in [url](https://nodejs.org/api/url.html) module. If you are bundling this library in client-side code, make sure that to properly account for that.
+
+NOTE: By default, Webpack users automatically handles shimming node built-in modules.
+
 ## Usage
 
 ### Creating an instance
