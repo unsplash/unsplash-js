@@ -1,5 +1,81 @@
 # Changelog
 
+## 7.0.0
+
+This version includes a total TypeScript rewrite of the library, with many breaking changes. If upgrading from a previous version, read carefully.
+
+### Breaking Changes
+
+- Replaces the `Unsplash` `class` with a named `createApi` function:
+
+```ts
+// before
+import Unsplash from 'unsplash-js';
+const unsplash = new Unsplash({ accessKey: 'MY_ACCESS_KEY' });
+
+// after
+import { createApi } from 'unsplash-js';
+const unsplash = createApi({ accessKey: 'MY_ACCESS_KEY' });
+// or
+import Unsplash from 'unsplash-js';
+const unsplash = Unsplash.createApi({ accessKey: 'MY_ACCESS_KEY' });
+```
+
+- Removes user authentication features from the library. This means that the `createApi` function does not recieve `secret`, `callbackUrl` or `bearerToken`.
+
+* Removes the following API methods (primarily due to removal of user authentication):
+
+  - `photos`:
+    - ❌ `likePhoto`
+    - ❌ `unlikePhoto`
+  - `users`:
+    - ❌ `statistics`
+  - `collections`:
+    - ❌ `createCollection`
+    - ❌ `updateCollection`
+    - ❌ `deleteCollection`
+    - ❌ `addPhotoToCollection`
+    - ❌ `removePhotoFromCollection`
+  - `auth`:
+    - ❌ `getAuthenticationUrl`
+    - ❌ `userAuthentication`
+    - ❌ `setBearerToken`
+  - `currentUser`:
+    - ❌ `profile`
+    - ❌ `updateProfile`
+  - ❌ `toJson` (the library now takes care of converting the response to JSON).
+
+* Renames all of the remaining API methods:
+
+  - `search`:
+    - ⚠️ `photos` --> `getPhotos`
+    - ⚠️ `users` --> `getUsers`
+    - ⚠️ `collections` --> `getCollections`
+  - `photos`:
+    - ⚠️ `listPhotos` --> `list`
+    - ⚠️ `getPhoto` --> `get`
+    - ⚠️ `getRandomPhoto` --> `getRandom`
+    - ⚠️ `getPhotoStats` --> `getStats`
+    - ⚠️ `trackDownload` --> `trackDownload`
+  - `users`:
+    - ⚠️ `profile` --> `get`
+    - ⚠️ `photos` --> `getPhotos`
+    - ⚠️ `likes` --> `getLikes`
+    - ⚠️ `collections` --> `getCollections`
+  - `collections`:
+    - ⚠️ `listCollections` --> `list`
+    - ⚠️ `getCollection` --> `get`
+    - ⚠️ `getCollectionPhotos` --> `getPhotos`
+    - ⚠️ `listRelatedCollections` --> `listRelated`
+
+- Changes the expected arguments for all API methods. Check the TypeScript types and the [Arguments](./README.md#Arguments) section for the new parameters.
+- Changes the return type of all API methods. Check the TypeScript types and the [Response](./README.md#Response) section for the response format.
+
+### Changes
+
+- TypeScript support! Everything is now accurately typed.
+- You can now provide fetch options on a per-call basis using the second parameter. See [Arguments](./README.md#Arguments).
+
 ## 6.3.0
 
 ### Changes
