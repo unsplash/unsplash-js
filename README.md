@@ -28,6 +28,8 @@ $ yarn add unsplash-js
 
 ## Dependencies
 
+### Fetch
+
 This library depends on [fetch](https://fetch.spec.whatwg.org/) to make requests to the Unsplash API. For environments that don't support fetch, you'll need to provide polyfills of your choosing. Here are the ones we recommend:
 
 - node implementation: [node-fetch](https://github.com/bitinn/node-fetch)
@@ -44,6 +46,12 @@ import 'whatwg-fetch';
 
 Note: we recommend using a version of `node-fetch` higher than `2.4.0` to benefit from Brotli compression.
 
+### url
+
+This library also depends on the NodeJS built-in [url](https://nodejs.org/api/url.html) module. If you are bundling this library in client-side code, make sure that to properly account for that.
+
+NOTE: By default, Webpack users automatically handles shimming node built-in modules.
+
 ## Usage
 
 ### Creating an instance
@@ -58,13 +66,13 @@ import { createApi } from 'unsplash-js';
 // on your node server
 const serverApi = createApi({
   accessKey: 'MY_ACCESS_KEY',
-  //...extra fetch options
+  //...other fetch options
 });
 
 // in the browser
 const browserApi = createApi({
   apiUrl: 'https://mywebsite.com/unsplash-proxy',
-  //...extra fetch options
+  //...other fetch options
 });
 ```
 
@@ -72,7 +80,23 @@ const browserApi = createApi({
 
 #### Arguments
 
-All methods have 2 arguments: the first one includes all of the options for that particular endpoint, while the second includes any additional options that you want to provide to `fetch`. In particular, the latter comes in handy if you want to allow for [request abortion](https://developer.mozilla.org/en-US/docs/Web/API/AbortController), although it can be used to pass anything else (headers, etc.)
+All methods have 2 arguments: the first one includes all of the specific parameters for that particular endpoint, while the second allows you to pass down any additional options that you want to provide to `fetch`. On top of that, the `createApi` constructor can receive `fetch` options to be added to _every_ request:
+
+```ts
+const unsplash = createApi({
+  accessKey: 'MY_ACCESS_KEY',
+  // `fetch` options to be sent with every request
+  headers: { 'X-Custom-Header': 'foo' },
+});
+
+unsplash.photos.get(
+  { photoId: '123' },
+  // `fetch` options to be sent only with _this_ request
+  { headers: { 'X-Custom-Header-2': 'bar' } },
+);
+```
+
+Example: if you would like to implement [request abortion](https://developer.mozilla.org/en-US/docs/Web/API/AbortController), you can do so like this:
 
 ```ts
 const unsplash = createApi({
