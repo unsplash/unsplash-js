@@ -10,10 +10,10 @@ const getTotalFromApiFeedResponse = (response: Response) => {
     if (Number.isInteger(total)) {
       return total;
     } else {
-      throw new DecodingError('expected x-total header to be valid integer.');
+      throw new DecodingError(`expected ${TOTAL_RESPONSE_HEADER} header to be valid integer.`);
     }
   } else {
-    throw new DecodingError('expected x-total header to exist.');
+    throw new DecodingError(`expected ${TOTAL_RESPONSE_HEADER} header to exist.`);
   }
 };
 
