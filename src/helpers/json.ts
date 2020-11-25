@@ -1,5 +1,5 @@
 import * as ContentTypeHelpers from 'content-type';
-import { ResponseHandlingError } from './errors';
+import { DecodingError } from './errors';
 import { AnyJson, isDefined } from './typescript';
 
 const CONTENT_TYPE_RESPONSE_HEADER = 'content-type';
@@ -19,9 +19,9 @@ const checkIsJsonResponse = (response: Response) => {
 export const getJsonResponse = (response: Response): Promise<AnyJson> => {
   if (checkIsJsonResponse(response)) {
     return response.json().catch(_err => {
-      throw new ResponseHandlingError('unable to parse JSON response.');
+      throw new DecodingError('unable to parse JSON response.');
     });
   } else {
-    throw new ResponseHandlingError('expected JSON response from server.');
+    throw new DecodingError('expected JSON response from server.');
   }
 };

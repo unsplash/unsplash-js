@@ -48,6 +48,6 @@ export const getErrorForBadStatusCode = (
   }
 };
 
-export class ResponseHandlingError {
+export class DecodingError {
   constructor(readonly message: string) {}
 }

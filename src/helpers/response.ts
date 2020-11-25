@@ -1,4 +1,4 @@
-import { Errors, ErrorSource, getErrorForBadStatusCode, ResponseHandlingError } from './errors';
+import { Errors, ErrorSource, getErrorForBadStatusCode, DecodingError } from './errors';
 import { getJsonResponse } from './json';
 
 export type ApiResponse<T> =
@@ -37,7 +37,7 @@ export const handleFetchResponse = <ResponseType>(handleResponse: HandleResponse
         }),
       )
   ).catch(error => {
-    if (error instanceof ResponseHandlingError) {
+    if (error instanceof DecodingError) {
       return {
         type: 'error',
         source: 'decoding',
