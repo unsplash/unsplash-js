@@ -1,5 +1,46 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`parseQueryAndPathname handles hash without query correctly 1`] = `
+Object {
+  "pathname": "/photos/foo123/download",
+  "query": Object {},
+}
+`;
+
+exports[`parseQueryAndPathname handles no hash correctly 1`] = `
+Object {
+  "pathname": "/photos/foo123/download",
+  "query": Object {
+    "baz": "123",
+    "foo": "bar",
+  },
+}
+`;
+
+exports[`parseQueryAndPathname handles no hash or query correctly 1`] = `
+Object {
+  "pathname": "/photos/foo123/download",
+  "query": Object {},
+}
+`;
+
+exports[`parseQueryAndPathname handles query with only undefined properties correctly 1`] = `
+Object {
+  "pathname": undefined,
+  "query": Object {},
+}
+`;
+
+exports[`parseQueryAndPathname parses full URL correctly 1`] = `
+Object {
+  "pathname": "/photos/foo123/download",
+  "query": Object {
+    "baz": "123",
+    "foo": "bar",
+  },
+}
+`;
+
 exports[`requestParams additional arguments Correctly merges headers 1`] = `
 Object {
   "headers": Object {
@@ -142,6 +183,17 @@ Object {
   "headers": Object {},
   "pathname": "/photos/foo123/download",
   "query": Object {},
+}
+`;
+
+exports[`requestParams photos trackDownload:  Correcty builds request arguments 2`] = `
+Object {
+  "headers": Object {},
+  "pathname": "/photos/foo123/download",
+  "query": Object {
+    "baz": "123",
+    "foo": "bar",
+  },
 }
 `;
 

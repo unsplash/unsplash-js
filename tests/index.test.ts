@@ -1,4 +1,4 @@
-import { buildUrl, CompleteRequestParams } from '../src/helpers/request';
+import { CompleteRequestParams } from '../src/helpers/request';
 import * as collections from '../src/methods/collections';
 import * as photos from '../src/methods/photos';
 import * as search from '../src/methods/search';
@@ -6,6 +6,39 @@ import * as users from '../src/methods/users';
 import { createApi } from '../src';
 import { OrderBy } from '../src/types/request';
 import { Language } from '../src/methods/search/types';
+import { buildUrl, parseQueryAndPathname } from '../src/helpers/url';
+
+describe('parseQueryAndPathname', () => {
+  it('parses full URL correctly', () => {
+    const output = parseQueryAndPathname(
+      'https://api.unsplash.com/photos/foo123/download?foo=bar&baz=123#some-hash',
+    );
+    expect(output).toMatchSnapshot();
+  });
+  it('handles no hash correctly', () => {
+    const output = parseQueryAndPathname(
+      'https://api.unsplash.com/photos/foo123/download?foo=bar&baz=123',
+    );
+    expect(output).toMatchSnapshot();
+  });
+
+  it('handles hash without query correctly', () => {
+    const output = parseQueryAndPathname(
+      'https://api.unsplash.com/photos/foo123/download#some-hash',
+    );
+    expect(output).toMatchSnapshot();
+  });
+
+  it('handles no hash or query correctly', () => {
+    const output = parseQueryAndPathname('https://api.unsplash.com/photos/foo123/download');
+    expect(output).toMatchSnapshot();
+  });
+
+  it('handles query with only undefined properties correctly', () => {
+    const output = parseQueryAndPathname('https://api.unsplash.com');
+    expect(output).toMatchSnapshot();
+  });
+});
 
 describe('buildUrl', () => {
   it('combines pathname, query and domain correctly', () => {
@@ -64,6 +97,10 @@ const paramsTests: { [S in Section]: Record<keyof Api[S], CompleteRequestParams[
     trackDownload: [
       photos.trackDownload.handleRequest({
         downloadLocation: 'https://api.unsplash.com/photos/foo123/download',
+      }),
+      photos.trackDownload.handleRequest({
+        downloadLocation:
+          'https://api.unsplash.com/photos/foo123/download?foo=bar&baz=123#some-hash',
       }),
     ],
   },

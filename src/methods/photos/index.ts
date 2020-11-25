@@ -1,9 +1,9 @@
-import urlHelpers from 'url';
 import { handleFeedResponse } from '../../helpers/feed';
 import * as Query from '../../helpers/query';
 import { createRequestHandler } from '../../helpers/request';
 import { castResponse } from '../../helpers/response';
 import { isDefined } from '../../helpers/typescript';
+import { parseQueryAndPathname } from '../../helpers/url';
 import { OrientationParam, PaginationParams } from '../../types/request';
 
 type PhotoId = {
@@ -66,7 +66,7 @@ export const getRandom = {
 
 export const trackDownload = {
   handleRequest: createRequestHandler(({ downloadLocation }: { downloadLocation: string }) => {
-    const { pathname, query } = urlHelpers.parse(downloadLocation, true);
+    const { pathname, query } = parseQueryAndPathname(downloadLocation);
 
     if (!isDefined(pathname)) {
       throw new Error('Could not parse pathname from url.');

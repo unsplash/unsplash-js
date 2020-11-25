@@ -1,16 +1,7 @@
-import { ParsedUrlQueryInput } from 'querystring';
-import { addQueryToUrl, appendPathnameToUrl } from 'url-transformers';
 import { compactDefined, flow } from './fp';
 import { ApiResponse, handleFetchResponse, HandleResponse } from './response';
 import { isDefined, OmitStrict } from './typescript';
-
-type BuildUrlParams = {
-  pathname: string;
-  query: ParsedUrlQueryInput;
-};
-
-export const buildUrl = ({ pathname, query }: BuildUrlParams) =>
-  flow(appendPathnameToUrl(pathname), addQueryToUrl(compactDefined(query)));
+import { buildUrl, BuildUrlParams } from './url';
 
 type FetchParams = Pick<RequestInit, 'method'>;
 /**
