@@ -1,4 +1,5 @@
 import { handleFeedResponse } from '../../helpers/feed';
+import { compactDefined } from '../../helpers/fp';
 import * as Query from '../../helpers/query';
 import { createRequestHandler, createRequestHandlerOptional } from '../../helpers/request';
 import { castResponse } from '../../helpers/response';
@@ -18,7 +19,7 @@ export const getPhotos = {
       ...paginationParams
     }: CollectionId & PaginationParams & OrientationParam) => ({
       pathname: `${COLLECTIONS_PATH_PREFIX}/${collectionId}/photos`,
-      query: { ...Query.getFeedParams(paginationParams), orientation },
+      query: compactDefined({ ...Query.getFeedParams(paginationParams), orientation }),
     }),
   ),
   handleResponse: handleFeedResponse<any>(),
