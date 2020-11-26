@@ -263,6 +263,7 @@ Object {
     "color": "blue",
     "content_filter": "high",
     "lang": "eo",
+    "order_by": "latest",
     "orientation": "portrait",
     "page": 123,
     "per_page": 4,

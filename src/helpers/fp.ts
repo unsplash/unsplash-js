@@ -3,7 +3,7 @@ import { isDefined } from './typescript';
 /** Takes a dictionary containing nullish values and returns a dictionary of all the defined
  * (non-nullish) values.
  */
-export const compactDefined = <A>(obj: Record<string, A>) =>
+export const compactDefined = <A>(obj: Record<string, A | null | undefined>) =>
   Object.keys(obj).reduce<Record<string, A>>((acc, key) => {
     const value = obj[key];
     return {

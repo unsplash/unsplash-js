@@ -1,4 +1,5 @@
 import { handleFeedResponse } from '../../helpers/feed';
+import { compactDefined } from '../../helpers/fp';
 import * as Query from '../../helpers/query';
 import { createRequestHandler, createRequestHandlerOptional } from '../../helpers/request';
 import { castResponse } from '../../helpers/response';
@@ -15,7 +16,7 @@ const PHOTOS_PATH_PREFIX = '/photos';
 export const list = {
   handleRequest: createRequestHandlerOptional((feedParams: PaginationParams = {}) => ({
     pathname: PHOTOS_PATH_PREFIX,
-    query: Query.getFeedParams(feedParams),
+    query: compactDefined(Query.getFeedParams(feedParams)),
   })),
   handleResponse: handleFeedResponse<any>(),
 };
@@ -49,10 +50,10 @@ export const getRandom = {
       count?: number;
     } & OrientationParam = {}) => ({
       pathname: `${PHOTOS_PATH_PREFIX}/random`,
-      query: {
+      query: compactDefined({
         ...queryParams,
         ...Query.getCollections(collectionIds),
-      },
+      }),
       headers: {
         /**
          * Avoid response caching
@@ -71,7 +72,7 @@ export const trackDownload = {
     if (!isDefined(pathname)) {
       throw new Error('Could not parse pathname from url.');
     }
-    return { pathname, query };
+    return { pathname, query: compactDefined(query) };
   }),
   handleResponse: castResponse<any>(),
 };

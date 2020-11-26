@@ -1,3 +1,4 @@
+import { compactDefined } from '../../helpers/fp';
 import * as Query from '../../helpers/query';
 import { createRequestHandler } from '../../helpers/request';
 import { castResponse } from '../../helpers/response';
@@ -41,7 +42,7 @@ export const getPhotos = {
       ...filters
     }: SearchPhotosParams) => ({
       pathname: `${SEARCH_PATH_PREFIX}/photos`,
-      query: {
+      query: compactDefined({
         query,
         content_filter: contentFilter,
         lang,
@@ -49,7 +50,7 @@ export const getPhotos = {
         ...Query.getFeedParams({ page, perPage }),
         ...Query.getCollections(collectionIds),
         ...filters,
-      },
+      }),
     }),
   ),
   handleResponse: castResponse<any>(),

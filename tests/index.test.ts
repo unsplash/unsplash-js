@@ -50,20 +50,6 @@ describe('buildUrl', () => {
     const output = buildUrl({ pathname: '/foo/bar', query: {} })('https://example.com');
     expect(output).toEqual('https://example.com/foo/bar');
   });
-
-  it('handles undefined query properties correctly', () => {
-    const output = buildUrl({ pathname: '/foo/bar', query: { a: 1, b: undefined } })(
-      'https://example.com',
-    );
-    expect(output).toEqual('https://example.com/foo/bar?a=1');
-  });
-
-  it('handles query with only undefined properties correctly', () => {
-    const output = buildUrl({ pathname: '/foo/bar', query: { b: undefined } })(
-      'https://example.com',
-    );
-    expect(output).toEqual('https://example.com/foo/bar');
-  });
 });
 
 const PHOTO_ID = 'abc123';
