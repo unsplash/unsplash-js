@@ -1,0 +1,327 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`parseQueryAndPathname handles hash without query correctly 1`] = `
+Object {
+  "pathname": "/photos/foo123/download",
+  "query": Object {},
+}
+`;
+
+exports[`parseQueryAndPathname handles no hash correctly 1`] = `
+Object {
+  "pathname": "/photos/foo123/download",
+  "query": Object {
+    "baz": "123",
+    "foo": "bar",
+  },
+}
+`;
+
+exports[`parseQueryAndPathname handles no hash or query correctly 1`] = `
+Object {
+  "pathname": "/photos/foo123/download",
+  "query": Object {},
+}
+`;
+
+exports[`parseQueryAndPathname handles query with only undefined properties correctly 1`] = `
+Object {
+  "pathname": undefined,
+  "query": Object {},
+}
+`;
+
+exports[`parseQueryAndPathname parses full URL correctly 1`] = `
+Object {
+  "pathname": "/photos/foo123/download",
+  "query": Object {
+    "baz": "123",
+    "foo": "bar",
+  },
+}
+`;
+
+exports[`requestParams additional arguments Correctly merges headers 1`] = `
+Object {
+  "headers": Object {
+    "cache-control": "no-cache",
+    "test-headers": "foo",
+  },
+  "pathname": "/photos/random",
+  "query": Object {},
+}
+`;
+
+exports[`requestParams additional arguments Correctly passes down additional args 1`] = `
+Object {
+  "headers": Object {
+    "cache-control": "no-cache",
+  },
+  "pathname": "/photos/random",
+  "query": Object {},
+  "signal": AbortSignal {},
+}
+`;
+
+exports[`requestParams collections get:  Correcty builds request arguments 1`] = `
+Object {
+  "headers": Object {},
+  "pathname": "/collections/collection123",
+  "query": Object {},
+}
+`;
+
+exports[`requestParams collections getPhotos:  Correcty builds request arguments 1`] = `
+Object {
+  "headers": Object {},
+  "pathname": "/collections/collection123/photos",
+  "query": Object {},
+}
+`;
+
+exports[`requestParams collections getPhotos:  Correcty builds request arguments 2`] = `
+Object {
+  "headers": Object {},
+  "pathname": "/collections/collection123/photos",
+  "query": Object {
+    "orientation": "landscape",
+  },
+}
+`;
+
+exports[`requestParams collections getRelated:  Correcty builds request arguments 1`] = `
+Object {
+  "headers": Object {},
+  "pathname": "/collections/collection123/related",
+  "query": Object {},
+}
+`;
+
+exports[`requestParams collections list:  Correcty builds request arguments 1`] = `
+Object {
+  "headers": Object {},
+  "pathname": "/collections",
+  "query": Object {},
+}
+`;
+
+exports[`requestParams collections list:  Correcty builds request arguments 2`] = `
+Object {
+  "headers": Object {},
+  "pathname": "/collections",
+  "query": Object {},
+}
+`;
+
+exports[`requestParams collections list:  Correcty builds request arguments 3`] = `
+Object {
+  "headers": Object {},
+  "pathname": "/collections",
+  "query": Object {
+    "page": 8,
+    "per_page": 23,
+  },
+}
+`;
+
+exports[`requestParams photos get:  Correcty builds request arguments 1`] = `
+Object {
+  "headers": Object {},
+  "pathname": "/photos/abc123",
+  "query": Object {},
+}
+`;
+
+exports[`requestParams photos getRandom:  Correcty builds request arguments 1`] = `
+Object {
+  "headers": Object {
+    "cache-control": "no-cache",
+  },
+  "pathname": "/photos/random",
+  "query": Object {},
+}
+`;
+
+exports[`requestParams photos getRandom:  Correcty builds request arguments 2`] = `
+Object {
+  "headers": Object {
+    "cache-control": "no-cache",
+  },
+  "pathname": "/photos/random",
+  "query": Object {},
+}
+`;
+
+exports[`requestParams photos getRandom:  Correcty builds request arguments 3`] = `
+Object {
+  "headers": Object {
+    "cache-control": "no-cache",
+  },
+  "pathname": "/photos/random",
+  "query": Object {
+    "collections": "a,bcd",
+    "count": 1,
+    "featured": true,
+    "orientation": "landscape",
+    "query": "cat",
+    "username": "usernametest",
+  },
+}
+`;
+
+exports[`requestParams photos getStats:  Correcty builds request arguments 1`] = `
+Object {
+  "headers": Object {},
+  "pathname": "/photos/abc123/statistics",
+  "query": Object {},
+}
+`;
+
+exports[`requestParams photos list:  Correcty builds request arguments 1`] = `
+Object {
+  "headers": Object {},
+  "pathname": "/photos",
+  "query": Object {
+    "order_by": "latest",
+    "page": 4,
+    "per_page": 10,
+  },
+}
+`;
+
+exports[`requestParams photos list:  Correcty builds request arguments 2`] = `
+Object {
+  "headers": Object {},
+  "pathname": "/photos",
+  "query": Object {
+    "order_by": "latest",
+  },
+}
+`;
+
+exports[`requestParams photos list:  Correcty builds request arguments 3`] = `
+Object {
+  "headers": Object {},
+  "pathname": "/photos",
+  "query": Object {},
+}
+`;
+
+exports[`requestParams photos list:  Correcty builds request arguments 4`] = `
+Object {
+  "headers": Object {},
+  "pathname": "/photos",
+  "query": Object {},
+}
+`;
+
+exports[`requestParams photos trackDownload:  Correcty builds request arguments 1`] = `
+Object {
+  "headers": Object {},
+  "pathname": "/photos/foo123/download",
+  "query": Object {},
+}
+`;
+
+exports[`requestParams photos trackDownload:  Correcty builds request arguments 2`] = `
+Object {
+  "headers": Object {},
+  "pathname": "/photos/foo123/download",
+  "query": Object {
+    "baz": "123",
+    "foo": "bar",
+  },
+}
+`;
+
+exports[`requestParams search getCollections:  Correcty builds request arguments 1`] = `
+Object {
+  "headers": Object {},
+  "pathname": "/search/collections",
+  "query": Object {
+    "query": "cat",
+  },
+}
+`;
+
+exports[`requestParams search getPhotos:  Correcty builds request arguments 1`] = `
+Object {
+  "headers": Object {},
+  "pathname": "/search/photos",
+  "query": Object {
+    "query": "cat",
+  },
+}
+`;
+
+exports[`requestParams search getPhotos:  Correcty builds request arguments 2`] = `
+Object {
+  "headers": Object {},
+  "pathname": "/search/photos",
+  "query": Object {
+    "collections": "a,b,c",
+    "color": "blue",
+    "content_filter": "high",
+    "lang": "eo",
+    "order_by": "latest",
+    "orientation": "portrait",
+    "page": 123,
+    "per_page": 4,
+    "query": "cat",
+  },
+}
+`;
+
+exports[`requestParams search getUsers:  Correcty builds request arguments 1`] = `
+Object {
+  "headers": Object {},
+  "pathname": "/search/users",
+  "query": Object {
+    "query": "cat",
+  },
+}
+`;
+
+exports[`requestParams users get:  Correcty builds request arguments 1`] = `
+Object {
+  "headers": Object {},
+  "pathname": "/users/usernametest",
+  "query": Object {},
+}
+`;
+
+exports[`requestParams users getCollections:  Correcty builds request arguments 1`] = `
+Object {
+  "headers": Object {},
+  "pathname": "/users/usernametest/collections",
+  "query": Object {},
+}
+`;
+
+exports[`requestParams users getLikes:  Correcty builds request arguments 1`] = `
+Object {
+  "headers": Object {},
+  "pathname": "/users/usernametest/likes",
+  "query": Object {},
+}
+`;
+
+exports[`requestParams users getPhotos:  Correcty builds request arguments 1`] = `
+Object {
+  "headers": Object {},
+  "pathname": "/users/usernametest/photos",
+  "query": Object {},
+}
+`;
+
+exports[`requestParams users getPhotos:  Correcty builds request arguments 2`] = `
+Object {
+  "headers": Object {},
+  "pathname": "/users/usernametest/photos",
+  "query": Object {
+    "page": 4,
+    "per_page": 10,
+    "stats": true,
+  },
+}
+`;
