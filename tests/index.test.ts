@@ -65,12 +65,10 @@ const paramsTests: { [S in Section]: Record<keyof Api[S], CompleteRequestParams[
     list: [
       photos.list.handleRequest({ orderBy: OrderBy.LATEST, page: 4, perPage: 10 }),
       photos.list.handleRequest({ orderBy: OrderBy.LATEST }),
-      photos.list.handleRequest(),
       photos.list.handleRequest({}),
     ],
     getStats: [photos.getStats.handleRequest({ photoId: PHOTO_ID })],
     getRandom: [
-      photos.getRandom.handleRequest(),
       photos.getRandom.handleRequest({}),
       photos.getRandom.handleRequest({
         collectionIds: ['a', 'bcd'],
@@ -128,7 +126,6 @@ const paramsTests: { [S in Section]: Record<keyof Api[S], CompleteRequestParams[
     ],
     get: [collections.get.handleRequest({ collectionId: COLLECTION_ID })],
     list: [
-      collections.list.handleRequest(),
       collections.list.handleRequest({}),
       collections.list.handleRequest({ page: 8, perPage: 23 }),
     ],

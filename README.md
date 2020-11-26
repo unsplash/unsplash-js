@@ -293,7 +293,7 @@ Get a single page from the list of all photos. [See endpoint docs 🚀](https://
 **Example**
 
 ```js
-unsplash.photos.list();
+unsplash.photos.list({});
 unsplash.photos.list({ page: 2, page: 15 });
 ```
 
@@ -354,7 +354,7 @@ Retrieve a single random photo, given optional filters. [See endpoint docs 🚀]
 **Example**
 
 ```js
-unsplash.photos.getRandom();
+unsplash.photos.getRandom({});
 unsplash.photos.getRandom({
   count: 10,
 });

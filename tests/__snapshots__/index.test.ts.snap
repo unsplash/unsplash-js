@@ -109,14 +109,6 @@ exports[`requestParams collections list:  Correcty builds request arguments 2`] 
 Object {
   "headers": Object {},
   "pathname": "/collections",
-  "query": Object {},
-}
-`;
-
-exports[`requestParams collections list:  Correcty builds request arguments 3`] = `
-Object {
-  "headers": Object {},
-  "pathname": "/collections",
   "query": Object {
     "page": 8,
     "per_page": 23,
@@ -143,16 +135,6 @@ Object {
 `;
 
 exports[`requestParams photos getRandom:  Correcty builds request arguments 2`] = `
-Object {
-  "headers": Object {
-    "cache-control": "no-cache",
-  },
-  "pathname": "/photos/random",
-  "query": Object {},
-}
-`;
-
-exports[`requestParams photos getRandom:  Correcty builds request arguments 3`] = `
 Object {
   "headers": Object {
     "cache-control": "no-cache",
@@ -200,14 +182,6 @@ Object {
 `;
 
 exports[`requestParams photos list:  Correcty builds request arguments 3`] = `
-Object {
-  "headers": Object {},
-  "pathname": "/photos",
-  "query": Object {},
-}
-`;
-
-exports[`requestParams photos list:  Correcty builds request arguments 4`] = `
 Object {
   "headers": Object {},
   "pathname": "/photos",
