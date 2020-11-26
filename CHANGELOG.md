@@ -73,7 +73,7 @@ const unsplash = Unsplash.createApi({ accessKey: 'MY_ACCESS_KEY' });
 
 ### Changes
 
-- TypeScript support! Everything is now accurately typed.
+- TypeScript support! Everything is now accurately typed (except responses which we plan to add types for soon).
 - You can now provide fetch options on a per-call basis using the second parameter. See [Arguments](./README.md#Arguments).
 
 ## 6.3.0
