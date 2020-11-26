@@ -1,4 +1,4 @@
-import { compactDefined, flow } from './fp';
+import { flow } from './fp';
 import { ApiResponse, handleFetchResponse, HandleResponse } from './response';
 import { isDefined, OmitStrict } from './typescript';
 import { buildUrl, BuildUrlParams } from './url';
@@ -29,12 +29,11 @@ export const createRequestHandler = <Args>(
   fn: (a: Args) => BaseRequestParams,
 ): HandleRequest<Args> => (a, additionalFetchOptions = {}) => {
   const { headers, query, ...baseReqParams } = fn(a);
-  const queryToUse = compactDefined(query);
 
   return {
     ...baseReqParams,
     ...additionalFetchOptions,
-    query: queryToUse,
+    query,
     headers: {
       ...headers,
       ...additionalFetchOptions.headers,
