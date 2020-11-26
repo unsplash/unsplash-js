@@ -1,6 +1,6 @@
 import { handleFeedResponse } from '../../helpers/feed';
 import * as Query from '../../helpers/query';
-import { createRequestHandler } from '../../helpers/request';
+import { createRequestHandler, createRequestHandlerOptional } from '../../helpers/request';
 import { castResponse } from '../../helpers/response';
 import { isDefined } from '../../helpers/typescript';
 import { parseQueryAndPathname } from '../../helpers/url';
@@ -13,7 +13,7 @@ type PhotoId = {
 const PHOTOS_PATH_PREFIX = '/photos';
 
 export const list = {
-  handleRequest: createRequestHandler((feedParams: PaginationParams = {}) => ({
+  handleRequest: createRequestHandlerOptional((feedParams: PaginationParams = {}) => ({
     pathname: PHOTOS_PATH_PREFIX,
     query: Query.getFeedParams(feedParams),
   })),
@@ -37,7 +37,7 @@ export const getStats = {
 };
 
 export const getRandom = {
-  handleRequest: createRequestHandler(
+  handleRequest: createRequestHandlerOptional(
     ({
       collectionIds,
       ...queryParams

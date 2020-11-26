@@ -43,6 +43,16 @@ export const createRequestHandler = <Args>(
 };
 
 /**
+ * Variant of `createRequestHandler` used when the args object is entirely optional.
+ * We cannot combine this with `createRequestHandler` because it is impossible to make the function
+ * parameter conditionally nullable or non-nullable.
+ */
+export const createRequestHandlerOptional = <Args>(
+  fn: (a?: Args) => BaseRequestParams,
+): ((a?: Args, additionalFetchOptions?: AdditionalPerFetchParams) => CompleteRequestParams) =>
+  createRequestHandler(fn);
+
+/**
  * Initial parameters that apply to all calls
  */
 type InitParams = {

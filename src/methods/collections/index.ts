@@ -1,6 +1,6 @@
 import { handleFeedResponse } from '../../helpers/feed';
 import * as Query from '../../helpers/query';
-import { createRequestHandler } from '../../helpers/request';
+import { createRequestHandler, createRequestHandlerOptional } from '../../helpers/request';
 import { castResponse } from '../../helpers/response';
 import { OrientationParam, PaginationParams } from '../../types/request';
 
@@ -33,8 +33,8 @@ export const get = {
 };
 
 export const list = {
-  handleRequest: createRequestHandler(
-    (paginationParams: Pick<PaginationParams, 'page' | 'perPage'>) => ({
+  handleRequest: createRequestHandlerOptional(
+    (paginationParams: Pick<PaginationParams, 'page' | 'perPage'> = {}) => ({
       pathname: COLLECTIONS_PATH_PREFIX,
       query: Query.getFeedParams(paginationParams),
     }),
