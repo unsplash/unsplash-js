@@ -1,5 +1,3 @@
-import { flow } from './fp';
-
 type Query = {
   [index: string]: string | number | boolean;
 };
