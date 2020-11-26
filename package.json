@@ -37,6 +37,7 @@
     "singleQuote": true,
     "trailingComma": "all"
   },
+  "sideEffects": false,
   "module": "dist/unsplash-js.esm.js",
   "size-limit": [
     {
