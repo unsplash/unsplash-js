@@ -1,7 +1,7 @@
 import { handleFeedResponse } from '../../helpers/feed';
 import { compactDefined } from '../../helpers/fp';
 import * as Query from '../../helpers/query';
-import { createRequestHandler, createRequestHandlerOptional } from '../../helpers/request';
+import { createRequestHandler } from '../../helpers/request';
 import { castResponse } from '../../helpers/response';
 import { OrientationParam, PaginationParams } from '../../types/request';
 
@@ -34,7 +34,7 @@ export const get = {
 };
 
 export const list = {
-  handleRequest: createRequestHandlerOptional(
+  handleRequest: createRequestHandler(
     (paginationParams: Pick<PaginationParams, 'page' | 'perPage'> = {}) => ({
       pathname: COLLECTIONS_PATH_PREFIX,
       query: Query.getFeedParams(paginationParams),

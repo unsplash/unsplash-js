@@ -1,7 +1,7 @@
 {
   "name": "unsplash-js",
   "version": "7.0.0-beta.1",
-  "description": "A JavaScript wrapper for the Unsplash API",
+  "description": "Official JavaScript wrapper for the Unsplash API",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "files": [
@@ -37,6 +37,7 @@
     "singleQuote": true,
     "trailingComma": "all"
   },
+  "sideEffects": false,
   "module": "dist/unsplash-js.esm.js",
   "size-limit": [
     {

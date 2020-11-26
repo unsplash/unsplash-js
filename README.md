@@ -6,6 +6,8 @@ Official Javascript wrapper for the [Unsplash API](https://unsplash.com/develope
 
 Before using the Unsplash API, you need to [register as a developer](https://unsplash.com/developers) and read the [API Guidelines](https://help.unsplash.com/api-guidelines/unsplash-api-guidelines).
 
+Once you have an access key, go [here](https://stackblitz.com/edit/unsplash-js-example?file=index.tsx) to try the demo!
+
 **Note:** Every application must abide by the [API Guidelines](https://help.unsplash.com/api-guidelines/unsplash-api-guidelines). Specifically, remember to [hotlink images](https://help.unsplash.com/api-guidelines/more-on-each-guideline/guideline-hotlinking-images), [attribute photographers](https://help.unsplash.com/api-guidelines/more-on-each-guideline/guideline-attribution), and [trigger a download when appropriate](https://help.unsplash.com/api-guidelines/more-on-each-guideline/guideline-triggering-a-download).
 
 ## Documentation
@@ -310,7 +312,7 @@ Get a single page from the list of all photos. [See endpoint docs 🚀](https://
 **Example**
 
 ```js
-unsplash.photos.list();
+unsplash.photos.list({});
 unsplash.photos.list({ page: 2, page: 15 });
 ```
 
@@ -371,7 +373,7 @@ Retrieve a single random photo, given optional filters. [See endpoint docs 🚀]
 **Example**
 
 ```js
-unsplash.photos.getRandom();
+unsplash.photos.getRandom({});
 unsplash.photos.getRandom({
   count: 10,
 });

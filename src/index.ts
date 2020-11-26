@@ -31,3 +31,6 @@ export const createApi = flow(initMakeRequest, makeRequest => ({
     getRelated: makeRequest(collections.getRelated),
   },
 }));
+
+export { Language, ColorId, ContentFilter, SearchOrderBy } from './methods/search/types';
+export { OrderBy, Orientation } from './types/request';
