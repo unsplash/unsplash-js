@@ -45,7 +45,7 @@
     },
     {
       "path": "dist/unsplash-js.esm.js",
-      "limit": "10 KB"
+      "limit": "20 KB"
     }
   ],
   "devDependencies": {
