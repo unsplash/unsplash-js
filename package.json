@@ -41,18 +41,18 @@
   "size-limit": [
     {
       "path": "dist/unsplash-js.cjs.production.min.js",
-      "limit": "10 KB"
+      "limit": "5 KB"
     },
     {
       "path": "dist/unsplash-js.esm.js",
-      "limit": "20 KB"
+      "limit": "5 KB"
     }
   ],
   "devDependencies": {
-    "@size-limit/preset-small-lib": "^4.7.0",
+    "@size-limit/preset-small-lib": "^4.9.0",
     "husky": "^4.3.0",
     "rollup-plugin-analyzer": "^3.3.0",
-    "size-limit": "^4.7.0",
+    "size-limit": "^4.9.0",
     "tsdx": "^0.14.1",
     "tslib": "^2.0.3"
   },
