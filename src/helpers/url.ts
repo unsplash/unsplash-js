@@ -13,14 +13,13 @@ const addQueryToUrl = (query: Query) => (url: URL) => {
   Object.keys(query).forEach(queryKey =>
     url.searchParams.set(queryKey, query[queryKey].toString()),
   );
-
-  return url;
 };
 
-const createUrl = (pathname: string) => (apiUrlBase: string) => new URL(pathname, apiUrlBase);
-
-export const buildUrl = ({ pathname, query }: BuildUrlParams) =>
-  flow(createUrl(pathname), addQueryToUrl(query), url => url.toString());
+export const buildUrl = ({ pathname, query }: BuildUrlParams) => (apiBaseUrl: string) => {
+  const url = new URL(pathname, apiBaseUrl);
+  addQueryToUrl(query)(url);
+  return url.toString();
+};
 
 export const parseQueryAndPathname = (url: string) => {
   const { pathname, searchParams } = new URL(url);
