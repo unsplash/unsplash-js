@@ -35,6 +35,12 @@ This library depends on [fetch](https://fetch.spec.whatwg.org/) to make requests
 - node implementation: [node-fetch](https://github.com/bitinn/node-fetch)
 - browser polyfill: [whatwg-fetch](https://github.com/github/fetch)
 
+#### Adding polyfills
+
+`createApi` receives an optional `fetch` parameter. When it is not provided, we rely on the globally scoped `fetch`.
+
+This means that you can set the polyfills in the global scope:
+
 ```ts
 // server
 import fetch from 'node-fetch';
@@ -42,6 +48,17 @@ global.fetch = fetch;
 
 // browser
 import 'whatwg-fetch';
+```
+
+or explicitly provide them as an argument:
+
+```ts
+import nodeFetch from 'node-fetch';
+
+const unsplash = createApi({
+  accessKey: 'MY_ACCESS_KEY',
+  fetch: nodeFetch,
+});
 ```
 
 Note: we recommend using a version of `node-fetch` higher than `2.4.0` to benefit from Brotli compression.

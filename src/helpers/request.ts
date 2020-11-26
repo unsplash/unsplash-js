@@ -56,6 +56,7 @@ export const createRequestHandlerOptional = <Args>(
  */
 type InitParams = {
   apiVersion?: string;
+  fetch?: typeof fetch;
 } & OmitStrict<RequestInit, 'method' | 'body'> &
   ({ accessKey: string; apiUrl?: never } | { apiUrl: string; accessKey?: never });
 
@@ -79,6 +80,7 @@ export const initMakeRequest: InitMakeRequest = ({
   apiVersion = 'v1',
   apiUrl = 'https://api.unsplash.com',
   headers: generalHeaders,
+  fetch: providedFetch,
   ...generalFetchOptions
 }) => ({ handleResponse, handleRequest }) =>
   flow(
@@ -99,6 +101,8 @@ export const initMakeRequest: InitMakeRequest = ({
         ...generalFetchOptions,
       };
 
-      return fetch(url, fetchOptions).then(handleFetchResponse(handleResponse));
+      const fetchToUse = providedFetch ?? fetch;
+
+      return fetchToUse(url, fetchOptions).then(handleFetchResponse(handleResponse));
     },
   );
