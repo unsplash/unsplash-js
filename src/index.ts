@@ -5,6 +5,8 @@ import * as photos from './methods/photos';
 import * as search from './methods/search';
 import * as users from './methods/users';
 
+import * as _internals from './internals';
+
 export const createApi = flow(initMakeRequest, makeRequest => ({
   photos: {
     get: makeRequest(photos.get),
@@ -34,3 +36,4 @@ export const createApi = flow(initMakeRequest, makeRequest => ({
 
 export { Language, ColorId, ContentFilter, SearchOrderBy } from './methods/search/types';
 export { OrderBy, Orientation } from './types/request';
+export { _internals };
