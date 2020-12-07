@@ -44,6 +44,8 @@ const unsplash = Unsplash.createApi({ accessKey: 'MY_ACCESS_KEY' });
   - `currentUser`:
     - ❌ `profile`
     - ❌ `updateProfile`
+  - `stats`:
+    - ❌ `total`
   - ❌ `toJson` (the library now takes care of converting the response to JSON).
 
 * Renames all of the remaining API methods:
