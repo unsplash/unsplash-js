@@ -1,0 +1,4 @@
+# These users will be the default owners for everything in the repo.
+# See https://github.com/blog/2392-introducing-code-owners
+
+* @unsplash/web
