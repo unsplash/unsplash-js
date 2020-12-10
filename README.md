@@ -413,7 +413,7 @@ unsplash.photos.get({ photoId: 'mtNweauBsMQ' }).then(result => {
   if (result.type === 'success') {
     const photo = result.response;
     unsplash.photos.trackDownload({
-      downloadLocation: photo.links.downloadLocation,
+      downloadLocation: photo.links.download_location,
     });
   }
 });
@@ -423,7 +423,7 @@ unsplash.search.photos({ query: 'dogs' }).then(result => {
   if (result.type === 'success') {
     const firstPhoto = result.response.results[0];
     unsplash.photos.trackDownload({
-      downloadLocation: photo.links.downloadLocation,
+      downloadLocation: photo.links.download_location,
     });
   }
 });
