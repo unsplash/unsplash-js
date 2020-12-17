@@ -13,8 +13,19 @@ const addQueryToUrl = (query: Query) => (url: URL) => {
   );
 };
 
-export const buildUrl = ({ pathname, query }: BuildUrlParams) => (apiBaseUrl: string) => {
-  const url = new URL(pathname, apiBaseUrl);
+const addPathnameToUrl = (pathname: string) => (url: URL) => {
+  // When there is no existing pathname, the value is `/`. Appending would give us a URL with two
+  // forward slashes. This is why we replace the value in that scenario.
+  if (url.pathname === '/') {
+    url.pathname = pathname;
+  } else {
+    url.pathname += pathname;
+  }
+};
+
+export const buildUrl = ({ pathname, query }: BuildUrlParams) => (apiUrl: string) => {
+  const url = new URL(apiUrl);
+  addPathnameToUrl(pathname)(url);
   addQueryToUrl(query)(url);
   return url.toString();
 };

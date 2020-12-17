@@ -41,7 +41,12 @@ describe('parseQueryAndPathname', () => {
 });
 
 describe('buildUrl', () => {
-  it('combines pathname, query and domain correctly', () => {
+  it('works with base apiUrl', () => {
+    const output = buildUrl({ pathname: '/foo/bar', query: { a: 1, b: 2 } })('https://example.com');
+    expect(output).toEqual('https://example.com/foo/bar?a=1&b=2');
+  });
+
+  it('works with apiUrl containing a path', () => {
     const output = buildUrl({ pathname: '/foo/bar', query: { a: 1, b: 2 } })(
       'https://example.com/baz',
     );
