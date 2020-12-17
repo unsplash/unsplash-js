@@ -41,12 +41,12 @@ describe('parseQueryAndPathname', () => {
 });
 
 describe('buildUrl', () => {
-  it('works with base apiUrl', () => {
+  it('works with apiUrl (without path)', () => {
     const output = buildUrl({ pathname: '/foo/bar', query: { a: 1, b: 2 } })('https://example.com');
     expect(output).toEqual('https://example.com/foo/bar?a=1&b=2');
   });
 
-  it('works with apiUrl containing a path', () => {
+  it('works with apiUrl (with path)', () => {
     const output = buildUrl({ pathname: '/foo/bar', query: { a: 1, b: 2 } })(
       'https://example.com/baz',
     );
