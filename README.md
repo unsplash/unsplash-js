@@ -11,7 +11,7 @@ Key Links:
   - [attribute photographers](https://help.unsplash.com/api-guidelines/more-on-each-guideline/guideline-attribution)
   - [trigger a download when appropriate](https://help.unsplash.com/api-guidelines/more-on-each-guideline/guideline-triggering-a-download)
 - Once you create an application and have an access key, go try the demos:
-  - [javascript](https://stackblitz.com/edit/unsplash-js-javascript?file=index.jsx)
+  - [javascript](https://stackblitz.com/edit/unsplash-js-javascript?file=src%2Findex.js)
   - [typescript](https://stackblitz.com/edit/unsplash-js-typescript?file=index.tsx)
 
 ## Documentation
