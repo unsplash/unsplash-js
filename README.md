@@ -10,7 +10,9 @@ Key Links:
   - [hotlink images](https://help.unsplash.com/api-guidelines/more-on-each-guideline/guideline-hotlinking-images)
   - [attribute photographers](https://help.unsplash.com/api-guidelines/more-on-each-guideline/guideline-attribution)
   - [trigger a download when appropriate](https://help.unsplash.com/api-guidelines/more-on-each-guideline/guideline-triggering-a-download)
-- Once you create an application and have an access key, go try the [demo](https://stackblitz.com/edit/unsplash-js-example?file=index.tsx)!
+- Once you create an application and have an access key, go try the demos:
+  - [javascript](https://stackblitz.com/edit/unsplash-js-javascript)!
+  - [typescript](https://stackblitz.com/edit/unsplash-js-typescript)
 
 ## Documentation
 
