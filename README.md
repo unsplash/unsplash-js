@@ -5,6 +5,7 @@
 Official Javascript wrapper for the [Unsplash API](https://unsplash.com/developers).
 
 Key Links:
+
 - Before using the Unsplash API, [register as a developer](https://unsplash.com/developers).
 - Before using the Unsplash API, read the [API Guidelines](https://help.unsplash.com/api-guidelines/unsplash-api-guidelines). Specifically, you _must_:
   - [hotlink images](https://help.unsplash.com/api-guidelines/more-on-each-guideline/guideline-hotlinking-images)
@@ -36,38 +37,33 @@ $ yarn add unsplash-js
 
 ### Fetch
 
-This library depends on [fetch](https://fetch.spec.whatwg.org/) to make requests to the Unsplash API. For environments that don't support fetch, you'll need to provide polyfills of your choosing. Here are the ones we recommend:
-
-- node implementation: [node-fetch](https://github.com/bitinn/node-fetch)
-- browser polyfill: [whatwg-fetch](https://github.com/github/fetch)
+This library depends on [fetch](https://fetch.spec.whatwg.org/) to make requests to the Unsplash API. For environments that don't support fetch, you'll need to provide polyfills of your choosing. We recommend using [isomorphic-unfetch](https://github.com/developit/unfetch/tree/master/packages/isomorphic-unfetch).
 
 #### Adding polyfills
 
 `createApi` receives an optional `fetch` parameter. When it is not provided, we rely on the globally scoped `fetch`.
 
-This means that you can set the polyfills in the global scope:
+This means that you can set the polyfill in the global scope:
 
 ```ts
-// server
-import fetch from 'node-fetch';
-global.fetch = fetch;
+import 'isomorphic-unfetch';
 
-// browser
-import 'whatwg-fetch';
+// in a browser env, this will set window.fetch = fetch;
+// in a node env, this will set global.fetch = fetch;
 ```
 
-or explicitly provide them as an argument:
+or as a [ponyfill](https://github.com/sindresorhus/ponyfill) by explicitly providing it as an argument:
 
 ```ts
-import nodeFetch from 'node-fetch';
+import fetch from 'isomorphic-unfetch';
 
 const unsplash = createApi({
   accessKey: 'MY_ACCESS_KEY',
-  fetch: nodeFetch,
+  fetch,
 });
 ```
 
-Note: we recommend using a version of `node-fetch` higher than `2.4.0` to benefit from Brotli compression.
+Note: If you choose to use [node-fetch](https://github.com/node-fetch/node-fetch), we recommend using a version higher than `2.4.0` to benefit from Brotli compression. In addition, you may need to import an `AbortController` to patch TypeScript-related issues.
 
 ### URL
 
@@ -76,7 +72,7 @@ This library also depends on the WHATWG URL interface:
 - MDN [docs](https://developer.mozilla.org/en-US/docs/Web/API/URL) for browsers.
 - NodeJS [docs](https://nodejs.org/api/url.html).
 
-Note: Make sure to polyfill this interface if targetting older environments that do not implement it (i.e. Internet Explorer or Node < v8). 
+Note: Make sure to polyfill this interface if targeting older environments that do not implement it (i.e. Internet Explorer or Node < v8).
 
 Note 2: For Node, the URL interface exists under `require('url').URL` since [v8](https://nodejs.org/es/blog/release/v8.0.0/#say-hello-to-the-whatwg-url-parser) but was only added to the global scope as of [v10.0.0](https://nodejs.org/docs/latest/api/globals.html#globals_url). If you are using a version between v8.0.0 and v10.0.0, you need to add the class to the global scope before using `unsplash-js`:
 
