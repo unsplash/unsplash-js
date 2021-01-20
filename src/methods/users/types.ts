@@ -35,8 +35,6 @@ export interface Basic extends Entity {
   };
   total_collections: number;
   total_likes: number;
-  // This excludes flagged/removed photos, e.g. photos with an evaluation status of DMCA in review
-  // or DMCA requested.
   total_photos: number;
   twitter_username: Nullable<string>;
   updated_at: string;
@@ -44,8 +42,6 @@ export interface Basic extends Entity {
 }
 
 export interface Medium extends Basic {
-  // This excludes flagged/removed photos, e.g. photos with an evaluation status of DMCA in review
-  // or DMCA requested.
   photos: Photo.VeryBasic[];
 }
 

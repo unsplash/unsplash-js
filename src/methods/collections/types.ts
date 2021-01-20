@@ -7,8 +7,10 @@ export interface Basic extends Entity {
   cover_photo: Nullable<Photo.Basic>;
   description: Nullable<string>;
   featured: boolean;
-  // This is different from `updated_at` because that may also change when a photo inside changes or
-  // is deleted.
+  /**
+   * This is different from `updated_at` because that may also change when a photo inside changes or
+   * is deleted.
+   */
   last_collected_at: string;
   links: {
     self: string;

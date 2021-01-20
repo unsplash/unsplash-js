@@ -39,9 +39,6 @@ export interface Basic extends VeryBasic {
   alt_description: Nullable<string>;
   blur_hash: Nullable<string>;
   color: Nullable<string>;
-  /** Note: API are currently migrating this from being the AI generated description to a user
-   * customizable one (aka what used to be the "story"). If you're here for the AI generated
-   * description, use `alt_description` instead. */
   description: Nullable<string>;
   height: number;
   likes: number;
