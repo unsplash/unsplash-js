@@ -1,5 +1,9 @@
 # Changelog
 
+## 7.0.3
+
+- Adds response types to all endpoints.
+
 ## 7.0.0
 
 This version includes a total TypeScript rewrite of the library, with many breaking changes. If upgrading from a previous version, read carefully. You will not be able to upgrade to v7 without making the necessary adjustments.
