@@ -75,5 +75,5 @@ export const trackDownload = {
     }
     return { pathname, query: compactDefined(query) };
   }),
-  handleResponse: castResponse<any>(),
+  handleResponse: castResponse<{ url: string }>(),
 };
