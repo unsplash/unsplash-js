@@ -2,15 +2,6 @@ import { Nullable } from '../../helpers/typescript';
 import { Entity } from '../../types/entities';
 import * as Photo from '../photos/types';
 
-type UserBadgeSlug =
-  | 'bug-hunter'
-  | 'ambassador'
-  | 'book-contributor'
-  | 'book'
-  | 'unsplash-awards-2017'
-  | 'notable-collector'
-  | 'team';
-
 export interface Basic extends Entity {
   bio: Nullable<string>;
   first_name: string;
@@ -46,11 +37,6 @@ export interface Medium extends Basic {
 }
 
 export interface Full extends Medium {
-  badge: Nullable<{
-    link: string;
-    slug: UserBadgeSlug;
-    title: string;
-  }>;
   downloads: number;
   followers_count: number;
   following_count: number;
