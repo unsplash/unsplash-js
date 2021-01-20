@@ -1,0 +1,61 @@
+import { Nullable } from '../../helpers/typescript';
+import { Entity } from '../../types/entities';
+import * as Photo from '../photos/types';
+
+type UserBadgeSlug =
+  | 'bug-hunter'
+  | 'ambassador'
+  | 'book-contributor'
+  | 'book'
+  | 'unsplash-awards-2017'
+  | 'notable-collector'
+  | 'team';
+
+export interface Basic extends Entity {
+  bio: Nullable<string>;
+  first_name: string;
+  instagram_username: Nullable<string>;
+  last_name: Nullable<string>;
+  links: {
+    followers: string;
+    following: string;
+    html: string;
+    likes: string;
+    photos: string;
+    portfolio: string;
+    self: string;
+  };
+  location: Nullable<string>;
+  name: string;
+  portfolio_url: Nullable<string>;
+  profile_image: {
+    small: string;
+    medium: string;
+    large: string;
+  };
+  total_collections: number;
+  total_likes: number;
+  // This excludes flagged/removed photos, e.g. photos with an evaluation status of DMCA in review
+  // or DMCA requested.
+  total_photos: number;
+  twitter_username: Nullable<string>;
+  updated_at: string;
+  username: string;
+}
+
+export interface Medium extends Basic {
+  // This excludes flagged/removed photos, e.g. photos with an evaluation status of DMCA in review
+  // or DMCA requested.
+  photos: Photo.VeryBasic[];
+}
+
+export interface Full extends Medium {
+  badge: Nullable<{
+    link: string;
+    slug: UserBadgeSlug;
+    title: string;
+  }>;
+  downloads: number;
+  followers_count: number;
+  following_count: number;
+}

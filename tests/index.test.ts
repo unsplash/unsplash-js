@@ -5,7 +5,7 @@ import * as search from '../src/methods/search';
 import * as users from '../src/methods/users';
 import { createApi } from '../src';
 import { OrderBy } from '../src/types/request';
-import { Language } from '../src/methods/search/types';
+import { Language } from '../src/methods/search/types/request';
 import { buildUrl, parseQueryAndPathname } from '../src/helpers/url';
 
 describe('parseQueryAndPathname', () => {

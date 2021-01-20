@@ -4,6 +4,9 @@ import * as Query from '../../helpers/query';
 import { createRequestHandler } from '../../helpers/request';
 import { castResponse } from '../../helpers/response';
 import { OrientationParam, PaginationParams } from '../../types/request';
+import * as User from './types';
+import * as Photo from '../photos/types';
+import * as Collection from '../collections/types';
 
 type UserName = {
   username: string;
@@ -16,7 +19,7 @@ export const get = {
     pathname: `${USERS_PATH_PREFIX}/${username}`,
     query: {},
   })),
-  handleResponse: castResponse<any>(),
+  handleResponse: castResponse<User.Full>(),
 };
 
 export const getPhotos = {
@@ -39,7 +42,7 @@ export const getPhotos = {
       }),
     }),
   ),
-  handleResponse: handleFeedResponse<any>(),
+  handleResponse: handleFeedResponse<Photo.Basic>(),
 };
 
 export const getLikes = {
@@ -56,7 +59,7 @@ export const getLikes = {
       }),
     }),
   ),
-  handleResponse: handleFeedResponse<any>(),
+  handleResponse: handleFeedResponse<Photo.Basic>(),
 };
 export const getCollections = {
   handleRequest: createRequestHandler(
@@ -65,5 +68,5 @@ export const getCollections = {
       query: Query.getFeedParams(paginationParams),
     }),
   ),
-  handleResponse: handleFeedResponse<any>(),
+  handleResponse: handleFeedResponse<Collection.Basic>(),
 };

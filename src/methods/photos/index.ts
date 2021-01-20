@@ -6,6 +6,7 @@ import { castResponse } from '../../helpers/response';
 import { isDefined } from '../../helpers/typescript';
 import { parseQueryAndPathname } from '../../helpers/url';
 import { OrientationParam, PaginationParams } from '../../types/request';
+import * as Photo from './types';
 
 type PhotoId = {
   photoId: string;
@@ -18,7 +19,7 @@ export const list = {
     pathname: PHOTOS_PATH_PREFIX,
     query: compactDefined(Query.getFeedParams(feedParams)),
   })),
-  handleResponse: handleFeedResponse<any>(),
+  handleResponse: handleFeedResponse<Photo.Basic>(),
 };
 
 export const get = {
@@ -26,7 +27,7 @@ export const get = {
     pathname: `${PHOTOS_PATH_PREFIX}/${photoId}`,
     query: {},
   })),
-  handleResponse: castResponse<any>(),
+  handleResponse: castResponse<Photo.Full>(),
 };
 
 export const getStats = {
@@ -34,7 +35,7 @@ export const getStats = {
     pathname: `${PHOTOS_PATH_PREFIX}/${photoId}/statistics`,
     query: {},
   })),
-  handleResponse: castResponse<any>(),
+  handleResponse: castResponse<Photo.Stats>(),
 };
 
 export const getRandom = {
@@ -62,7 +63,7 @@ export const getRandom = {
       },
     }),
   ),
-  handleResponse: castResponse<any>(),
+  handleResponse: castResponse<Photo.Random>(),
 };
 
 export const trackDownload = {
