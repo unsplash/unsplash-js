@@ -3,7 +3,7 @@ import * as Query from '../../helpers/query';
 import { createRequestHandler } from '../../helpers/request';
 import { castResponse } from '../../helpers/response';
 import { OrientationParam, PaginationParams } from '../../types/request';
-import { ColorId, ContentFilter, Language, SearchOrderBy } from './types';
+import { ColorId, ContentFilter, Language, SearchOrderBy } from './types/request';
 
 export type SearchParams = {
   query: string;
