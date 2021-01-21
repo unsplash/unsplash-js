@@ -5,6 +5,7 @@
 Official Javascript wrapper for the [Unsplash API](https://unsplash.com/developers).
 
 Key Links:
+
 - Before using the Unsplash API, [register as a developer](https://unsplash.com/developers).
 - Before using the Unsplash API, read the [API Guidelines](https://help.unsplash.com/api-guidelines/unsplash-api-guidelines). Specifically, you _must_:
   - [hotlink images](https://help.unsplash.com/api-guidelines/more-on-each-guideline/guideline-hotlinking-images)
@@ -76,7 +77,7 @@ This library also depends on the WHATWG URL interface:
 - MDN [docs](https://developer.mozilla.org/en-US/docs/Web/API/URL) for browsers.
 - NodeJS [docs](https://nodejs.org/api/url.html).
 
-Note: Make sure to polyfill this interface if targetting older environments that do not implement it (i.e. Internet Explorer or Node < v8). 
+Note: Make sure to polyfill this interface if targetting older environments that do not implement it (i.e. Internet Explorer or Node < v8).
 
 Note 2: For Node, the URL interface exists under `require('url').URL` since [v8](https://nodejs.org/es/blog/release/v8.0.0/#say-hello-to-the-whatwg-url-parser) but was only added to the global scope as of [v10.0.0](https://nodejs.org/docs/latest/api/globals.html#globals_url). If you are using a version between v8.0.0 and v10.0.0, you need to add the class to the global scope before using `unsplash-js`:
 
@@ -209,8 +210,14 @@ unsplash.photos.get({ photoId: 'foo' }).then(result => {
 
 This library is written in TypeScript. This means that even if you are writing plain JavaScript, you can still get useful and accurate type information. We highly recommend that you setup your environment (using an IDE such as [VSCode](https://code.visualstudio.com/)) to fully benefit from this information:
 
+### Function arguments
+
 ![](./vscode-screenshot2.png)
 ![](./vscode-screenshot.png)
+
+### Response Types
+
+![](./vscode-response-types.png)
 
 ## Instance Methods
 

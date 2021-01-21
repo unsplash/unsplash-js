@@ -34,6 +34,6 @@ export const createApi = flow(initMakeRequest, makeRequest => ({
   },
 }));
 
-export { Language, ColorId, ContentFilter, SearchOrderBy } from './methods/search/types';
+export { Language, ColorId, ContentFilter, SearchOrderBy } from './methods/search/types/request';
 export { OrderBy, Orientation } from './types/request';
 export { _internals };

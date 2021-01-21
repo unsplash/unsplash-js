@@ -3,7 +3,8 @@ import * as Query from '../../helpers/query';
 import { createRequestHandler } from '../../helpers/request';
 import { castResponse } from '../../helpers/response';
 import { OrientationParam, PaginationParams } from '../../types/request';
-import { ColorId, ContentFilter, Language, SearchOrderBy } from './types';
+import { ColorId, ContentFilter, Language, SearchOrderBy } from './types/request';
+import * as SearchResponse from './types/response';
 
 export type SearchParams = {
   query: string;
@@ -53,7 +54,7 @@ export const getPhotos = {
       }),
     }),
   ),
-  handleResponse: castResponse<any>(),
+  handleResponse: castResponse<SearchResponse.Photos>(),
 };
 
 export const getCollections = {
@@ -61,7 +62,7 @@ export const getCollections = {
     pathname: `${SEARCH_PATH_PREFIX}/collections`,
     query: { query, ...Query.getFeedParams(paginationParams) },
   })),
-  handleResponse: castResponse<any>(),
+  handleResponse: castResponse<SearchResponse.Collections>(),
 };
 
 export const getUsers = {
@@ -69,5 +70,5 @@ export const getUsers = {
     pathname: `${SEARCH_PATH_PREFIX}/users`,
     query: { query, ...Query.getFeedParams(paginationParams) },
   })),
-  handleResponse: castResponse<any>(),
+  handleResponse: castResponse<SearchResponse.Users>(),
 };
