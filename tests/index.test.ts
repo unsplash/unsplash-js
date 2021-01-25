@@ -3,6 +3,7 @@ import * as collections from '../src/methods/collections';
 import * as photos from '../src/methods/photos';
 import * as search from '../src/methods/search';
 import * as users from '../src/methods/users';
+import * as topics from '../src/methods/topics';
 import { createApi } from '../src';
 import { OrderBy } from '../src/types/request';
 import { Language } from '../src/methods/search/types/request';
@@ -63,6 +64,7 @@ const PHOTO_ID = 'abc123';
 const USERNAME = 'usernametest';
 const SEARCH_QUERY = 'cat';
 const COLLECTION_ID = 'collection123';
+const TOPIC_ID_OR_SLUG = 'topic123';
 
 type Api = ReturnType<typeof createApi>;
 type Section = keyof Api;
@@ -137,6 +139,30 @@ const paramsTests: { [S in Section]: Record<keyof Api[S], CompleteRequestParams[
       collections.list.handleRequest({ page: 8, perPage: 23 }),
     ],
     getRelated: [collections.getRelated.handleRequest({ collectionId: COLLECTION_ID })],
+  },
+  topics: {
+    get: [topics.get.handleRequest({ topicIdOrSlug: TOPIC_ID_OR_SLUG })],
+    getPhotos: [
+      topics.getPhotos.handleRequest({
+        topicIdOrSlug: TOPIC_ID_OR_SLUG,
+      }),
+      topics.getPhotos.handleRequest({
+        topicIdOrSlug: TOPIC_ID_OR_SLUG,
+        orientation: 'portrait',
+        page: 123,
+        perPage: 4,
+        orderBy: OrderBy.LATEST,
+      }),
+    ],
+    list: [
+      topics.list.handleRequest({}),
+      topics.list.handleRequest({
+        orderBy: 'position',
+        topicIdsOrSlugs: [TOPIC_ID_OR_SLUG],
+        page: 2,
+        perPage: 13,
+      }),
+    ],
   },
 };
 
