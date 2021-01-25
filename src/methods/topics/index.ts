@@ -3,7 +3,7 @@ import { compactDefined, flow } from '../../helpers/fp';
 import * as Query from '../../helpers/query';
 import { createRequestGenerator } from '../../helpers/request';
 import { castResponse } from '../../helpers/response';
-import { OrderBy, OrientationParam, PaginationParams } from '../../types/request';
+import { OrientationParam, PaginationParams } from '../../types/request';
 import * as Photo from '../photos/types';
 import * as Topic from './types';
 
@@ -15,7 +15,7 @@ const BASE_TOPIC_PATH = '/topics';
 const getTopicPath = ({ topicIdOrSlug }: TopicIdOrSlug) => `${BASE_TOPIC_PATH}/${topicIdOrSlug}`;
 const getTopicPhotosPath = flow(getTopicPath, topicPath => `${topicPath}/photos`);
 
-type TopicOrderBy = OrderBy.LATEST | OrderBy.OLDEST | 'position' | 'featured';
+type TopicOrderBy = 'latest' | 'oldest' | 'position' | 'featured';
 
 export const list = createRequestGenerator({
   handleRequest: ({
