@@ -4,6 +4,7 @@ import * as collections from './methods/collections';
 import * as photos from './methods/photos';
 import * as search from './methods/search';
 import * as users from './methods/users';
+import * as topics from './methods/topics';
 
 import * as _internals from './internals';
 
@@ -31,6 +32,11 @@ export const createApi = flow(initMakeRequest, makeRequest => ({
     get: makeRequest(collections.get),
     list: makeRequest(collections.list),
     getRelated: makeRequest(collections.getRelated),
+  },
+  topics: {
+    list: makeRequest(topics.list),
+    get: makeRequest(topics.get),
+    getPhotos: makeRequest(topics.getPhotos),
   },
 }));
 
