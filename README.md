@@ -227,6 +227,7 @@ NOTE: All of the method arguments described here are in the first parameter. See
 - [Photos](https://github.com/unsplash/unsplash-js#photos)
 - [Users](https://github.com/unsplash/unsplash-js#users)
 - [Collections](https://github.com/unsplash/unsplash-js#collections)
+- [Topics](https://github.com/unsplash/unsplash-js#topics)
 
 ---
 
@@ -616,4 +617,71 @@ Lists collections related to the provided one. [See endpoint docs 🚀](https://
 
 ```js
 unsplash.collections.getRelated({ collectionId: 'abc123' });
+```
+
+---
+
+## Topics
+
+### topics.list(arguments, additionalFetchOptions)
+
+Get a single page from the list of all topics. [See endpoint docs 🚀](https://unsplash.com/documentation#list-topics)
+
+**Arguments**
+
+| Argument              | Type            | Opt/Required | Notes                                      | Default    |
+| --------------------- | --------------- | ------------ | ------------------------------------------ | ---------- |
+| **`topicIdsOrSlugs`** | _Array<string>_ | Optional     |                                            | []         |
+| **`page`**            | _number_        | Optional     |                                            | 1          |
+| **`perPage`**         | _number_        | Optional     |                                            | 10         |
+| **`orderBy`**         | _string_        | Optional     | `latest`, `oldest`, `featured`, `position` | `position` |
+
+**Example**
+
+```js
+unsplash.topics.list({
+  page: 1,
+  perPage: 10,
+  topicIdsOrSlugs: ['fashion', 'architecture', '6sMVjTLSkeQ'],
+});
+```
+
+---
+
+### topics.get(arguments, additionalFetchOptions)
+
+Retrieve a single topic. [See endpoint docs 🚀](https://unsplash.com/documentation#get-a-topic)
+
+**Arguments**
+
+| Argument            | Type     | Opt/Required |
+| ------------------- | -------- | ------------ |
+| **`topicIdOrSlug`** | _string_ | Required     |
+
+**Example**
+
+```js
+unsplash.topics.get({ topicIdOrSlug: 'abc123' });
+```
+
+---
+
+### topics.getPhotos(arguments, additionalFetchOptions)
+
+Retrieve a topic’s photos. [See endpoint docs 🚀](https://unsplash.com/documentation#get-a-topics-photos)
+
+**Arguments**
+
+| Argument            | Type     | Opt/Required | Notes                               | Default  |
+| ------------------- | -------- | ------------ | ----------------------------------- | -------- |
+| **`topicIdOrSlug`** | _string_ | Required     |                                     |          |
+| **`page`**          | _number_ | Optional     |                                     | 1        |
+| **`perPage`**       | _number_ | Optional     |                                     | 10       |
+| **`orderBy`**       | _string_ | Optional     | `latest`, `oldest`, `popular`       | `latest` |
+| **`orientation`**   | _string_ | Optional     | `landscape`, `portrait`, `squarish` |          |
+
+**Example**
+
+```js
+unsplash.topics.getPhotos({ topicIdOrSlug: 'abc123' });
 ```

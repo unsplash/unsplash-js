@@ -256,6 +256,51 @@ Object {
 }
 `;
 
+exports[`requestParams topics get:  Correcty builds request arguments 1`] = `
+Object {
+  "pathname": "/topics/topic123",
+  "query": Object {},
+}
+`;
+
+exports[`requestParams topics getPhotos:  Correcty builds request arguments 1`] = `
+Object {
+  "pathname": "/topics/topic123/photos",
+  "query": Object {},
+}
+`;
+
+exports[`requestParams topics getPhotos:  Correcty builds request arguments 2`] = `
+Object {
+  "pathname": "/topics/topic123/photos",
+  "query": Object {
+    "order_by": "latest",
+    "orientation": "portrait",
+    "page": 123,
+    "per_page": 4,
+  },
+}
+`;
+
+exports[`requestParams topics list:  Correcty builds request arguments 1`] = `
+Object {
+  "pathname": "/topics",
+  "query": Object {},
+}
+`;
+
+exports[`requestParams topics list:  Correcty builds request arguments 2`] = `
+Object {
+  "pathname": "/topics",
+  "query": Object {
+    "ids": "topic123",
+    "order_by": "position",
+    "page": 2,
+    "per_page": 13,
+  },
+}
+`;
+
 exports[`requestParams users get:  Correcty builds request arguments 1`] = `
 Object {
   "headers": Object {},
