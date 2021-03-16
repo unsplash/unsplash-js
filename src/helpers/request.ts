@@ -46,7 +46,7 @@ export const createRequestGenerator = <Args, T>(handlers: RequestGenerator<Args,
 /**
  * Initial parameters that apply to all calls
  */
-type InitParams = {
+export type InitParams = {
   apiVersion?: string;
   fetch?: typeof fetch;
 } & OmitStrict<RequestInit, 'method' | 'body'> &
