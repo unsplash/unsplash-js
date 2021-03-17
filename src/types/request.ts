@@ -1,6 +1,8 @@
 export enum OrderBy {
   LATEST = 'latest',
   POPULAR = 'popular',
+  VIEWS = 'views',
+  DOWNLOADS = 'downloads',
   OLDEST = 'oldest',
 }
 export type Orientation = 'landscape' | 'portrait' | 'squarish';
