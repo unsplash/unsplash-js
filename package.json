@@ -21,7 +21,7 @@
     "analyze": "size-limit --why"
   },
   "resolutions": {
-    "typescript": "^4.0.5",
+    "typescript": "^4.2.0",
     "@typescript-eslint/eslint-plugin": "^4.6.1",
     "@typescript-eslint/parser": "^4.8.2"
   },
