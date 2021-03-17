@@ -15,7 +15,7 @@ type BaseRequestParams = BuildUrlParams &
 /**
  * Additional fetch options provided by the user on a per-call basis
  */
-type AdditionalPerFetchParams = Omit<RequestInit, keyof FetchParams>;
+type AdditionalPerFetchParams = OmitStrict<RequestInit, keyof FetchParams>;
 export type CompleteRequestParams = BaseRequestParams & AdditionalPerFetchParams;
 type HandleRequest<Args> = (
   a: Args,

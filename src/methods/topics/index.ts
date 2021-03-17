@@ -3,6 +3,7 @@ import { compactDefined, flow } from '../../helpers/fp';
 import * as Query from '../../helpers/query';
 import { createRequestGenerator } from '../../helpers/request';
 import { castResponse } from '../../helpers/response';
+import { OmitStrict } from '../../helpers/typescript';
 import { OrientationParam, PaginationParams } from '../../types/request';
 import * as Photo from '../photos/types';
 import * as Topic from './types';
@@ -23,7 +24,7 @@ export const list = createRequestGenerator({
     perPage,
     orderBy,
     topicIdsOrSlugs,
-  }: Omit<PaginationParams, 'orderBy'> & {
+  }: OmitStrict<PaginationParams, 'orderBy'> & {
     /**
      * default: `position`
      */
