@@ -42,17 +42,20 @@ export const getRandom = {
   handleRequest: createRequestHandler(
     ({
       collectionIds,
+      contentFilter,
       ...queryParams
     }: {
       collectionIds?: string[];
       featured?: boolean;
       username?: string;
       query?: string;
+      contentFilter?: 'low' | 'high',
       count?: number;
     } & OrientationParam = {}) => ({
       pathname: `${PHOTOS_PATH_PREFIX}/random`,
       query: compactDefined({
         ...queryParams,
+        content_filter: contentFilter,
         ...Query.getCollections(collectionIds),
       }),
       headers: {
