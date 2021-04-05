@@ -49,7 +49,7 @@ export const getRandom = {
       featured?: boolean;
       username?: string;
       query?: string;
-      contentFilter?: 'low' | 'high',
+      contentFilter?: 'low' | 'high';
       count?: number;
     } & OrientationParam = {}) => ({
       pathname: `${PHOTOS_PATH_PREFIX}/random`,
