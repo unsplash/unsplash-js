@@ -331,7 +331,7 @@ Get a single page from the list of all photos. [See endpoint docs 🚀](https://
 
 ```js
 unsplash.photos.list({});
-unsplash.photos.list({ page: 2, page: 15 });
+unsplash.photos.list({ page: 2, perPage: 15 });
 ```
 
 ---
