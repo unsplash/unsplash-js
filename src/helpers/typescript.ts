@@ -1,7 +1,7 @@
 // Copied from https://github.com/Microsoft/TypeScript/issues/1897#issuecomment-338650717
 export type AnyJson = boolean | number | string | null | JsonArray | JsonMap;
-export type JsonMap = { [key: string]: AnyJson };
-export type JsonArray = Array<AnyJson>;
+export interface JsonMap { [key: string]: AnyJson }
+export interface JsonArray extends Array<AnyJson> {}
 
 export const checkIsString = getRefinement(
   (value: unknown): Nullable<string> => (typeof value === 'string' ? value : null),
