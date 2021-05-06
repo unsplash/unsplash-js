@@ -5,6 +5,7 @@ export type ApiResponse<T> =
   | {
       type: 'success';
       response: T;
+      originalResponse: Response;
       errors?: never;
       status: number;
     }
@@ -12,6 +13,7 @@ export type ApiResponse<T> =
       type: 'error';
       source: ErrorSource;
       response?: never;
+      originalResponse: Response;
       errors: Errors;
       status: number;
     };
@@ -27,6 +29,7 @@ export const handleFetchResponse = <ResponseType>(handleResponse: HandleResponse
           type: 'success',
           status: response.status,
           response: handledResponse,
+          originalResponse: response,
         }),
       )
     : getJsonResponse(response).then(
@@ -34,6 +37,7 @@ export const handleFetchResponse = <ResponseType>(handleResponse: HandleResponse
           type: 'error',
           status: response.status,
           ...getErrorForBadStatusCode(jsonResponse),
+          originalResponse: response,
         }),
       )
   ).catch(error => {
@@ -51,6 +55,7 @@ export const handleFetchResponse = <ResponseType>(handleResponse: HandleResponse
         type: 'error',
         source: 'decoding',
         status: response.status,
+        originalResponse: response,
         errors: [error.message],
       };
     } else {

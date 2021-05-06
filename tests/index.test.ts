@@ -193,3 +193,10 @@ describe('requestParams', () => {
     });
   });
 });
+
+describe('ApiResponse', () => {
+  const api = createApi({ accessKey: 'MY_ACCESS_KEY' });
+  api.topics.get({ topicIdOrSlug: 'foo' }).then(apiResponse => {
+    apiResponse.originalResponse.headers.get('content-type');
+  });
+});
