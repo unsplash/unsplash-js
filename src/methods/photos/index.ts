@@ -66,7 +66,10 @@ export const getRandom = {
       },
     }),
   ),
-  handleResponse: castResponse<Photo.Random>(),
+  handleResponse: castResponse<
+    // An array when the `count` query parameter is used.
+    Photo.Random | Photo.Random[]
+  >(),
 };
 
 export const trackDownload = {
