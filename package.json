@@ -1,6 +1,6 @@
 {
   "name": "unsplash-js",
-  "version": "7.0.10",
+  "version": "7.0.11",
   "description": "Official JavaScript wrapper for the Unsplash API",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
