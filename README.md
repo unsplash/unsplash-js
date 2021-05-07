@@ -208,6 +208,8 @@ unsplash.photos.get({ photoId: 'foo' }).then(result => {
 
 ## Types
 
+The types for this library target TypeScript v3.7 and above.
+
 This library is written in TypeScript. This means that even if you are writing plain JavaScript, you can still get useful and accurate type information. We highly recommend that you setup your environment (using an IDE such as [VSCode](https://code.visualstudio.com/)) to fully benefit from this information:
 
 ### Function arguments
