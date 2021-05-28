@@ -435,7 +435,7 @@ unsplash.search.photos({ query: 'dogs' }).then(result => {
   if (result.type === 'success') {
     const firstPhoto = result.response.results[0];
     unsplash.photos.trackDownload({
-      downloadLocation: photo.links.download_location,
+      downloadLocation: firstPhoto.links.download_location,
     });
   }
 });
