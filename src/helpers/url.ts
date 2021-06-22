@@ -30,14 +30,19 @@ export const buildUrl = ({ pathname, query }: BuildUrlParams) => (apiUrl: string
   return url.toString();
 };
 
-export const parseQueryAndPathname = (url: string) => {
-  const { pathname, searchParams } = new URL(url);
-
+const getQueryFromSearchParams = (searchParams: URLSearchParams) => {
   const query: Query = {};
 
   searchParams.forEach((value, key) => {
     query[key] = value;
   });
+  return query;
+};
+
+export const parseQueryAndPathname = (url: string) => {
+  const { pathname, searchParams } = new URL(url);
+
+  const query: Query = getQueryFromSearchParams(searchParams);
 
   return { query, pathname: pathname === '/' ? undefined : pathname };
 };
