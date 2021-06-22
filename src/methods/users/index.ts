@@ -14,59 +14,75 @@ type UserName = {
 
 const USERS_PATH_PREFIX = '/users';
 
-export const get = {
-  handleRequest: createRequestHandler(({ username }: UserName) => ({
-    pathname: `${USERS_PATH_PREFIX}/${username}`,
-    query: {},
-  })),
-  handleResponse: castResponse<User.Full>(),
-};
+export const get = (() => {
+  const getPathname = (username: string) => `${USERS_PATH_PREFIX}/${username}`;
+  return {
+    getPathname,
+    handleRequest: createRequestHandler(({ username }: UserName) => ({
+      pathname: getPathname(username),
+      query: {},
+    })),
+    handleResponse: castResponse<User.Full>(),
+  };
+})();
 
-export const getPhotos = {
-  handleRequest: createRequestHandler(
-    ({
-      username,
-      stats,
-      orientation,
-      ...paginationParams
-    }: {
-      stats?: boolean;
-    } & OrientationParam &
-      UserName &
-      PaginationParams) => ({
-      pathname: `${USERS_PATH_PREFIX}/${username}/photos`,
-      query: compactDefined({
-        ...Query.getFeedParams(paginationParams),
-        orientation,
+export const getPhotos = (() => {
+  const getPathname = (username: string) => `${USERS_PATH_PREFIX}/${username}/photos`;
+  return {
+    getPathname,
+    handleRequest: createRequestHandler(
+      ({
+        username,
         stats,
-      }),
-    }),
-  ),
-  handleResponse: handleFeedResponse<Photo.Basic>(),
-};
-
-export const getLikes = {
-  handleRequest: createRequestHandler(
-    ({
-      username,
-      orientation,
-      ...paginationParams
-    }: OrientationParam & UserName & PaginationParams) => ({
-      pathname: `${USERS_PATH_PREFIX}/${username}/likes`,
-      query: compactDefined({
-        ...Query.getFeedParams(paginationParams),
         orientation,
+        ...paginationParams
+      }: {
+        stats?: boolean;
+      } & OrientationParam &
+        UserName &
+        PaginationParams) => ({
+        pathname: getPathname(username),
+        query: compactDefined({
+          ...Query.getFeedParams(paginationParams),
+          orientation,
+          stats,
+        }),
       }),
-    }),
-  ),
-  handleResponse: handleFeedResponse<Photo.Basic>(),
-};
-export const getCollections = {
-  handleRequest: createRequestHandler(
-    ({ username, ...paginationParams }: UserName & PaginationParams) => ({
-      pathname: `${USERS_PATH_PREFIX}/${username}/collections`,
-      query: Query.getFeedParams(paginationParams),
-    }),
-  ),
-  handleResponse: handleFeedResponse<Collection.Basic>(),
-};
+    ),
+    handleResponse: handleFeedResponse<Photo.Basic>(),
+  };
+})();
+
+export const getLikes = (() => {
+  const getPathname = (username: string) => `${USERS_PATH_PREFIX}/${username}/likes`;
+  return {
+    getPathname,
+    handleRequest: createRequestHandler(
+      ({
+        username,
+        orientation,
+        ...paginationParams
+      }: OrientationParam & UserName & PaginationParams) => ({
+        pathname: getPathname(username),
+        query: compactDefined({
+          ...Query.getFeedParams(paginationParams),
+          orientation,
+        }),
+      }),
+    ),
+    handleResponse: handleFeedResponse<Photo.Basic>(),
+  };
+})();
+export const getCollections = (() => {
+  const getPathname = (username: string) => `${USERS_PATH_PREFIX}/${username}/collections`;
+  return {
+    getPathname,
+    handleRequest: createRequestHandler(
+      ({ username, ...paginationParams }: UserName & PaginationParams) => ({
+        pathname: getPathname(username),
+        query: Query.getFeedParams(paginationParams),
+      }),
+    ),
+    handleResponse: handleFeedResponse<Collection.Basic>(),
+  };
+})();
