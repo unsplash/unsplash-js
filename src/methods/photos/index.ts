@@ -17,7 +17,8 @@ const PHOTOS_PATH_PREFIX = '/photos';
 export const list = (() => {
   const getPathname = () => PHOTOS_PATH_PREFIX;
   return makeEndpoint({
-    getPathname,
+    // Wrapper uses type trick to allow 0 args
+    getPathname: (_params?: void) => getPathname(),
     handleRequest: createRequestHandler((feedParams: PaginationParams = {}) => ({
       pathname: PHOTOS_PATH_PREFIX,
       query: compactDefined(Query.getFeedParams(feedParams)),
