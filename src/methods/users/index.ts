@@ -8,17 +8,17 @@ import * as User from './types';
 import * as Photo from '../photos/types';
 import * as Collection from '../collections/types';
 
-type UserName = {
+type Username = {
   username: string;
 };
 
 const USERS_PATH_PREFIX = '/users';
 
 export const get = (() => {
-  const getPathname = ({ username }: UserName) => `${USERS_PATH_PREFIX}/${username}`;
+  const getPathname = ({ username }: Username) => `${USERS_PATH_PREFIX}/${username}`;
   return {
     getPathname,
-    handleRequest: createRequestHandler(({ username }: UserName) => ({
+    handleRequest: createRequestHandler(({ username }: Username) => ({
       pathname: getPathname({ username }),
       query: {},
     })),
@@ -27,7 +27,7 @@ export const get = (() => {
 })();
 
 export const getPhotos = (() => {
-  const getPathname = ({ username }: UserName) => `${USERS_PATH_PREFIX}/${username}/photos`;
+  const getPathname = ({ username }: Username) => `${USERS_PATH_PREFIX}/${username}/photos`;
   return {
     getPathname,
     handleRequest: createRequestHandler(
@@ -39,7 +39,7 @@ export const getPhotos = (() => {
       }: {
         stats?: boolean;
       } & OrientationParam &
-        UserName &
+        Username &
         PaginationParams) => ({
         pathname: getPathname({ username }),
         query: compactDefined({
@@ -54,7 +54,7 @@ export const getPhotos = (() => {
 })();
 
 export const getLikes = (() => {
-  const getPathname = ({ username }: UserName) => `${USERS_PATH_PREFIX}/${username}/likes`;
+  const getPathname = ({ username }: Username) => `${USERS_PATH_PREFIX}/${username}/likes`;
   return {
     getPathname,
     handleRequest: createRequestHandler(
@@ -62,7 +62,7 @@ export const getLikes = (() => {
         username,
         orientation,
         ...paginationParams
-      }: OrientationParam & UserName & PaginationParams) => ({
+      }: OrientationParam & Username & PaginationParams) => ({
         pathname: getPathname({ username }),
         query: compactDefined({
           ...Query.getFeedParams(paginationParams),
@@ -74,11 +74,11 @@ export const getLikes = (() => {
   };
 })();
 export const getCollections = (() => {
-  const getPathname = ({ username }: UserName) => `${USERS_PATH_PREFIX}/${username}/collections`;
+  const getPathname = ({ username }: Username) => `${USERS_PATH_PREFIX}/${username}/collections`;
   return {
     getPathname,
     handleRequest: createRequestHandler(
-      ({ username, ...paginationParams }: UserName & PaginationParams) => ({
+      ({ username, ...paginationParams }: Username & PaginationParams) => ({
         pathname: getPathname({ username }),
         query: Query.getFeedParams(paginationParams),
       }),
