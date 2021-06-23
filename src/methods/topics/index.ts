@@ -13,7 +13,6 @@ type TopicIdOrSlug = {
 
 const BASE_TOPIC_PATH = '/topics';
 const getTopicPath = ({ topicIdOrSlug }: TopicIdOrSlug) => `${BASE_TOPIC_PATH}/${topicIdOrSlug}`;
-const getTopicPhotosPath = flow(getTopicPath, topicPath => `${topicPath}/photos`);
 
 type TopicOrderBy = 'latest' | 'oldest' | 'position' | 'featured';
 
@@ -50,18 +49,21 @@ export const get = {
   handleResponse: castResponse<Topic.Full>(),
 };
 
-export const getPhotos = {
-  getPathname: getTopicPhotosPath,
-  handleRequest: ({
-    topicIdOrSlug,
-    orientation,
-    ...feedParams
-  }: TopicIdOrSlug & PaginationParams & OrientationParam) => ({
-    pathname: getTopicPhotosPath({ topicIdOrSlug }),
-    query: compactDefined({
-      ...Query.getFeedParams(feedParams),
+export const getPhotos = (() => {
+  const getPathname = flow(getTopicPath, topicPath => `${topicPath}/photos`);
+  return {
+    getPathname,
+    handleRequest: ({
+      topicIdOrSlug,
       orientation,
+      ...feedParams
+    }: TopicIdOrSlug & PaginationParams & OrientationParam) => ({
+      pathname: getPathname({ topicIdOrSlug }),
+      query: compactDefined({
+        ...Query.getFeedParams(feedParams),
+        orientation,
+      }),
     }),
-  }),
-  handleResponse: handleFeedResponse<Photo.Basic>(),
-};
+    handleResponse: handleFeedResponse<Photo.Basic>(),
+  };
+})();
