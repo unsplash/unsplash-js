@@ -1,6 +1,6 @@
 import { compactDefined } from '../../helpers/fp';
 import * as Query from '../../helpers/query';
-import { createRequestHandler } from '../../helpers/request';
+import { createRequestHandler, makeEndpoint } from '../../helpers/request';
 import { castResponse } from '../../helpers/response';
 import { OrientationParam, PaginationParams } from '../../types/request';
 import { ColorId, ContentFilter, Language, SearchOrderBy } from './types/request';
@@ -32,7 +32,7 @@ type SearchPhotosParams = SearchParams &
 
 export const getPhotos = (() => {
   const getPathname = () => `${SEARCH_PATH_PREFIX}/photos`;
-  return {
+  return makeEndpoint({
     getPathname,
     handleRequest: createRequestHandler(
       ({
@@ -58,29 +58,29 @@ export const getPhotos = (() => {
       }),
     ),
     handleResponse: castResponse<SearchResponse.Photos>(),
-  };
+  });
 })();
 
 export const getCollections = (() => {
   const getPathname = () => `${SEARCH_PATH_PREFIX}/collections`;
-  return {
+  return makeEndpoint({
     getPathname,
     handleRequest: createRequestHandler(({ query, ...paginationParams }: SearchParams) => ({
       pathname: getPathname(),
       query: { query, ...Query.getFeedParams(paginationParams) },
     })),
     handleResponse: castResponse<SearchResponse.Collections>(),
-  };
+  });
 })();
 
 export const getUsers = (() => {
   const getPathname = () => `${SEARCH_PATH_PREFIX}/users`;
-  return {
+  return makeEndpoint({
     getPathname,
     handleRequest: createRequestHandler(({ query, ...paginationParams }: SearchParams) => ({
       pathname: getPathname(),
       query: { query, ...Query.getFeedParams(paginationParams) },
     })),
     handleResponse: castResponse<SearchResponse.Users>(),
-  };
+  });
 })();

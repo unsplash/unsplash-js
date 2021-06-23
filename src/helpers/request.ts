@@ -55,6 +55,13 @@ type RequestGenerator<Args, ResponseType> = {
   handleResponse: HandleResponse<ResponseType>;
 };
 
+type Endpoint<PathnameParams, RequestArgs, ResponseType> = {
+  getPathname: (params: PathnameParams) => string;
+} & RequestGenerator<RequestArgs, ResponseType>;
+export const makeEndpoint = <PathnameParams, RequestArgs, ResponseType>(
+  endpoint: Endpoint<PathnameParams, RequestArgs, ResponseType>,
+) => endpoint;
+
 type GeneratedRequestFunction<Args, ResponseType> = (
   ...a: Parameters<HandleRequest<Args>>
 ) => Promise<ApiResponse<ResponseType>>;

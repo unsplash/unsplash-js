@@ -1,7 +1,7 @@
 import { handleFeedResponse } from '../../helpers/feed';
 import { compactDefined } from '../../helpers/fp';
 import * as Query from '../../helpers/query';
-import { createRequestHandler } from '../../helpers/request';
+import { createRequestHandler, makeEndpoint } from '../../helpers/request';
 import { castResponse } from '../../helpers/response';
 import { isDefined } from '../../helpers/typescript';
 import { parseQueryAndPathname } from '../../helpers/url';
@@ -16,43 +16,43 @@ const PHOTOS_PATH_PREFIX = '/photos';
 
 export const list = (() => {
   const getPathname = () => PHOTOS_PATH_PREFIX;
-  return {
+  return makeEndpoint({
     getPathname,
     handleRequest: createRequestHandler((feedParams: PaginationParams = {}) => ({
       pathname: PHOTOS_PATH_PREFIX,
       query: compactDefined(Query.getFeedParams(feedParams)),
     })),
     handleResponse: handleFeedResponse<Photo.Basic>(),
-  };
+  });
 })();
 
 export const get = (() => {
   const getPathname = ({ photoId }: PhotoId) => `${PHOTOS_PATH_PREFIX}/${photoId}`;
-  return {
+  return makeEndpoint({
     getPathname,
     handleRequest: createRequestHandler(({ photoId }: PhotoId) => ({
       pathname: getPathname({ photoId }),
       query: {},
     })),
     handleResponse: castResponse<Photo.Full>(),
-  };
+  });
 })();
 
 export const getStats = (() => {
   const getPathname = ({ photoId }: PhotoId) => `${PHOTOS_PATH_PREFIX}/${photoId}/statistics`;
-  return {
+  return makeEndpoint({
     getPathname,
     handleRequest: createRequestHandler(({ photoId }: PhotoId) => ({
       pathname: getPathname({ photoId }),
       query: {},
     })),
     handleResponse: castResponse<Photo.Stats>(),
-  };
+  });
 })();
 
 export const getRandom = (() => {
   const getPathname = () => `${PHOTOS_PATH_PREFIX}/random`;
-  return {
+  return makeEndpoint({
     getPathname,
     handleRequest: createRequestHandler(
       ({
@@ -85,7 +85,7 @@ export const getRandom = (() => {
       // An array when the `count` query parameter is used.
       Photo.Random | Photo.Random[]
     >(),
-  };
+  });
 })();
 
 export const trackDownload = {

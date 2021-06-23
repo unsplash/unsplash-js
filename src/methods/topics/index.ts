@@ -1,6 +1,7 @@
 import { handleFeedResponse } from '../../helpers/feed';
 import { compactDefined, flow } from '../../helpers/fp';
 import * as Query from '../../helpers/query';
+import { makeEndpoint } from '../../helpers/request';
 import { castResponse } from '../../helpers/response';
 import { OmitStrict } from '../../helpers/typescript';
 import { OrientationParam, PaginationParams } from '../../types/request';
@@ -16,7 +17,7 @@ const getTopicPath = ({ topicIdOrSlug }: TopicIdOrSlug) => `${BASE_TOPIC_PATH}/$
 
 type TopicOrderBy = 'latest' | 'oldest' | 'position' | 'featured';
 
-export const list = {
+export const list = makeEndpoint({
   getPathname: getTopicPath,
   handleRequest: ({
     page,
@@ -38,20 +39,20 @@ export const list = {
     }),
   }),
   handleResponse: handleFeedResponse<Topic.Basic>(),
-};
+});
 
-export const get = {
+export const get = makeEndpoint({
   getPathname: getTopicPath,
   handleRequest: ({ topicIdOrSlug }: TopicIdOrSlug) => ({
     pathname: getTopicPath({ topicIdOrSlug }),
     query: {},
   }),
   handleResponse: castResponse<Topic.Full>(),
-};
+});
 
 export const getPhotos = (() => {
   const getPathname = flow(getTopicPath, topicPath => `${topicPath}/photos`);
-  return {
+  return makeEndpoint({
     getPathname,
     handleRequest: ({
       topicIdOrSlug,
@@ -65,5 +66,5 @@ export const getPhotos = (() => {
       }),
     }),
     handleResponse: handleFeedResponse<Photo.Basic>(),
-  };
+  });
 })();

@@ -1,7 +1,7 @@
 import { handleFeedResponse } from '../../helpers/feed';
 import { compactDefined } from '../../helpers/fp';
 import * as Query from '../../helpers/query';
-import { createRequestHandler } from '../../helpers/request';
+import { createRequestHandler, makeEndpoint } from '../../helpers/request';
 import { castResponse } from '../../helpers/response';
 import { OrientationParam, PaginationParams } from '../../types/request';
 import * as User from './types';
@@ -16,19 +16,19 @@ const USERS_PATH_PREFIX = '/users';
 
 export const get = (() => {
   const getPathname = ({ username }: Username) => `${USERS_PATH_PREFIX}/${username}`;
-  return {
+  return makeEndpoint({
     getPathname,
     handleRequest: createRequestHandler(({ username }: Username) => ({
       pathname: getPathname({ username }),
       query: {},
     })),
     handleResponse: castResponse<User.Full>(),
-  };
+  });
 })();
 
 export const getPhotos = (() => {
   const getPathname = ({ username }: Username) => `${USERS_PATH_PREFIX}/${username}/photos`;
-  return {
+  return makeEndpoint({
     getPathname,
     handleRequest: createRequestHandler(
       ({
@@ -50,12 +50,12 @@ export const getPhotos = (() => {
       }),
     ),
     handleResponse: handleFeedResponse<Photo.Basic>(),
-  };
+  });
 })();
 
 export const getLikes = (() => {
   const getPathname = ({ username }: Username) => `${USERS_PATH_PREFIX}/${username}/likes`;
-  return {
+  return makeEndpoint({
     getPathname,
     handleRequest: createRequestHandler(
       ({
@@ -71,11 +71,11 @@ export const getLikes = (() => {
       }),
     ),
     handleResponse: handleFeedResponse<Photo.Basic>(),
-  };
+  });
 })();
 export const getCollections = (() => {
   const getPathname = ({ username }: Username) => `${USERS_PATH_PREFIX}/${username}/collections`;
-  return {
+  return makeEndpoint({
     getPathname,
     handleRequest: createRequestHandler(
       ({ username, ...paginationParams }: Username & PaginationParams) => ({
@@ -84,5 +84,5 @@ export const getCollections = (() => {
       }),
     ),
     handleResponse: handleFeedResponse<Collection.Basic>(),
-  };
+  });
 })();

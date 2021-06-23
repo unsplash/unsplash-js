@@ -1,7 +1,7 @@
 import { handleFeedResponse } from '../../helpers/feed';
 import { compactDefined } from '../../helpers/fp';
 import * as Query from '../../helpers/query';
-import { createRequestHandler } from '../../helpers/request';
+import { createRequestHandler, makeEndpoint } from '../../helpers/request';
 import { castResponse } from '../../helpers/response';
 import { OrientationParam, PaginationParams } from '../../types/request';
 
@@ -14,7 +14,7 @@ const COLLECTIONS_PATH_PREFIX = '/collections';
 export const getPhotos = (() => {
   const getPathname = ({ collectionId }: CollectionId) =>
     `${COLLECTIONS_PATH_PREFIX}/${collectionId}/photos`;
-  return {
+  return makeEndpoint({
     getPathname,
     handleRequest: createRequestHandler(
       ({
@@ -27,25 +27,25 @@ export const getPhotos = (() => {
       }),
     ),
     handleResponse: handleFeedResponse<any>(),
-  };
+  });
 })();
 
 export const get = (() => {
   const getPathname = ({ collectionId }: CollectionId) =>
     `${COLLECTIONS_PATH_PREFIX}/${collectionId}`;
-  return {
+  return makeEndpoint({
     getPathname,
     handleRequest: createRequestHandler(({ collectionId }: CollectionId) => ({
       pathname: getPathname({ collectionId }),
       query: {},
     })),
     handleResponse: castResponse<any>(),
-  };
+  });
 })();
 
 export const list = (() => {
   const getPathname = () => COLLECTIONS_PATH_PREFIX;
-  return {
+  return makeEndpoint({
     getPathname,
     handleRequest: createRequestHandler(
       (paginationParams: Pick<PaginationParams, 'page' | 'perPage'> = {}) => ({
@@ -54,18 +54,18 @@ export const list = (() => {
       }),
     ),
     handleResponse: handleFeedResponse<any>(),
-  };
+  });
 })();
 
 export const getRelated = (() => {
   const getPathname = ({ collectionId }: CollectionId) =>
     `${COLLECTIONS_PATH_PREFIX}/${collectionId}/related`;
-  return {
+  return makeEndpoint({
     getPathname,
     handleRequest: createRequestHandler(({ collectionId }: CollectionId) => ({
       pathname: getPathname({ collectionId }),
       query: {},
     })),
     handleResponse: castResponse<any>(),
-  };
+  });
 })();
