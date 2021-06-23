@@ -1,7 +1,6 @@
 import { handleFeedResponse } from '../../helpers/feed';
 import { compactDefined, flow } from '../../helpers/fp';
 import * as Query from '../../helpers/query';
-import { createRequestGenerator } from '../../helpers/request';
 import { castResponse } from '../../helpers/response';
 import { OmitStrict } from '../../helpers/typescript';
 import { OrientationParam, PaginationParams } from '../../types/request';
@@ -18,7 +17,7 @@ const getTopicPhotosPath = flow(getTopicPath, topicPath => `${topicPath}/photos`
 
 type TopicOrderBy = 'latest' | 'oldest' | 'position' | 'featured';
 
-export const list = createRequestGenerator({
+export const list = {
   handleRequest: ({
     page,
     perPage,
@@ -39,17 +38,17 @@ export const list = createRequestGenerator({
     }),
   }),
   handleResponse: handleFeedResponse<Topic.Basic>(),
-});
+};
 
-export const get = createRequestGenerator({
+export const get = {
   handleRequest: ({ topicIdOrSlug }: TopicIdOrSlug) => ({
     pathname: getTopicPath({ topicIdOrSlug }),
     query: {},
   }),
   handleResponse: castResponse<Topic.Full>(),
-});
+};
 
-export const getPhotos = createRequestGenerator({
+export const getPhotos = {
   handleRequest: ({
     topicIdOrSlug,
     orientation,
@@ -62,4 +61,4 @@ export const getPhotos = createRequestGenerator({
     }),
   }),
   handleResponse: handleFeedResponse<Photo.Basic>(),
-});
+};

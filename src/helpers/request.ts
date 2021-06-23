@@ -41,8 +41,6 @@ export const createRequestHandler = <Args>(
   };
 };
 
-export const createRequestGenerator = <Args, T>(handlers: RequestGenerator<Args, T>) => handlers;
-
 /**
  * Initial parameters that apply to all calls
  */
