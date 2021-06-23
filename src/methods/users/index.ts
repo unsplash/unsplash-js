@@ -15,11 +15,11 @@ type UserName = {
 const USERS_PATH_PREFIX = '/users';
 
 export const get = (() => {
-  const getPathname = (username: string) => `${USERS_PATH_PREFIX}/${username}`;
+  const getPathname = ({ username }: UserName) => `${USERS_PATH_PREFIX}/${username}`;
   return {
     getPathname,
     handleRequest: createRequestHandler(({ username }: UserName) => ({
-      pathname: getPathname(username),
+      pathname: getPathname({ username }),
       query: {},
     })),
     handleResponse: castResponse<User.Full>(),
@@ -27,7 +27,7 @@ export const get = (() => {
 })();
 
 export const getPhotos = (() => {
-  const getPathname = (username: string) => `${USERS_PATH_PREFIX}/${username}/photos`;
+  const getPathname = ({ username }: UserName) => `${USERS_PATH_PREFIX}/${username}/photos`;
   return {
     getPathname,
     handleRequest: createRequestHandler(
@@ -41,7 +41,7 @@ export const getPhotos = (() => {
       } & OrientationParam &
         UserName &
         PaginationParams) => ({
-        pathname: getPathname(username),
+        pathname: getPathname({ username }),
         query: compactDefined({
           ...Query.getFeedParams(paginationParams),
           orientation,
@@ -54,7 +54,7 @@ export const getPhotos = (() => {
 })();
 
 export const getLikes = (() => {
-  const getPathname = (username: string) => `${USERS_PATH_PREFIX}/${username}/likes`;
+  const getPathname = ({ username }: UserName) => `${USERS_PATH_PREFIX}/${username}/likes`;
   return {
     getPathname,
     handleRequest: createRequestHandler(
@@ -63,7 +63,7 @@ export const getLikes = (() => {
         orientation,
         ...paginationParams
       }: OrientationParam & UserName & PaginationParams) => ({
-        pathname: getPathname(username),
+        pathname: getPathname({ username }),
         query: compactDefined({
           ...Query.getFeedParams(paginationParams),
           orientation,
@@ -74,12 +74,12 @@ export const getLikes = (() => {
   };
 })();
 export const getCollections = (() => {
-  const getPathname = (username: string) => `${USERS_PATH_PREFIX}/${username}/collections`;
+  const getPathname = ({ username }: UserName) => `${USERS_PATH_PREFIX}/${username}/collections`;
   return {
     getPathname,
     handleRequest: createRequestHandler(
       ({ username, ...paginationParams }: UserName & PaginationParams) => ({
-        pathname: getPathname(username),
+        pathname: getPathname({ username }),
         query: Query.getFeedParams(paginationParams),
       }),
     ),

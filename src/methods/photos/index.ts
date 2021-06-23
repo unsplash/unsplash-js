@@ -27,11 +27,11 @@ export const list = (() => {
 })();
 
 export const get = (() => {
-  const getPathname = (photoId: string) => `${PHOTOS_PATH_PREFIX}/${photoId}`;
+  const getPathname = ({ photoId }: PhotoId) => `${PHOTOS_PATH_PREFIX}/${photoId}`;
   return {
     getPathname,
     handleRequest: createRequestHandler(({ photoId }: PhotoId) => ({
-      pathname: getPathname(photoId),
+      pathname: getPathname({ photoId }),
       query: {},
     })),
     handleResponse: castResponse<Photo.Full>(),
@@ -39,11 +39,11 @@ export const get = (() => {
 })();
 
 export const getStats = (() => {
-  const getPathname = (photoId: string) => `${PHOTOS_PATH_PREFIX}/${photoId}/statistics`;
+  const getPathname = ({ photoId }: PhotoId) => `${PHOTOS_PATH_PREFIX}/${photoId}/statistics`;
   return {
     getPathname,
     handleRequest: createRequestHandler(({ photoId }: PhotoId) => ({
-      pathname: getPathname(photoId),
+      pathname: getPathname({ photoId }),
       query: {},
     })),
     handleResponse: castResponse<Photo.Stats>(),

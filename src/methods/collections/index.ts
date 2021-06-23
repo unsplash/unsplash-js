@@ -12,7 +12,8 @@ type CollectionId = {
 const COLLECTIONS_PATH_PREFIX = '/collections';
 
 export const getPhotos = (() => {
-  const getPathname = (collectionId: string) => `${COLLECTIONS_PATH_PREFIX}/${collectionId}/photos`;
+  const getPathname = ({ collectionId }: CollectionId) =>
+    `${COLLECTIONS_PATH_PREFIX}/${collectionId}/photos`;
   return {
     getPathname,
     handleRequest: createRequestHandler(
@@ -21,7 +22,7 @@ export const getPhotos = (() => {
         orientation,
         ...paginationParams
       }: CollectionId & PaginationParams & OrientationParam) => ({
-        pathname: getPathname(collectionId),
+        pathname: getPathname({ collectionId }),
         query: compactDefined({ ...Query.getFeedParams(paginationParams), orientation }),
       }),
     ),
@@ -30,11 +31,12 @@ export const getPhotos = (() => {
 })();
 
 export const get = (() => {
-  const getPathname = (collectionId: string) => `${COLLECTIONS_PATH_PREFIX}/${collectionId}`;
+  const getPathname = ({ collectionId }: CollectionId) =>
+    `${COLLECTIONS_PATH_PREFIX}/${collectionId}`;
   return {
     getPathname,
     handleRequest: createRequestHandler(({ collectionId }: CollectionId) => ({
-      pathname: getPathname(collectionId),
+      pathname: getPathname({ collectionId }),
       query: {},
     })),
     handleResponse: castResponse<any>(),
@@ -56,12 +58,12 @@ export const list = (() => {
 })();
 
 export const getRelated = (() => {
-  const getPathname = (collectionId: string) =>
+  const getPathname = ({ collectionId }: CollectionId) =>
     `${COLLECTIONS_PATH_PREFIX}/${collectionId}/related`;
   return {
     getPathname,
     handleRequest: createRequestHandler(({ collectionId }: CollectionId) => ({
-      pathname: getPathname(collectionId),
+      pathname: getPathname({ collectionId }),
       query: {},
     })),
     handleResponse: castResponse<any>(),
