@@ -1,7 +1,7 @@
 import { handleFeedResponse } from '../../helpers/feed';
 import { compactDefined, flow } from '../../helpers/fp';
 import * as Query from '../../helpers/query';
-import { createRequestGenerator } from '../../helpers/request';
+import { makeEndpoint } from '../../helpers/request';
 import { castResponse } from '../../helpers/response';
 import { OmitStrict } from '../../helpers/typescript';
 import { OrientationParam, PaginationParams } from '../../types/request';
@@ -14,11 +14,11 @@ type TopicIdOrSlug = {
 
 const BASE_TOPIC_PATH = '/topics';
 const getTopicPath = ({ topicIdOrSlug }: TopicIdOrSlug) => `${BASE_TOPIC_PATH}/${topicIdOrSlug}`;
-const getTopicPhotosPath = flow(getTopicPath, topicPath => `${topicPath}/photos`);
 
 type TopicOrderBy = 'latest' | 'oldest' | 'position' | 'featured';
 
-export const list = createRequestGenerator({
+export const list = makeEndpoint({
+  getPathname: getTopicPath,
   handleRequest: ({
     page,
     perPage,
@@ -41,7 +41,8 @@ export const list = createRequestGenerator({
   handleResponse: handleFeedResponse<Topic.Basic>(),
 });
 
-export const get = createRequestGenerator({
+export const get = makeEndpoint({
+  getPathname: getTopicPath,
   handleRequest: ({ topicIdOrSlug }: TopicIdOrSlug) => ({
     pathname: getTopicPath({ topicIdOrSlug }),
     query: {},
@@ -49,17 +50,21 @@ export const get = createRequestGenerator({
   handleResponse: castResponse<Topic.Full>(),
 });
 
-export const getPhotos = createRequestGenerator({
-  handleRequest: ({
-    topicIdOrSlug,
-    orientation,
-    ...feedParams
-  }: TopicIdOrSlug & PaginationParams & OrientationParam) => ({
-    pathname: getTopicPhotosPath({ topicIdOrSlug }),
-    query: compactDefined({
-      ...Query.getFeedParams(feedParams),
+export const getPhotos = (() => {
+  const getPathname = flow(getTopicPath, topicPath => `${topicPath}/photos`);
+  return makeEndpoint({
+    getPathname,
+    handleRequest: ({
+      topicIdOrSlug,
       orientation,
+      ...feedParams
+    }: TopicIdOrSlug & PaginationParams & OrientationParam) => ({
+      pathname: getPathname({ topicIdOrSlug }),
+      query: compactDefined({
+        ...Query.getFeedParams(feedParams),
+        orientation,
+      }),
     }),
-  }),
-  handleResponse: handleFeedResponse<Photo.Basic>(),
-});
+    handleResponse: handleFeedResponse<Photo.Basic>(),
+  });
+})();

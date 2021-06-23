@@ -1,6 +1,6 @@
 import { compactDefined } from '../../helpers/fp';
 import * as Query from '../../helpers/query';
-import { createRequestHandler } from '../../helpers/request';
+import { createRequestHandler, makeEndpoint } from '../../helpers/request';
 import { castResponse } from '../../helpers/response';
 import { OrientationParam, PaginationParams } from '../../types/request';
 import { ColorId, ContentFilter, Language, SearchOrderBy } from './types/request';
@@ -30,45 +30,57 @@ type SearchPhotosParams = SearchParams &
     collectionIds?: string[];
   };
 
-export const getPhotos = {
-  handleRequest: createRequestHandler(
-    ({
-      query,
-      page,
-      perPage,
-      orderBy,
-      collectionIds,
-      lang,
-      contentFilter,
-      ...filters
-    }: SearchPhotosParams) => ({
-      pathname: `${SEARCH_PATH_PREFIX}/photos`,
-      query: compactDefined({
+export const getPhotos = (() => {
+  const getPathname = () => `${SEARCH_PATH_PREFIX}/photos`;
+  return makeEndpoint({
+    getPathname,
+    handleRequest: createRequestHandler(
+      ({
         query,
-        content_filter: contentFilter,
+        page,
+        perPage,
+        orderBy,
+        collectionIds,
         lang,
-        order_by: orderBy,
-        ...Query.getFeedParams({ page, perPage }),
-        ...Query.getCollections(collectionIds),
-        ...filters,
+        contentFilter,
+        ...filters
+      }: SearchPhotosParams) => ({
+        pathname: getPathname(),
+        query: compactDefined({
+          query,
+          content_filter: contentFilter,
+          lang,
+          order_by: orderBy,
+          ...Query.getFeedParams({ page, perPage }),
+          ...Query.getCollections(collectionIds),
+          ...filters,
+        }),
       }),
-    }),
-  ),
-  handleResponse: castResponse<SearchResponse.Photos>(),
-};
+    ),
+    handleResponse: castResponse<SearchResponse.Photos>(),
+  });
+})();
 
-export const getCollections = {
-  handleRequest: createRequestHandler(({ query, ...paginationParams }: SearchParams) => ({
-    pathname: `${SEARCH_PATH_PREFIX}/collections`,
-    query: { query, ...Query.getFeedParams(paginationParams) },
-  })),
-  handleResponse: castResponse<SearchResponse.Collections>(),
-};
+export const getCollections = (() => {
+  const getPathname = () => `${SEARCH_PATH_PREFIX}/collections`;
+  return makeEndpoint({
+    getPathname,
+    handleRequest: createRequestHandler(({ query, ...paginationParams }: SearchParams) => ({
+      pathname: getPathname(),
+      query: { query, ...Query.getFeedParams(paginationParams) },
+    })),
+    handleResponse: castResponse<SearchResponse.Collections>(),
+  });
+})();
 
-export const getUsers = {
-  handleRequest: createRequestHandler(({ query, ...paginationParams }: SearchParams) => ({
-    pathname: `${SEARCH_PATH_PREFIX}/users`,
-    query: { query, ...Query.getFeedParams(paginationParams) },
-  })),
-  handleResponse: castResponse<SearchResponse.Users>(),
-};
+export const getUsers = (() => {
+  const getPathname = () => `${SEARCH_PATH_PREFIX}/users`;
+  return makeEndpoint({
+    getPathname,
+    handleRequest: createRequestHandler(({ query, ...paginationParams }: SearchParams) => ({
+      pathname: getPathname(),
+      query: { query, ...Query.getFeedParams(paginationParams) },
+    })),
+    handleResponse: castResponse<SearchResponse.Users>(),
+  });
+})();

@@ -41,8 +41,6 @@ export const createRequestHandler = <Args>(
   };
 };
 
-export const createRequestGenerator = <Args, T>(handlers: RequestGenerator<Args, T>) => handlers;
-
 /**
  * Initial parameters that apply to all calls
  */
@@ -56,6 +54,13 @@ type RequestGenerator<Args, ResponseType> = {
   handleRequest: HandleRequest<Args>;
   handleResponse: HandleResponse<ResponseType>;
 };
+
+type Endpoint<PathnameParams, RequestArgs, ResponseType> = {
+  getPathname: (params: PathnameParams) => string;
+} & RequestGenerator<RequestArgs, ResponseType>;
+export const makeEndpoint = <PathnameParams, RequestArgs, ResponseType>(
+  endpoint: Endpoint<PathnameParams, RequestArgs, ResponseType>,
+) => endpoint;
 
 type GeneratedRequestFunction<Args, ResponseType> = (
   ...a: Parameters<HandleRequest<Args>>

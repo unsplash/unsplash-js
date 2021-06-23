@@ -1,7 +1,7 @@
 import { handleFeedResponse } from '../../helpers/feed';
 import { compactDefined } from '../../helpers/fp';
 import * as Query from '../../helpers/query';
-import { createRequestHandler } from '../../helpers/request';
+import { createRequestHandler, makeEndpoint } from '../../helpers/request';
 import { castResponse } from '../../helpers/response';
 import { isDefined } from '../../helpers/typescript';
 import { parseQueryAndPathname } from '../../helpers/url';
@@ -14,63 +14,79 @@ type PhotoId = {
 
 const PHOTOS_PATH_PREFIX = '/photos';
 
-export const list = {
-  handleRequest: createRequestHandler((feedParams: PaginationParams = {}) => ({
-    pathname: PHOTOS_PATH_PREFIX,
-    query: compactDefined(Query.getFeedParams(feedParams)),
-  })),
-  handleResponse: handleFeedResponse<Photo.Basic>(),
-};
+export const list = (() => {
+  const getPathname = () => PHOTOS_PATH_PREFIX;
+  return makeEndpoint({
+    getPathname,
+    handleRequest: createRequestHandler((feedParams: PaginationParams = {}) => ({
+      pathname: PHOTOS_PATH_PREFIX,
+      query: compactDefined(Query.getFeedParams(feedParams)),
+    })),
+    handleResponse: handleFeedResponse<Photo.Basic>(),
+  });
+})();
 
-export const get = {
-  handleRequest: createRequestHandler(({ photoId }: PhotoId) => ({
-    pathname: `${PHOTOS_PATH_PREFIX}/${photoId}`,
-    query: {},
-  })),
-  handleResponse: castResponse<Photo.Full>(),
-};
+export const get = (() => {
+  const getPathname = ({ photoId }: PhotoId) => `${PHOTOS_PATH_PREFIX}/${photoId}`;
+  return makeEndpoint({
+    getPathname,
+    handleRequest: createRequestHandler(({ photoId }: PhotoId) => ({
+      pathname: getPathname({ photoId }),
+      query: {},
+    })),
+    handleResponse: castResponse<Photo.Full>(),
+  });
+})();
 
-export const getStats = {
-  handleRequest: createRequestHandler(({ photoId }: PhotoId) => ({
-    pathname: `${PHOTOS_PATH_PREFIX}/${photoId}/statistics`,
-    query: {},
-  })),
-  handleResponse: castResponse<Photo.Stats>(),
-};
+export const getStats = (() => {
+  const getPathname = ({ photoId }: PhotoId) => `${PHOTOS_PATH_PREFIX}/${photoId}/statistics`;
+  return makeEndpoint({
+    getPathname,
+    handleRequest: createRequestHandler(({ photoId }: PhotoId) => ({
+      pathname: getPathname({ photoId }),
+      query: {},
+    })),
+    handleResponse: castResponse<Photo.Stats>(),
+  });
+})();
 
-export const getRandom = {
-  handleRequest: createRequestHandler(
-    ({
-      collectionIds,
-      contentFilter,
-      ...queryParams
-    }: {
-      collectionIds?: string[];
-      featured?: boolean;
-      username?: string;
-      query?: string;
-      contentFilter?: 'low' | 'high';
-      count?: number;
-    } & OrientationParam = {}) => ({
-      pathname: `${PHOTOS_PATH_PREFIX}/random`,
-      query: compactDefined({
-        ...queryParams,
-        content_filter: contentFilter,
-        ...Query.getCollections(collectionIds),
+export const getRandom = (() => {
+  const getPathname = () => `${PHOTOS_PATH_PREFIX}/random`;
+  return makeEndpoint({
+    getPathname,
+    handleRequest: createRequestHandler(
+      ({
+        collectionIds,
+        contentFilter,
+        ...queryParams
+      }: {
+        collectionIds?: string[];
+        featured?: boolean;
+        username?: string;
+        query?: string;
+        contentFilter?: 'low' | 'high';
+        count?: number;
+      } & OrientationParam = {}) => ({
+        pathname: getPathname(),
+        query: compactDefined({
+          ...queryParams,
+          content_filter: contentFilter,
+          ...Query.getCollections(collectionIds),
+        }),
+        headers: {
+          /**
+           * Avoid response caching
+           */
+          'cache-control': 'no-cache',
+        },
       }),
-      headers: {
-        /**
-         * Avoid response caching
-         */
-        'cache-control': 'no-cache',
-      },
-    }),
-  ),
-  handleResponse: castResponse<
-    // An array when the `count` query parameter is used.
-    Photo.Random | Photo.Random[]
-  >(),
-};
+    ),
+    handleResponse: castResponse<
+      // An array when the `count` query parameter is used.
+      Photo.Random | Photo.Random[]
+    >(),
+  });
+})();
 
 export const trackDownload = {
   handleRequest: createRequestHandler(({ downloadLocation }: { downloadLocation: string }) => {
