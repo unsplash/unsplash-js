@@ -18,6 +18,7 @@ const getTopicPhotosPath = flow(getTopicPath, topicPath => `${topicPath}/photos`
 type TopicOrderBy = 'latest' | 'oldest' | 'position' | 'featured';
 
 export const list = {
+  getPathname: getTopicPath,
   handleRequest: ({
     page,
     perPage,
@@ -41,6 +42,7 @@ export const list = {
 };
 
 export const get = {
+  getPathname: getTopicPath,
   handleRequest: ({ topicIdOrSlug }: TopicIdOrSlug) => ({
     pathname: getTopicPath({ topicIdOrSlug }),
     query: {},
@@ -49,6 +51,7 @@ export const get = {
 };
 
 export const getPhotos = {
+  getPathname: getTopicPhotosPath,
   handleRequest: ({
     topicIdOrSlug,
     orientation,
