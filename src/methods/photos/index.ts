@@ -51,7 +51,7 @@ export const getStats = (() => {
   });
 })();
 
-export interface RandomParams {
+export type RandomParams = {
   collectionIds?: string[];
   topicIds?: string[];
   featured?: boolean;
@@ -59,19 +59,14 @@ export interface RandomParams {
   query?: string;
   contentFilter?: 'low' | 'high';
   count?: number;
-}
+} & OrientationParam;
 
 export const getRandom = (() => {
   const getPathname = () => `${PHOTOS_PATH_PREFIX}/random`;
   return makeEndpoint({
     getPathname,
     handleRequest: createRequestHandler(
-      ({
-        collectionIds,
-        contentFilter,
-        topicIds,
-        ...queryParams
-      }: RandomParams & OrientationParam = {}) => ({
+      ({ collectionIds, contentFilter, topicIds, ...queryParams }: RandomParams = {}) => ({
         pathname: getPathname(),
         query: compactDefined({
           ...queryParams,
