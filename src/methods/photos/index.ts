@@ -51,6 +51,16 @@ export const getStats = (() => {
   });
 })();
 
+export interface RandomParams {
+  collectionIds?: string[];
+  topicIds?: string[];
+  featured?: boolean;
+  username?: string;
+  query?: string;
+  contentFilter?: 'low' | 'high';
+  count?: number;
+}
+
 export const getRandom = (() => {
   const getPathname = () => `${PHOTOS_PATH_PREFIX}/random`;
   return makeEndpoint({
@@ -59,20 +69,15 @@ export const getRandom = (() => {
       ({
         collectionIds,
         contentFilter,
+        topicIds,
         ...queryParams
-      }: {
-        collectionIds?: string[];
-        featured?: boolean;
-        username?: string;
-        query?: string;
-        contentFilter?: 'low' | 'high';
-        count?: number;
-      } & OrientationParam = {}) => ({
+      }: RandomParams & OrientationParam = {}) => ({
         pathname: getPathname(),
         query: compactDefined({
           ...queryParams,
           content_filter: contentFilter,
           ...Query.getCollections(collectionIds),
+          ...Query.getTopics(topicIds),
         }),
         headers: {
           /**
