@@ -387,7 +387,8 @@ Retrieve a single random photo, given optional filters. [See endpoint docs 🚀]
 | **`query`**         | _string_        | Optional     |
 | **`username`**      | _string_        | Optional     |
 | **`featured`**      | _boolean_       | Optional     |
-| **`collectionIds`** | _Array<number>_ | Optional     |
+| **`collectionIds`** | _Array<string>_ | Optional     |
+| **`topicIds`**      | _Array<string>_ | Optional     |
 | **`count`**         | _string_        | Optional     |
 
 **Example**
@@ -399,6 +400,7 @@ unsplash.photos.getRandom({
 });
 unsplash.photos.getRandom({
   collectionIds: ['abc123'],
+  topicIds: ['def456'],
   featured: true,
   username: 'naoufal',
   query: 'dog',
