@@ -51,28 +51,28 @@ export const getStats = (() => {
   });
 })();
 
+export type RandomParams = {
+  collectionIds?: string[];
+  topicIds?: string[];
+  featured?: boolean;
+  username?: string;
+  query?: string;
+  contentFilter?: 'low' | 'high';
+  count?: number;
+} & OrientationParam;
+
 export const getRandom = (() => {
   const getPathname = () => `${PHOTOS_PATH_PREFIX}/random`;
   return makeEndpoint({
     getPathname,
     handleRequest: createRequestHandler(
-      ({
-        collectionIds,
-        contentFilter,
-        ...queryParams
-      }: {
-        collectionIds?: string[];
-        featured?: boolean;
-        username?: string;
-        query?: string;
-        contentFilter?: 'low' | 'high';
-        count?: number;
-      } & OrientationParam = {}) => ({
+      ({ collectionIds, contentFilter, topicIds, ...queryParams }: RandomParams = {}) => ({
         pathname: getPathname(),
         query: compactDefined({
           ...queryParams,
           content_filter: contentFilter,
           ...Query.getCollections(collectionIds),
+          ...Query.getTopics(topicIds),
         }),
         headers: {
           /**
