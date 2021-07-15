@@ -33,7 +33,8 @@ type SearchPhotosParams = SearchParams &
 export const getPhotos = (() => {
   const getPathname = () => `${SEARCH_PATH_PREFIX}/photos`;
   return makeEndpoint({
-    getPathname,
+    // Wrapper uses type trick to allow 0 args
+    getPathname: (_params?: void) => getPathname(),
     handleRequest: createRequestHandler(
       ({
         query,
@@ -64,7 +65,8 @@ export const getPhotos = (() => {
 export const getCollections = (() => {
   const getPathname = () => `${SEARCH_PATH_PREFIX}/collections`;
   return makeEndpoint({
-    getPathname,
+    // Wrapper uses type trick to allow 0 args
+    getPathname: (_params?: void) => getPathname(),
     handleRequest: createRequestHandler(({ query, ...paginationParams }: SearchParams) => ({
       pathname: getPathname(),
       query: { query, ...Query.getFeedParams(paginationParams) },
@@ -76,7 +78,8 @@ export const getCollections = (() => {
 export const getUsers = (() => {
   const getPathname = () => `${SEARCH_PATH_PREFIX}/users`;
   return makeEndpoint({
-    getPathname,
+    // Wrapper uses type trick to allow 0 args
+    getPathname: (_params?: void) => getPathname(),
     handleRequest: createRequestHandler(({ query, ...paginationParams }: SearchParams) => ({
       pathname: getPathname(),
       query: { query, ...Query.getFeedParams(paginationParams) },
