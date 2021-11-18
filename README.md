@@ -60,6 +60,7 @@ import 'whatwg-fetch';
 or explicitly provide them as an argument:
 
 ```ts
+import { createApi } from 'unsplash-js';
 import nodeFetch from 'node-fetch';
 
 const unsplash = createApi({
