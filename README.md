@@ -71,6 +71,49 @@ const unsplash = createApi({
 
 Note: we recommend using a version of `node-fetch` higher than `2.4.0` to benefit from Brotli compression.
 
+### `node-fetch` and global types
+
+This library presumes that the following types exist in the global namespace:
+
+- `fetch`
+- `RequestInit`
+- `Response`
+
+By default TypeScript defines these via the `"dom"` type definitions.
+
+However, if you're targeting Node and you're using `node-fetch` you should omit the `"dom"` type definitions using the [`lib` compiler option](https://www.typescriptlang.org/tsconfig#lib) and then define the required global types manually like so:
+
+```ts
+import { createApi } from 'unsplash-js';
+import * as nodeFetch from 'node-fetch'
+
+declare global {
+  var fetch: typeof nodeFetch.default;
+  type RequestInit = nodeFetch.RequestInit;
+  type Response = nodeFetch.Response;
+}
+global.fetch = nodeFetch.default;
+
+const unsplash = createApi({
+  accessKey: 'MY_ACCESS_KEY',
+  fetch: nodeFetch.default,
+});
+```
+
+Unfortunately this won't work with `node-fetch` v3 due to an issue in `node-fetch`, whereby the global namespace is polluted with the `"dom"` type definitions: https://github.com/node-fetch/node-fetch/issues/1285.
+
+As a workaround you use a type assertion:
+
+```ts
+import { createApi } from 'unsplash-js';
+import * as nodeFetch from 'node-fetch'
+
+const unsplash = createApi({
+  accessKey: 'MY_ACCESS_KEY',
+  fetch: nodeFetch.default as unknown as typeof fetch,
+});
+```
+
 ### URL
 
 This library also depends on the WHATWG URL interface:
