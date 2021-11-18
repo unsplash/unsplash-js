@@ -71,7 +71,7 @@ const unsplash = createApi({
 
 Note: we recommend using a version of `node-fetch` higher than `2.4.0` to benefit from Brotli compression.
 
-### `node-fetch` and global types
+#### `node-fetch` and global types
 
 This library presumes that the following types exist in the global namespace:
 
