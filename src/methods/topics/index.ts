@@ -8,14 +8,14 @@ import { OrientationParam, PaginationParams } from '../../types/request';
 import * as Photo from '../photos/types';
 import * as Topic from './types';
 
-type TopicIdOrSlug = {
+export type TopicIdOrSlug = {
   topicIdOrSlug: string;
 };
 
 const BASE_TOPIC_PATH = '/topics';
 const getTopicPath = ({ topicIdOrSlug }: TopicIdOrSlug) => `${BASE_TOPIC_PATH}/${topicIdOrSlug}`;
 
-type TopicOrderBy = 'latest' | 'oldest' | 'position' | 'featured';
+export type TopicOrderBy = 'latest' | 'oldest' | 'position' | 'featured';
 
 export const list = makeEndpoint({
   getPathname: getTopicPath,
