@@ -126,7 +126,7 @@ Note: Make sure to polyfill this interface if targetting older environments that
 Note 2: For Node, the URL interface exists under `require('url').URL` since [v8](https://nodejs.org/es/blog/release/v8.0.0/#say-hello-to-the-whatwg-url-parser) but was only added to the global scope as of [v10.0.0](https://nodejs.org/docs/latest/api/globals.html#globals_url). If you are using a version between v8.0.0 and v10.0.0, you need to add the class to the global scope before using `unsplash-js`:
 
 ```js
-URL = require('url').URL;
+global.URL = require('url').URL;
 ```
 
 ## Usage
