@@ -2,7 +2,7 @@ import { compactDefined } from '../../helpers/fp';
 import * as Query from '../../helpers/query';
 import { createRequestHandler, makeEndpoint } from '../../helpers/request';
 import { castResponse } from '../../helpers/response';
-import { OrientationParam, PaginationParams } from '../../types/request';
+import { OrientationParam, PaginationParams, Plus } from '../../types/request';
 import { ColorId, ContentFilter, Language, SearchOrderBy } from './types/request';
 import * as SearchResponse from './types/response';
 
@@ -19,6 +19,7 @@ type SearchPhotosParams = SearchParams &
      */
     orderBy?: SearchOrderBy;
     color?: ColorId;
+    plus?: Plus;
     /**
      * API defaults to `en` (English) if no value is provided
      */

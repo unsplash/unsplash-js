@@ -9,6 +9,7 @@ export type Orientation = 'landscape' | 'portrait' | 'squarish';
 export type OrientationParam = {
   orientation?: Orientation;
 };
+export type Plus = 'mixed' | 'only' | 'none';
 
 export type PaginationParams = {
   /**
