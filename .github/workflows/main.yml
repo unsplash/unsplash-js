@@ -36,3 +36,9 @@ jobs:
 
       - name: Build
         run: yarn build
+
+      - name: Check size
+        if: ${{ github.event_name == 'pull_request' && github.base_ref == 'master'}}
+        uses: andresz1/size-limit-action@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
