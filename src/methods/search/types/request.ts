@@ -1,4 +1,4 @@
-export type SearchOrderBy = 'relevant' | 'latest';
+export type SearchOrderBy = 'relevant' | 'latest' | 'editorial';
 
 export type ColorId =
   | 'white'
