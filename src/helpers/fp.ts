@@ -1,3 +1,5 @@
+/* eslint-disable no-redeclare */
+
 import { isDefined } from './typescript';
 
 /** Takes a dictionary containing nullish values and returns a dictionary of all the defined
