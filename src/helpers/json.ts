@@ -2,14 +2,12 @@ import * as ContentTypeHelpers from 'content-type';
 import { DecodingError } from './errors';
 import { AnyJson, isDefined } from './typescript';
 
-const CONTENT_TYPE_RESPONSE_HEADER = 'content-type';
-const CONTENT_TYPE_JSON = 'application/json';
 const checkIsJsonResponse = (response: Response) => {
-  const contentTypeHeader = response.headers.get(CONTENT_TYPE_RESPONSE_HEADER);
+  const contentTypeHeader = response.headers.get('content-type');
 
   return (
     isDefined(contentTypeHeader) &&
-    ContentTypeHelpers.parse(contentTypeHeader).type === CONTENT_TYPE_JSON
+    ContentTypeHelpers.parse(contentTypeHeader).type === 'application/json'
   );
 };
 
