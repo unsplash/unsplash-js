@@ -1,14 +1,14 @@
-import * as ContentTypeHelpers from 'content-type';
 import { DecodingError } from './errors';
 import { AnyJson, isDefined } from './typescript';
 
-const checkIsJsonResponse = (response: Response) => {
+// Regex from: https://stackoverflow.com/a/73613161
+const isJSON = (contentType: string): boolean =>
+  /application\/[^+]*[+]?(json);?.*/.test(contentType);
+
+const checkIsJsonResponse = (response: Response): boolean => {
   const contentTypeHeader = response.headers.get('content-type');
 
-  return (
-    isDefined(contentTypeHeader) &&
-    ContentTypeHelpers.parse(contentTypeHeader).type === 'application/json'
-  );
+  return isDefined(contentTypeHeader) && isJSON(contentTypeHeader);
 };
 
 /**
