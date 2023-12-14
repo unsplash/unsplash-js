@@ -75,8 +75,5 @@
     "url": "https://github.com/unsplash/unsplash-js/issues"
   },
   "homepage": "https://github.com/unsplash/unsplash-js#readme",
-  "dependencies": {
-    "@types/content-type": "^1.1.3",
-    "content-type": "^1.0.4"
-  }
+  "dependencies": {}
 }
