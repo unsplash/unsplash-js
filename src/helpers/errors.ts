@@ -9,7 +9,7 @@ import {
   Nullable,
 } from './typescript';
 
-export type Errors = NonEmptyArray<string>;
+export type Errors = NonEmptyArray<AnyJson>;
 export type ErrorSource = 'api' | 'decoding';
 
 const checkIsObject = getRefinement(
