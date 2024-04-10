@@ -27,6 +27,7 @@ export interface Basic extends Entity {
   total_collections: number;
   total_likes: number;
   total_photos: number;
+  total_illustrations: number;
   twitter_username: Nullable<string>;
   updated_at: string;
   username: string;
