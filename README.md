@@ -1,3 +1,6 @@
+> [!CAUTION]
+> This project has been archived and no longer receives support or updates. Refer to our [developper documentation](https://unsplash.com/documentation) to make requests to the Unsplash API.
+
 # Unsplash
 
 [![npm](https://img.shields.io/npm/v/unsplash-js.svg?style=flat-square)](https://www.npmjs.com/package/unsplash-js)
