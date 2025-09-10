@@ -1,5 +1,5 @@
 > [!CAUTION]
-> This project has been archived and no longer receives support or updates. Refer to the [developpers documentation](https://unsplash.com/documentation) to make requests to the Unsplash API.
+> This project has been archived and no longer receives support or updates. Refer to our [developper documentation](https://unsplash.com/documentation) to make requests to the Unsplash API.
 
 # Unsplash
 
