@@ -9,14 +9,14 @@
     "src"
   ],
   "engines": {
-    "node": ">=10"
+    "node": ">=20"
   },
   "scripts": {
-    "start": "tsdx watch",
-    "build": "tsdx build",
+    "dev": "tsdown --watch",
+    "build": "tsdown",
     "test": "tsdx test",
-    "lint": "tsdx lint",
-    "prepare": "tsdx build",
+    "lint": "oxlint",
+    "format": "oxfmt",
     "size": "size-limit",
     "analyze": "size-limit --why"
   },
@@ -25,20 +25,8 @@
     "@typescript-eslint/eslint-plugin": "^4.6.1",
     "@typescript-eslint/parser": "^4.8.2"
   },
-  "peerDependencies": {},
-  "husky": {
-    "hooks": {
-      "pre-commit": "tsdx lint"
-    }
-  },
-  "prettier": {
-    "printWidth": 100,
-    "semi": true,
-    "singleQuote": true,
-    "trailingComma": "all"
-  },
   "sideEffects": false,
-  "module": "dist/unsplash-js.esm.js",
+  "module": "dist/index.mjs",
   "size-limit": [
     {
       "path": "dist/unsplash-js.cjs.production.min.js",
@@ -51,11 +39,11 @@
   ],
   "devDependencies": {
     "@size-limit/preset-small-lib": "^4.9.0",
-    "husky": "^4.3.0",
-    "rollup-plugin-analyzer": "^3.3.0",
     "size-limit": "^4.9.0",
-    "tsdx": "^0.14.1",
-    "tslib": "^2.0.3"
+    "oxfmt": "^0.41.0",
+    "oxlint": "^1.56.0",
+    "tsdown": "^0.21.4",
+    "typescript": "^4.9.5"
   },
   "repository": {
     "type": "git",
