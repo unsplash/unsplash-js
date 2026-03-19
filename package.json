@@ -24,8 +24,8 @@
     "dist",
     "src"
   ],
+  "type": "module",
   "sideEffects": false,
-  "module": "dist/index.mjs",
   "typings": "dist/index.d.ts",
   "exports": {
     ".": "./dist/index.js"
@@ -53,7 +53,7 @@
   },
   "size-limit": [
     {
-      "path": "dist/index.mjs",
+      "path": "dist/index.js",
       "limit": "5 KB"
     }
   ],
