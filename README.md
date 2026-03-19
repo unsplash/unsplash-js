@@ -53,21 +53,21 @@ This means that you can set the polyfills in the global scope:
 
 ```ts
 // server
-import fetch from 'node-fetch';
+import fetch from "node-fetch";
 global.fetch = fetch;
 
 // browser
-import 'whatwg-fetch';
+import "whatwg-fetch";
 ```
 
 or explicitly provide them as an argument:
 
 ```ts
-import { createApi } from 'unsplash-js';
-import nodeFetch from 'node-fetch';
+import { createApi } from "unsplash-js";
+import nodeFetch from "node-fetch";
 
 const unsplash = createApi({
-  accessKey: 'MY_ACCESS_KEY',
+  accessKey: "MY_ACCESS_KEY",
   fetch: nodeFetch,
 });
 ```
@@ -87,8 +87,8 @@ By default TypeScript defines these via the `"dom"` type definitions.
 However, if you're targeting Node and you're using `node-fetch` you should omit the `"dom"` type definitions using the [`lib` compiler option](https://www.typescriptlang.org/tsconfig#lib) and then define the required global types manually like so:
 
 ```ts
-import { createApi } from 'unsplash-js';
-import * as nodeFetch from 'node-fetch'
+import { createApi } from "unsplash-js";
+import * as nodeFetch from "node-fetch";
 
 declare global {
   var fetch: typeof nodeFetch.default;
@@ -98,7 +98,7 @@ declare global {
 global.fetch = nodeFetch.default;
 
 const unsplash = createApi({
-  accessKey: 'MY_ACCESS_KEY',
+  accessKey: "MY_ACCESS_KEY",
   fetch: nodeFetch.default,
 });
 ```
@@ -108,11 +108,11 @@ Unfortunately this won't work with `node-fetch` v3 due to an issue in `node-fetc
 As a workaround you use a type assertion:
 
 ```ts
-import { createApi } from 'unsplash-js';
-import * as nodeFetch from 'node-fetch'
+import { createApi } from "unsplash-js";
+import * as nodeFetch from "node-fetch";
 
 const unsplash = createApi({
-  accessKey: 'MY_ACCESS_KEY',
+  accessKey: "MY_ACCESS_KEY",
   fetch: nodeFetch.default as unknown as typeof fetch,
 });
 ```
@@ -129,7 +129,7 @@ Note: Make sure to polyfill this interface if targetting older environments that
 Note 2: For Node, the URL interface exists under `require('url').URL` since [v8](https://nodejs.org/es/blog/release/v8.0.0/#say-hello-to-the-whatwg-url-parser) but was only added to the global scope as of [v10.0.0](https://nodejs.org/docs/latest/api/globals.html#globals_url). If you are using a version between v8.0.0 and v10.0.0, you need to add the class to the global scope before using `unsplash-js`:
 
 ```js
-URL = require('url').URL;
+URL = require("url").URL;
 ```
 
 ## Usage
@@ -141,17 +141,17 @@ To create an instance, simply provide an _Object_ with your `accessKey`.
 NOTE: If you're using `unsplash-js` publicly in the browser, you'll need to proxy your requests through your server to sign the requests with the Access Key to abide by the [API Guideline](https://help.unsplash.com/articles/2511245-unsplash-api-guidelines) to keep keys confidential. We provide an `apiUrl` property that lets you do so. You should only need to provide _one_ of those two values in any given scenario.
 
 ```ts
-import { createApi } from 'unsplash-js';
+import { createApi } from "unsplash-js";
 
 // on your node server
 const serverApi = createApi({
-  accessKey: 'MY_ACCESS_KEY',
+  accessKey: "MY_ACCESS_KEY",
   //...other fetch options
 });
 
 // in the browser
 const browserApi = createApi({
-  apiUrl: 'https://mywebsite.com/unsplash-proxy',
+  apiUrl: "https://mywebsite.com/unsplash-proxy",
   //...other fetch options
 });
 ```
@@ -164,15 +164,15 @@ All methods have 2 arguments: the first one includes all of the specific paramet
 
 ```ts
 const unsplash = createApi({
-  accessKey: 'MY_ACCESS_KEY',
+  accessKey: "MY_ACCESS_KEY",
   // `fetch` options to be sent with every request
-  headers: { 'X-Custom-Header': 'foo' },
+  headers: { "X-Custom-Header": "foo" },
 });
 
 unsplash.photos.get(
-  { photoId: '123' },
+  { photoId: "123" },
   // `fetch` options to be sent only with _this_ request
-  { headers: { 'X-Custom-Header-2': 'bar' } },
+  { headers: { "X-Custom-Header-2": "bar" } },
 );
 ```
 
@@ -180,15 +180,15 @@ Example: if you would like to implement [request abortion](https://developer.moz
 
 ```ts
 const unsplash = createApi({
-  accessKey: 'MY_ACCESS_KEY',
+  accessKey: "MY_ACCESS_KEY",
 });
 
 const controller = new AbortController();
 const signal = controller.signal;
 
-unsplash.photos.get({ photoId: '123' }, { signal }).catch(err => {
-  if (err.name === 'AbortError') {
-    console.log('Fetch aborted');
+unsplash.photos.get({ photoId: "123" }, { signal }).catch((err) => {
+  if (err.name === "AbortError") {
+    console.log("Fetch aborted");
   }
 });
 
@@ -207,13 +207,13 @@ When making a request using this SDK, there are 2 possible outcomes to a request
 You can inspect which one you have by reading the `result.type` value or checking the contents of `result.errors`/`result.success`
 
 ```ts
-const unsplash = createApi({ accessKey: 'MY_ACCESS_KEY' });
+const unsplash = createApi({ accessKey: "MY_ACCESS_KEY" });
 
 // non-feed example
-unsplash.photos.get({ photoId: 'foo' }).then(result => {
+unsplash.photos.get({ photoId: "foo" }).then((result) => {
   if (result.errors) {
     // handle error here
-    console.log('error occurred: ', result.errors[0]);
+    console.log("error occurred: ", result.errors[0]);
   } else {
     // handle success here
     const photo = result.response;
@@ -222,10 +222,10 @@ unsplash.photos.get({ photoId: 'foo' }).then(result => {
 });
 
 // feed example
-unsplash.users.getPhotos({ username: 'foo' }).then(result => {
+unsplash.users.getPhotos({ username: "foo" }).then((result) => {
   if (result.errors) {
     // handle error here
-    console.log('error occurred: ', result.errors[0]);
+    console.log("error occurred: ", result.errors[0]);
   } else {
     const feed = result.response;
 
@@ -234,7 +234,7 @@ unsplash.users.getPhotos({ username: 'foo' }).then(result => {
 
     // handle success here
     console.log(`received ${results.length} photos out of ${total}`);
-    console.log('first photo: ', results[0]);
+    console.log("first photo: ", results[0]);
   }
 });
 ```
@@ -242,11 +242,11 @@ unsplash.users.getPhotos({ username: 'foo' }).then(result => {
 NOTE: you can also pattern-match on `result.type` whose value will be `error` or `success`:
 
 ```ts
-unsplash.photos.get({ photoId: 'foo' }).then(result => {
+unsplash.photos.get({ photoId: "foo" }).then((result) => {
   switch (result.type) {
-    case 'error':
-      console.log('error occurred: ', result.errors[0]);
-    case 'success':
+    case "error":
+      console.log("error occurred: ", result.errors[0]);
+    case "success":
       const photo = result.response;
       console.log(photo);
   }
@@ -306,11 +306,11 @@ Get a list of photos matching the query. [See endpoint docs 🚀](https://unspla
 
 ```js
 unsplash.search.getPhotos({
-  query: 'cat',
+  query: "cat",
   page: 1,
   perPage: 10,
-  color: 'green',
-  orientation: 'portrait',
+  color: "green",
+  orientation: "portrait",
 });
 ```
 
@@ -330,7 +330,7 @@ Get a list of users matching the query. [See endpoint docs 🚀](https://unsplas
 
 ```js
 unsplash.search.getUsers({
-  query: 'cat',
+  query: "cat",
   page: 1,
   perPage: 10,
 });
@@ -352,7 +352,7 @@ Get a list of collections matching the query. [See endpoint docs 🚀](https://u
 
 ```js
 unsplash.search.getCollections({
-  query: 'cat',
+  query: "cat",
   page: 1,
   perPage: 10,
 });
@@ -398,7 +398,7 @@ Retrieve a single photo. [See endpoint docs 🚀](https://unsplash.com/documenta
 **Example**
 
 ```js
-unsplash.photos.get({ photoId: 'mtNweauBsMQ' });
+unsplash.photos.get({ photoId: "mtNweauBsMQ" });
 ```
 
 ---
@@ -416,7 +416,7 @@ Retrieve a single photo's stats. [See endpoint docs 🚀](https://unsplash.com/d
 **Example**
 
 ```js
-unsplash.photos.getStats({ photoId: 'mtNweauBsMQ' });
+unsplash.photos.getStats({ photoId: "mtNweauBsMQ" });
 ```
 
 ---
@@ -446,11 +446,11 @@ unsplash.photos.getRandom({
   count: 10,
 });
 unsplash.photos.getRandom({
-  collectionIds: ['abc123'],
-  topicIds: ['def456'],
+  collectionIds: ["abc123"],
+  topicIds: ["def456"],
   featured: true,
-  username: 'naoufal',
-  query: 'dog',
+  username: "naoufal",
+  query: "dog",
   count: 1,
 });
 ```
@@ -470,8 +470,8 @@ Trigger a download of a photo as per the [download tracking requirement of API G
 **Example**
 
 ```js
-unsplash.photos.get({ photoId: 'mtNweauBsMQ' }).then(result => {
-  if (result.type === 'success') {
+unsplash.photos.get({ photoId: "mtNweauBsMQ" }).then((result) => {
+  if (result.type === "success") {
     const photo = result.response;
     unsplash.photos.trackDownload({
       downloadLocation: photo.links.download_location,
@@ -480,8 +480,8 @@ unsplash.photos.get({ photoId: 'mtNweauBsMQ' }).then(result => {
 });
 
 // or if working with an array of photos
-unsplash.search.photos({ query: 'dogs' }).then(result => {
-  if (result.type === 'success') {
+unsplash.search.photos({ query: "dogs" }).then((result) => {
+  if (result.type === "success") {
     const firstPhoto = result.response.results[0];
     unsplash.photos.trackDownload({
       downloadLocation: firstPhoto.links.download_location,
@@ -507,7 +507,7 @@ Retrieve public details on a given user. [See endpoint docs 🚀](https://unspla
 **Example**
 
 ```js
-unsplash.users.get({ username: 'naoufal' });
+unsplash.users.get({ username: "naoufal" });
 ```
 
 ---
@@ -531,11 +531,11 @@ Get a list of photos uploaded by a user. [See endpoint docs 🚀](https://unspla
 
 ```js
 unsplash.users.getPhotos({
-  username: 'naoufal',
+  username: "naoufal",
   page: 1,
   perPage: 10,
-  orderBy: 'latest',
-  orientation: 'landscape',
+  orderBy: "latest",
+  orientation: "landscape",
 });
 ```
 
@@ -559,11 +559,11 @@ Get a list of photos liked by a user. [See endpoint docs 🚀](https://unsplash.
 
 ```js
 unsplash.users.getLikes({
-  username: 'naoufal',
+  username: "naoufal",
   page: 1,
   perPage: 10,
-  orderBy: 'latest',
-  orientation: 'landscape',
+  orderBy: "latest",
+  orientation: "landscape",
 });
 ```
 
@@ -585,7 +585,7 @@ Get a list of collections created by the user. [See endpoint docs 🚀](https://
 
 ```js
 unsplash.users.getCollections({
-  username: 'naoufal',
+  username: "naoufal",
   page: 2,
   perPage: 15,
 });
@@ -627,7 +627,7 @@ Retrieve a single collection. [See endpoint docs 🚀](https://unsplash.com/docu
 **Example**
 
 ```js
-unsplash.collections.get({ collectionId: 'abc123' });
+unsplash.collections.get({ collectionId: "abc123" });
 ```
 
 ---
@@ -649,7 +649,7 @@ Retrieve a collection’s photos. [See endpoint docs 🚀](https://unsplash.com/
 **Example**
 
 ```js
-unsplash.collections.getPhotos({ collectionId: 'abc123' });
+unsplash.collections.getPhotos({ collectionId: "abc123" });
 ```
 
 ---
@@ -667,7 +667,7 @@ Lists collections related to the provided one. [See endpoint docs 🚀](https://
 **Example**
 
 ```js
-unsplash.collections.getRelated({ collectionId: 'abc123' });
+unsplash.collections.getRelated({ collectionId: "abc123" });
 ```
 
 ---
@@ -693,7 +693,7 @@ Get a single page from the list of all topics. [See endpoint docs 🚀](https://
 unsplash.topics.list({
   page: 1,
   perPage: 10,
-  topicIdsOrSlugs: ['fashion', 'architecture', '6sMVjTLSkeQ'],
+  topicIdsOrSlugs: ["fashion", "architecture", "6sMVjTLSkeQ"],
 });
 ```
 
@@ -712,7 +712,7 @@ Retrieve a single topic. [See endpoint docs 🚀](https://unsplash.com/documenta
 **Example**
 
 ```js
-unsplash.topics.get({ topicIdOrSlug: 'abc123' });
+unsplash.topics.get({ topicIdOrSlug: "abc123" });
 ```
 
 ---
@@ -734,5 +734,5 @@ Retrieve a topic’s photos. [See endpoint docs 🚀](https://unsplash.com/docum
 **Example**
 
 ```js
-unsplash.topics.getPhotos({ topicIdOrSlug: 'abc123' });
+unsplash.topics.getPhotos({ topicIdOrSlug: "abc123" });
 ```

@@ -2,15 +2,32 @@
   "name": "unsplash-js",
   "version": "7.0.20",
   "description": "Official JavaScript wrapper for the Unsplash API",
-  "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
+  "keywords": [
+    "api",
+    "free",
+    "images",
+    "photos",
+    "splash",
+    "unsplash"
+  ],
+  "homepage": "https://github.com/unsplash/unsplash-js#readme",
+  "bugs": {
+    "url": "https://github.com/unsplash/unsplash-js/issues"
+  },
+  "license": "MIT",
+  "author": "Unsplash",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/unsplash/unsplash-js.git"
+  },
   "files": [
     "dist",
     "src"
   ],
-  "engines": {
-    "node": ">=20"
-  },
+  "sideEffects": false,
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "typings": "dist/index.d.ts",
   "scripts": {
     "dev": "tsdown --watch",
     "build": "tsdown",
@@ -20,19 +37,7 @@
     "size": "size-limit",
     "analyze": "size-limit --why"
   },
-  "resolutions": {
-    "typescript": "^4.2.0",
-    "@typescript-eslint/eslint-plugin": "^4.6.1",
-    "@typescript-eslint/parser": "^4.8.2"
-  },
-  "sideEffects": false,
-  "module": "dist/index.mjs",
-  "size-limit": [
-    {
-      "path": "dist/index.mjs",
-      "limit": "5 KB"
-    }
-  ],
+  "dependencies": {},
   "devDependencies": {
     "@size-limit/preset-small-lib": "^12.0.1",
     "oxfmt": "^0.41.0",
@@ -41,23 +46,18 @@
     "tsdown": "^0.21.4",
     "typescript": "^4.9.5"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/unsplash/unsplash-js.git"
+  "resolutions": {
+    "@typescript-eslint/eslint-plugin": "^4.6.1",
+    "@typescript-eslint/parser": "^4.8.2",
+    "typescript": "^4.2.0"
   },
-  "keywords": [
-    "unsplash",
-    "photos",
-    "api",
-    "images",
-    "splash",
-    "free"
+  "size-limit": [
+    {
+      "path": "dist/index.mjs",
+      "limit": "5 KB"
+    }
   ],
-  "author": "Unsplash",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/unsplash/unsplash-js/issues"
-  },
-  "homepage": "https://github.com/unsplash/unsplash-js#readme",
-  "dependencies": {}
+  "engines": {
+    "node": ">=20"
+  }
 }
