@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/oxfmt/configuration_schema.json",
-  "ignorePatterns": [],
+  "ignorePatterns": ["public.json"],
   "printWidth": 100,
   "semi": true,
   "trailingComma": "all"

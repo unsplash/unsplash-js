@@ -1,0 +1,3327 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Unsplash API",
+    "version": "1"
+  },
+  "paths": {
+    "/photos/{id}/download": {
+      "get": {
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "An asset's ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "summary": "Get a photo's download link",
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {
+              "X-Ratelimit-Limit": {
+                "$ref": "#/components/headers/xRatelimitLimit"
+              },
+              "X-Ratelimit-Remaining": {
+                "$ref": "#/components/headers/xRatelimitRemaining"
+              }
+            },
+            "content": {
+              "application/json": {
+                "example": {
+                  "url": "https://images.unsplash.com/photo-1611327874895-af173dfe0e54?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb"
+                },
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "url"
+                  ],
+                  "properties": {
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/collections": {
+      "get": {
+        "security": [
+          {
+            "Auth": [],
+            "Id": [],
+            "Secret": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/page"
+          },
+          {
+            "$ref": "#/components/parameters/perPage"
+          }
+        ],
+        "summary": "Get a collections' list",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/CollectionFeed"
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "security": [
+          {
+            "Auth": [],
+            "Id": [],
+            "Secret": []
+          }
+        ],
+        "summary": "Create a new collection.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "title"
+                ],
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "private": {
+                    "type": "boolean",
+                    "default": false
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "headers": {
+              "X-Ratelimit-Limit": {
+                "$ref": "#/components/headers/xRatelimitLimit"
+              },
+              "X-Ratelimit-Remaining": {
+                "$ref": "#/components/headers/xRatelimitRemaining"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Collection.Basic"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/collections/{collectionId}/add": {
+      "post": {
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/collectionId"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "photo_id"
+                ],
+                "properties": {
+                  "photo_id": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "OK",
+            "headers": {
+              "X-Ratelimit-Limit": {
+                "$ref": "#/components/headers/xRatelimitLimit"
+              },
+              "X-Ratelimit-Remaining": {
+                "$ref": "#/components/headers/xRatelimitRemaining"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "collection",
+                    "created_at",
+                    "user",
+                    "photo"
+                  ],
+                  "properties": {
+                    "collection": {
+                      "$ref": "#/components/schemas/Collection.Basic"
+                    },
+                    "user": {
+                      "$ref": "#/components/schemas/User.Basic"
+                    },
+                    "photo": {
+                      "$ref": "#/components/schemas/Asset.Basic"
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/collections/{collectionId}/photos": {
+      "get": {
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/collectionId"
+          },
+          {
+            "$ref": "#/components/parameters/page"
+          },
+          {
+            "$ref": "#/components/parameters/perPage"
+          },
+          {
+            "$ref": "#/components/parameters/searchFilterOrientation"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/AssetFeed"
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/collections/{collectionId}/remove": {
+      "delete": {
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/collectionId"
+          },
+          {
+            "in": "query",
+            "name": "photo_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Ratelimit-Limit": {
+                "$ref": "#/components/headers/xRatelimitLimit"
+              },
+              "X-Ratelimit-Remaining": {
+                "$ref": "#/components/headers/xRatelimitRemaining"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "collection",
+                    "created_at",
+                    "user",
+                    "photo"
+                  ],
+                  "properties": {
+                    "collection": {
+                      "$ref": "#/components/schemas/Collection.Basic"
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "user": {
+                      "$ref": "#/components/schemas/User.Basic"
+                    },
+                    "photo": {
+                      "$ref": "#/components/schemas/Asset.Basic"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/collections/{collectionId}/related": {
+      "get": {
+        "security": [
+          {
+            "Auth": [],
+            "Id": [],
+            "Secret": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/collectionId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Ratelimit-Limit": {
+                "$ref": "#/components/headers/xRatelimitLimit"
+              },
+              "X-Ratelimit-Remaining": {
+                "$ref": "#/components/headers/xRatelimitRemaining"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Collection.Basic"
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/collections/{collectionId}": {
+      "delete": {
+        "security": [
+          {
+            "Auth": [],
+            "Id": [],
+            "Secret": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/collectionId"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Deleted",
+            "headers": {
+              "X-Ratelimit-Limit": {
+                "$ref": "#/components/headers/xRatelimitLimit"
+              },
+              "X-Ratelimit-Remaining": {
+                "$ref": "#/components/headers/xRatelimitRemaining"
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "security": [
+          {
+            "Auth": [],
+            "Id": [],
+            "Secret": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/collectionId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Ratelimit-Limit": {
+                "$ref": "#/components/headers/xRatelimitLimit"
+              },
+              "X-Ratelimit-Remaining": {
+                "$ref": "#/components/headers/xRatelimitRemaining"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Collection.Full"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "security": [
+          {
+            "Auth": [],
+            "Id": [],
+            "Secret": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/collectionId"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "private": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Ratelimit-Limit": {
+                "$ref": "#/components/headers/xRatelimitLimit"
+              },
+              "X-Ratelimit-Remaining": {
+                "$ref": "#/components/headers/xRatelimitRemaining"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Collection.Basic"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/me": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Ratelimit-Limit": {
+                "$ref": "#/components/headers/xRatelimitLimit"
+              },
+              "X-Ratelimit-Remaining": {
+                "$ref": "#/components/headers/xRatelimitRemaining"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User.FullWithAuth"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "$ref": "#/components/schemas/Username"
+                  },
+                  "first_name": {
+                    "type": "string"
+                  },
+                  "last_name": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "url": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "format": "uri"
+                  },
+                  "location": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "bio": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "instagram_username": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Ratelimit-Limit": {
+                "$ref": "#/components/headers/xRatelimitLimit"
+              },
+              "X-Ratelimit-Remaining": {
+                "$ref": "#/components/headers/xRatelimitRemaining"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User.FullWithAuth"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/photos": {
+      "get": {
+        "summary": "Get a list of featured photos.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/page"
+          },
+          {
+            "$ref": "#/components/parameters/perPage"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Total": {
+                "$ref": "#/components/headers/xTotalCount"
+              },
+              "X-Ratelimit-Limit": {
+                "$ref": "#/components/headers/xRatelimitLimit"
+              },
+              "X-Ratelimit-Remaining": {
+                "$ref": "#/components/headers/xRatelimitRemaining"
+              },
+              "Link": {
+                "$ref": "#/components/headers/linkFeed"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Asset.Basic"
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/photos/random": {
+      "get": {
+        "parameters": [
+          {
+            "in": "query",
+            "name": "count",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 30,
+              "default": 1
+            }
+          },
+          {
+            "name": "collections",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/Collection.ID"
+              },
+              "minItems": 1
+            },
+            "style": "form",
+            "explode": false
+          },
+          {
+            "name": "topics",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/Topic.ID"
+              },
+              "minItems": 1
+            },
+            "style": "form",
+            "explode": false
+          },
+          {
+            "name": "username",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/searchFilterOrientation"
+          },
+          {
+            "name": "content_filter",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "low",
+                "high"
+              ],
+              "default": "low"
+            }
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Ratelimit-Limit": {
+                "$ref": "#/components/headers/xRatelimitLimit"
+              },
+              "X-Ratelimit-Remaining": {
+                "$ref": "#/components/headers/xRatelimitRemaining"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/Asset.Basic"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Asset.Basic"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/photos/{assetSlug}": {
+      "get": {
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/assetSlug"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Ratelimit-Limit": {
+                "$ref": "#/components/headers/xRatelimitLimit"
+              },
+              "X-Ratelimit-Remaining": {
+                "$ref": "#/components/headers/xRatelimitRemaining"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Asset.Full"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/assetSlug"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Asset.UpdateAssetBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Ratelimit-Limit": {
+                "$ref": "#/components/headers/xRatelimitLimit"
+              },
+              "X-Ratelimit-Remaining": {
+                "$ref": "#/components/headers/xRatelimitRemaining"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Asset.Full"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/photos/{assetSlug}/statistics": {
+      "get": {
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/assetSlug"
+          },
+          {
+            "name": "resolution",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "days"
+              ],
+              "default": "days"
+            }
+          },
+          {
+            "name": "quantity",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 30,
+              "default": 30
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Ratelimit-Limit": {
+                "$ref": "#/components/headers/xRatelimitLimit"
+              },
+              "X-Ratelimit-Remaining": {
+                "$ref": "#/components/headers/xRatelimitRemaining"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Asset.StatsEntity"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/search/collections": {
+      "get": {
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/page"
+          },
+          {
+            "$ref": "#/components/parameters/perPage"
+          },
+          {
+            "$ref": "#/components/parameters/searchQuery"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Ratelimit-Limit": {
+                "$ref": "#/components/headers/xRatelimitLimit"
+              },
+              "X-Ratelimit-Remaining": {
+                "$ref": "#/components/headers/xRatelimitRemaining"
+              },
+              "Link": {
+                "$ref": "#/components/headers/linkFeed"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "total",
+                    "total_pages",
+                    "results"
+                  ],
+                  "properties": {
+                    "total": {
+                      "type": "integer"
+                    },
+                    "total_pages": {
+                      "type": "integer"
+                    },
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Collection.Basic"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Query flagged as spam",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/search/photos": {
+      "get": {
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/page"
+          },
+          {
+            "$ref": "#/components/parameters/perPage"
+          },
+          {
+            "$ref": "#/components/parameters/searchQuery"
+          },
+          {
+            "$ref": "#/components/parameters/searchFilterOrderBy"
+          },
+          {
+            "$ref": "#/components/parameters/searchFilterOrientation"
+          },
+          {
+            "name": "collections",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/Collection.ID"
+              },
+              "minItems": 1
+            },
+            "style": "form",
+            "explode": false
+          },
+          {
+            "name": "content_filter",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "low",
+                "high"
+              ],
+              "default": "low"
+            }
+          },
+          {
+            "name": "color",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "black_and_white",
+                "black",
+                "white",
+                "yellow",
+                "orange",
+                "red",
+                "purple",
+                "magenta",
+                "green",
+                "teal",
+                "blue"
+              ]
+            }
+          },
+          {
+            "name": "lang",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "af",
+                "sq",
+                "am",
+                "ar",
+                "hy",
+                "as",
+                "az",
+                "bn",
+                "ba",
+                "eu",
+                "bs",
+                "bg",
+                "yue",
+                "ca",
+                "lzh",
+                "zh-Hans",
+                "zh-Hant",
+                "hr",
+                "cs",
+                "da",
+                "prs",
+                "dv",
+                "nl",
+                "en",
+                "et",
+                "fo",
+                "fj",
+                "fil",
+                "fi",
+                "fr",
+                "fr-ca",
+                "gl",
+                "ka",
+                "de",
+                "el",
+                "gu",
+                "ht",
+                "he",
+                "hi",
+                "mww",
+                "hu",
+                "is",
+                "id",
+                "ikt",
+                "iu",
+                "iu-Latn",
+                "ga",
+                "it",
+                "ja",
+                "kn",
+                "kk",
+                "km",
+                "ko",
+                "ku",
+                "kmr",
+                "ky",
+                "lo",
+                "lv",
+                "lt",
+                "mk",
+                "mg",
+                "ms",
+                "ml",
+                "mt",
+                "mi",
+                "mr",
+                "mn-Cyrl",
+                "mn-Mong",
+                "my",
+                "ne",
+                "nb",
+                "or",
+                "ps",
+                "fa",
+                "pl",
+                "pt",
+                "pt-pt",
+                "pa",
+                "otq",
+                "ro",
+                "ru",
+                "sm",
+                "sr-Cyrl",
+                "sr-Latn",
+                "sk",
+                "sl",
+                "so",
+                "es",
+                "sw",
+                "sv",
+                "ty",
+                "ta",
+                "tt",
+                "te",
+                "th",
+                "bo",
+                "ti",
+                "to",
+                "tr",
+                "tk",
+                "uk",
+                "hsb",
+                "ur",
+                "ug",
+                "uz",
+                "vi",
+                "cy",
+                "yua",
+                "zu"
+              ],
+              "default": "en"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/SearchAssetFeed"
+          },
+          "410": {
+            "description": "Query flagged as spam",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/search/users": {
+      "get": {
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/page"
+          },
+          {
+            "$ref": "#/components/parameters/perPage"
+          },
+          {
+            "$ref": "#/components/parameters/searchQuery"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Ratelimit-Limit": {
+                "$ref": "#/components/headers/xRatelimitLimit"
+              },
+              "X-Ratelimit-Remaining": {
+                "$ref": "#/components/headers/xRatelimitRemaining"
+              },
+              "Link": {
+                "$ref": "#/components/headers/linkFeed"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [],
+                  "properties": {}
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Query flagged as spam",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/stats/month": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Ratelimit-Limit": {
+                "$ref": "#/components/headers/xRatelimitLimit"
+              },
+              "X-Ratelimit-Remaining": {
+                "$ref": "#/components/headers/xRatelimitRemaining"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "views",
+                    "downloads",
+                    "new_photographers",
+                    "new_photos",
+                    "new_developers",
+                    "new_applications",
+                    "new_pixels",
+                    "new_requests"
+                  ],
+                  "properties": {
+                    "views": {
+                      "type": "integer"
+                    },
+                    "downloads": {
+                      "type": "integer"
+                    },
+                    "new_photographers": {
+                      "type": "integer"
+                    },
+                    "new_photos": {
+                      "type": "integer"
+                    },
+                    "new_developers": {
+                      "type": "integer"
+                    },
+                    "new_applications": {
+                      "type": "integer"
+                    },
+                    "new_pixels": {
+                      "type": "integer"
+                    },
+                    "new_requests": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/stats/total": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Ratelimit-Limit": {
+                "$ref": "#/components/headers/xRatelimitLimit"
+              },
+              "X-Ratelimit-Remaining": {
+                "$ref": "#/components/headers/xRatelimitRemaining"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "views",
+                    "downloads",
+                    "views_per_second",
+                    "downloads_per_second",
+                    "photographers",
+                    "photos",
+                    "pixels",
+                    "requests",
+                    "developers",
+                    "applications"
+                  ],
+                  "properties": {
+                    "views": {
+                      "type": "integer"
+                    },
+                    "downloads": {
+                      "type": "integer"
+                    },
+                    "views_per_second": {
+                      "type": "integer"
+                    },
+                    "downloads_per_second": {
+                      "type": "integer"
+                    },
+                    "photographers": {
+                      "type": "integer"
+                    },
+                    "photos": {
+                      "type": "integer"
+                    },
+                    "developers": {
+                      "type": "integer"
+                    },
+                    "applications": {
+                      "type": "integer"
+                    },
+                    "pixels": {
+                      "type": "integer"
+                    },
+                    "requests": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/topics/{topicSlug}": {
+      "get": {
+        "security": [
+          {
+            "Auth": [],
+            "Id": [],
+            "Secret": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/topicSlug"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Ratelimit-Limit": {
+                "$ref": "#/components/headers/xRatelimitLimit"
+              },
+              "X-Ratelimit-Remaining": {
+                "$ref": "#/components/headers/xRatelimitRemaining"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Topic.Full"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/topics/{topicSlug}/photos": {
+      "get": {
+        "security": [
+          {
+            "Auth": [],
+            "Id": [],
+            "Secret": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/page"
+          },
+          {
+            "$ref": "#/components/parameters/perPage"
+          },
+          {
+            "$ref": "#/components/parameters/topicSlug"
+          },
+          {
+            "$ref": "#/components/parameters/searchFilterOrientation"
+          },
+          {
+            "in": "query",
+            "name": "order_by",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "latest",
+                "oldest",
+                "popular"
+              ],
+              "default": "latest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/AssetFeed"
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/topics": {
+      "get": {
+        "security": [
+          {
+            "Auth": [],
+            "Id": [],
+            "Secret": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/page"
+          },
+          {
+            "$ref": "#/components/parameters/perPage"
+          },
+          {
+            "in": "query",
+            "name": "order_by",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "featured",
+                "latest",
+                "oldest",
+                "position",
+                "temporary",
+                "updated"
+              ],
+              "default": "position"
+            }
+          },
+          {
+            "in": "query",
+            "name": "ids",
+            "schema": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "string"
+              }
+            },
+            "style": "form",
+            "explode": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/TopicFeed"
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{username}/collections": {
+      "get": {
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/page"
+          },
+          {
+            "$ref": "#/components/parameters/perPage"
+          },
+          {
+            "$ref": "#/components/parameters/username"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/CollectionFeed"
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{username}/photos": {
+      "get": {
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/page"
+          },
+          {
+            "$ref": "#/components/parameters/perPage"
+          },
+          {
+            "$ref": "#/components/parameters/username"
+          },
+          {
+            "name": "order_by",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "latest",
+                "oldest",
+                "popular",
+                "views",
+                "downloads",
+                "pinned"
+              ],
+              "default": "latest"
+            }
+          },
+          {
+            "name": "stats",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "default": "false"
+            }
+          },
+          {
+            "name": "resolution",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "days"
+              ],
+              "default": "days"
+            }
+          },
+          {
+            "name": "quantity",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 30,
+              "default": 30
+            }
+          },
+          {
+            "$ref": "#/components/parameters/searchFilterOrientation"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Total": {
+                "$ref": "#/components/headers/xTotalCount"
+              },
+              "X-Ratelimit-Limit": {
+                "$ref": "#/components/headers/xRatelimitLimit"
+              },
+              "X-Ratelimit-Remaining": {
+                "$ref": "#/components/headers/xRatelimitRemaining"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Asset.Basic"
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{username}/statistics": {
+      "get": {
+        "security": [
+          {
+            "Auth": [],
+            "Id": [],
+            "Secret": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/username"
+          },
+          {
+            "name": "resolution",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "days"
+              ]
+            }
+          },
+          {
+            "name": "quantity",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 30,
+              "default": 30
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "headers": {
+              "X-Ratelimit-Limit": {
+                "$ref": "#/components/headers/xRatelimitLimit"
+              },
+              "X-Ratelimit-Remaining": {
+                "$ref": "#/components/headers/xRatelimitRemaining"
+              }
+            },
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "username": {
+                      "type": "string"
+                    },
+                    "downloads": {
+                      "$ref": "#/components/schemas/User.Stats.Public"
+                    },
+                    "views": {
+                      "$ref": "#/components/schemas/User.Stats.Public"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{username}": {
+      "get": {
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/username"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Ratelimit-Limit": {
+                "$ref": "#/components/headers/xRatelimitLimit"
+              },
+              "X-Ratelimit-Remaining": {
+                "$ref": "#/components/headers/xRatelimitRemaining"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User.Full"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Asset.Slug": {
+        "type": "string",
+        "example": "my-asset-VxRVxQnDW9I"
+      },
+      "Asset.Basic": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Asset.VeryBasic"
+          },
+          {
+            "type": "object",
+            "required": [
+              "promoted_at",
+              "links",
+              "width",
+              "height",
+              "description",
+              "color",
+              "user",
+              "current_user_collections"
+            ],
+            "properties": {
+              "promoted_at": {
+                "oneOf": [
+                  {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "links": {
+                "type": "object",
+                "required": [
+                  "html",
+                  "download",
+                  "self",
+                  "download_location"
+                ],
+                "properties": {
+                  "html": {
+                    "type": "string",
+                    "format": "uri"
+                  },
+                  "download": {
+                    "type": "string",
+                    "format": "uri"
+                  },
+                  "self": {
+                    "type": "string",
+                    "format": "uri"
+                  },
+                  "download_location": {
+                    "type": "string",
+                    "format": "uri"
+                  }
+                }
+              },
+              "width": {
+                "type": "integer",
+                "exclusiveMinimum": 0
+              },
+              "height": {
+                "type": "integer",
+                "exclusiveMinimum": 0
+              },
+              "description": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "User-provided description."
+              },
+              "color": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "user": {
+                "$ref": "#/components/schemas/User.Basic"
+              },
+              "current_user_collections": {
+                "type": "array",
+                "description": "Note: API has a bug whereby this is sometimes set to an empty array. See https://github.com/unsplash/unsplash-api/issues/6869",
+                "items": {
+                  "$ref": "#/components/schemas/Collection.CurrentUserCollection"
+                }
+              },
+              "statistics": {
+                "$ref": "#/components/schemas/Asset.RawStats"
+              }
+            }
+          }
+        ]
+      },
+      "Asset.Exif": {
+        "type": "object",
+        "required": [
+          "name",
+          "make",
+          "model",
+          "exposure_time",
+          "aperture",
+          "focal_length",
+          "iso"
+        ],
+        "properties": {
+          "name": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "An amalgamation of the make and model"
+          },
+          "make": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "model": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "exposure_time": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "aperture": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "focal_length": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "iso": {
+            "type": [
+              "number",
+              "null"
+            ]
+          }
+        }
+      },
+      "Asset.Full": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Asset.Basic"
+          },
+          {
+            "type": "object",
+            "required": [
+              "exif",
+              "location",
+              "downloads",
+              "tags",
+              "public_domain"
+            ],
+            "properties": {
+              "exif": {
+                "$ref": "#/components/schemas/Asset.Exif"
+              },
+              "location": {
+                "$ref": "#/components/schemas/Asset.Location"
+              },
+              "downloads": {
+                "type": "integer"
+              },
+              "tags": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/SmartTag"
+                }
+              },
+              "public_domain": {
+                "type": "boolean"
+              }
+            }
+          }
+        ]
+      },
+      "Asset.ID": {
+        "type": "string"
+      },
+      "Asset.LocationRequestBody": {
+        "type": "object",
+        "properties": {
+          "city": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "country": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "name": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Full string representation of the location, including `city` and `country` if they exist."
+          },
+          "latitude": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "longitude": {
+            "type": [
+              "number",
+              "null"
+            ]
+          }
+        }
+      },
+      "Asset.Location": {
+        "type": "object",
+        "required": [
+          "city",
+          "country",
+          "name",
+          "position"
+        ],
+        "properties": {
+          "city": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "country": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "name": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Full string representation of the location, including `city` and `country` if they exist."
+          },
+          "position": {
+            "type": "object",
+            "required": [
+              "latitude",
+              "longitude"
+            ],
+            "properties": {
+              "latitude": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "longitude": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "Asset.RawStats": {
+        "type": "object",
+        "required": [
+          "views",
+          "downloads"
+        ],
+        "properties": {
+          "views": {
+            "$ref": "#/components/schemas/Asset.Stat"
+          },
+          "downloads": {
+            "$ref": "#/components/schemas/Asset.Stat"
+          }
+        }
+      },
+      "Asset.Stat": {
+        "type": "object",
+        "required": [
+          "total",
+          "historical"
+        ],
+        "properties": {
+          "total": {
+            "type": "integer"
+          },
+          "historical": {
+            "type": "object",
+            "required": [
+              "change",
+              "quantity",
+              "resolution",
+              "values"
+            ],
+            "properties": {
+              "change": {
+                "type": "number"
+              },
+              "quantity": {
+                "type": "number"
+              },
+              "resolution": {
+                "type": "string"
+              },
+              "values": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/StatValue"
+                }
+              }
+            }
+          }
+        }
+      },
+      "Asset.StatsEntity": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Asset.RawStats"
+          },
+          {
+            "type": "object",
+            "required": [],
+            "properties": {}
+          }
+        ]
+      },
+      "Asset.UpdateAssetBody": {
+        "type": "object",
+        "properties": {
+          "show_on_profile": {
+            "type": "boolean"
+          },
+          "description": {
+            "type": "string"
+          },
+          "exif": {
+            "type": "object",
+            "properties": {
+              "make": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "model": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "exposure_time": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "aperture_value": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "focal_length": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "iso_speed_ratings": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              }
+            }
+          },
+          "location": {
+            "$ref": "#/components/schemas/Asset.LocationRequestBody"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "Asset.ImgixUrl": {
+        "type": "string",
+        "format": "uri",
+        "example": "https://images.unsplash.com/photo-1585634917202-6f03b28fc6d0",
+        "description": "Imgix URL with full support for the Imgix API."
+      },
+      "Asset.Urls": {
+        "type": "object",
+        "required": [
+          "raw",
+          "full",
+          "regular",
+          "small",
+          "thumb"
+        ],
+        "properties": {
+          "raw": {
+            "$ref": "#/components/schemas/Asset.ImgixUrl"
+          },
+          "full": {
+            "$ref": "#/components/schemas/Asset.ImgixUrl"
+          },
+          "regular": {
+            "$ref": "#/components/schemas/Asset.ImgixUrl"
+          },
+          "small": {
+            "$ref": "#/components/schemas/Asset.ImgixUrl"
+          },
+          "thumb": {
+            "$ref": "#/components/schemas/Asset.ImgixUrl"
+          }
+        }
+      },
+      "Asset.VeryBasic": {
+        "type": "object",
+        "required": [
+          "id",
+          "created_at",
+          "updated_at",
+          "blur_hash",
+          "urls"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/Asset.ID"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "blur_hash": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/BlurHash"
+              }
+            ]
+          },
+          "urls": {
+            "$ref": "#/components/schemas/Asset.Urls"
+          }
+        }
+      },
+      "BlurHash": {
+        "type": "string"
+      },
+      "Collection.Basic": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Collection.CurrentUserCollection"
+          },
+          {
+            "type": "object",
+            "required": [
+              "user",
+              "cover_photo"
+            ],
+            "properties": {
+              "user": {
+                "$ref": "#/components/schemas/User.Basic"
+              },
+              "cover_photo": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/components/schemas/Asset.Basic"
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "Collection.CurrentUserCollection": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Collection.VeryBasic"
+          },
+          {
+            "type": "object",
+            "required": [
+              "description",
+              "published_at",
+              "updated_at",
+              "last_collected_at",
+              "featured",
+              "total_photos",
+              "links"
+            ],
+            "properties": {
+              "description": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "published_at": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "updated_at": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "last_collected_at": {
+                "oneOf": [
+                  {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "This is different from `updated_at` because that may also change when a photo inside changes or is deleted. It can be `null` when we create the collection without any photos in it which happens when we create a collection. We first create the collection which returns `null` then we add a photo to it."
+              },
+              "featured": {
+                "type": "boolean"
+              },
+              "total_photos": {
+                "type": "integer"
+              },
+              "links": {
+                "type": "object",
+                "required": [
+                  "self",
+                  "html",
+                  "photos"
+                ],
+                "properties": {
+                  "self": {
+                    "type": "string",
+                    "format": "uri"
+                  },
+                  "html": {
+                    "type": "string",
+                    "format": "uri"
+                  },
+                  "photos": {
+                    "type": "string",
+                    "format": "uri"
+                  },
+                  "related": {
+                    "type": "string",
+                    "format": "uri"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "Collection.Full": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Collection.Basic"
+          },
+          {
+            "type": "object",
+            "required": [],
+            "properties": {}
+          }
+        ]
+      },
+      "Collection.ID": {
+        "type": "string"
+      },
+      "Collection.VeryBasic": {
+        "type": "object",
+        "required": [
+          "id",
+          "share_key",
+          "private",
+          "title"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/Collection.ID"
+          },
+          "share_key": {
+            "type": "string"
+          },
+          "private": {
+            "type": "boolean"
+          },
+          "title": {
+            "type": "string"
+          }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "required": [
+          "errors"
+        ],
+        "properties": {
+          "errors": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "SmartTag.LandingPage": {
+        "type": "object",
+        "required": [
+          "title"
+        ],
+        "properties": {
+          "title": {
+            "type": "string"
+          }
+        }
+      },
+      "SmartTag.Search": {
+        "type": "object",
+        "required": [],
+        "properties": {}
+      },
+      "SmartTag": {
+        "oneOf": [
+          {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SmartTag.LandingPage"
+              },
+              {
+                "type": "object",
+                "required": [],
+                "properties": {}
+              }
+            ]
+          },
+          {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SmartTag.Search"
+              },
+              {
+                "type": "object",
+                "required": [],
+                "properties": {}
+              }
+            ]
+          }
+        ]
+      },
+      "StatValue": {
+        "type": "object",
+        "required": [
+          "date",
+          "value"
+        ],
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date",
+            "description": "Dates are UTC."
+          },
+          "value": {
+            "type": "number"
+          }
+        }
+      },
+      "Topic.Basic": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Topic.VeryBasic"
+          },
+          {
+            "type": "object",
+            "required": [
+              "updated_at",
+              "featured",
+              "ends_at",
+              "description",
+              "published_at",
+              "total_photos",
+              "links",
+              "starts_at",
+              "only_submissions_after",
+              "current_user_contributions",
+              "cover_photo",
+              "owners",
+              "preview_photos",
+              "status"
+            ],
+            "properties": {
+              "updated_at": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "featured": {
+                "type": "boolean"
+              },
+              "ends_at": {
+                "oneOf": [
+                  {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "description": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "published_at": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "total_photos": {
+                "type": "integer"
+              },
+              "links": {
+                "type": "object",
+                "required": [
+                  "self",
+                  "html",
+                  "photos"
+                ],
+                "properties": {
+                  "self": {
+                    "type": "string",
+                    "format": "uri"
+                  },
+                  "html": {
+                    "type": "string",
+                    "format": "uri"
+                  },
+                  "photos": {
+                    "type": "string",
+                    "format": "uri"
+                  }
+                }
+              },
+              "starts_at": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "only_submissions_after": {
+                "oneOf": [
+                  {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "current_user_contributions": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Asset.VeryBasic"
+                }
+              },
+              "cover_photo": {
+                "description": "This may be null if the topic has no photos.",
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/Asset.Basic"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "owners": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "$ref": "#/components/schemas/User.Basic"
+                }
+              },
+              "preview_photos": {
+                "oneOf": [
+                  {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Asset.VeryBasic"
+                    }
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "open",
+                  "closed"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "Topic.Full": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Topic.Basic"
+          },
+          {
+            "type": "object",
+            "required": [
+              "top_contributors"
+            ],
+            "properties": {
+              "top_contributors": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/User.Basic"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "Topic.ID": {
+        "type": "string"
+      },
+      "Topic.Slug": {
+        "type": "string"
+      },
+      "Topic.VeryBasic": {
+        "type": "object",
+        "required": [
+          "id",
+          "slug",
+          "title",
+          "visibility"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/Topic.ID"
+          },
+          "slug": {
+            "$ref": "#/components/schemas/Topic.Slug"
+          },
+          "title": {
+            "type": "string"
+          },
+          "visibility": {
+            "$ref": "#/components/schemas/Topic.Visibility"
+          }
+        }
+      },
+      "Topic.Visibility": {
+        "type": "string",
+        "enum": [
+          "featured",
+          "visible",
+          "hidden",
+          "removed"
+        ],
+        "description": "- Featured: Displayed on nav and topics page\n- Visible: Only displayed on topics page\n- Hidden: Not displayed on nav or topics page, accessible via direct link\n- Removed: Not displayed on nav or topics page, not accessible via direct link. This is only used for notifications where we still want to keep the notification even after the topic has been removed/deleted."
+      },
+      "User.Badge": {
+        "type": "object",
+        "required": [
+          "title",
+          "primary",
+          "slug",
+          "link"
+        ],
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "primary": {
+            "type": "boolean"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "link": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      },
+      "User.Basic": {
+        "type": "object",
+        "required": [
+          "updated_at",
+          "id",
+          "bio",
+          "first_name",
+          "last_name",
+          "links",
+          "location",
+          "name",
+          "profile_image",
+          "total_collections",
+          "username",
+          "social"
+        ],
+        "properties": {
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "id": {
+            "$ref": "#/components/schemas/User.ID"
+          },
+          "bio": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "first_name": {
+            "type": "string"
+          },
+          "last_name": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "links": {
+            "type": "object",
+            "required": [
+              "html",
+              "photos",
+              "self"
+            ],
+            "properties": {
+              "html": {
+                "type": "string",
+                "format": "uri"
+              },
+              "photos": {
+                "type": "string",
+                "format": "uri"
+              },
+              "self": {
+                "type": "string",
+                "format": "uri"
+              }
+            }
+          },
+          "location": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "name": {
+            "type": "string"
+          },
+          "profile_image": {
+            "type": "object",
+            "description": "Users without profiles will return valid placeholder images.",
+            "required": [
+              "small",
+              "medium",
+              "large"
+            ],
+            "properties": {
+              "small": {
+                "$ref": "#/components/schemas/Asset.ImgixUrl"
+              },
+              "medium": {
+                "$ref": "#/components/schemas/Asset.ImgixUrl"
+              },
+              "large": {
+                "$ref": "#/components/schemas/Asset.ImgixUrl"
+              }
+            }
+          },
+          "total_collections": {
+            "type": "integer"
+          },
+          "username": {
+            "$ref": "#/components/schemas/Username"
+          },
+          "social": {
+            "$ref": "#/components/schemas/User.Social"
+          }
+        }
+      },
+      "User.Full": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/User.Medium"
+          },
+          {
+            "type": "object",
+            "required": [
+              "badge",
+              "downloads"
+            ],
+            "properties": {
+              "badge": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/components/schemas/User.Badge"
+                  }
+                ]
+              },
+              "downloads": {
+                "type": "integer",
+                "deprecated": true
+              }
+            }
+          }
+        ]
+      },
+      "User.FullWithAuth": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/User.Full"
+          },
+          {
+            "type": "object",
+            "required": [
+              "uploads_remaining",
+              "email"
+            ],
+            "properties": {
+              "uploads_remaining": {
+                "type": "integer"
+              },
+              "email": {
+                "type": "string",
+                "format": "email"
+              }
+            }
+          }
+        ]
+      },
+      "User.ID": {
+        "type": "string"
+      },
+      "User.Medium": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/User.Basic"
+          },
+          {
+            "type": "object",
+            "required": [],
+            "properties": {}
+          }
+        ]
+      },
+      "User.Social": {
+        "type": "object",
+        "required": [
+          "instagram_username",
+          "portfolio_url",
+          "twitter_username"
+        ],
+        "properties": {
+          "instagram_username": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "portfolio_url": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "twitter_username": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      },
+      "User.Stats.Public": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "integer"
+          },
+          "historical": {
+            "type": "object",
+            "properties": {
+              "change": {
+                "type": "integer"
+              },
+              "average": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "resolution": {
+                "const": "days"
+              },
+              "quantity": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 30
+              },
+              "values": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "date": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "value": {
+                      "type": "integer",
+                      "minimum": 0
+                    }
+                  },
+                  "required": [
+                    "date",
+                    "value"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "change",
+              "average",
+              "resolution",
+              "quantity",
+              "values"
+            ]
+          }
+        },
+        "required": [
+          "total",
+          "historical"
+        ]
+      },
+      "Username": {
+        "type": "string",
+        "example": "yolobear"
+      }
+    },
+    "securitySchemes": {
+      "Auth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "Authorization",
+        "description": "Value should be in the format 'Client-ID your-client-id' or 'Bearer your-bearer-token'"
+      },
+      "Id": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-Unsplash-ID"
+      },
+      "Secret": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-Unsplash-Secret"
+      }
+    },
+    "headers": {
+      "xTotalCount": {
+        "schema": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "xRatelimitLimit": {
+        "schema": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "xRatelimitRemaining": {
+        "schema": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "linkFeed": {
+        "schema": {
+          "type": "string",
+          "format": "<[^>]*>; *rel=\"[^\"]*\"(, *<[^>]*>; *rel=\"[^\"]*\")*"
+        }
+      }
+    },
+    "parameters": {
+      "assetSlug": {
+        "name": "assetSlug",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/Asset.Slug"
+        }
+      },
+      "collectionId": {
+        "name": "collectionId",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/Collection.ID"
+        }
+      },
+      "searchFilterOrderBy": {
+        "name": "order_by",
+        "in": "query",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "latest",
+            "editorial",
+            "relevant"
+          ]
+        }
+      },
+      "searchFilterOrientation": {
+        "name": "orientation",
+        "in": "query",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "landscape",
+            "portrait",
+            "squarish"
+          ]
+        }
+      },
+      "searchQuery": {
+        "name": "query",
+        "in": "query",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "page": {
+        "name": "page",
+        "in": "query",
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 1
+        }
+      },
+      "perPage": {
+        "name": "per_page",
+        "in": "query",
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 10
+        }
+      },
+      "topicSlug": {
+        "name": "topicSlug",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/Topic.Slug"
+        }
+      },
+      "username": {
+        "name": "username",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    },
+    "responses": {
+      "AssetFeed": {
+        "description": "OK",
+        "headers": {
+          "X-Total": {
+            "$ref": "#/components/headers/xTotalCount"
+          },
+          "X-Ratelimit-Limit": {
+            "$ref": "#/components/headers/xRatelimitLimit"
+          },
+          "X-Ratelimit-Remaining": {
+            "$ref": "#/components/headers/xRatelimitRemaining"
+          },
+          "Link": {
+            "$ref": "#/components/headers/linkFeed"
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/Asset.Basic"
+              }
+            }
+          }
+        }
+      },
+      "CollectionFeed": {
+        "description": "OK",
+        "headers": {
+          "X-Total": {
+            "$ref": "#/components/headers/xTotalCount"
+          },
+          "X-Ratelimit-Limit": {
+            "$ref": "#/components/headers/xRatelimitLimit"
+          },
+          "X-Ratelimit-Remaining": {
+            "$ref": "#/components/headers/xRatelimitRemaining"
+          },
+          "Link": {
+            "$ref": "#/components/headers/linkFeed"
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/Collection.Basic"
+              }
+            }
+          }
+        }
+      },
+      "SearchAssetFeed": {
+        "description": "OK",
+        "headers": {
+          "X-Ratelimit-Limit": {
+            "$ref": "#/components/headers/xRatelimitLimit"
+          },
+          "X-Ratelimit-Remaining": {
+            "$ref": "#/components/headers/xRatelimitRemaining"
+          },
+          "Link": {
+            "$ref": "#/components/headers/linkFeed"
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "total",
+                "total_pages",
+                "results"
+              ],
+              "properties": {
+                "total": {
+                  "type": "integer"
+                },
+                "total_pages": {
+                  "type": "integer"
+                },
+                "results": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Asset.Basic"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "TopicFeed": {
+        "description": "OK",
+        "headers": {
+          "X-Total": {
+            "$ref": "#/components/headers/xTotalCount"
+          },
+          "X-Ratelimit-Limit": {
+            "$ref": "#/components/headers/xRatelimitLimit"
+          },
+          "X-Ratelimit-Remaining": {
+            "$ref": "#/components/headers/xRatelimitRemaining"
+          },
+          "Link": {
+            "$ref": "#/components/headers/linkFeed"
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/Topic.Basic"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "https://api.unsplash.com",
+      "description": "Production API"
+    }
+  ],
+  "security": [
+    {
+      "Auth": []
+    }
+  ]
+}
