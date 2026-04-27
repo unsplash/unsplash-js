@@ -21,8 +21,7 @@
     "url": "git+https://github.com/unsplash/unsplash-js.git"
   },
   "files": [
-    "dist",
-    "src"
+    "dist"
   ],
   "type": "module",
   "sideEffects": false,
