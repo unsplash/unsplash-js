@@ -7,3 +7,5 @@ test.js
 
 node_modules
 *.log
+
+gen
