@@ -8,34 +8,39 @@ on:
       - master
 jobs:
   build:
-    name: Build, lint, and test on Node ${{ matrix.node }} and ${{ matrix.os }}
+    name: Build, lint, format and test
 
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        node: ["10.x", "12.x", "14.x"]
-        os: [ubuntu-latest, windows-latest, macOS-latest]
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v6
 
-      - name: Use Node ${{ matrix.node }}
-        uses: actions/setup-node@v1
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
         with:
-          node-version: ${{ matrix.node }}
+          version: 10
 
-      - name: Install deps and build (with cache)
-        uses: bahmutov/npm-install@v1
+      - name: Use Node "24.x"
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24.x"
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Format
+        run: pnpm format --check
 
       - name: Lint
-        run: yarn lint
+        run: pnpm lint
 
-      - name: Test
-        run: yarn test --ci --coverage --maxWorkers=2
+      - name: Generate openapi types
+        run: pnpm gen:type
 
       - name: Build
-        run: yarn build
+        run: pnpm build
 
       - name: Check size
         if: ${{ github.event_name == 'pull_request' && github.base_ref == 'master'}}
