@@ -1,5 +1,9 @@
 # Changelog
 
+## 8.0.0
+
+- Replace handwritten client with [openapi-fetch](https://openapi-ts.dev/openapi-fetch/) client generated from openapi spec with types generated using [openapi-typescript](https://openapi-ts.dev/introduction).
+
 ## 7.0.3
 
 - Adds response types to all endpoints.
