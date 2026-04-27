@@ -35,6 +35,8 @@
     "gen:type": "openapi-typescript ./public.json -o ./gen/unsplash.d.ts",
     "lint": "oxlint",
     "format": "oxfmt",
+    "typecheck": "tsc",
+    "prepublishOnly": "pnpm build",
     "size": "size-limit",
     "analyze": "size-limit --why"
   },
