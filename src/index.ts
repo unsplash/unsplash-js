@@ -10,6 +10,27 @@ type Config = {
   apiVersion?: string;
 } & ClientOptions;
 
+/**
+ * Creates an {@link https://openapi-ts.dev/openapi-fetch/|openapi-fetch} client for the unsplash api.
+ *
+ * @see {@link https://unsplash.com/documentation|Unsplash's documentation} for endpoints details.
+ * @see {@link https://openapi-ts.dev/openapi-fetch/|openapi-fetch's documentation} for advanced usage.
+ *
+ * @example
+ * ```
+ * // Simple initialization
+ * import { createClient } from "unsplash-js";
+ * const client = createApi({
+ *   accessKey: process.env.UNSPLASH_ACCESS_KEY
+ * });
+ *
+ * await client.GET("/photos/{assetSlug}", {
+ *   params: {
+ *     path: { assetSlug: "GuRkV6x5L8L" }
+ *   }
+ * })
+ * ```
+ */
 export const createApi = ({
   accessKey,
   apiVersion = API_VERSION,
