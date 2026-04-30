@@ -25,9 +25,11 @@
     "src"
   ],
   "sideEffects": false,
-  "main": "dist/index.js",
   "module": "dist/index.mjs",
   "typings": "dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js"
+  },
   "scripts": {
     "dev": "tsdown --watch",
     "build": "tsdown",
