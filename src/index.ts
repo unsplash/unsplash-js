@@ -37,8 +37,10 @@ export const createApi = ({
   apiVersion = API_VERSION,
   headers,
   baseUrl = DEFAULT_BASE_URL,
+  ...config
 }: Config): Client<paths, `${string}/${string}`> => {
   const client = createFetchClient<paths>({
+    ...config,
     baseUrl,
     headers: {
       ...headers,
