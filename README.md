@@ -403,20 +403,26 @@ const { data, error } = await unsplash.GET("/photos", {
 
 ---
 
-### photos.get(arguments, additionalFetchOptions)
+### photos.get -> GET /photos/{assetSlug}
 
 Retrieve a single photo. [See endpoint docs 🚀](https://unsplash.com/documentation#get-a-photo)
 
 **Arguments**
 
-| Argument      | Type     | Opt/Required |
-| ------------- | -------- | ------------ |
-| **`photoId`** | _string_ | Required     |
+| Parameter       | Location | Type     | Optional/Required |
+| --------------- | -------- | -------- | ----------------- |
+| **`assetSlug`** | path     | _string_ | Required          |
 
 **Example**
 
-```js
-unsplash.photos.get({ photoId: "mtNweauBsMQ" });
+```ts
+const { data, error } = await unsplash.GET("/photos/{assetSlug}", {
+  params: {
+    path: {
+      assetSlug: "mtNweauBsMQ",
+    },
+  },
+});
 ```
 
 ---
