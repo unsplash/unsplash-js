@@ -725,20 +725,26 @@ const { data, error } = await unsplash.GET("/collections/{collectionId}/photos",
 
 ---
 
-### collections.getRelated(arguments, additionalFetchOptions)
+### collections.getRelated -> GET /collections/{collectionId}/related
 
 Lists collections related to the provided one. [See endpoint docs 🚀](https://unsplash.com/documentation#list-a-collections-related-collections)
 
 **Arguments**
 
-| Argument           | Type     | Opt/Required |
-| ------------------ | -------- | ------------ |
-| **`collectionId`** | _string_ | Required     |
+| Parameter          | Location | Type     | Optional/Required |
+| ------------------ | -------- | -------- | ----------------- |
+| **`collectionId`** | path     | _string_ | Required          |
 
 **Example**
 
-```js
-unsplash.collections.getRelated({ collectionId: "abc123" });
+```ts
+const { data, error } = await unsplash.GET("/collections/{collectionId}/related", {
+  params: {
+    path: {
+      collectionId: "abc123",
+    },
+  },
+});
 ```
 
 ---
