@@ -345,25 +345,29 @@ const { data, error } = await unsplash.GET("/search/users", {
 });
 ```
 
-### search.getCollections(arguments, additionalFetchOptions)
+### search.getCollections -> GET /search/collections
 
 Get a list of collections matching the query. [See endpoint docs 🚀](https://unsplash.com/documentation#search-collections)
 
 **Arguments**
 
-| Argument      | Type     | Opt/Required | Default |
-| ------------- | -------- | ------------ | ------- |
-| **`query`**   | _string_ | Required     |         |
-| **`page`**    | _number_ | Optional     | 1       |
-| **`perPage`** | _number_ | Optional     | 10      |
+| Parameter      | Location | Type     | Optional/Required | Default |
+| -------------- | -------- | -------- | ----------------- | ------- |
+| **`query`**    | query    | _string_ | Required          |         |
+| **`page`**     | query    | _number_ | Optional          | 1       |
+| **`per_page`** | query    | _number_ | Optional          | 10      |
 
 **Example**
 
-```js
-unsplash.search.getCollections({
-  query: "cat",
-  page: 1,
-  perPage: 10,
+```ts
+const { data, error } = await unsplash.GET("/search/collections", {
+  params: {
+    query: {
+      query: "cat",
+      page: 1,
+      per_page: 10,
+    },
+  },
 });
 ```
 
