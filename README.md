@@ -377,23 +377,28 @@ const { data, error } = await unsplash.GET("/search/collections", {
 
 <div id="photos-all" />
 
-### photos.list(arguments, additionalFetchOptions)
+### photos.list -> GET /photos
 
 Get a single page from the list of all photos. [See endpoint docs 🚀](https://unsplash.com/documentation#list-photos)
 
 **Arguments**
 
-| Argument      | Type     | Opt/Required | Default  |
-| ------------- | -------- | ------------ | -------- |
-| **`page`**    | _number_ | Optional     | 1        |
-| **`perPage`** | _number_ | Optional     | 10       |
-| **`orderBy`** | _string_ | Optional     | `latest` |
+| Parameter      | Location | Type     | Optional/Required | Default |
+| -------------- | -------- | -------- | ----------------- | ------- |
+| **`page`**     | query    | _number_ | Optional          | 1       |
+| **`per_page`** | query    | _number_ | Optional          | 10      |
 
 **Example**
 
-```js
-unsplash.photos.list({});
-unsplash.photos.list({ page: 2, perPage: 15 });
+```ts
+const { data, error } = await unsplash.GET("/photos", {
+  params: {
+    query: {
+      page: 2,
+      per_page: 15,
+    },
+  },
+});
 ```
 
 ---
