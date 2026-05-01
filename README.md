@@ -780,20 +780,26 @@ const { data, error } = await unsplash.GET("/topics", {
 
 ---
 
-### topics.get(arguments, additionalFetchOptions)
+### topics.get -> GET /topics/{topicSlug}
 
 Retrieve a single topic. [See endpoint docs 🚀](https://unsplash.com/documentation#get-a-topic)
 
 **Arguments**
 
-| Argument            | Type     | Opt/Required |
-| ------------------- | -------- | ------------ |
-| **`topicIdOrSlug`** | _string_ | Required     |
+| Parameter       | Location | Type     | Optional/Required |
+| --------------- | -------- | -------- | ----------------- |
+| **`topicSlug`** | path     | _string_ | Required          |
 
 **Example**
 
-```js
-unsplash.topics.get({ topicIdOrSlug: "abc123" });
+```ts
+const { data, error } = await unsplash.GET("/topics/{topicSlug}", {
+  params: {
+    path: {
+      topicSlug: "wallpapers",
+    },
+  },
+});
 ```
 
 ---
