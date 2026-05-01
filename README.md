@@ -550,20 +550,26 @@ if (searchResult.data) {
 
 <div id="users" />
 
-### users.get(username)
+### users.get -> GET /users/{username}
 
 Retrieve public details on a given user. [See endpoint docs 🚀](https://unsplash.com/documentation#get-a-users-public-profile)
 
 **Arguments**
 
-| Argument       | Type     | Opt/Required |
-| -------------- | -------- | ------------ |
-| **`username`** | _string_ | Required     |
+| Parameter      | Location | Type     | Optional/Required |
+| -------------- | -------- | -------- | ----------------- |
+| **`username`** | path     | _string_ | Required          |
 
 **Example**
 
-```js
-unsplash.users.get({ username: "naoufal" });
+```ts
+const { data, error } = await unsplash.GET("/users/{username}", {
+  params: {
+    path: {
+      username: "naoufal",
+    },
+  },
+});
 ```
 
 ---
