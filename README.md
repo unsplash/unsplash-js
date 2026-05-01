@@ -427,20 +427,32 @@ const { data, error } = await unsplash.GET("/photos/{assetSlug}", {
 
 ---
 
-### photos.getStats(arguments, additionalFetchOptions)
+### photos.getStats -> GET /photos/{assetSlug}/statistics
 
 Retrieve a single photo's stats. [See endpoint docs 🚀](https://unsplash.com/documentation#get-a-photos-statistics)
 
 **Arguments**
 
-| Argument      | Type     | Opt/Required |
-| ------------- | -------- | ------------ |
-| **`photoId`** | _string_ | Required     |
+| Parameter        | Location | Type     | Optional/Required | Default |
+| ---------------- | -------- | -------- | ----------------- | ------- |
+| **`assetSlug`**  | path     | _string_ | Required          |         |
+| **`resolution`** | query    | _"days"_ | Optional          | "days"  |
+| **`quantity`**   | query    | _number_ | Optional          | 30      |
 
 **Example**
 
-```js
-unsplash.photos.getStats({ photoId: "mtNweauBsMQ" });
+```ts
+const { data, error } = await unsplash.GET("/photos/{assetSlug}/statistics", {
+  params: {
+    path: {
+      assetSlug: "mtNweauBsMQ",
+    },
+    query: {
+      resolution: "days",
+      quantity: 30,
+    },
+  },
+});
 ```
 
 ---
