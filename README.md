@@ -285,33 +285,37 @@ All [publicly documented endpoints](https://unsplash.com/documentation) are avai
 
 <div id="search-photos" />
 
-### search.getPhotos(arguments, additionalFetchOptions)
+### search.getPhotos -> GET /search/photos
 
 Get a list of photos matching the query. [See endpoint docs 🚀](https://unsplash.com/documentation#search-photos)
 
 **Arguments**
 
-| Argument            | Type     | Optional/Required | Default    |
-| ------------------- | -------- | ----------------- | ---------- |
-| **`query`**         | _string_ | Required          |            |
-| **`page`**          | _number_ | Optional          | 1          |
-| **`perPage`**       | _number_ | Optional          | 10         |
-| **`orientation`**   | _string_ | Optional          |            |
-| **`contentFilter`** | _string_ | Optional          | "low"      |
-| **`color`**         | _string_ | Optional          |            |
-| **`orderBy`**       | _string_ | Optional          | "relevant" |
-| **`collectionIds`** | _array_  | Optional          |            |
-| **`lang`**          | _string_ | Optional          | "en"       |
+| Parameter            | Location | Type                                      | Optional/Required | Default    | Note                                                       |
+| -------------------- | -------- | ----------------------------------------- | ----------------- | ---------- | ---------------------------------------------------------- |
+| **`query`**          | query    | _string_                                  | Required          |            |                                                            |
+| **`page`**           | query    | _number_                                  | Optional          | 1          |                                                            |
+| **`per_page`**       | query    | _number_                                  | Optional          | 10         |                                                            |
+| **`orientation`**    | query    | _"portrait" \| "landscape" \| "squarish"_ | Optional          |            |                                                            |
+| **`content_filter`** | query    | _"low" \| "high"_                         | Optional          | "low"      |                                                            |
+| **`color`**          | query    | _string_                                  | Optional          |            | see https://unsplash.com/documentation#search-photos       |
+| **`order_by`**       | query    | _"latest" \| "relevant"_                  | Optional          | "relevant" |                                                            |
+| **`collections`**    | query    | _Array<string>_                           | Optional          |            |                                                            |
+| **`lang`**           | query    | _string_                                  | Optional          | "en"       | see https://unsplash.com/documentation#supported-languages |
 
 **Example**
 
-```js
-unsplash.search.getPhotos({
-  query: "cat",
-  page: 1,
-  perPage: 10,
-  color: "green",
-  orientation: "portrait",
+```ts
+const { data, error } = await unsplash.GET("/search/photos", {
+  params: {
+    query: {
+      query: "cat",
+      page: 1,
+      per_page: 10,
+      color: "green",
+      orientation: "portrait",
+    },
+  },
 });
 ```
 
