@@ -270,7 +270,8 @@ This library is written in TypeScript. This means that even if you are writing p
 
 ## Instance Methods
 
-NOTE: All of the method arguments described here are in the first parameter. See the [arguments](#Arguments) section for more information.
+`createApi` returns a preconfigured [`openapi-fetch`](https://openapi-ts.dev/openapi-fetch/) client whose methods corresponds to the usual HTTP verbs.
+All [publicly documented endpoints](https://unsplash.com/documentation) are available. Endpoints are grouped under the following categories:
 
 - [Search](https://github.com/unsplash/unsplash-js#search)
 - [Photos](https://github.com/unsplash/unsplash-js#photos)
