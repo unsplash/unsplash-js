@@ -804,22 +804,34 @@ const { data, error } = await unsplash.GET("/topics/{topicSlug}", {
 
 ---
 
-### topics.getPhotos(arguments, additionalFetchOptions)
+### topics.getPhotos -> GET /topics/{topicSlug}/photos
 
 Retrieve a topic’s photos. [See endpoint docs 🚀](https://unsplash.com/documentation#get-a-topics-photos)
 
 **Arguments**
 
-| Argument            | Type     | Opt/Required | Notes                               | Default  |
-| ------------------- | -------- | ------------ | ----------------------------------- | -------- |
-| **`topicIdOrSlug`** | _string_ | Required     |                                     |          |
-| **`page`**          | _number_ | Optional     |                                     | 1        |
-| **`perPage`**       | _number_ | Optional     |                                     | 10       |
-| **`orderBy`**       | _string_ | Optional     | `latest`, `oldest`, `popular`       | `latest` |
-| **`orientation`**   | _string_ | Optional     | `landscape`, `portrait`, `squarish` |          |
+| Parameter         | Location | Type                                      | Optional/Required | Default  |
+| ----------------- | -------- | ----------------------------------------- | ----------------- | -------- |
+| **`topicSlug`**   | path     | _string_                                  | Required          |          |
+| **`page`**        | query    | _number_                                  | Optional          | 1        |
+| **`per_page`**    | query    | _number_                                  | Optional          | 10       |
+| **`orientation`** | query    | _"portrait" \| "landscape" \| "squarish"_ | Optional          |          |
+| **`order_by`**    | query    | _"latest" \| "oldest" \| "popular"_       | Optional          | "latest" |
 
 **Example**
 
-```js
-unsplash.topics.getPhotos({ topicIdOrSlug: "abc123" });
+```ts
+const { data, error } = await unsplash.GET("/topics/{topicSlug}/photos", {
+  params: {
+    path: {
+      topicSlug: "wallpapers",
+    },
+    query: {
+      page: 1,
+      per_page: 10,
+      order_by: "latest",
+      orientation: "landscape",
+    },
+  },
+});
 ```
