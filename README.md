@@ -493,37 +493,57 @@ const { data, error } = await unsplash.GET("/photos/random", {
 
 <div id="track-download" />
 
-### photos.trackDownload(arguments, additionalFetchOptions)
+### photos.trackDownload -> GET /photos/{id}/download
 
 Trigger a download of a photo as per the [download tracking requirement of API Guidelines](https://medium.com/unsplash/unsplash-api-guidelines-triggering-a-download-c39b24e99e02). [See endpoint docs 🚀](https://unsplash.com/documentation#track-a-photo-download)
 
 **Arguments**
 
-| Argument               | Type     | Opt/Required |
-| ---------------------- | -------- | ------------ |
-| **`downloadLocation`** | _string_ | Required     |
+| Parameter | Location | Type     | Optional/Required |
+| --------- | -------- | -------- | ----------------- |
+| **`id`**  | path     | _string_ | Required          |
 
 **Example**
 
-```js
-unsplash.photos.get({ photoId: "mtNweauBsMQ" }).then((result) => {
-  if (result.type === "success") {
-    const photo = result.response;
-    unsplash.photos.trackDownload({
-      downloadLocation: photo.links.download_location,
-    });
-  }
+```ts
+const photoResult = await unsplash.GET("/photos/{assetSlug}", {
+  params: {
+    path: {
+      assetSlug: "mtNweauBsMQ",
+    },
+  },
 });
 
+if (photoResult.data) {
+  await unsplash.GET("/photos/{id}/download", {
+    params: {
+      path: {
+        id: photoResult.data.id,
+      },
+    },
+  });
+}
+
 // or if working with an array of photos
-unsplash.search.photos({ query: "dogs" }).then((result) => {
-  if (result.type === "success") {
-    const firstPhoto = result.response.results[0];
-    unsplash.photos.trackDownload({
-      downloadLocation: firstPhoto.links.download_location,
-    });
-  }
+const searchResult = await unsplash.GET("/search/photos", {
+  params: {
+    query: {
+      query: "dogs",
+    },
+  },
 });
+
+if (searchResult.data) {
+  const firstPhoto = searchResult.data.results[0];
+
+  await unsplash.GET("/photos/{id}/download", {
+    params: {
+      path: {
+        id: firstPhoto.id,
+      },
+    },
+  });
+}
 ```
 
 ---
