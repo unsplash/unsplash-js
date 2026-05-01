@@ -643,21 +643,28 @@ const { data, error } = await unsplash.GET("/users/{username}/collections", {
 
 <div id="collections" />
 
-### collections.list(arguments, additionalFetchOptions)
+### collections.list -> GET /collections
 
 Get a single page from the list of all collections. [See endpoint docs 🚀](https://unsplash.com/documentation#list-collections)
 
 **Arguments**
 
-| Argument      | Type     | Opt/Required | Notes | Default |
-| ------------- | -------- | ------------ | ----- | ------- |
-| **`page`**    | _number_ | Optional     |       | 1       |
-| **`perPage`** | _number_ | Optional     |       | 10      |
+| Parameter      | Location | Type     | Optional/Required | Default |
+| -------------- | -------- | -------- | ----------------- | ------- |
+| **`page`**     | query    | _number_ | Optional          | 1       |
+| **`per_page`** | query    | _number_ | Optional          | 10      |
 
 **Example**
 
-```js
-unsplash.collections.list({ page: 1, perPage: 10 });
+```ts
+const { data, error } = await unsplash.GET("/collections", {
+  params: {
+    query: {
+      page: 1,
+      per_page: 10,
+    },
+  },
+});
 ```
 
 ---
