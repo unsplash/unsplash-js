@@ -669,20 +669,26 @@ const { data, error } = await unsplash.GET("/collections", {
 
 ---
 
-### collections.get(arguments, additionalFetchOptions)
+### collections.get -> GET /collections/{collectionId}
 
 Retrieve a single collection. [See endpoint docs 🚀](https://unsplash.com/documentation#get-a-collection)
 
 **Arguments**
 
-| Argument           | Type     | Opt/Required |
-| ------------------ | -------- | ------------ |
-| **`collectionId`** | _string_ | Required     |
+| Parameter          | Location | Type     | Optional/Required |
+| ------------------ | -------- | -------- | ----------------- |
+| **`collectionId`** | path     | _string_ | Required          |
 
 **Example**
 
-```js
-unsplash.collections.get({ collectionId: "abc123" });
+```ts
+const { data, error } = await unsplash.GET("/collections/{collectionId}", {
+  params: {
+    path: {
+      collectionId: "abc123",
+    },
+  },
+});
 ```
 
 ---
