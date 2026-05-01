@@ -32,7 +32,6 @@
     "dev": "tsdown --watch",
     "build": "tsdown",
     "gen:type": "openapi-typescript ./public.json -o ./gen/unsplash.d.ts",
-    "test": "tsdx test",
     "lint": "oxlint",
     "format": "oxfmt",
     "size": "size-limit",
