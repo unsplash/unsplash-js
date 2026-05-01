@@ -574,30 +574,38 @@ const { data, error } = await unsplash.GET("/users/{username}", {
 
 ---
 
-### users.getPhotos(arguments, additionalFetchOptions)
+### users.getPhotos -> GET /users/{username}/photos
 
 Get a list of photos uploaded by a user. [See endpoint docs 🚀](https://unsplash.com/documentation#list-a-users-photos)
 
 **Arguments**
 
-| Argument          | Type      | Opt/Required | Notes                               | Default  |
-| ----------------- | --------- | ------------ | ----------------------------------- | -------- |
-| **`username`**    | _string_  | Required     |                                     |          |
-| **`page`**        | _number_  | Optional     |                                     | 1        |
-| **`perPage`**     | _number_  | Optional     |                                     | 10       |
-| **`orderBy`**     | _string_  | Optional     | `latest`, `oldest`                  | `latest` |
-| **`stats`**       | _boolean_ | Optional     |                                     | `false`  |
-| **`orientation`** | _string_  | Optional     | `landscape`, `portrait`, `squarish` |          |
+| Parameter         | Location | Type                                                         | Optional/Required | Default  |
+| ----------------- | -------- | ------------------------------------------------------------ | ----------------- | -------- |
+| **`username`**    | path     | _string_                                                     | Required          |          |
+| **`page`**        | query    | _number_                                                     | Optional          | 1        |
+| **`per_page`**    | query    | _number_                                                     | Optional          | 10       |
+| **`order_by`**    | query    | _"latest" \| "oldest" \| "popular" \| "views" \| "download"_ | Optional          | "latest" |
+| **`stats`**       | query    | _boolean_                                                    | Optional          | false    |
+| **`resolution`**  | query    | _"days"_                                                     | Optional          | "days"   |
+| **`quantity`**    | query    | _number_                                                     | Optional          | 30       |
+| **`orientation`** | query    | _"portrait" \| "landscape" \| "squarish"_                    | Optional          |          |
 
 **Example**
 
-```js
-unsplash.users.getPhotos({
-  username: "naoufal",
-  page: 1,
-  perPage: 10,
-  orderBy: "latest",
-  orientation: "landscape",
+```ts
+const { data, error } = await unsplash.GET("/users/{username}/photos", {
+  params: {
+    path: {
+      username: "naoufal",
+    },
+    query: {
+      page: 1,
+      per_page: 10,
+      order_by: "latest",
+      orientation: "landscape",
+    },
+  },
 });
 ```
 
