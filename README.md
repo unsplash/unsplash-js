@@ -611,34 +611,6 @@ const { data, error } = await unsplash.GET("/users/{username}/photos", {
 
 ---
 
-### users.getLikes(arguments, additionalFetchOptions)
-
-Get a list of photos liked by a user. [See endpoint docs 🚀](https://unsplash.com/documentation#list-a-users-liked-photos)
-
-**Arguments**
-
-| Argument          | Type     | Opt/Required | Notes                               | Default  |
-| ----------------- | -------- | ------------ | ----------------------------------- | -------- |
-| **`username`**    | _string_ | Required     |                                     |          |
-| **`page`**        | _number_ | Optional     |                                     | 1        |
-| **`perPage`**     | _number_ | Optional     |                                     | 10       |
-| **`orderBy`**     | _string_ | Optional     | `latest`, `oldest`                  | `latest` |
-| **`orientation`** | _string_ | Optional     | `landscape`, `portrait`, `squarish` |          |
-
-**Example**
-
-```js
-unsplash.users.getLikes({
-  username: "naoufal",
-  page: 1,
-  perPage: 10,
-  orderBy: "latest",
-  orientation: "landscape",
-});
-```
-
----
-
 ### users.getCollections(arguments, additionalFetchOptions)
 
 Get a list of collections created by the user. [See endpoint docs 🚀](https://unsplash.com/documentation#list-a-users-collections)
