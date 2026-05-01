@@ -41,6 +41,12 @@ export const createApi = ({
 }: Config): Client<paths, `${string}/${string}`> => {
   const client = createFetchClient<paths>({
     ...config,
+    querySerializer: {
+      // Handles the few array query parameters that should
+      // be passed as a comma-separated list.
+      array: { style: "form", explode: false },
+      ...config.querySerializer,
+    },
     baseUrl,
     headers: {
       ...headers,
