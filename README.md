@@ -693,24 +693,34 @@ const { data, error } = await unsplash.GET("/collections/{collectionId}", {
 
 ---
 
-### collections.getPhotos(arguments, additionalFetchOptions)
+### collections.getPhotos -> GET /collections/{collectionId}/photos
 
 Retrieve a collection’s photos. [See endpoint docs 🚀](https://unsplash.com/documentation#get-a-collections-photos)
 
 **Arguments**
 
-| Argument           | Type     | Opt/Required | Notes                               | Default  |
-| ------------------ | -------- | ------------ | ----------------------------------- | -------- |
-| **`collectionId`** | _string_ | Required     |                                     |          |
-| **`page`**         | _number_ | Optional     |                                     | 1        |
-| **`perPage`**      | _number_ | Optional     |                                     | 10       |
-| **`orderBy`**      | _string_ | Optional     | `latest`, `oldest`                  | `latest` |
-| **`orientation`**  | _string_ | Optional     | `landscape`, `portrait`, `squarish` |          |
+| Parameter          | Location | Type                                      | Optional/Required | Default |
+| ------------------ | -------- | ----------------------------------------- | ----------------- | ------- |
+| **`collectionId`** | path     | _string_                                  | Required          |         |
+| **`page`**         | query    | _number_                                  | Optional          | 1       |
+| **`per_page`**     | query    | _number_                                  | Optional          | 10      |
+| **`orientation`**  | query    | _"portrait" \| "landscape" \| "squarish"_ | Optional          |         |
 
 **Example**
 
-```js
-unsplash.collections.getPhotos({ collectionId: "abc123" });
+```ts
+const { data, error } = await unsplash.GET("/collections/{collectionId}/photos", {
+  params: {
+    path: {
+      collectionId: "abc123",
+    },
+    query: {
+      page: 1,
+      per_page: 10,
+      orientation: "landscape",
+    },
+  },
+});
 ```
 
 ---
