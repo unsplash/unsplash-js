@@ -459,35 +459,35 @@ const { data, error } = await unsplash.GET("/photos/{assetSlug}/statistics", {
 
 <div id="photo-random" />
 
-### photos.getRandom(arguments, additionalFetchOptions)
+### photos.getRandom -> GET /photos/random
 
 Retrieve a single random photo, given optional filters. [See endpoint docs 🚀](https://unsplash.com/documentation#get-a-random-photo). Note: if you provide a value for `count` greater than `1`, you will receive an array of photos. Otherwise, you will receive a single photo object.
 
 **Arguments**
 
-| Argument            | Type            | Opt/Required |
-| ------------------- | --------------- | ------------ |
-| **`query`**         | _string_        | Optional     |
-| **`username`**      | _string_        | Optional     |
-| **`featured`**      | _boolean_       | Optional     |
-| **`collectionIds`** | _Array<string>_ | Optional     |
-| **`topicIds`**      | _Array<string>_ | Optional     |
-| **`count`**         | _string_        | Optional     |
+| Parameter            | Location | Type                                      | Optional/Required | Default |
+| -------------------- | -------- | ----------------------------------------- | ----------------- | ------- |
+| **`count`**          | query    | _number_                                  | Optional          | 1       |
+| **`collections`**    | query    | _Array<string>_                           | Optional          |         |
+| **`topics`**         | query    | _Array<string>_                           | Optional          |         |
+| **`username`**       | query    | _string_                                  | Optional          |         |
+| **`orientation`**    | query    | _"portrait" \| "landscape" \| "squarish"_ | Optional          |         |
+| **`content_filter`** | query    | _"low" \| "high"_                         | Optional          | "low"   |
+| **`query`**          | query    | _string_                                  | Optional          |         |
 
 **Example**
 
-```js
-unsplash.photos.getRandom({});
-unsplash.photos.getRandom({
-  count: 10,
-});
-unsplash.photos.getRandom({
-  collectionIds: ["abc123"],
-  topicIds: ["def456"],
-  featured: true,
-  username: "naoufal",
-  query: "dog",
-  count: 1,
+```ts
+const { data, error } = await unsplash.GET("/photos/random", {
+  params: {
+    query: {
+      collections: ["abc123"],
+      topics: ["def456"],
+      username: "naoufal",
+      query: "dog",
+      count: 1,
+    },
+  },
 });
 ```
 
