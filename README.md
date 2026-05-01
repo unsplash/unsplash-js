@@ -751,26 +751,30 @@ const { data, error } = await unsplash.GET("/collections/{collectionId}/related"
 
 <div id="topics" />
 
-### topics.list(arguments, additionalFetchOptions)
+### topics.list -> GET /topics
 
 Get a single page from the list of all topics. [See endpoint docs 🚀](https://unsplash.com/documentation#list-topics)
 
 **Arguments**
 
-| Argument              | Type            | Opt/Required | Notes                                      | Default    |
-| --------------------- | --------------- | ------------ | ------------------------------------------ | ---------- |
-| **`topicIdsOrSlugs`** | _Array<string>_ | Optional     |                                            | []         |
-| **`page`**            | _number_        | Optional     |                                            | 1          |
-| **`perPage`**         | _number_        | Optional     |                                            | 10         |
-| **`orderBy`**         | _string_        | Optional     | `latest`, `oldest`, `featured`, `position` | `position` |
+| Parameter      | Location | Type                                               | Optional/Required | Default    |
+| -------------- | -------- | -------------------------------------------------- | ----------------- | ---------- |
+| **`page`**     | query    | _number_                                           | Optional          | 1          |
+| **`per_page`** | query    | _number_                                           | Optional          | 10         |
+| **`order_by`** | query    | _"featured" \| "latest" \| "oldest" \| "position"_ | Optional          | "position" |
+| **`ids`**      | query    | _Array<string>_                                    | Optional          |            |
 
 **Example**
 
-```js
-unsplash.topics.list({
-  page: 1,
-  perPage: 10,
-  topicIdsOrSlugs: ["fashion", "architecture", "6sMVjTLSkeQ"],
+```ts
+const { data, error } = await unsplash.GET("/topics", {
+  params: {
+    query: {
+      page: 1,
+      per_page: 10,
+      ids: ["fashion", "architecture", "6sMVjTLSkeQ"],
+    },
+  },
 });
 ```
 
