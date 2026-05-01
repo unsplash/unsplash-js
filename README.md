@@ -611,25 +611,31 @@ const { data, error } = await unsplash.GET("/users/{username}/photos", {
 
 ---
 
-### users.getCollections(arguments, additionalFetchOptions)
+### users.getCollections -> GET /users/{username}/collections
 
 Get a list of collections created by the user. [See endpoint docs 🚀](https://unsplash.com/documentation#list-a-users-collections)
 
 **Arguments**
 
-| Argument       | Type     | Opt/Required | Notes | Default |
-| -------------- | -------- | ------------ | ----- | ------- |
-| **`username`** | _string_ | Required     |       |         |
-| **`page`**     | _number_ | Optional     |       | 1       |
-| **`perPage`**  | _number_ | Optional     |       | 10      |
+| Parameter      | Location | Type     | Optional/Required | Default |
+| -------------- | -------- | -------- | ----------------- | ------- |
+| **`username`** | path     | _string_ | Required          |         |
+| **`page`**     | query    | _number_ | Optional          | 1       |
+| **`per_page`** | query    | _number_ | Optional          | 10      |
 
 **Example**
 
-```js
-unsplash.users.getCollections({
-  username: "naoufal",
-  page: 2,
-  perPage: 15,
+```ts
+const { data, error } = await unsplash.GET("/users/{username}/collections", {
+  params: {
+    path: {
+      username: "naoufal",
+    },
+    query: {
+      page: 2,
+      per_page: 15,
+    },
+  },
 });
 ```
 
