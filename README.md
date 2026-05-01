@@ -749,7 +749,7 @@ const { data, error } = await unsplash.GET("/collections/{collectionId}/related"
 
 ---
 
-## Topics
+<div id="topics" />
 
 ### topics.list(arguments, additionalFetchOptions)
 
