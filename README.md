@@ -139,60 +139,42 @@ controller.abort();
 
 #### Response
 
-When making a request using this SDK, there are 2 possible outcomes to a request.
-
-- Error: we return a `result.errors` object containing an array of strings (each one representing one error) and `result.source` describing the origin of the error (e.g. `api`, `decoding`). Typically, you will only have on item in this array.
-- Success: we return a `result.response` object containing the data.
-  - If the request is for a page from a feed, then `result.response.results` will contain the JSON received from API, and `result.response.total` will contain the [`X-total` header value](https://unsplash.com/documentation#per-page-and-total) indicating the total number of items in the feed (not just the page you asked for).
-  - If the request is something other than a feed, then `result.response` will contain the JSON received from API
-
-You can inspect which one you have by reading the `result.type` value or checking the contents of `result.errors`/`result.success`
+When making a request using this SDK, there are 2 non-exceptional outcomes to a request: either an error or data was received. both situations can be checked by testing for the existence of `result.error` and `result.data` respectively. In both cases the raw response is available under `result.response` which can be useful to get the `X-Total` value on feed responses.
 
 ```ts
 const unsplash = createApi({ accessKey: "MY_ACCESS_KEY" });
 
 // non-feed example
-unsplash.photos.get({ photoId: "foo" }).then((result) => {
-  if (result.errors) {
-    // handle error here
-    console.log("error occurred: ", result.errors[0]);
-  } else {
-    // handle success here
-    const photo = result.response;
-    console.log(photo);
-  }
+const result = await unsplash.GET("/photos/{assetSlug}", {
+  params: { path: { assetSlug: "foo" } },
 });
+
+if (result.error) {
+  // handle error here
+  console.log("error occurred: ", result.error.errors[0]);
+} else {
+  // handle success here
+  const photo = result.data;
+  console.log(photo);
+}
 
 // feed example
-unsplash.users.getPhotos({ username: "foo" }).then((result) => {
-  if (result.errors) {
-    // handle error here
-    console.log("error occurred: ", result.errors[0]);
-  } else {
-    const feed = result.response;
-
-    // extract total and results array from response
-    const { total, results } = feed;
-
-    // handle success here
-    console.log(`received ${results.length} photos out of ${total}`);
-    console.log("first photo: ", results[0]);
-  }
+const result = await unsplash.GET("/users/{username}/photos", {
+  params: { path: { username: "foo" } },
 });
-```
 
-NOTE: you can also pattern-match on `result.type` whose value will be `error` or `success`:
+if (result.error) {
+  // handle error here
+  console.log("error occurred: ", result.error.errors[0]);
+} else {
+  // extract total and results array from response
+  const feed = result.data;
+  const total = parseInt(result.response.headers.get("x-total"));
 
-```ts
-unsplash.photos.get({ photoId: "foo" }).then((result) => {
-  switch (result.type) {
-    case "error":
-      console.log("error occurred: ", result.errors[0]);
-    case "success":
-      const photo = result.response;
-      console.log(photo);
-  }
-});
+  // handle success here
+  console.log(`received ${feed.length} photos out of ${total}`);
+  console.log("first photo: ", feed[0]);
+}
 ```
 
 #### Authentication
