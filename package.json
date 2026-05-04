@@ -32,6 +32,7 @@
   "scripts": {
     "dev": "tsdown --watch",
     "build": "tsdown",
+    "test": "vitest",
     "gen:type": "openapi-typescript ./public.json -o ./gen/unsplash.d.ts",
     "lint": "oxlint",
     "format": "oxfmt",
@@ -50,7 +51,8 @@
     "oxlint": "^1.56.0",
     "size-limit": "^12.0.1",
     "tsdown": "^0.21.4",
-    "typescript": "^5.8.0"
+    "typescript": "^5.8.0",
+    "vitest": "^4.1.5"
   },
   "size-limit": [
     {
