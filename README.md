@@ -126,11 +126,16 @@ const unsplash = createApi({
 const controller = new AbortController();
 const signal = controller.signal;
 
-unsplash.photos.get({ photoId: "123" }, { signal }).catch((err) => {
-  if (err.name === "AbortError") {
-    console.log("Fetch aborted");
-  }
-});
+unsplash
+  .GET("/photos/{assetSlug}", {
+    params: { path: { assetSlug: "123" } },
+    signal,
+  })
+  .catch((err) => {
+    if (err.name === "AbortError") {
+      console.log("Fetch aborted");
+    }
+  });
 
 controller.abort();
 ```
