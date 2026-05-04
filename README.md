@@ -208,6 +208,12 @@ unsplash.photos.get({ photoId: "foo" }).then((result) => {
 });
 ```
 
+#### Authentication
+
+This library exposes an optional `accessKey` parameter on the `createApi` constructor that will configure the default `Authorizaton` header for the [public authentication](https://unsplash.com/documentation#public-authentication) scheme.
+
+If you need to use either the [user authentication](https://unsplash.com/documentation#user-authentication) or [dynamic client registration](https://unsplash.com/documentation#dynamic-client-registration) scheme, set the `Authorization` header on each request according to the corresponding protocol.
+
 ## Types
 
 The types for this library target TypeScript v3.7 and above.
