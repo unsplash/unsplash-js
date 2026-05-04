@@ -268,7 +268,7 @@ This library is written in TypeScript. This means that even if you are writing p
 
 ![](./vscode-response-types.png)
 
-## Instance Methods
+## Endpoint examples
 
 `createApi` returns a preconfigured [`openapi-fetch`](https://openapi-ts.dev/openapi-fetch/) client whose methods corresponds to the usual HTTP verbs.
 All [publicly documented endpoints](https://unsplash.com/documentation) are available. Endpoints are grouped under the following categories:
@@ -285,11 +285,11 @@ All [publicly documented endpoints](https://unsplash.com/documentation) are avai
 
 <div id="search-photos" />
 
-### search.getPhotos -> GET /search/photos
+### `.GET("/search/photos", { params: { ... }})`
 
 Get a list of photos matching the query. [See endpoint docs 🚀](https://unsplash.com/documentation#search-photos)
 
-**Arguments**
+**Parameters**
 
 | Parameter            | Location | Type                                      | Optional/Required | Default    | Note                                                       |
 | -------------------- | -------- | ----------------------------------------- | ----------------- | ---------- | ---------------------------------------------------------- |
@@ -319,11 +319,11 @@ const { data, error } = await unsplash.GET("/search/photos", {
 });
 ```
 
-### search.getUsers -> GET /search/users
+### `.GET("/search/users", { params: { ... }})`
 
 Get a list of users matching the query. [See endpoint docs 🚀](https://unsplash.com/documentation#search-users)
 
-**Arguments**
+**Parameters**
 
 | Parameter      | Location | Type     | Optional/Required | Default |
 | -------------- | -------- | -------- | ----------------- | ------- |
@@ -345,11 +345,11 @@ const { data, error } = await unsplash.GET("/search/users", {
 });
 ```
 
-### search.getCollections -> GET /search/collections
+### `.GET("/search/collections", { params: { ... }})`
 
 Get a list of collections matching the query. [See endpoint docs 🚀](https://unsplash.com/documentation#search-collections)
 
-**Arguments**
+**Parameters**
 
 | Parameter      | Location | Type     | Optional/Required | Default |
 | -------------- | -------- | -------- | ----------------- | ------- |
@@ -377,11 +377,11 @@ const { data, error } = await unsplash.GET("/search/collections", {
 
 <div id="photos-all" />
 
-### photos.list -> GET /photos
+### `.GET("/photos", { params: { ... }})`
 
 Get a single page from the list of all photos. [See endpoint docs 🚀](https://unsplash.com/documentation#list-photos)
 
-**Arguments**
+**Parameters**
 
 | Parameter      | Location | Type     | Optional/Required | Default |
 | -------------- | -------- | -------- | ----------------- | ------- |
@@ -400,11 +400,11 @@ const { data, error } = await unsplash.GET("/photos", {
 
 ---
 
-### photos.get -> GET /photos/{assetSlug}
+### `.GET("/photos/{assetSlug}", { params: { ... }})`
 
 Retrieve a single photo. [See endpoint docs 🚀](https://unsplash.com/documentation#get-a-photo)
 
-**Arguments**
+**Parameters**
 
 | Parameter       | Location | Type     | Optional/Required |
 | --------------- | -------- | -------- | ----------------- |
@@ -422,11 +422,11 @@ const { data, error } = await unsplash.GET("/photos/{assetSlug}", {
 
 ---
 
-### photos.getStats -> GET /photos/{assetSlug}/statistics
+### `.GET("/photos/{assetSlug}/statistics", { params: { ... }})`
 
 Retrieve a single photo's stats. [See endpoint docs 🚀](https://unsplash.com/documentation#get-a-photos-statistics)
 
-**Arguments**
+**Parameters**
 
 | Parameter        | Location | Type     | Optional/Required | Default |
 | ---------------- | -------- | -------- | ----------------- | ------- |
@@ -452,7 +452,7 @@ const { data, error } = await unsplash.GET("/photos/{assetSlug}/statistics", {
 
 <div id="photo-random" />
 
-### photos.getRandom -> GET /photos/random
+### `.GET("/photos/random", { params: { ... }})`
 
 Retrieve a single random photo, given optional filters. [See endpoint docs 🚀](https://unsplash.com/documentation#get-a-random-photo). Note: if you provide a value for `count` greater than `1`, you will receive an array of photos. Otherwise, you will receive a single photo object.
 
@@ -486,7 +486,7 @@ const { data, error } = await unsplash.GET("/photos/random", {
 
 <div id="track-download" />
 
-### photos.trackDownload -> GET /photos/{id}/download
+### `.GET("/photos/{id}/download", { params: { ... }})`
 
 Trigger a download of a photo as per the [download tracking requirement of API Guidelines](https://medium.com/unsplash/unsplash-api-guidelines-triggering-a-download-c39b24e99e02). [See endpoint docs 🚀](https://unsplash.com/documentation#track-a-photo-download)
 
@@ -535,11 +535,11 @@ if (searchResult.data) {
 
 <div id="users" />
 
-### users.get -> GET /users/{username}
+### `.GET("/users/{username}", { params: { ... }})`
 
 Retrieve public details on a given user. [See endpoint docs 🚀](https://unsplash.com/documentation#get-a-users-public-profile)
 
-**Arguments**
+**Parameters**
 
 | Parameter      | Location | Type     | Optional/Required |
 | -------------- | -------- | -------- | ----------------- |
@@ -557,11 +557,11 @@ const { data, error } = await unsplash.GET("/users/{username}", {
 
 ---
 
-### users.getPhotos -> GET /users/{username}/photos
+### `.GET("/users/{username}/photos", { params: { ... }})`
 
 Get a list of photos uploaded by a user. [See endpoint docs 🚀](https://unsplash.com/documentation#list-a-users-photos)
 
-**Arguments**
+**Parameters**
 
 | Parameter         | Location | Type                                                         | Optional/Required | Default  |
 | ----------------- | -------- | ------------------------------------------------------------ | ----------------- | -------- |
@@ -592,11 +592,11 @@ const { data, error } = await unsplash.GET("/users/{username}/photos", {
 
 ---
 
-### users.getCollections -> GET /users/{username}/collections
+### `.GET("/users/{username}/collections", { params: { ... }})`
 
 Get a list of collections created by the user. [See endpoint docs 🚀](https://unsplash.com/documentation#list-a-users-collections)
 
-**Arguments**
+**Parameters**
 
 | Parameter      | Location | Type     | Optional/Required | Default |
 | -------------- | -------- | -------- | ----------------- | ------- |
@@ -622,7 +622,7 @@ const { data, error } = await unsplash.GET("/users/{username}/collections", {
 
 <div id="collections" />
 
-### collections.list -> GET /collections
+### `.GET("/collections", { params: { ... }})`
 
 Get a single page from the list of all collections. [See endpoint docs 🚀](https://unsplash.com/documentation#list-collections)
 
@@ -645,11 +645,11 @@ const { data, error } = await unsplash.GET("/collections", {
 
 ---
 
-### collections.get -> GET /collections/{collectionId}
+### `.GET("/collections/{collectionId}", { params: { ... }})`
 
 Retrieve a single collection. [See endpoint docs 🚀](https://unsplash.com/documentation#get-a-collection)
 
-**Arguments**
+**Parameters**
 
 | Parameter          | Location | Type     | Optional/Required |
 | ------------------ | -------- | -------- | ----------------- |
@@ -667,11 +667,11 @@ const { data, error } = await unsplash.GET("/collections/{collectionId}", {
 
 ---
 
-### collections.getPhotos -> GET /collections/{collectionId}/photos
+### `.GET("/collections/{collectionId}/photos", { params: {}})`
 
 Retrieve a collection’s photos. [See endpoint docs 🚀](https://unsplash.com/documentation#get-a-collections-photos)
 
-**Arguments**
+**Parameters**
 
 | Parameter          | Location | Type                                      | Optional/Required | Default |
 | ------------------ | -------- | ----------------------------------------- | ----------------- | ------- |
@@ -697,11 +697,11 @@ const { data, error } = await unsplash.GET("/collections/{collectionId}/photos",
 
 ---
 
-### collections.getRelated -> GET /collections/{collectionId}/related
+### `.GET("/collections/{collectionId}/related", { params: { ... }})`
 
 Lists collections related to the provided one. [See endpoint docs 🚀](https://unsplash.com/documentation#list-a-collections-related-collections)
 
-**Arguments**
+**Parameters**
 
 | Parameter          | Location | Type     | Optional/Required |
 | ------------------ | -------- | -------- | ----------------- |
@@ -721,11 +721,11 @@ const { data, error } = await unsplash.GET("/collections/{collectionId}/related"
 
 <div id="topics" />
 
-### topics.list -> GET /topics
+### `.GET("/topics", { params: { ... }})`
 
 Get a single page from the list of all topics. [See endpoint docs 🚀](https://unsplash.com/documentation#list-topics)
 
-**Arguments**
+**Parameters**
 
 | Parameter      | Location | Type                                               | Optional/Required | Default    |
 | -------------- | -------- | -------------------------------------------------- | ----------------- | ---------- |
@@ -754,7 +754,7 @@ const { data, error } = await unsplash.GET("/topics", {
 
 Retrieve a single topic. [See endpoint docs 🚀](https://unsplash.com/documentation#get-a-topic)
 
-**Arguments**
+**Parameters**
 
 | Parameter       | Location | Type     | Optional/Required |
 | --------------- | -------- | -------- | ----------------- |
@@ -772,11 +772,11 @@ const { data, error } = await unsplash.GET("/topics/{topicSlug}", {
 
 ---
 
-### topics.getPhotos -> GET /topics/{topicSlug}/photos
+### `.GET("/topics/{topicSlug}/photos", { params: { ... }})`
 
 Retrieve a topic’s photos. [See endpoint docs 🚀](https://unsplash.com/documentation#get-a-topics-photos)
 
-**Arguments**
+**Parameters**
 
 | Parameter         | Location | Type                                      | Optional/Required | Default  |
 | ----------------- | -------- | ----------------------------------------- | ----------------- | -------- |
