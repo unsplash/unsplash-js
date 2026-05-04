@@ -393,10 +393,7 @@ Get a single page from the list of all photos. [See endpoint docs 🚀](https://
 ```ts
 const { data, error } = await unsplash.GET("/photos", {
   params: {
-    query: {
-      page: 2,
-      per_page: 15,
-    },
+    query: { page: 2, per_page: 15 },
   },
 });
 ```
@@ -418,9 +415,7 @@ Retrieve a single photo. [See endpoint docs 🚀](https://unsplash.com/documenta
 ```ts
 const { data, error } = await unsplash.GET("/photos/{assetSlug}", {
   params: {
-    path: {
-      assetSlug: "mtNweauBsMQ",
-    },
+    path: { assetSlug: "mtNweauBsMQ" },
   },
 });
 ```
@@ -444,9 +439,7 @@ Retrieve a single photo's stats. [See endpoint docs 🚀](https://unsplash.com/d
 ```ts
 const { data, error } = await unsplash.GET("/photos/{assetSlug}/statistics", {
   params: {
-    path: {
-      assetSlug: "mtNweauBsMQ",
-    },
+    path: { assetSlug: "mtNweauBsMQ" },
     query: {
       resolution: "days",
       quantity: 30,
@@ -508,18 +501,14 @@ Trigger a download of a photo as per the [download tracking requirement of API G
 ```ts
 const photoResult = await unsplash.GET("/photos/{assetSlug}", {
   params: {
-    path: {
-      assetSlug: "mtNweauBsMQ",
-    },
+    path: { assetSlug: "mtNweauBsMQ" },
   },
 });
 
 if (photoResult.data) {
   await unsplash.GET("/photos/{id}/download", {
     params: {
-      path: {
-        id: photoResult.data.id,
-      },
+      path: { id: photoResult.data.id },
     },
   });
 }
@@ -527,9 +516,7 @@ if (photoResult.data) {
 // or if working with an array of photos
 const searchResult = await unsplash.GET("/search/photos", {
   params: {
-    query: {
-      query: "dogs",
-    },
+    query: { query: "dogs" },
   },
 });
 
@@ -538,9 +525,7 @@ if (searchResult.data) {
 
   await unsplash.GET("/photos/{id}/download", {
     params: {
-      path: {
-        id: firstPhoto.id,
-      },
+      path: { id: firstPhoto.id },
     },
   });
 }
@@ -565,9 +550,7 @@ Retrieve public details on a given user. [See endpoint docs 🚀](https://unspla
 ```ts
 const { data, error } = await unsplash.GET("/users/{username}", {
   params: {
-    path: {
-      username: "naoufal",
-    },
+    path: { username: "naoufal" },
   },
 });
 ```
@@ -596,9 +579,7 @@ Get a list of photos uploaded by a user. [See endpoint docs 🚀](https://unspla
 ```ts
 const { data, error } = await unsplash.GET("/users/{username}/photos", {
   params: {
-    path: {
-      username: "naoufal",
-    },
+    path: { username: "naoufal" },
     query: {
       page: 1,
       per_page: 10,
@@ -628,9 +609,7 @@ Get a list of collections created by the user. [See endpoint docs 🚀](https://
 ```ts
 const { data, error } = await unsplash.GET("/users/{username}/collections", {
   params: {
-    path: {
-      username: "naoufal",
-    },
+    path: { username: "naoufal" },
     query: {
       page: 2,
       per_page: 15,
@@ -659,10 +638,7 @@ Get a single page from the list of all collections. [See endpoint docs 🚀](htt
 ```ts
 const { data, error } = await unsplash.GET("/collections", {
   params: {
-    query: {
-      page: 1,
-      per_page: 10,
-    },
+    query: { page: 1, per_page: 10 },
   },
 });
 ```
@@ -684,9 +660,7 @@ Retrieve a single collection. [See endpoint docs 🚀](https://unsplash.com/docu
 ```ts
 const { data, error } = await unsplash.GET("/collections/{collectionId}", {
   params: {
-    path: {
-      collectionId: "abc123",
-    },
+    path: { collectionId: "abc123" },
   },
 });
 ```
@@ -711,9 +685,7 @@ Retrieve a collection’s photos. [See endpoint docs 🚀](https://unsplash.com/
 ```ts
 const { data, error } = await unsplash.GET("/collections/{collectionId}/photos", {
   params: {
-    path: {
-      collectionId: "abc123",
-    },
+    path: { collectionId: "abc123" },
     query: {
       page: 1,
       per_page: 10,
@@ -740,9 +712,7 @@ Lists collections related to the provided one. [See endpoint docs 🚀](https://
 ```ts
 const { data, error } = await unsplash.GET("/collections/{collectionId}/related", {
   params: {
-    path: {
-      collectionId: "abc123",
-    },
+    path: { collectionId: "abc123" },
   },
 });
 ```
@@ -795,9 +765,7 @@ Retrieve a single topic. [See endpoint docs 🚀](https://unsplash.com/documenta
 ```ts
 const { data, error } = await unsplash.GET("/topics/{topicSlug}", {
   params: {
-    path: {
-      topicSlug: "wallpapers",
-    },
+    path: { topicSlug: "wallpapers" },
   },
 });
 ```
@@ -823,9 +791,7 @@ Retrieve a topic’s photos. [See endpoint docs 🚀](https://unsplash.com/docum
 ```ts
 const { data, error } = await unsplash.GET("/topics/{topicSlug}/photos", {
   params: {
-    path: {
-      topicSlug: "wallpapers",
-    },
+    path: { topicSlug: "wallpapers" },
     query: {
       page: 1,
       per_page: 10,
