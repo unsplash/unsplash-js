@@ -97,7 +97,7 @@ const browserApi = createApi({
 
 #### Arguments
 
-All methods have 2 arguments: the first one includes all of the specific parameters for that particular endpoint, while the second allows you to pass down any additional options that you want to provide to `fetch`. On top of that, the `createApi` constructor can receive `fetch` options to be added to _every_ request:
+All methods expect an object argument containing a `params` property and the usual fetch options. On top of that, the `createApi` constructor can receive default `fetch` options to be added to _every_ request:
 
 ```ts
 const unsplash = createApi({
@@ -106,11 +106,11 @@ const unsplash = createApi({
   headers: { "X-Custom-Header": "foo" },
 });
 
-unsplash.photos.get(
-  { photoId: "123" },
+unsplash.GET("/photos/{assetSlug}", {
+  params: { path: { assetSlug: "123" } },
   // `fetch` options to be sent only with _this_ request
-  { headers: { "X-Custom-Header-2": "bar" } },
-);
+  headers: { "X-Custom-Header-2": "bar" },
+});
 ```
 
 Example: if you would like to implement [request abortion](https://developer.mozilla.org/en-US/docs/Web/API/AbortController), you can do so like this:
