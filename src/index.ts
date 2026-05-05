@@ -38,7 +38,7 @@ export const createApi = ({
   headers,
   baseUrl = DEFAULT_BASE_URL,
   ...config
-}: Config): Client<paths, `${string}/${string}`> => {
+}: Config = {}): Client<paths, `${string}/${string}`> => {
   const client = createFetchClient<paths>({
     ...config,
     querySerializer: {
