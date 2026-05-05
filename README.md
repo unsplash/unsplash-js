@@ -185,7 +185,7 @@ If you need to use either the [user authentication](https://unsplash.com/documen
 
 ## Types
 
-The types for this library target TypeScript v3.7 and above.
+The types for this library target TypeScript v4.5 and above.
 
 This library is written in TypeScript. This means that even if you are writing plain JavaScript, you can still get useful and accurate type information. We highly recommend that you setup your environment (using an IDE such as [VSCode](https://code.visualstudio.com/)) to fully benefit from this information:
 
