@@ -2,7 +2,7 @@
 
 [![npm](https://img.shields.io/npm/v/unsplash-js.svg?style=flat-square)](https://www.npmjs.com/package/unsplash-js)
 
-Official Javascript wrapper for the [Unsplash API](https://unsplash.com/developers).
+Official JavaScript wrapper for the [Unsplash API](https://unsplash.com/developers).
 
 Key Links:
 
