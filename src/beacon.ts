@@ -9,5 +9,5 @@ export const trackNonHotLinkedPhotoView =
       );
     }
 
-    return fetch(`views.unsplash.com/v?photo_id=${ids.join()}&app_id=${appId}`);
+    return fetch(`https://views.unsplash.com/v?photo_id=${ids.join()}&app_id=${appId}`);
   };
