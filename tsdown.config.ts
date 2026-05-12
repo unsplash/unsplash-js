@@ -6,4 +6,5 @@ export default defineConfig({
   format: ["esm", "cjs"],
   fixedExtension: true,
   entry: "./src/index.ts",
+  unbundle: true,
 });
