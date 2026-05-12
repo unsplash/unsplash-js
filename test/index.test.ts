@@ -1,5 +1,5 @@
 import { expect, it } from "vitest";
-import { createApi } from "../dist/index.js";
+import { createApi } from "../dist/index.mjs";
 
 type Fetch = typeof fetch;
 /** Intercepts the first fetch call and skips the response path. */
