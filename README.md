@@ -18,7 +18,7 @@ Key Links:
 - [Dependencies](#dependencies)
 - [Usage](#usage)
 - [Types](#types)
-- [Instance Methods](#instance-methods)
+- [Endpoint examples](#endpoint-examples)
 
 ## Installation
 
