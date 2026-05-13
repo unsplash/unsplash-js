@@ -1,5 +1,9 @@
 # Changelog
 
+## 8.0.0
+
+- Replace handwritten client with [openapi-fetch](https://openapi-ts.dev/openapi-fetch/) client generated from openapi spec with types generated using [openapi-typescript](https://openapi-ts.dev/introduction).
+
 ## 7.0.3
 
 - Adds response types to all endpoints.
@@ -14,21 +18,20 @@ This version includes a total TypeScript rewrite of the library, with many break
 
 ```ts
 // before
-import Unsplash from 'unsplash-js';
-const unsplash = new Unsplash({ accessKey: 'MY_ACCESS_KEY' });
+import Unsplash from "unsplash-js";
+const unsplash = new Unsplash({ accessKey: "MY_ACCESS_KEY" });
 
 // after
-import { createApi } from 'unsplash-js';
-const unsplash = createApi({ accessKey: 'MY_ACCESS_KEY' });
+import { createApi } from "unsplash-js";
+const unsplash = createApi({ accessKey: "MY_ACCESS_KEY" });
 // or
-import Unsplash from 'unsplash-js';
-const unsplash = Unsplash.createApi({ accessKey: 'MY_ACCESS_KEY' });
+import Unsplash from "unsplash-js";
+const unsplash = Unsplash.createApi({ accessKey: "MY_ACCESS_KEY" });
 ```
 
 - Removes user authentication features from the library. This means that the `createApi` function does not recieve `secret`, `callbackUrl` or `bearerToken`.
 
 * Removes the following API methods (primarily due to removal of user authentication):
-
   - `photos`:
     - ❌ `likePhoto`
     - ❌ `unlikePhoto`
@@ -53,7 +56,6 @@ const unsplash = Unsplash.createApi({ accessKey: 'MY_ACCESS_KEY' });
   - ❌ `toJson` (the library now takes care of converting the response to JSON).
 
 * Renames all of the remaining API methods:
-
   - `search`:
     - ⚠️ `photos` --> `getPhotos`
     - ⚠️ `users` --> `getUsers`
@@ -95,23 +97,23 @@ const unsplash = Unsplash.createApi({ accessKey: 'MY_ACCESS_KEY' });
 - Adds support for [the languages beta](https://changelog.unsplash.com/update/2020/08/21/languages-beta.html) on search
 
 ```js
-unsplash.search.photos('nature', 1, 10, { lang: 'en' });
+unsplash.search.photos("nature", 1, 10, { lang: "en" });
 ```
 
 - Adds support for the [new search filters and ordering](https://changelog.unsplash.com/update/2020/03/04/new-filters.html)
 
 ```js
-unsplash.search.photos('nature', 1, 10, {
-  orientation: 'landscape',
-  color: 'green', // new
-  orderBy: 'relevant', // new
+unsplash.search.photos("nature", 1, 10, {
+  orientation: "landscape",
+  color: "green", // new
+  orderBy: "relevant", // new
 });
 ```
 
 - Adds support for [content filtering on search](https://changelog.unsplash.com/update/2020/03/15/content-filtering.html)
 
 ```js
-unsplash.search.photos('nature', 1, 10, { contentFilter: 'high' });
+unsplash.search.photos("nature", 1, 10, { contentFilter: "high" });
 ```
 
 - Removes any references to 'popular' ordering ([due to deprecation](https://changelog.unsplash.com/update/2020/07/09/deprecate-popular.html))
@@ -129,12 +131,12 @@ Enables Brotli compression by default.
   ```js
   // previously
   const unsplash = new Unsplash({
-    applicationId: '{APP_ACCESS_KEY}',
+    applicationId: "{APP_ACCESS_KEY}",
   });
 
   // now
   const unsplash = new Unsplash({
-    accessKey: '{APP_ACCESS_KEY}',
+    accessKey: "{APP_ACCESS_KEY}",
   });
   ```
 
@@ -143,7 +145,7 @@ Enables Brotli compression by default.
 - To support additional filters, the `unsplash.search.photos` method signature has been changed to support an optional `filters` object, which currently supports `collections` and `orientation` keys.
 
 ```js
-unsplash.search.photos('nature', 1, 10, { orientation: 'landscape', collections: [1, 2] });
+unsplash.search.photos("nature", 1, 10, { orientation: "landscape", collections: [1, 2] });
 ```
 
 ### Removals

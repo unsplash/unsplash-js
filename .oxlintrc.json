@@ -1,0 +1,6 @@
+{
+  "rules": {
+    "arrow-body-style": [2, "as-needed"],
+    "typescript/strict-boolean-expressions": [2]
+  }
+}
