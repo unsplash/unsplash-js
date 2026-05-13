@@ -207,6 +207,8 @@ All [publicly documented endpoints](https://unsplash.com/documentation) are avai
 - [Collections](https://github.com/unsplash/unsplash-js#collections)
 - [Topics](https://github.com/unsplash/unsplash-js#topics)
 
+For any undocumented endpoint, [the OpenAPI spec](https://editor.swagger.io/?url=https://unsplash.com/spec/v1.json) should fill in the gaps.
+
 ---
 
 <div id="search" />
