@@ -18,7 +18,7 @@ Key Links:
 - [Dependencies](#dependencies)
 - [Usage](#usage)
 - [Types](#types)
-- [Instance Methods](#instance-methods)
+- [Endpoint examples](#endpoint-examples)
 
 ## Installation
 
@@ -206,6 +206,8 @@ All [publicly documented endpoints](https://unsplash.com/documentation) are avai
 - [Users](https://github.com/unsplash/unsplash-js#users)
 - [Collections](https://github.com/unsplash/unsplash-js#collections)
 - [Topics](https://github.com/unsplash/unsplash-js#topics)
+
+For any undocumented endpoint, [the OpenAPI spec](https://editor.swagger.io/?url=https://unsplash.com/spec/v1.json) should fill in the gaps.
 
 ---
 
@@ -678,7 +680,7 @@ const { data, error } = await unsplash.GET("/topics", {
 
 ---
 
-### topics.get -> GET /topics/{topicSlug}
+### .GET("/topics/{topicSlug}", { params: { ... }})`
 
 Retrieve a single topic. [See endpoint docs 🚀](https://unsplash.com/documentation#get-a-topic)
 
