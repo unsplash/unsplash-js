@@ -38,8 +38,7 @@
     "format": "oxfmt",
     "typecheck": "tsc",
     "prepublishOnly": "pnpm build",
-    "size": "size-limit",
-    "analyze": "size-limit --why"
+    "size": "size-limit"
   },
   "dependencies": {
     "openapi-fetch": "^0.17.0"
