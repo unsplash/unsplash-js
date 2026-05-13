@@ -678,7 +678,7 @@ const { data, error } = await unsplash.GET("/topics", {
 
 ---
 
-### topics.get -> GET /topics/{topicSlug}
+### .GET("/topics/{topicSlug}", { params: { ... }})`
 
 Retrieve a single topic. [See endpoint docs 🚀](https://unsplash.com/documentation#get-a-topic)
 
