@@ -1,0 +1,4 @@
+# Mitigate our exposure to supply chain attacks.
+minimumReleaseAge: 1440
+trustPolicy: "no-downgrade"
+blockExoticSubdeps: true
