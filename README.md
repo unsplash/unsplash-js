@@ -34,14 +34,16 @@ $ yarn add unsplash-js
 
 ### Fetch
 
-This library depends on [fetch](https://fetch.spec.whatwg.org/) to make requests to the Unsplash API. For environments that don't support fetch, you'll need to provide polyfills of your choosing. Here are the ones we recommend:
+This library depends on [fetch](https://fetch.spec.whatwg.org/) to make requests. For environments that don't support fetch, you'll need to provide your own polyfills. 
 
-- node implementation: [node-fetch](https://github.com/bitinn/node-fetch)
-- browser polyfill: [whatwg-fetch](https://github.com/github/fetch)
+We recommend:
+
+- For node: [node-fetch](https://github.com/bitinn/node-fetch)
+- For browsers: [whatwg-fetch](https://github.com/github/fetch)
 
 #### Adding polyfills
 
-`createApi` receives an optional `fetch` parameter. When it is not provided, we rely on the globally scoped `fetch`.
+`createApi` receives an optional `fetch` parameter. When it is not provided, we rely on the globally available `fetch` function.
 
 This means that you can set the polyfills in the global scope:
 
@@ -70,9 +72,7 @@ const unsplash = createApi({
 
 ### Creating an instance
 
-To create an instance, simply provide an _Object_ with your `accessKey`.
-
-NOTE: If you're using `unsplash-js` publicly in the browser, you'll need to proxy your requests through your server to sign the requests with the Access Key to abide by the [API Guideline](https://help.unsplash.com/en/articles/2511245-unsplash-api-guidelines) to keep keys confidential. We provide an `baseUrl` property that lets you do so. You should only need to provide _one_ of those two values in any given scenario.
+To create an instance, simply provide an `Object` with your `accessKey`.
 
 ```ts
 import { createApi } from "unsplash-js";
@@ -90,11 +90,15 @@ const browserApi = createApi({
 });
 ```
 
+**NOTE: If you're using `unsplash-js` in the browser, you must proxy your requests through your server by setting `baseUrl`. This is to authenticate requests with your Access Key to abide by the [API Guideline](https://help.unsplash.com/en/articles/2511245-unsplash-api-guidelines), and keeps your keys confidential. If `baseUrl` is set, `accessKey` is unnecessary and vice-versa.**
+
 ### Making a request
 
 #### Arguments
 
-All methods expect an object argument containing a `params` property and the usual fetch options. On top of that, the `createApi` constructor can receive default `fetch` options to be added to _every_ request:
+`createApi` returns an instance whose methods each accept a `params` object and standard `fetch` options.
+
+Global `fetch` options can be set on the constructor; per-request `fetch` options override them:
 
 ```ts
 const unsplash = createApi({
@@ -105,12 +109,12 @@ const unsplash = createApi({
 
 unsplash.GET("/photos/{assetSlug}", {
   params: { path: { assetSlug: "123" } },
-  // `fetch` options to be sent only with _this_ request
+  // `fetch` options to be sent with only this request
   headers: { "X-Custom-Header-2": "bar" },
 });
 ```
 
-Example: if you would like to implement [request abortion](https://developer.mozilla.org/en-US/docs/Web/API/AbortController), you can do so like this:
+Example: if you would like to use an [AbortController](https://developer.mozilla.org/en-US/docs/Web/API/AbortController), you can do so like this:
 
 ```ts
 const unsplash = createApi({
@@ -136,7 +140,11 @@ controller.abort();
 
 #### Response
 
-When making a request using this SDK, there are 2 non-exceptional outcomes to a request: either an error or data was received. both situations can be checked by testing for the existence of `result.error` and `result.data` respectively. In both cases the raw response is available under `result.response` which can be useful to get the `X-Total` value on feed responses.
+There are two possible outcomes to a request:
+1. You received data: `result.data` is present and populated.
+2. An error occurred: `result.error` is present and contains error details.
+
+If you'd like to see the raw response, `result.response` is available, which contains the raw `Response` object. You can use this to get the `X-Total` header value on feed responses, for example.
 
 ```ts
 const unsplash = createApi({ accessKey: "MY_ACCESS_KEY" });
@@ -176,15 +184,15 @@ if (result.error) {
 
 #### Authentication
 
-This library exposes an optional `accessKey` parameter on the `createApi` constructor that will configure the default `Authorizaton` header for the [public authentication](https://unsplash.com/documentation#public-authentication) scheme.
+When using the `accessKey` parameter, the `Authorization` header will be automatically set to use [public authentication](https://unsplash.com/documentation#public-authentication).
 
-If you need to use either the [user authentication](https://unsplash.com/documentation#user-authentication) or [dynamic client registration](https://unsplash.com/documentation#dynamic-client-registration) scheme, set the `Authorization` header on each request according to the corresponding protocol.
+If you need to use either the [user authentication](https://unsplash.com/documentation#user-authentication) or [dynamic client registration](https://unsplash.com/documentation#dynamic-client-registration) scheme, set the `Authorization` header on each request according to the requirements of the authentication method you've chosen.
 
 ## Types
 
 The types for this library target TypeScript v4.5 and above.
 
-This library is written in TypeScript. This means that even if you are writing plain JavaScript, you can still get useful and accurate type information. We highly recommend that you setup your environment (using an IDE such as [VSCode](https://code.visualstudio.com/)) to fully benefit from this information:
+This library is written in TypeScript, which means that even if you are writing plain JavaScript, you can still get useful and accurate type information. We highly recommend that you setup your environment (using an editor such as [VSCode](https://code.visualstudio.com/)) to fully benefit from type hinting:
 
 ### Request completion
 
@@ -198,8 +206,9 @@ This library is written in TypeScript. This means that even if you are writing p
 
 ## Endpoint examples
 
-`createApi` returns a preconfigured [`openapi-fetch`](https://openapi-ts.dev/openapi-fetch/) client whose methods corresponds to the usual HTTP verbs.
-All [publicly documented endpoints](https://unsplash.com/documentation) are available. Endpoints are grouped under the following categories:
+`createApi` returns a preconfigured [`openapi-fetch`](https://openapi-ts.dev/openapi-fetch/) instance whose methods correspond to the usual HTTP verbs (`.GET`, `.POST`, `.PUT`, `.DELETE`).
+
+All of Unsplash's [public endpoints](https://unsplash.com/documentation) are available. The endpoints are grouped under the following categories:
 
 - [Search](https://github.com/unsplash/unsplash-js#search)
 - [Photos](https://github.com/unsplash/unsplash-js#photos)
@@ -386,7 +395,7 @@ const { data, error } = await unsplash.GET("/photos/{assetSlug}/statistics", {
 
 Retrieve a single random photo, given optional filters. [See endpoint docs 🚀](https://unsplash.com/documentation#get-a-random-photo). Note: if you provide a value for `count` greater than `1`, you will receive an array of photos. Otherwise, you will receive a single photo object.
 
-**Arguments**
+**Parameters**
 
 | Parameter            | Location | Type                                      | Optional/Required | Default |
 | -------------------- | -------- | ----------------------------------------- | ----------------- | ------- |
@@ -414,13 +423,15 @@ const { data, error } = await unsplash.GET("/photos/random", {
 });
 ```
 
+---
+
 <div id="track-download" />
 
 ### `.GET("/photos/{id}/download", { params: { ... }})`
 
 Trigger a download of a photo as per the [download tracking requirement of API Guidelines](https://medium.com/unsplash/unsplash-api-guidelines-triggering-a-download-c39b24e99e02). [See endpoint docs 🚀](https://unsplash.com/documentation#track-a-photo-download)
 
-**Arguments**
+**Parameters**
 
 | Parameter | Location | Type     | Optional/Required |
 | --------- | -------- | -------- | ----------------- |
@@ -556,7 +567,7 @@ const { data, error } = await unsplash.GET("/users/{username}/collections", {
 
 Get a single page from the list of all collections. [See endpoint docs 🚀](https://unsplash.com/documentation#list-collections)
 
-**Arguments**
+**Parameters**
 
 | Parameter      | Location | Type     | Optional/Required | Default |
 | -------------- | -------- | -------- | ----------------- | ------- |
@@ -597,7 +608,7 @@ const { data, error } = await unsplash.GET("/collections/{collectionId}", {
 
 ---
 
-### `.GET("/collections/{collectionId}/photos", { params: {}})`
+### `.GET("/collections/{collectionId}/photos", { params: { ... }})`
 
 Retrieve a collection’s photos. [See endpoint docs 🚀](https://unsplash.com/documentation#get-a-collections-photos)
 
@@ -680,7 +691,7 @@ const { data, error } = await unsplash.GET("/topics", {
 
 ---
 
-### .GET("/topics/{topicSlug}", { params: { ... }})`
+### `.GET("/topics/{topicSlug}", { params: { ... }})`
 
 Retrieve a single topic. [See endpoint docs 🚀](https://unsplash.com/documentation#get-a-topic)
 
