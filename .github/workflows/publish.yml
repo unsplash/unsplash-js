@@ -3,6 +3,9 @@ name: release
 on:
   workflow_dispatch:
 
+permissions:
+  id-token: write # For OIDC
+
 jobs:
   publish:
     runs-on: ubuntu-latest
