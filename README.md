@@ -34,7 +34,7 @@ $ yarn add unsplash-js
 
 ### Fetch
 
-This library depends on [fetch](https://fetch.spec.whatwg.org/) to make requests. For environments that don't support fetch, you'll need to provide your own polyfills. 
+This library depends on [fetch](https://fetch.spec.whatwg.org/) to make requests. For environments that don't support fetch, you'll need to provide your own polyfills.
 
 We recommend:
 
@@ -216,7 +216,7 @@ All of Unsplash's [public endpoints](https://unsplash.com/documentation) are ava
 - [Collections](https://github.com/unsplash/unsplash-js#collections)
 - [Topics](https://github.com/unsplash/unsplash-js#topics)
 
-For any undocumented endpoint, [the OpenAPI spec](https://editor.swagger.io/?url=https://unsplash.com/spec/v1.json) should fill in the gaps.
+To see all available endpoints and their parameters look at [the OpenAPI spec](https://editor.swagger.io/?url=https://unsplash.com/spec/v1.json).
 
 ---
 
