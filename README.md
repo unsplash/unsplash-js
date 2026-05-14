@@ -141,6 +141,7 @@ controller.abort();
 #### Response
 
 There are two possible outcomes to a request:
+
 1. You received data: `result.data` is present and populated.
 2. An error occurred: `result.error` is present and contains error details.
 
