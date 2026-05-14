@@ -208,7 +208,9 @@ This library is written in TypeScript, which means that even if you are writing 
 
 `createApi` returns a preconfigured [`openapi-fetch`](https://openapi-ts.dev/openapi-fetch/) instance whose methods correspond to the usual HTTP verbs (`.GET`, `.POST`, `.PUT`, `.DELETE`).
 
-All of Unsplash's [public endpoints](https://unsplash.com/documentation) are available. The endpoints are grouped under the following categories:
+For a full list of Unsplash's public endpoints, see the [API documentation](https://unsplash.com/documentation).
+
+The endpoints covered here are grouped by category:
 
 - [Search](https://github.com/unsplash/unsplash-js#search)
 - [Photos](https://github.com/unsplash/unsplash-js#photos)
@@ -216,7 +218,7 @@ All of Unsplash's [public endpoints](https://unsplash.com/documentation) are ava
 - [Collections](https://github.com/unsplash/unsplash-js#collections)
 - [Topics](https://github.com/unsplash/unsplash-js#topics)
 
-To see all available endpoints and their parameters look at [the OpenAPI spec](https://editor.swagger.io/?url=https://unsplash.com/spec/v1.json).
+For a full list of all available endpoints and their parameters, see [the OpenAPI spec](https://editor.swagger.io/?url=https://unsplash.com/spec/v1.json).
 
 ---
 
