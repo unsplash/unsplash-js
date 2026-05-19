@@ -41,13 +41,11 @@ We recommend:
 - For node: [node-fetch](https://github.com/bitinn/node-fetch)
 - For browsers: [whatwg-fetch](https://github.com/github/fetch)
 
-#### Adding polyfills
-
-`createApi` receives an optional `fetch` parameter. When it is not provided, we rely on the globally available `fetch` function.
-
-This means that you can set the polyfills in the global scope:
+To use a polyfill, you can set it in the global scope or provide it as an argument to `createApi`.
 
 ```ts
+// Globally
+
 // server
 import fetch from "node-fetch";
 global.fetch = fetch;
@@ -56,9 +54,9 @@ global.fetch = fetch;
 import "whatwg-fetch";
 ```
 
-or explicitly provide them as an argument:
-
 ```ts
+// As an argument to `createApi`
+ 
 import { createApi } from "unsplash-js";
 import nodeFetch from "node-fetch";
 
