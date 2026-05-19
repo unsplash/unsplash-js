@@ -94,9 +94,19 @@ const browserApi = createApi({
 
 ### Making a request
 
-#### Arguments
-
 `createApi` returns an instance whose methods each accept a `params` object and standard `fetch` options.
+
+Each method is named after an HTTP verb (GET, POST, DELETE, PUT, PATCH).
+
+```ts
+const unsplash = createApi({
+  accessKey: "MY_ACCESS_KEY",
+});
+
+unsplash.GET("/photos/{assetSlug}", {
+  params: { path: { assetSlug: "123" } },
+});
+```
 
 Global `fetch` options can be set on the constructor; per-request `fetch` options override them:
 
@@ -114,7 +124,7 @@ unsplash.GET("/photos/{assetSlug}", {
 });
 ```
 
-Example: if you would like to use an [AbortController](https://developer.mozilla.org/en-US/docs/Web/API/AbortController), you can do so like this:
+Example: Using an [AbortController](https://developer.mozilla.org/en-US/docs/Web/API/AbortController) on a specific request:
 
 ```ts
 const unsplash = createApi({
