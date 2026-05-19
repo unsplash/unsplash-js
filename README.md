@@ -191,7 +191,7 @@ if (result.error) {
 }
 ```
 
-**NOTE: All exceptions must still be handled with `try/catch` blocks or `.catch`.**
+**NOTE: All [usual fetch exceptions](https://developer.mozilla.org/en-US/docs/Web/API/Window/fetch#exceptions) can get thrown when making requests using this library.**
 
 #### Authentication
 
