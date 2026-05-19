@@ -193,7 +193,7 @@ if (result.error) {
 }
 ```
 
-**Note: All exceptions must still be handled with `try/catch` blocks or `.catch`.**
+**NOTE: All exceptions must still be handled with `try/catch` blocks or `.catch`.**
 
 #### Authentication
 
@@ -219,7 +219,7 @@ This library is written in TypeScript, which means that even if you are writing 
 
 ## Endpoint examples
 
-`createApi` returns a preconfigured [`openapi-fetch`](https://openapi-ts.dev/openapi-fetch/) instance whose methods correspond to the usual HTTP verbs (`.GET`, `.POST`, `.PUT`, `.DELETE`).
+`createApi` returns a preconfigured [`openapi-fetch`](https://openapi-ts.dev/openapi-fetch/) instance whose methods correspond to the usual HTTP verbs (`.GET`, `.POST`, `.PUT`, `.DELETE`, `.PATCH`).
 
 For a full list of Unsplash's public endpoints, see the [API documentation](https://unsplash.com/documentation).
 
