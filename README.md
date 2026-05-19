@@ -187,7 +187,7 @@ if (result.error) {
 
 #### Authentication
 
-When using the `accessKey` parameter, the `Authorization` header will be automatically set to use [public authentication](https://unsplash.com/documentation#public-authentication).
+When using the `accessKey` parameter on the `createApi` constructor, the `Authorization` header will be automatically set to use [public authentication](https://unsplash.com/documentation#public-authentication).
 
 If you need to use either the [user authentication](https://unsplash.com/documentation#user-authentication) or [dynamic client registration](https://unsplash.com/documentation#dynamic-client-registration) scheme, set the `Authorization` header on each request according to the requirements of the authentication method you've chosen.
 
