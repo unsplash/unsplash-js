@@ -143,7 +143,7 @@ controller.abort();
 There are two possible outcomes to a request:
 
 1. You received data: `result.data` is present and populated.
-2. An error occurred: `result.error` is present and contains error details.
+2. The server returned an error: `result.error` is present and contains error details.
 
 If you'd like to inspect the full response, `result.response` contains the raw `Response` object. You can use this to get the `X-Total` header value on feed responses, for example.
 
@@ -182,6 +182,8 @@ if (result.error) {
   console.log("first photo: ", feed[0]);
 }
 ```
+
+**Note: All exceptions must still be handled with `try/catch` blocks or `.catch`.**
 
 #### Authentication
 
