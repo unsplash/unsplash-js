@@ -15,8 +15,8 @@ Key Links:
 ## Documentation
 
 - [Installation](#installation)
-- [Dependencies](#dependencies)
 - [Usage](#usage)
+- [Replacing fetch](#replacing-fetch)
 - [Types](#types)
 - [Endpoint examples](#endpoint-examples)
 
@@ -30,41 +30,6 @@ $ npm i --save unsplash-js
 $ yarn add unsplash-js
 ```
 
-## Dependencies
-
-### Fetch
-
-This library depends on [fetch](https://fetch.spec.whatwg.org/) to make requests. For environments that don't support fetch, you'll need to provide your own polyfills.
-
-We recommend:
-
-- For node: [node-fetch](https://github.com/bitinn/node-fetch)
-- For browsers: [whatwg-fetch](https://github.com/github/fetch)
-
-To use a polyfill, you can set it in the global scope or provide it as an argument to `createApi`.
-
-```ts
-// Globally
-
-// server
-import fetch from "node-fetch";
-global.fetch = fetch;
-
-// browser
-import "whatwg-fetch";
-```
-
-```ts
-// As an argument to `createApi`
- 
-import { createApi } from "unsplash-js";
-import nodeFetch from "node-fetch";
-
-const unsplash = createApi({
-  accessKey: "MY_ACCESS_KEY",
-  fetch: nodeFetch,
-});
-```
 
 ## Usage
 
@@ -198,6 +163,37 @@ if (result.error) {
 When using the `accessKey` parameter on the `createApi` constructor, the `Authorization` header will be automatically set to use [public authentication](https://unsplash.com/documentation#public-authentication).
 
 If you need to use either the [user authentication](https://unsplash.com/documentation#user-authentication) or [dynamic client registration](https://unsplash.com/documentation#dynamic-client-registration) scheme, set the `Authorization` header on each request according to the requirements of the authentication method you've chosen.
+
+### Replacing fetch
+
+This is useful when mocking fetch in tests, targeting an older runtime, or providing a custom fetch implementation.
+
+Fetch can be replaced globally or as an argument to `createApi`.
+
+```ts
+// Globally
+
+// server
+import fetch from "node-fetch";
+global.fetch = fetch;
+
+// browser
+import "whatwg-fetch";
+```
+
+```ts
+// As an argument to `createApi`
+
+import { createApi } from "unsplash-js";
+import nodeFetch from "node-fetch";
+
+const unsplash = createApi({
+  accessKey: "MY_ACCESS_KEY",
+  fetch: nodeFetch,
+});
+```
+
+See the openapi-fetch [documentation](https://openapi-ts.dev/openapi-fetch/testing) for more information.
 
 ## Types
 
