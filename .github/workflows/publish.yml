@@ -33,4 +33,4 @@ jobs:
         run: pnpm build
 
       - name: Publish
-        run: pnpm stage publish --provenance --tag "$(jq --raw-output '.version | match("alpha|beta").string // "latest"' < package.json)"
+        run: pnpm publish --provenance --tag "$(jq --raw-output '.version | match("alpha|beta").string // "latest"' < package.json)"
