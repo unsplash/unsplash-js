@@ -6,6 +6,8 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
     steps:
       - name: Checkout repo
         uses: actions/checkout@v6
@@ -31,4 +33,4 @@ jobs:
         run: pnpm build
 
       - name: Publish
-        run: pnpm publish --provenance --tag "$(jq --raw-output '.version | match("alpha|beta").string // "latest"' < package.json)"
+        run: pnpm stage publish --provenance --tag "$(jq --raw-output '.version | match("alpha|beta").string // "latest"' < package.json)"
