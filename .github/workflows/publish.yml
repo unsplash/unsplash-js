@@ -1,4 +1,4 @@
-name: release
+name: Publish
 
 on:
   workflow_dispatch:
@@ -31,4 +31,4 @@ jobs:
         run: pnpm build
 
       - name: Publish
-        run: pnpm publish --provenance --tag "$(jq '.version | match("alpha|beta").string // "latest"' < package.json)"
+        run: pnpm publish --provenance --tag "$(jq --raw-output '.version | match("alpha|beta").string // "latest"' < package.json)"
