@@ -30,7 +30,6 @@ $ npm i --save unsplash-js
 $ yarn add unsplash-js
 ```
 
-
 ## Usage
 
 ### Creating an instance
