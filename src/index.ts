@@ -12,6 +12,8 @@ type Config = {
   apiVersion?: string;
 } & ClientOptions;
 
+export type UnsplashApi = Client<paths, `${string}/${string}`>;
+
 /**
  * Creates an {@link https://openapi-ts.dev/openapi-fetch/|openapi-fetch} client for the unsplash api.
  *
@@ -39,7 +41,7 @@ export const createApi = ({
   headers,
   baseUrl = DEFAULT_BASE_URL,
   ...config
-}: Config = {}): Client<paths, `${string}/${string}`> => {
+}: Config = {}): UnsplashApi => {
   const client = createFetchClient<paths>({
     ...config,
     querySerializer: {
