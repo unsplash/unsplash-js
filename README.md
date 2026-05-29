@@ -30,6 +30,10 @@ $ npm i --save unsplash-js
 # OR
 
 $ yarn add unsplash-js
+
+# OR
+
+$ pnpm add unsplash-js
 ```
 
 ## Usage
