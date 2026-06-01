@@ -37,7 +37,7 @@ jobs:
         run: pnpm lint
 
       - name: Generate openapi types
-        run: pnpm gen:type
+        run: pnpm gen
 
       - name: Build
         run: pnpm build

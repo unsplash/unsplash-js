@@ -40,6 +40,8 @@
     "build": "tsdown",
     "test": "vitest",
     "gen:type": "openapi-typescript ./public.json -o ./gen/unsplash.d.ts",
+    "gen:alias": "jq --raw-output -f scripts/gen-alias.jq < public.json > ./gen/aliases.d.ts",
+    "gen": "pnpm gen:type && pnpm gen:alias",
     "lint": "oxlint",
     "format": "oxfmt",
     "typecheck": "tsc",
