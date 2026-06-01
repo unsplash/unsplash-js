@@ -11,6 +11,8 @@ Key Links:
   - [hotlink images](https://help.unsplash.com/api-guidelines/more-on-each-guideline/guideline-hotlinking-images)
   - [attribute photographers](https://help.unsplash.com/api-guidelines/more-on-each-guideline/guideline-attribution)
   - [trigger a download when appropriate](https://help.unsplash.com/api-guidelines/more-on-each-guideline/guideline-triggering-a-download)
+- Once you create an application and have an access key, go try the demos:
+  - [typescript](https://stackblitz.com/edit/unsplash-js-hq6lrpxm?file=src%2Fmain.tsx)
 
 ## Documentation
 
@@ -28,6 +30,10 @@ $ npm i --save unsplash-js
 # OR
 
 $ yarn add unsplash-js
+
+# OR
+
+$ pnpm add unsplash-js
 ```
 
 ## Usage
