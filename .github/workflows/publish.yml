@@ -27,7 +27,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Generate openapi types
-        run: pnpm gen:type
+        run: pnpm gen
 
       - name: Build
         run: pnpm build

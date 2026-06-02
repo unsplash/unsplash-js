@@ -21,6 +21,7 @@
       devShells = forAllSystems (pkgs: {
         default = pkgs.mkShell {
           packages = with pkgs; [
+            jq
             nodejs_24
             pnpm
           ];
