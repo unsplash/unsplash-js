@@ -9,7 +9,3 @@ node_modules
 *.log
 
 gen
-
-# This project uses pnpm (pnpm-lock.yaml); ignore lockfiles from other package managers.
-package-lock.json
-yarn.lock
