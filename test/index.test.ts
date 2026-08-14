@@ -109,6 +109,22 @@ it("prefers request Authorization over accessKey authorization", async () => {
   );
 });
 
+it("preserves a Headers instance passed as the headers option", async () => {
+  const api = createApi({ headers: new Headers({ "X-Custom": "value" }) });
+  await withInterceptedFetch(
+    async (fetch) => {
+      await api.GET("/photos/random", { fetch });
+    },
+    ([req, _]) => {
+      if (req instanceof URL || typeof req === "string") {
+        throw new Error("unexpected intercepted request");
+      } else {
+        expect(req.headers.get("x-custom")).toBe("value");
+      }
+    },
+  );
+});
+
 it("serializes array query parameters as comma-separated values", async () => {
   const api = createApi({ accessKey: "access-key" });
 
