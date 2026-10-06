@@ -255,6 +255,19 @@
           },
           {
             "$ref": "#/components/parameters/searchFilterOrientation"
+          },
+          {
+            "name": "order_by",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "latest",
+                "oldest",
+                "popular"
+              ],
+              "default": "latest"
+            }
           }
         ],
         "responses": {
@@ -1063,168 +1076,16 @@
             "$ref": "#/components/parameters/searchFilterOrientation"
           },
           {
-            "name": "collections",
-            "in": "query",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/components/schemas/Collection.ID"
-              },
-              "minItems": 1
-            },
-            "style": "form",
-            "explode": false
+            "$ref": "#/components/parameters/searchFilterCollections"
           },
           {
-            "name": "content_filter",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "low",
-                "high"
-              ],
-              "default": "low"
-            }
+            "$ref": "#/components/parameters/searchFilterContentFilter"
           },
           {
-            "name": "color",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "black_and_white",
-                "black",
-                "white",
-                "yellow",
-                "orange",
-                "red",
-                "purple",
-                "magenta",
-                "green",
-                "teal",
-                "blue"
-              ]
-            }
+            "$ref": "#/components/parameters/searchFilterColor"
           },
           {
-            "name": "lang",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "af",
-                "sq",
-                "am",
-                "ar",
-                "hy",
-                "as",
-                "az",
-                "bn",
-                "ba",
-                "eu",
-                "bs",
-                "bg",
-                "yue",
-                "ca",
-                "lzh",
-                "zh-Hans",
-                "zh-Hant",
-                "hr",
-                "cs",
-                "da",
-                "prs",
-                "dv",
-                "nl",
-                "en",
-                "et",
-                "fo",
-                "fj",
-                "fil",
-                "fi",
-                "fr",
-                "fr-ca",
-                "gl",
-                "ka",
-                "de",
-                "el",
-                "gu",
-                "ht",
-                "he",
-                "hi",
-                "mww",
-                "hu",
-                "is",
-                "id",
-                "ikt",
-                "iu",
-                "iu-Latn",
-                "ga",
-                "it",
-                "ja",
-                "kn",
-                "kk",
-                "km",
-                "ko",
-                "ku",
-                "kmr",
-                "ky",
-                "lo",
-                "lv",
-                "lt",
-                "mk",
-                "mg",
-                "ms",
-                "ml",
-                "mt",
-                "mi",
-                "mr",
-                "mn-Cyrl",
-                "mn-Mong",
-                "my",
-                "ne",
-                "nb",
-                "or",
-                "ps",
-                "fa",
-                "pl",
-                "pt",
-                "pt-pt",
-                "pa",
-                "otq",
-                "ro",
-                "ru",
-                "sm",
-                "sr-Cyrl",
-                "sr-Latn",
-                "sk",
-                "sl",
-                "so",
-                "es",
-                "sw",
-                "sv",
-                "ty",
-                "ta",
-                "tt",
-                "te",
-                "th",
-                "bo",
-                "ti",
-                "to",
-                "tr",
-                "tk",
-                "uk",
-                "hsb",
-                "ur",
-                "ug",
-                "uz",
-                "vi",
-                "cy",
-                "yua",
-                "zu"
-              ],
-              "default": "en"
-            }
+            "$ref": "#/components/parameters/searchFilterLanguage"
           }
         ],
         "responses": {
@@ -1889,6 +1750,7 @@
               "width",
               "height",
               "description",
+              "alt_description",
               "color",
               "user",
               "current_user_collections"
@@ -1946,6 +1808,13 @@
                   "null"
                 ],
                 "description": "User-provided description."
+              },
+              "alt_description": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "Machine-generated description."
               },
               "color": {
                 "type": [
@@ -3120,6 +2989,170 @@
         "required": true,
         "schema": {
           "$ref": "#/components/schemas/Collection.ID"
+        }
+      },
+      "searchFilterCollections": {
+        "name": "collections",
+        "in": "query",
+        "schema": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/Collection.ID"
+          },
+          "minItems": 1
+        },
+        "style": "form",
+        "explode": false
+      },
+      "searchFilterColor": {
+        "name": "color",
+        "in": "query",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "black_and_white",
+            "black",
+            "white",
+            "yellow",
+            "orange",
+            "red",
+            "purple",
+            "magenta",
+            "green",
+            "teal",
+            "blue"
+          ]
+        }
+      },
+      "searchFilterContentFilter": {
+        "name": "content_filter",
+        "in": "query",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "low",
+            "high"
+          ],
+          "default": "low"
+        }
+      },
+      "searchFilterLanguage": {
+        "name": "lang",
+        "in": "query",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "af",
+            "sq",
+            "am",
+            "ar",
+            "hy",
+            "as",
+            "az",
+            "bn",
+            "ba",
+            "eu",
+            "bs",
+            "bg",
+            "yue",
+            "ca",
+            "lzh",
+            "zh-Hans",
+            "zh-Hant",
+            "hr",
+            "cs",
+            "da",
+            "prs",
+            "dv",
+            "nl",
+            "en",
+            "et",
+            "fo",
+            "fj",
+            "fil",
+            "fi",
+            "fr",
+            "fr-ca",
+            "gl",
+            "ka",
+            "de",
+            "el",
+            "gu",
+            "ht",
+            "he",
+            "hi",
+            "mww",
+            "hu",
+            "is",
+            "id",
+            "ikt",
+            "iu",
+            "iu-Latn",
+            "ga",
+            "it",
+            "ja",
+            "kn",
+            "kk",
+            "km",
+            "ko",
+            "ku",
+            "kmr",
+            "ky",
+            "lo",
+            "lv",
+            "lt",
+            "mk",
+            "mg",
+            "ms",
+            "ml",
+            "mt",
+            "mi",
+            "mr",
+            "mn-Cyrl",
+            "mn-Mong",
+            "my",
+            "ne",
+            "nb",
+            "or",
+            "ps",
+            "fa",
+            "pl",
+            "pt",
+            "pt-pt",
+            "pa",
+            "otq",
+            "ro",
+            "ru",
+            "sm",
+            "sr-Cyrl",
+            "sr-Latn",
+            "sk",
+            "sl",
+            "so",
+            "es",
+            "sw",
+            "sv",
+            "ty",
+            "ta",
+            "tt",
+            "te",
+            "th",
+            "bo",
+            "ti",
+            "to",
+            "tr",
+            "tk",
+            "uk",
+            "hsb",
+            "ur",
+            "ug",
+            "uz",
+            "vi",
+            "cy",
+            "yua",
+            "zu"
+          ],
+          "default": "en"
         }
       },
       "searchFilterOrderBy": {
