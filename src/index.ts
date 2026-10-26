@@ -16,9 +16,9 @@ type Config = {
 export type UnsplashApi = Client<paths, `${string}/${string}`>;
 
 /**
- * Creates an {@link https://openapi-ts.dev/openapi-fetch/|openapi-fetch} client for the unsplash api.
+ * Creates an {@link https://openapi-ts.dev/openapi-fetch/|openapi-fetch} client for the Unsplash API.
  *
- * @see {@link https://unsplash.com/documentation|Unsplash's documentation} for endpoints details.
+ * @see {@link https://unsplash.com/documentation|Unsplash's documentation} for endpoint details.
  * @see {@link https://openapi-ts.dev/openapi-fetch/|openapi-fetch's documentation} for advanced usage.
  *
  * @example
